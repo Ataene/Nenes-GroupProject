@@ -1,18 +1,19 @@
 import './App.css';
-import image from "./images/logo.png";
+import Navigation from './Components/Navigation';
+import About from './Components/Navigation';
+import Footer from './Components/Footer';
+import { Routes, Route } from "react-router-dom";
+import Home from './Pages/Home';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={image} alt="logo" />
-        <p>
-          THE NENES 
-        </p>
-        <h3>
-          TRADE BY BARTER SYSTEM
-        </h3>
-      </header>
+      <Navigation />
+      <Routes>
+        <Route path='/' element={<Home />}/>
+        <Route path='/about' element={<About />}/>
+      </Routes>
+      <Footer />
     </div>
   );
 }
