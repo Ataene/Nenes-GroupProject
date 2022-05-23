@@ -26,6 +26,7 @@ const Navigation = () => {
               letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
+              top: "0"
             }}
           >
             NenesPay

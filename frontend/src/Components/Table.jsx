@@ -1,40 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { DataGrid } from '@mui/x-data-grid';
+import { userTable, userDelete, avatarImage } from "./Styles"
+import { Link } from "react-router-dom";
 
-const Table = () => {
+const Table = (props) => { 
 
-    const columns = [
-        { field: 'id', headerName: 'ID', width: 70 },
-        { field: 'firstName', headerName: 'First name', width: 130 },
-        { field: 'lastName', headerName: 'Last name', width: 130 },
-        { field: 'age', headerName: 'Age', type: 'number', width: 90, },
-        { field: 'fullName', headerName: 'Full name', description: 'This column has a value getter and is not sortable.', 
-        sortable: false, 
-        width: 160,
-          valueGetter: (params) =>
-            `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-        },
-      ];
-      
-      const rows = [
-        { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-        { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-        { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-        { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-        { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-        { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-        { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-        { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-        { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-      ];
+  const rows = props.TableRows
+  const [data, setData ] = useState(rows)
+
+  const handleDelete = (id) => {
+    const newData = data.filter((user) => user.id !== id);
+    setData(newData)
+  }
+  const columns = [
+      { field: 'id', headerName: 'ID', width: 90 },
+      { field: 'username', headerName: 'Username', width: 200, renderCell: (params) => {
+        return (
+          <div>
+            <img src={params.row.avatar} alt="" style={avatarImage} />
+            {params.row.username}
+          </div>
+        )
+      } },
+      { field: 'email', headerName: 'email', width: 130 },
+      { field: 'status', headerName: 'Status', width: 90, },
+      { field: 'transaction', headerName: 'Transaction',  width: 130},
+      {field: "action", headerName: "Action", width: 150, renderCell: (params) => {
+        return (
+          <>
+          <Link to={"/username/" + params.row.id}>
+            <button style={userTable}>Edit</button>
+          </Link>
+            <DeleteOutlineIcon onClick={() => handleDelete(params.row.id)} style={userDelete} />
+          </>
+        )
+      }}
+    ];
 
   return (
     <div style={{ height: 500, width: "100%" }}>
       <DataGrid
-        rows={rows}
+        disableSelectionOnClick
+        rows={data}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={10}
+        rowsPerPageOptions={[10]}
         checkboxSelection
       />
     </div>

@@ -14,86 +14,87 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 const Sidebar = () => {
   return (
     <>
-    <Box style={{backgroundColor: "rgb(251, 251, 255)"}} flex={1} p={2} sx={{ display: { xs: "none", sm: "block" }, width: 150 }}>
+      <Box style={{backgroundColor: "rgb(251, 251, 255)"}} flex={1} p={2} sx={{ display: { xs: "none", sm: "block" }, width: 150 }}>
+
         <List>
             <Typography variant= "h4" mt={2}>PAGES</Typography>
             <ListItem>
-             <ListItemButton style={{ color: 'green'}}>
+            <ListItemButton style={{ color: 'green'}}>
               <ListItemIcon>
                 <ShoppingCartIcon secondary="Orders" />
                 <ListItemText primary="Orders" />
               </ListItemIcon>
-             </ListItemButton>
+            </ListItemButton>
             </ListItem>
             <ListItem>
-             <ListItemButton style={{ color: 'green'}}>
+            <ListItemButton style={{ color: 'green'}}>
               <ListItemIcon>
                 <Link color="inherit"><PeopleAltIcon primary="Employee" /></Link>
                 <ListItemText primary="Employee" />
               </ListItemIcon>
-             </ListItemButton>
+            </ListItemButton>
             </ListItem>
             <ListItem>
-             <ListItemButton style={{ color: 'green'}}>
+            <ListItemButton style={{ color: 'green'}}>
               <ListItemIcon>
                 <AccountCircleIcon primary="Customer" />
                 <ListItemText primary="Customer" />
               </ListItemIcon>
-             </ListItemButton>
+            </ListItemButton>
             </ListItem>
             <Typography variant= "h4" mt={2}>APPS</Typography>
             <ListItem>
-             <ListItemButton style={{ color: 'green'}}>
+            <ListItemButton style={{ color: 'green'}}>
               <ListItemIcon>
                 <CalendarMonthIcon primary="Calendar" />
                 <ListItemText primary="Calendar" />
               </ListItemIcon>
-             </ListItemButton>
+            </ListItemButton>
             </ListItem>
             <ListItem>
-             <ListItemButton style={{ color: 'green'}}>
+            <ListItemButton style={{ color: 'green'}}>
               <ListItemIcon>
                 <AssuredWorkloadIcon primary="Picker" />
                 <ListItemText primary="Picker" />
               </ListItemIcon>
-             </ListItemButton>
+            </ListItemButton>
             </ListItem>
             <Typography variant= "h4" mt={2}>CHARTS</Typography>
             <ListItem>
-             <ListItemButton style={{ color: 'green'}}>
+            <ListItemButton style={{ color: 'green'}}>
               <ListItemIcon>
                 <StackedLineChartIcon primary="Line" />
                 <ListItemText primary="Line" />
               </ListItemIcon>
-             </ListItemButton>
+            </ListItemButton>
             </ListItem>
             <ListItem>
-             <ListItemButton style={{ color: 'green'}}>
+            <ListItemButton style={{ color: 'green'}}>
               <ListItemIcon>
                 <PieChartIcon primary="Pie" />
                 <ListItemText primary="Pie" />
               </ListItemIcon>
-             </ListItemButton>
+            </ListItemButton>
             </ListItem>
             <Typography variant= "h4" mt={2}>MENU</Typography>
             <ListItem>
-             <ListItemButton style={{ color: 'green'}}>
+            <ListItemButton style={{ color: 'green'}}>
               <ListItemIcon>
                 <InventoryIcon primary="Products" />
                 <ListItemText primary="Products" />
               </ListItemIcon>
-             </ListItemButton>
+            </ListItemButton>
             </ListItem>
             <ListItem>
-             <ListItemButton style={{ color: 'green'}}>
+            <ListItemButton style={{ color: 'green'}}>
               <ListItemIcon>
                 <CurrencyBitcoinIcon primary="Transactions" />
                 <ListItemText primary="Transactions" />
               </ListItemIcon>
-             </ListItemButton>
+            </ListItemButton>
             </ListItem>
         </List>
-    </Box>
+      </Box>
     </>
   )
 }
