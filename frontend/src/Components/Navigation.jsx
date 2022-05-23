@@ -2,11 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
+import { Toolbar, IconButton, Typography, Container, Button   } from '@mui/material';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 
 const Navigation = () => {
@@ -16,7 +12,7 @@ const Navigation = () => {
       <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <CardGiftcardIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <CardGiftcardIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, zIndex: 999 }} />
           <Typography
             variant="h6"
             noWrap
