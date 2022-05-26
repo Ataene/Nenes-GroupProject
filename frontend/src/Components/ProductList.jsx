@@ -16,6 +16,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
 import PreviewIcon from '@mui/icons-material/Preview';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { Link } from "react-router-dom";
 
 const ProductList = () => {
 
@@ -45,21 +46,20 @@ const ProductList = () => {
     <>
     <div style={{marginTop: "10px", marginBottom: "20px"}}>
     <Container>
-        <Grid container>
+      <Grid container>
         <Grid item spacing={3}>
         <Button style={{marginRight: "5px"}} variant="contained" color="success" onClick={() => setFilter(data)}>All</Button>
-        <Button style={{marginRight: "5px"}} variant="contained" color="success" onClick={() => handleFilter("men's")}>Men's</Button>
-        <Button style={{marginRight: "5px"}} variant="contained" color="success" onClick={() => handleFilter("women's")}>Women</Button>
-        <Button style={{marginRight: "5px"}} variant="contained" color="success" onClick={() => handleFilter("jewelry")}>Jewelry</Button>
-        <Button style={{marginRight: "5px"}} variant="contained" color="success" onClick={() => handleFilter("electronic")}>Electronics</Button>
+        <Button style={{marginRight: "5px"}} variant="contained" color="success" onClick={() => handleFilter("Men's")}>Men's</Button>
+        <Button style={{marginRight: "5px"}} variant="contained" color="success" onClick={() => handleFilter("Women's")}>Women's</Button>
+        <Button style={{marginRight: "5px"}} variant="contained" color="success" onClick={() => handleFilter("Jewelry")}>Jewelry</Button>
+        <Button style={{marginRight: "5px"}} variant="contained" color="success" onClick={() => handleFilter("Electronic")}>Electronics</Button>
         </Grid>
-        </Grid>
+      </Grid>
     </Container>
     </div>
     <div>
-
       <Container>
-        <Grid container spacing={3}>
+          <Grid container spacing={3}>
           {filter.map((product) => (
             <Grid item key={product} xs={12} sm={6} md={3}>
               <Card sx={{ display: "flex", flexDirection: "column" }}>
@@ -87,7 +87,9 @@ const ProductList = () => {
                     <ChatIcon />
                   </IconButton>
                   <IconButton color="primary" aria-label="preview">
+                  <Link to={"/product/" + product.id}>
                     <PreviewIcon />
+                   </Link>
                   </IconButton>
                   <IconButton color="success" aria-label="add to cart">
                     <AddShoppingCartIcon />
