@@ -29,7 +29,7 @@ const Navigation = () => {
               top: "0"
             }}
           >
-            NenesPay
+            HundiePay
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -48,6 +48,7 @@ const Navigation = () => {
             <Link style={{ textDecoration: 'none' }} to="/pricing"><Button  sx={{ my: 2, color: 'white', display: 'block' }}>Pricing</Button></Link>
             <Link style={{ textDecoration: 'none' }} to="/blog"><Button  sx={{ my: 2, color: 'white', display: 'block' }}>Blog</Button></Link>
             <Link style={{ textDecoration: 'none' }} to="/about"><Button  sx={{ my: 2, color: 'white', display: 'block' }}>About</Button></Link>
+            <Link style={{ textDecoration: 'none' }} to="/dashboard"><Button  sx={{ my: 2, color: 'white', display: 'block' }}>Dashboard</Button></Link>
           </Box>
           <Box  sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
             <Link style={{ textDecoration: 'none' }} to="/signup"><Button  sx={{ my: 2, color: 'white', display: 'block' }}>Sign up</Button></Link>
