@@ -1,17 +1,16 @@
-import React from 'react'
-import Sidebar from '../Components/Sidebar';
-import Table from '../Components/Table';
-import {LineData, TableRows} from '../Components/Data/Data';
-import LineDetails from '../Components/LineDetails';
+import React, { useState } from 'react'
 
 const Home = () => {
   return (
     <>
-      <div style={{display: "flex", flexDirection: "row"}}>
-        <Sidebar />
-        <Table TableRows={TableRows} />
-      </div>
-        <LineDetails lineData={LineData} />
+      <header className="App-header">
+        <p>
+          THE NENES 
+        </p>
+        <h3>
+          TRADE BY BARTER SYSTEM
+        </h3>
+      </header>
     </>
   )
 }

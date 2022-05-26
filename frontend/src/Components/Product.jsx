@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { DataGrid } from '@mui/x-data-grid';
 import { userTable, userDelete, avatarImage } from "./Styles"
 import { Link } from "react-router-dom";
 
-const Table = (props) => { 
+const Product = (props) => {
 
-  const rows = props.TableRows
+  const rows = props.productData
   const [data, setData ] = useState(rows)
 
   const handleDelete = (id) => {
@@ -15,17 +15,17 @@ const Table = (props) => {
   }
   const columns = [
       { field: 'id', headerName: 'ID', width: 90 },
-      { field: 'username', headerName: 'Username', width: 200, renderCell: (params) => {
+      { field: 'product', headerName: 'Product', width: 200, renderCell: (params) => {
         return (
           <div>
             <img src={params.row.avatar} alt="" style={avatarImage} />
-            {params.row.username}
+            {params.row.product}
           </div>
         )
       } },
-      { field: 'email', headerName: 'email', width: 130 },
+      { field: 'stock', headerName: 'Stock', width: 130 },
       { field: 'status', headerName: 'Status', width: 90, },
-      { field: 'transaction', headerName: 'Transaction',  width: 130},
+      { field: 'price', headerName: 'Price',  width: 130},
       {field: "action", headerName: "Action", width: 150, renderCell: (params) => {
         return (
           <>
@@ -37,9 +37,8 @@ const Table = (props) => {
         )
       }}
     ];
-
   return (
-    
+
     <div flex={4} style={{ height: 500, width: "100%" }}>
       <DataGrid
         disableSelectionOnClick
@@ -50,7 +49,7 @@ const Table = (props) => {
         checkboxSelection
       />
     </div>
-  );
-};
+  )
+}
 
-export default Table;
+export default Product;

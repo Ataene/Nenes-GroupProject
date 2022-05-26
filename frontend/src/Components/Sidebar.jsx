@@ -11,15 +11,15 @@ import StackedLineChartIcon from '@mui/icons-material/StackedLineChart';
 import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
 import InventoryIcon from '@mui/icons-material/Inventory';
 
-const Sidebar = () => {
+const Sidebar = (props) => {
+  const component = props.setComponentToShow
   return (
     <>
       <Box style={{backgroundColor: "rgb(251, 251, 255)"}} flex={1} p={2} sx={{ display: { xs: "none", sm: "block" }, width: 150 }}>
-
         <List>
             <Typography variant= "h4" mt={2}>PAGES</Typography>
-            <ListItem>
-            <ListItemButton style={{ color: 'green'}}>
+            <ListItem style={{backgroundColor: "green", borderRadius: "30px", height: "45px"}}>
+            <ListItemButton>
               <ListItemIcon>
                 <ShoppingCartIcon secondary="Orders" />
                 <ListItemText primary="Orders" />
@@ -27,7 +27,7 @@ const Sidebar = () => {
             </ListItemButton>
             </ListItem>
             <ListItem>
-            <ListItemButton style={{ color: 'green'}}>
+            <ListItemButton onClick={() => component("Table") } style={{ color: 'blue'}}>
               <ListItemIcon>
                 <Link color="inherit"><PeopleAltIcon primary="Employee" /></Link>
                 <ListItemText primary="Employee" />
@@ -61,7 +61,7 @@ const Sidebar = () => {
             </ListItem>
             <Typography variant= "h4" mt={2}>CHARTS</Typography>
             <ListItem>
-            <ListItemButton style={{ color: 'green'}}>
+            <ListItemButton onClick={() => component("Line") } style={{ color: 'green'}}>
               <ListItemIcon>
                 <StackedLineChartIcon primary="Line" />
                 <ListItemText primary="Line" />
@@ -78,7 +78,7 @@ const Sidebar = () => {
             </ListItem>
             <Typography variant= "h4" mt={2}>MENU</Typography>
             <ListItem>
-            <ListItemButton style={{ color: 'green'}}>
+            <ListItemButton onClick={() => component("Product") } style={{ color: 'green'}}>
               <ListItemIcon>
                 <InventoryIcon primary="Products" />
                 <ListItemText primary="Products" />
