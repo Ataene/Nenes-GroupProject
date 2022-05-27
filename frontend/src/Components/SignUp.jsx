@@ -106,21 +106,20 @@ const SignUp = ({ handleClose }) => {
         value={password}
         onChange={(e) => setConfirmPassword(e.target.value)}
       />
-
-      <Box>
-        <Button variant="contained" onClick={handleClose}>
-          Cancel
-        </Button>
-        <Button type="submit" variant="contained" color="primary">
-          Sign Up
-        </Button>
-      </Box>
       <div>
-        <div />
         <br />
-        <input type="checkbox" id="regulation" className="regulation"></input>
+        <input type="checkbox" id="regulation"></input>
         By creating an account, you agree to NenesPay Conditions of Use. <br />
-        <br></br>
+        <br />
+        <div />
+        <Box>
+          <Button variant="contained" onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button type="submit" variant="contained" color="primary">
+            Sign Up
+          </Button>
+        </Box>
       </div>
       <p />
       <h4>
