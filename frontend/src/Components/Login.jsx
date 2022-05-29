@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Box, makeStyles, Avatar, TextField } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -93,7 +94,7 @@ const Login = ({ handleClose }) => {
       <p />
       <h4>New to NenesPay?</h4>
       <button>
-        <a href="http://localhost:3000/signup">Create your Nenes Pay Account</a>
+        <Link to="/signup">Create your Nenes Pay Account</Link>
       </button>
       <div>
         <br />

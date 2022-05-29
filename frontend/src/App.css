@@ -38,17 +38,6 @@
   }
 }
 
- .mainCards {
-   width: 100%;
-   height: 100%;
-   padding-top: 100px;
- }
- .gridCard{
-   display: flex;
-   justify-content: center;
-   margin-top: 10vh;
-   border-radius: 50px;
- }
  .imageName {
    position: relative;
    background-color: aliceblue;

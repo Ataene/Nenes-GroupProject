@@ -2,14 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import {
-  Toolbar,
-  IconButton,
-  Typography,
-  Container,
-  Button,
-} from "@mui/material";
+import { Toolbar, IconButton, Typography, Container, Button } from "@mui/material";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
+import LoginIcon from '@mui/icons-material/Login';
 
 
 const Navigation = () => {
@@ -75,11 +70,16 @@ const Navigation = () => {
                   About
                 </Button>
               </Link>
-            </Box>
-            <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
-              <Link style={{ textDecoration: "none" }} to="/login">
+              <Link style={{ textDecoration: "none" }} to="/dashboard">
                 <Button sx={{ my: 2, color: "white", display: "block" }}>
-                  Login
+                  Dashboard
+                </Button>
+              </Link>
+            </Box>
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <Link style={{ textDecoration: "none" }} to="/login">
+                <Button sx={{ my: 2, color: "white", alignItem: "center" }}>
+                  <LoginIcon />Login
                 </Button>
               </Link>
             </Box>

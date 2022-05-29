@@ -9,7 +9,6 @@ const ProductDetail = () => {
     const params = useParams()
     const id = params.id;
     const [ productInfo, setProductInfo ] = useState([]);
-    // const [ loading, setLoading ] = useState(false)
     const productApi = `https://fakestoreapi.com/products/${id}`;
 
     useEffect(() => {
