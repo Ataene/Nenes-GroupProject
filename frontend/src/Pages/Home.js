@@ -3,7 +3,7 @@ import React from 'react'
 const Home = () => {
   return (
     <>
-      <header className="App-header">
+      <header>
         <p>
           THE NENES 
         </p>

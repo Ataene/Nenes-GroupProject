@@ -2,15 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import {
-  Toolbar,
-  IconButton,
-  Typography,
-  Container,
-  Button,
-} from "@mui/material";
-import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
-
+import { Toolbar, Typography, Container, Button } from "@mui/material";
+import LoginIcon from '@mui/icons-material/Login';
 
 const Navigation = () => {
   return (
@@ -18,9 +11,6 @@ const Navigation = () => {
       <AppBar position="static">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <CardGiftcardIcon
-              sx={{ display: { xs: "none", md: "flex" }, mr: 1, zIndex: 999 }}
-            />
             <Typography
               variant="h6"
               noWrap
@@ -38,19 +28,6 @@ const Navigation = () => {
             >
               NenesPay
             </Typography>
-
-            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                color="inherit"
-              ></IconButton>
-            </Box>
-            <CardGiftcardIcon
-              sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
-            />
             <Box
               style={{ textDecoration: "none" }}
               sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
@@ -76,10 +53,10 @@ const Navigation = () => {
                 </Button>
               </Link>
             </Box>
-            <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
+            <Box style={{ textDecoration: "none" }} sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
               <Link style={{ textDecoration: "none" }} to="/login">
-                <Button sx={{ my: 2, color: "white", display: "block" }}>
-                  Login
+                <Button sx={{ my: 2, color: "white", alignItem: "center" }}>
+                  <LoginIcon />Login
                 </Button>
               </Link>
             </Box>

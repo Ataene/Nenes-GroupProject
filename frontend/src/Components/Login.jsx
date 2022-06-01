@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Box, makeStyles, Avatar, TextField } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
+import signin from "../auth/signin";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,37 +24,49 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Login = ({ handleClose }) => {
-  const classes = useStyles();
-  // create state variables for each input
 
+  const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [errorMessage, setErrorMessage ] = useState("")
   const avatarStyle = { backgroundColor: "#1bbd7e" };
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newUser = {
-      email,
-      password,
-    };
-    console.log("newUser", newUser);
-    const data = JSON.stringify(newUser);
-    let response = await fetch("/users/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: data,
-    });
-    let user = await response.json();
-    console.log("user", user);
+    try {
+      const user = await signin(email, password)
+      if(user === null){
+        console.log('No user found')
+      } else {
+        navigate("/dashboard");
+      }
+      
+    } catch (error) {
+      setErrorMessage(error.message);
+    }
 
-    setEmail("");
-    setPassword("");
+    // const newUser = {
+    //   email,
+    //   password,
+    // };
+    // console.log("newUser", newUser);
+    // const data = JSON.stringify(newUser);
+    // let response = await fetch("/users/login", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: data,
+    // });
+    // let user = await response.json();
+    // console.log("user", user);
 
-    console.log(email, password);
-    handleClose();
+    // setEmail("");
+    // setPassword("");
+
+    // console.log(email, password);
+    // handleClose();
   };
 
   return (
@@ -80,7 +95,6 @@ const Login = ({ handleClose }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-
         <Box>
           <Button variant="contained" onClick={handleClose}>
             Cancel
@@ -92,8 +106,8 @@ const Login = ({ handleClose }) => {
       </form>
       <p />
       <h4>New to NenesPay?</h4>
-      <button>
-        <a href="http://localhost:3000/signup">Create your Nenes Pay Account</a>
+      <button sx={{textDecoration: "none"}}>
+        <Link to="/signup">Create your Nenes Pay Account</Link>
       </button>
       <div>
         <br />

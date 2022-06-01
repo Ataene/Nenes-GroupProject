@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Box, makeStyles, Avatar, TextField } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-
+import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -123,7 +123,7 @@ const SignUp = ({ handleClose }) => {
       </div>
       <p />
       <h4>
-        Already have an account? <a href="http://localhost:3000/login">Login</a>
+        Already have an account? <Link to="/login">Login</Link>
       </h4>
 
       <div>

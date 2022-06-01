@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Typography, Grid, Container, } from "@mui/material";
-
+import { Typography, Grid } from "@mui/material";
 import TinderCard from 'react-tinder-card';
+import SwipeButtons from "./SwipeButtons";
 
 const TinderCards = () => {
   const [data, setData] = useState([]);
-
+  const [ lastDirection, setLastDirection ] = useState(0);
+  
   const productApi = "https://fakestoreapi.com/products";
   useEffect(() => {
     const getProduct = async () => {
@@ -20,35 +21,37 @@ const TinderCards = () => {
     getProduct();
   }, []);
 
-  const swiped = (direction, imageToDelete) => {
-    console.log('removing' + direction)
+  const swiped = (direction, titleToDelete) => {
+    console.log('removing' + titleToDelete)
+    setLastDirection(lastDirection + 1);
   }
   
-  const outOfFrame = (image) => {
-    console.log(image + 'left the screen')
+  const outOfFrame = (title) => {
+    console.log(title + 'left the screen')
   }
-
+ //sort(() => Math.random()-0.5)
   return (
     <>
-      <Container classname="mainCards">
-        <Grid className="gridCard" item >
-          {data.sort(() => Math.random()-0.5).map((product) => (
+      <Grid container sx={{ justifyContent: "center"}}>
+        <Grid sx={{justifyContent: "center", display: "flex"}} item >
+          {data.map((product) => (
             <TinderCard 
-              preventSwipe={["up", "down"]}
-              onSwipe={(dir) => swiped(dir, product.image)}
-              onCardLeftScreen={() => outOfFrame(product.image)}
-              key={product} 
+              key={product.id} 
               className="slideCard"
+              preventSwipe={["up", "down"]}
+              onSwipe={(direction) => swiped(direction, product.title)}
+              onCardLeftScreen={() => outOfFrame(product.title)}
             >
-              <div className='imageName' style={{ backgroundImage: `url(${product.image})`}}>
+              <Grid item className='imageName' sx={{ backgroundImage: `url(${product.image})`}}>
                 <Typography className="cardTypography">
                   {product.title}
                 </Typography>
-              </div>
+              </Grid>
             </TinderCard>
           ))}
         </Grid>
-      </Container>
+      </Grid>
+      <SwipeButtons />
     </>
   )
 }
