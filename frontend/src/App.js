@@ -2,14 +2,13 @@ import "./App.css";
 import Navigation from "./Components/Navigation";
 import Footer from "./Components/Footer";
 import { Routes, Route } from "react-router-dom";
-import Home from './Pages/Home';
-import About from './Pages/About';
-import ProductPage from './Pages/ProductPage';
-import Dashboard from './Components/Dashboard';
-import ProductDetail from './Components/ProductDisplay/ProductDetail';
+import Home from "./Pages/Home";
+import About from "./Pages/About";
+import ProductPage from "./Pages/ProductPage";
+import Dashboard from "./Components/Dashboard";
+import ProductDetail from "./Components/ProductDisplay/ProductDetail";
 import Login from "./Components/Login";
 import SignUp from "./Components/SignUp";
-
 
 function App() {
   return (
@@ -24,7 +23,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

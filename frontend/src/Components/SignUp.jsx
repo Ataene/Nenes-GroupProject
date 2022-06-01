@@ -9,14 +9,14 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    padding: theme.spacing(2),
+    padding: theme.spacing(1),
 
     "& .MuiTextField-root": {
       margin: theme.spacing(1),
       width: "500px",
     },
     "& .MuiButtonBase-root": {
-      margin: theme.spacing(2),
+      margin: theme.spacing(1),
     },
   },
 }));
@@ -126,15 +126,6 @@ const SignUp = ({ handleClose }) => {
       <h4>
         Already have an account? <Link to="/login">Login</Link>
       </h4>
-
-      <div>
-        <br />
-        <br />
-        <br />
-        <span class="a-size-mini a-color-secondary">
-          © 2022, NenesPay.com, Inc.
-        </span>
-      </div>
     </form>
   );
 };

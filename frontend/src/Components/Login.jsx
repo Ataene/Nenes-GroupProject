@@ -96,14 +96,6 @@ const Login = ({ handleClose }) => {
       <button>
         <Link to="/signup">Create your Nenes Pay Account</Link>
       </button>
-      <div>
-        <br />
-        <br />
-        <br />
-        <span class="a-size-mini a-color-secondary">
-          © 2022, NenesPay.com, Inc. or its affiliates
-        </span>
-      </div>
     </div>
   );
 };
