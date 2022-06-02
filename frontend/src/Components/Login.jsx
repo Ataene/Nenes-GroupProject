@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import { Box, makeStyles, Avatar, TextField } from "@material-ui/core";
+<<<<<<< HEAD
 import { Typography, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import signin from "../auth/signin";
 import { useNavigate } from "react-router-dom";
 import GitHubIcon from '@mui/icons-material/GitHub';
+=======
+import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
+>>>>>>> c752cc006c6325735e1b6c83b4beb9d057a18ffd
 
 const useStyles = makeStyles((theme) => ({
   root: {

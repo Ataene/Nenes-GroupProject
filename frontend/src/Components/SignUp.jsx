@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { Box, makeStyles, Avatar, TextField } from "@material-ui/core";
+<<<<<<< HEAD
 import { Link } from "react-router-dom";
 import { Typography, Button } from "@mui/material";
+=======
+import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
+>>>>>>> c752cc006c6325735e1b6c83b4beb9d057a18ffd
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -9,14 +14,14 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    padding: theme.spacing(2),
+    padding: theme.spacing(1),
 
     "& .MuiTextField-root": {
       margin: theme.spacing(1),
       width: "500px",
     },
     "& .MuiButtonBase-root": {
-      margin: theme.spacing(2),
+      margin: theme.spacing(1),
     },
   },
 }));
