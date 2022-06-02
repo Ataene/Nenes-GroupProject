@@ -25,11 +25,10 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/dashboard" element={<ProtectedRoute isAuthed={!!user} isLoading={isLoading} element={<Dashboard />} />} />
-        {/* <Route path="/dashboard" element={ <Dashboard />} /> */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }
