@@ -124,7 +124,10 @@ const SignUp = ({ handleClose }) => {
       </div>
       <p />
       <h4>
-        Already have an account? <Link to="/login">Login</Link>
+        Already have an account?{" "}
+        <Link to="/login">
+          <button>Login</button>
+        </Link>
       </h4>
     </form>
   );

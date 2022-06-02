@@ -90,12 +90,14 @@ const Login = ({ handleClose }) => {
             Login
           </Button>
         </Box>
+        <p />
+        <h4>
+          New to NenesPay?{" "}
+          <Link to="/signup">
+            <button>Create your Nenes Pay Account</button>
+          </Link>
+        </h4>
       </form>
-      <p />
-      <h4>New to NenesPay?</h4>
-      <button>
-        <Link to="/signup">Create your Nenes Pay Account</Link>
-      </button>
     </div>
   );
 };
