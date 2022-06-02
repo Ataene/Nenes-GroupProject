@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Box, makeStyles, Avatar, TextField } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
+import { Typography, Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import signin from "../auth/signin";
+import { useNavigate } from "react-router-dom";
+import GitHubIcon from "@mui/icons-material/GitHub";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,36 +26,29 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = ({ handleClose }) => {
   const classes = useStyles();
-  // create state variables for each input
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [isPending, setIsPending] = useState(false);
+  const [error, setError] = useState(null);
   const avatarStyle = { backgroundColor: "#1bbd7e" };
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newUser = {
-      email,
-      password,
-    };
-    console.log("newUser", newUser);
-    const data = JSON.stringify(newUser);
-    let response = await fetch("/users/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: data,
-    });
-    let user = await response.json();
-    console.log("user", user);
+    let user;
+    try {
+      user = await signin(email, password);
+    } catch (error) {
+      setError(error.message);
+    }
 
-    setEmail("");
-    setPassword("");
-
-    console.log(email, password);
-    handleClose();
+    if (user) {
+      setIsPending(true);
+      navigate("/dashboard");
+      setIsPending(true);
+    } else {
+      setError("Invalid email and password");
+    }
   };
 
   return (
@@ -81,23 +77,53 @@ const Login = ({ handleClose }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-
+        {error && (
+          <Typography variant="h6" style={{ color: "red" }}>
+            {error}
+          </Typography>
+        )}
         <Box>
           <Button variant="contained" onClick={handleClose}>
             Cancel
           </Button>
-          <Button type="submit" variant="contained" color="primary">
-            Login
-          </Button>
+          {!isPending && (
+            <Button type="submit" variant="contained" color="primary">
+              Login
+            </Button>
+          )}
+          {isPending && (
+            <Button type="submit" variant="contained" color="primary">
+              Login...
+            </Button>
+          )}
         </Box>
-        <p />
-        <h4>
-          New to NenesPay?{" "}
-          <Link to="/signup">
-            <button>Create your Nenes Pay Account</button>
+        <Box>
+          <Link to="/signup" style={{ textDecoration: "none" }}>
+            <Button
+              variant="contained"
+              sx={{ backgroundColor: " #171515", display: "flex" }}
+            >
+              <GitHubIcon sx={{ paddingLeft: "5px" }} />
+              Login with Github
+            </Button>
           </Link>
-        </h4>
+        </Box>
       </form>
+      <p />
+      <Typography variant="h5">New to NenesPay?</Typography>
+      <Box>
+        <Link to="/signup" style={{ textDecoration: "none", fontSize: "16px" }}>
+          <Button variant="contained">Create your Nenes Pay Account</Button>
+        </Link>
+      </Box>
+      <Box>
+        <br />
+        <br />
+        <br />
+        <Typography variant="h5">
+          © 2022, NenesPay.com, Inc. or its affiliates
+        </Typography>
+      </Box>
     </div>
   );
 };

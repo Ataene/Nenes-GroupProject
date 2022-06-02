@@ -6,7 +6,7 @@ import ChatIcon from "@mui/icons-material/Chat";
 import { Container, IconButton, } from "@mui/material";
 import ReplayIcon from '@mui/icons-material/Replay';
 import CloseIcon from '@mui/icons-material/Close';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import ProductDetail from './ProductDetail';
 
 
@@ -14,7 +14,6 @@ const SwipeButtons = () => {
     const params = useParams()
     const id = params.id;
     const [ productInfo, setProductInfo ] = useState([]);
-    const navigate = useNavigate();
 
     const productApi = `https://fakestoreapi.com/products/${id}`;
 

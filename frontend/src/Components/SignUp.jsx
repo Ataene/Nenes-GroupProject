@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, makeStyles, Avatar, TextField } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import { Typography, Button } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -113,7 +113,7 @@ const SignUp = ({ handleClose }) => {
         By creating an account, you agree to NenesPay Conditions of Use. <br />
         <br />
         <div />
-        <Box>
+        <Box sx={{ alignItems: "center", justifyContent: "center" }}>
           <Button variant="contained" onClick={handleClose}>
             Cancel
           </Button>
@@ -123,12 +123,20 @@ const SignUp = ({ handleClose }) => {
         </Box>
       </div>
       <p />
-      <h4>
+      <Typography variant="h6">
         Already have an account?{" "}
-        <Link to="/login">
-          <button>Login</button>
+        <Link to="/login" style={{ textDecoration: "none" }}>
+          <Button variant="contained">Login</Button>
         </Link>
-      </h4>
+      </Typography>
+      <div>
+        <br />
+        <br />
+        <br />
+        <span class="a-size-mini a-color-secondary">
+          © 2022, NenesPay.com, Inc.
+        </span>
+      </div>
     </form>
   );
 };
