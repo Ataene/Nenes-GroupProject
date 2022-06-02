@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import { Box, makeStyles, Avatar, TextField } from "@material-ui/core";
-<<<<<<< HEAD
 import { Link } from "react-router-dom";
 import { Typography, Button } from "@mui/material";
-=======
-import Button from "@material-ui/core/Button";
-import { Link } from "react-router-dom";
->>>>>>> c752cc006c6325735e1b6c83b4beb9d057a18ffd
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
       width: "500px",
     },
     "& .MuiButtonBase-root": {
-      margin: theme.spacing(1),
+      margin: theme.spacing(1)
     },
   },
 }));
