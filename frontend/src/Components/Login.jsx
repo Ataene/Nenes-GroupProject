@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = ({ handleClose }) => {
+const Login = (props) => {
 
   const classes = useStyles();
   const [email, setEmail] = useState("");
@@ -45,8 +45,7 @@ const Login = ({ handleClose }) => {
 
     if(user){
       setIsPending(true)
-      navigate("/dashboard")
-      setIsPending(true);
+      navigate(`/profile`)
     } else {
       setError("Invalid email and password");
     }
@@ -65,7 +64,7 @@ const Login = ({ handleClose }) => {
         />
         {error && <Typography variant="h6" style={{color: "red"}}>{error}</Typography>}
         <Box>
-          <Button variant="contained" onClick={handleClose}>
+          <Button variant="contained">
             Cancel
           </Button>
           {!isPending && <Button type="submit" variant="contained" color="primary">

@@ -1,24 +1,26 @@
 import React from 'react'
 import { Navigate  } from 'react-router-dom';
+import { useSession } from "../auth/UserProvider"
 
-const ProtectedRoute = ({isAuthed, isLoading, element }) => {
-  
-  console.log(isAuthed)
-  console.log(element)
+const ProtectedRoute = (props) => {
+
+    const authContext = useSession();
+
+    const userLoggIn = authContext.userLoggIn;
+    const isLoading = authContext.isLoading;
+
+    const mustBeUser = props.mustBeUser;
+    const element = props.element;
 
     if(isLoading) {
-      
         return <div>Loading...</div>
     }
-     if(!isAuthed) {
+
+     if(userLoggIn) {
+       return element;
+      } else {
         return <Navigate to="/login" />
     }
-  return (
-    // <Route {...props} />
-    <>
-      {element}
-    </>
-  )
 }
 
 export default ProtectedRoute;

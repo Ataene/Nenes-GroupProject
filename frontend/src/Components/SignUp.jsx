@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Box, makeStyles, Avatar, TextField } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Typography, Button } from "@mui/material";
+import signup from "../auth/signup";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,52 +22,36 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignUp = ({ handleClose }) => {
+const SignUp = () => {
   const classes = useStyles();
-  // create state variables for each input
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [ isPending, setIsPending ] = useState(false)
+  const [error, setError ] = useState(null)
+  const navigate = useNavigate();
+
   const avatarStyle = { backgroundColor: "#E74C3C" };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newUser = {
-      firstName,
-      lastName,
-      email,
-      password,
-      confirmPassword,
-    };
-    console.log("newUser", newUser);
-    const data = JSON.stringify(newUser);
-    let response = await fetch("/users/Signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: data,
-    });
-    let user = await response.json();
-    console.log("user", user);
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
-
-    console.log(firstName, lastName, email, password, confirmPassword);
-    handleClose();
+    setIsPending(true)
+    try {
+      await signup(firstName, lastName, email, password)
+      navigate("/login")
+    } catch (error) {
+      setError(`Password must be minimum of 6 characters and number`);
+    }
+    setIsPending(false)
   };
-
+ 
   return (
     <form className={classes.root} onSubmit={handleSubmit}>
-      <h1>
-        <br />
+      <Typography variant="h5"><br />
         Sign Up
-      </h1>
+      </Typography>
       <Avatar style={avatarStyle}></Avatar>
       <TextField
         label="First Name"
@@ -102,7 +87,7 @@ const SignUp = ({ handleClose }) => {
       <TextField
         label="Confirm Password"
         variant="filled"
-        type="confirmPassword"
+        type="password"
         required
         value={password}
         onChange={(e) => setConfirmPassword(e.target.value)}
@@ -112,9 +97,12 @@ const SignUp = ({ handleClose }) => {
         <input type="checkbox" id="regulation"></input>
         By creating an account, you agree to NenesPay Conditions of Use. <br />
         <br />
+        <div>
+          <Typography sx={{color: "red"}}>{error}</Typography>
+        </div>
         <div />
         <Box sx={{alignItems: "center", justifyContent: "center"}}>
-          <Button variant="contained" onClick={handleClose}>
+          <Button variant="contained">
             Cancel
           </Button>
           <Button type="submit" variant="contained" color="primary">

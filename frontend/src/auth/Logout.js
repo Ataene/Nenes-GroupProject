@@ -1,4 +1,4 @@
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 
 const Logout = async () => {
     try {
@@ -8,5 +8,5 @@ const Logout = async () => {
     }
 }
 
-export default Logout
+export default Logout;
 
