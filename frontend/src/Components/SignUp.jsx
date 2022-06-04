@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
       width: "500px",
     },
     "& .MuiButtonBase-root": {
-      margin: theme.spacing(1)
+      margin: theme.spacing(1),
     },
   },
 }));
@@ -112,7 +112,10 @@ const SignUp = () => {
       </div>
       <p />
       <Typography variant="h6">
-        Already have an account? <Link to="/login" style={{textDecoration: "none"}}><Button  variant="contained">Login</Button></Link>
+        Already have an account?{" "}
+        <Link to="/login" style={{ textDecoration: "none" }}>
+          <Button variant="contained">Login</Button>
+        </Link>
       </Typography>
       <div>
         <br />

@@ -4,7 +4,7 @@ import { Typography, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import signin from "../auth/signin";
 import { useNavigate } from "react-router-dom";
-import GitHubIcon from '@mui/icons-material/GitHub';
+import GitHubIcon from "@mui/icons-material/GitHub";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,8 +29,8 @@ const Login = (props) => {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [ isPending, setIsPending ] = useState(false)
-  const [error, setError ] = useState(null)
+  const [isPending, setIsPending] = useState(false);
+  const [error, setError] = useState(null);
   const avatarStyle = { backgroundColor: "#1bbd7e" };
   const navigate = useNavigate();
 
@@ -38,7 +38,7 @@ const Login = (props) => {
     e.preventDefault();
     let user;
     try {
-     user = await signin(email, password)
+      user = await signin(email, password);
     } catch (error) {
       setError(error.message);
     }
@@ -54,36 +54,65 @@ const Login = (props) => {
   return (
     <div className={classes.root}>
       <form className={classes.root} onSubmit={handleSubmit}>
-        <h1><br />Login</h1>
+        <h1>
+          <br />
+          Login
+        </h1>
         <Avatar style={avatarStyle}></Avatar>
 
-        <TextField label="Email" variant="filled" type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
+        <TextField
+          label="Email"
+          variant="filled"
+          type="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <br />
-        <TextField label="Password" variant="filled" type="password" required value={password} onChange={(e) => setPassword(e.target.value)}
+        <TextField
+          label="Password"
+          variant="filled"
+          type="password"
+          required
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
-        {error && <Typography variant="h6" style={{color: "red"}}>{error}</Typography>}
+        {error && (
+          <Typography variant="h6" style={{ color: "red" }}>
+            {error}
+          </Typography>
+        )}
         <Box>
           <Button variant="contained">
             Cancel
           </Button>
-          {!isPending && <Button type="submit" variant="contained" color="primary">
-            Login
-          </Button>}
-          {isPending && <Button type="submit" variant="contained" color="primary">
-            Login...
-          </Button>}
+          {!isPending && (
+            <Button type="submit" variant="contained" color="primary">
+              Login
+            </Button>
+          )}
+          {isPending && (
+            <Button type="submit" variant="contained" color="primary">
+              Login...
+            </Button>
+          )}
         </Box>
         <Box>
-        <Link to="/signup" style={{textDecoration: "none"}}>
-          <Button variant="contained" sx={{backgroundColor:' #171515', display: "flex"}}><GitHubIcon sx={{paddingLeft: "5px"}} />Login with Github</Button>
-        </Link>
-      </Box>
+          <Link to="/signup" style={{ textDecoration: "none" }}>
+            <Button
+              variant="contained"
+              sx={{ backgroundColor: " #171515", display: "flex" }}
+            >
+              <GitHubIcon sx={{ paddingLeft: "5px" }} />
+              Login with Github
+            </Button>
+          </Link>
+        </Box>
       </form>
       <p />
       <Typography variant="h5">New to NenesPay?</Typography>
       <Box>
-        <Link to="/signup" style={{textDecoration: "none", fontSize: "16px"}}>
+        <Link to="/signup" style={{ textDecoration: "none", fontSize: "16px" }}>
           <Button variant="contained">Create your Nenes Pay Account</Button>
         </Link>
       </Box>
