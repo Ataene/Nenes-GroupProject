@@ -3,8 +3,12 @@ import { Box, makeStyles, Avatar, TextField } from "@material-ui/core";
 import { Typography, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import signin from "../auth/signin";
+import { gitHub, facebook, twitter, google } from "../auth/gitHub";
 import { useNavigate } from "react-router-dom";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import GoogleIcon from '@mui/icons-material/Google';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = (props) => {
+const Login = () => {
 
   const classes = useStyles();
   const [email, setEmail] = useState("");
@@ -50,6 +54,54 @@ const Login = (props) => {
       setError("Invalid email and password");
     }
   };
+
+  const githubLogin = async () => {
+    try {
+      const gitHubUser = await gitHub();
+      if(gitHubUser){
+        setIsPending(true)
+        navigate("/profile")
+      }
+    } catch (error) {
+      setError("GitHub Auth Failed");
+    }
+  }
+
+  const facebookLogin = async () => {
+    try {
+      const facebookUser = await facebook();
+      if(facebookUser){
+        setIsPending(true)
+        navigate("/profile")
+      }
+    } catch (error) {
+      setError("Facebook Auth Failed");
+    }
+  }
+
+  const twitterLogin = async () => {
+    try {
+      const twitterUser = await twitter();
+      if(twitterUser){
+        setIsPending(true)
+        navigate("/profile")
+      }
+    } catch (error) {
+      setError("Twitter Auth Failed");
+    }
+  }
+
+  const googleLogin = async () => {
+    try {
+      const googleUser = await google();
+      if(googleUser){
+        setIsPending(true)
+        navigate("/profile")
+      }
+    } catch (error) {
+      setError("Twitter Auth Failed");
+    }
+  }
 
   return (
     <div className={classes.root}>
@@ -97,16 +149,36 @@ const Login = (props) => {
             </Button>
           )}
         </Box>
-        <Box>
-          <Link to="/signup" style={{ textDecoration: "none" }}>
-            <Button
-              variant="contained"
-              sx={{ backgroundColor: " #171515", display: "flex" }}
-            >
-              <GitHubIcon sx={{ paddingLeft: "5px" }} />
-              Login with Github
-            </Button>
-          </Link>
+        <Box sx={{display: "flex", flexDirection: "column"}}>
+        <Typography variant="h6" sx={{paddingLeft: "8rem"}} >Or Login in with</Typography>
+          <Button onClick={githubLogin}
+            variant="contained"
+            sx={{ backgroundColor: " #171515", display: "flex", width: "20rem" }}
+          >
+            <GitHubIcon sx={{ margin: "5px" }} />
+            Github
+          </Button>
+          <Button onClick={facebookLogin}
+            variant="contained"
+            sx={{display: "flex", width: "20rem" }}
+          >
+            <FacebookIcon sx={{ margin: "5px" }} />
+            Facebook
+          </Button>
+          <Button onClick={googleLogin}
+            variant="contained"
+            sx={{display: "flex", width: "20rem", backgroundColor: "green" }}
+          >
+            <GoogleIcon sx={{ margin: "5px", color: 'red' }} />
+            Google
+          </Button>
+          <Button onClick={twitterLogin}
+            variant="contained"
+            sx={{ display: "flex", width: "20rem" }}
+          >
+            <TwitterIcon sx={{ margin: "5px" }} />
+            Twitter
+          </Button>
         </Box>
       </form>
       <p />
