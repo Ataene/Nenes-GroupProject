@@ -110,7 +110,6 @@ const SignUp = () => {
           </Button>
         </Box>
       </Typography>
-      <p />
       <Typography variant="h6">
         Already have an account?{" "}
         <Link to="/login" style={{ textDecoration: "none" }}>
@@ -118,9 +117,6 @@ const SignUp = () => {
         </Link>
       </Typography>
       <Typography variant="h5">
-        <br />
-        <br />
-        <br />
         <span class="a-size-mini a-color-secondary">
           © 2022, NenesPay.com, Inc.
         </span>
