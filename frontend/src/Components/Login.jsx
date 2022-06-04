@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
       width: "500px",
     },
     "& .MuiButtonBase-root": {
-      margin: theme.spacing(2),
+      margin: theme.spacing(1),
     },
   },
 }));

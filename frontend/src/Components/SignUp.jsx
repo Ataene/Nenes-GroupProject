@@ -92,7 +92,7 @@ const SignUp = () => {
         value={password}
         onChange={(e) => setConfirmPassword(e.target.value)}
       />
-      <div>
+      <Typography>
         <br />
         <input type="checkbox" id="regulation"></input>
         By creating an account, you agree to NenesPay Conditions of Use. <br />
@@ -109,7 +109,7 @@ const SignUp = () => {
             Sign Up
           </Button>
         </Box>
-      </div>
+      </Typography>
       <p />
       <Typography variant="h6">
         Already have an account?{" "}
@@ -117,14 +117,14 @@ const SignUp = () => {
           <Button variant="contained">Login</Button>
         </Link>
       </Typography>
-      <div>
+      <Typography variant="h5">
         <br />
         <br />
         <br />
         <span class="a-size-mini a-color-secondary">
           © 2022, NenesPay.com, Inc.
         </span>
-      </div>
+      </Typography>
     </form>
   );
 };
