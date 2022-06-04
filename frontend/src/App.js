@@ -37,7 +37,7 @@ function App() {
         <Route exact path="/profile" element={<Profile />} />
         <Route exact path="/signup" element={<SignUp />} />
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </UserProvider>
     </>
   );
