@@ -37,14 +37,13 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsPending(true)
     try {
       await signup(firstName, lastName, email, password)
       navigate("/login")
+      setIsPending(true)
     } catch (error) {
       setError(`Password must be minimum of 6 characters and number`);
     }
-    setIsPending(false)
   };
  
   return (

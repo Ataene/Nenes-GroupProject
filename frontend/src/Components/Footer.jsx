@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, IconButton, Typography, Grid } from "@mui/material";
+import { Container, IconButton, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import GitHubIcon from '@mui/icons-material/GitHub';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -21,7 +21,7 @@ import TwitterIcon from '@mui/icons-material/Twitter';
         <Typography><Link to="/about" >About</Link></Typography>
       </Container>
       <Container sx={{display: "flex", flexDirection: "row", justifyContent: "space-evenly"}}>
-        <Typography variant="h6"> &copy; {year()} <Link to="https://www.inceptionu.com/" rel="noopener noreferrer" target="_blank" >inceptionU</Link>, All rights reserved</Typography>
+        <Typography variant="h6"> &copy; {year()} <Link to="https://www.inceptionu.com/" rel="noopener noreferrer" target="_blank" >InceptionU</Link>, All rights reserved</Typography>
         <IconButton>
           <GitHubIcon sx={{color: "blue"}} />
         </IconButton>

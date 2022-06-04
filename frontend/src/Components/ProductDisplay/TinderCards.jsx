@@ -3,7 +3,6 @@ import { Typography, Grid } from "@mui/material";
 import TinderCard from 'react-tinder-card';
 import SwipeButtons from "./SwipeButtons";
 import "../../App.css";
-import { imageName, slideCard, cardTypography } from "../Styles"
 
 const TinderCards = () => {
   const [data, setData] = useState([]);
