@@ -9,7 +9,6 @@ import { useSession } from "../auth/UserProvider";
 import Logout from "../auth/Logout";
 import Avatar from '@mui/material/Avatar';
 
-
 const Navigation = () => {
 
   const { user } = useSession();
@@ -60,9 +59,12 @@ const Navigation = () => {
                 </Button>
               </Link>
             </Box>}
-            {!!user && <Typography sx={{color: 'yellow', display: "flex", flexDirection: "row", position: "relative"}}>
-              Hello, {user.displayName} <Avatar alt="User" src="/static/images/avatar/1.jpg" />
+            {!!user && <Box sx={{color: 'yellow', display: "flex" }}>
+            <Typography sx={{marginTop: "10px", paddingRight: "10px"}}>
+              Hello, {user.displayName} 
             </Typography>
+              <Avatar alt="User" src="/static/images/avatar/1.jpg" />
+            </Box>
             }
             {!!user && <Box style={{ textDecoration: "none", marginLeft: "10px" }} sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
                 <Button sx={{ my: 2, color: "white", alignItem: "center" }} onClick={logoutUser}>
