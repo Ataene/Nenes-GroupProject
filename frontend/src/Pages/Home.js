@@ -1,18 +1,22 @@
-import React from 'react'
+import React from "react";
+import { makeStyles } from "@material-ui/core";
+import { CssBaseline } from "@material-ui/core";
+import Footer from "../Components/footer/index";
+import Banner from "../Components/banner";
+import Promotions from "../Components/promotions";
+import Products from "../Components/products";
 
-const Home = () => {
+const useStyles = makeStyles((theme) => ({}));
+
+export default function Home() {
+  const classes = useStyles();
   return (
-    <>
-      <header>
-        <p>
-          THE NENES 
-        </p>
-        <h3>
-          TRADE BY BARTER SYSTEM
-        </h3>
-      </header>
-    </>
-  )
+    <div>
+      <CssBaseline />
+      <Banner />
+      <Promotions />
+      <Products />
+      <Footer />
+    </div>
+  );
 }
-
-export default Home;
