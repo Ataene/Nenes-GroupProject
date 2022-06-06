@@ -10,13 +10,13 @@ import {
   AppbarContainer,
   AppbarHeader,
   MyList,
-} from "../../styles/appbar";
+} from "../styles/appbar";
 import PersonIcon from "@mui/icons-material/Person";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 //import Actions from "./actions";
-import { useUIContext } from "../../context/index";
+import { useUIContext } from "../context/index";
 import React from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";

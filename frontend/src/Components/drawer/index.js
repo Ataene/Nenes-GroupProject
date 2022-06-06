@@ -9,11 +9,11 @@ import {
   ListItemText,
   styled,
 } from "@mui/material";
-import { useUIContext } from "../../context/index";
+import { useUIContext } from "../context/index";
 import CloseIcon from "@mui/icons-material/Close";
-import { DrawerCloseButton } from "../../styles/appbar";
+import { DrawerCloseButton } from "../styles/appbar";
 import { lighten } from "polished";
-import { Colors } from "../../styles/theme";
+import { Colors } from "../styles/theme";
 
 const MiddleDivider = styled((props) => (
   <Divider variant="middle" {...props} />
