@@ -181,16 +181,16 @@ const Login = () => {
           </Button>
         </Box>
       </form>
-      <Typography variant="h5">New to NenesPay?</Typography>
+      <Typography variant="h5">New to HundieTrade?</Typography>
       <Box>
         <Link to="/signup" style={{ textDecoration: "none", fontSize: "16px" }}>
-          <Button variant="contained">Create your Nenes Pay Account</Button>
+          <Button variant="contained">Create your HundieTrade Account</Button>
         </Link>
       </Box>
       <Box>
         <br />
         <Typography variant="h5">
-          © 2022, NenesPay.com, Inc. or its affiliates
+          © 2022, HundieTrade.com, Inc. or its affiliates
         </Typography>
       </Box>
     </div>
