@@ -1,5 +1,5 @@
 import Navigation from "./Components/Navigation";
-import Footer from "./Components/Footer";
+// import Footer from "./Components/Footer";
 import { Routes, Route } from "react-router-dom";
 import Home from './Pages/Home';
 import About from './Pages/About';
@@ -12,6 +12,7 @@ import ProtectedRoute from "./auth/ProtectedRoute";
 import {useAuth} from "./auth/useAuth";
 import { UserProvider } from "./auth/UserProvider";
 import Profile from "./Components/Profile";
+import Footer from "../src/Components/footer/index"
 
 function App() {
   
@@ -37,7 +38,7 @@ function App() {
         <Route exact path="/profile" element={<Profile />} />
         <Route exact path="/signup" element={<SignUp />} />
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </UserProvider>
     </>
   );
