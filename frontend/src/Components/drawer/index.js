@@ -1,9 +1,6 @@
 import {
-  Box,
-  Button,
   Divider,
   Drawer,
-  IconButton,
   List,
   ListItemButton,
   ListItemText,
@@ -18,7 +15,6 @@ import { Colors } from "../styles/theme";
 const MiddleDivider = styled((props) => (
   <Divider variant="middle" {...props} />
 ))``;
-
 
 export default function AppDrawer() {
   const { drawerOpen, setDrawerOpen } = useUIContext();

@@ -31,7 +31,7 @@ export default function Appbar() {
 
   return (
     <AppbarContainer>
-      <AppbarHeader variant="h4">Hundie Pay</AppbarHeader>
+      <AppbarHeader variant="h4">Hundie Trade</AppbarHeader>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -50,8 +50,7 @@ export default function Appbar() {
             }}
           >
             Home
-                  </Typography>
-                  
+          </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               <IconButton
                 size="large"
@@ -61,7 +60,6 @@ export default function Appbar() {
                 color="inherit"
               ></IconButton>
           </Box>
-
           <Box
             style={{ textDecoration: "none" }}
             sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
@@ -84,11 +82,6 @@ export default function Appbar() {
             <Link style={{ textDecoration: "none" }} to="/about">
               <Button sx={{ my: 2, color: "green", display: "block" }}>
                 About
-              </Button>
-            </Link>
-            <Link style={{ textDecoration: "none" }} to="/dashboard">
-              <Button sx={{ my: 2, color: "green", display: "block" }}>
-                Dashboard
               </Button>
             </Link>
           </Box>
