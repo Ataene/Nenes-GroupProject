@@ -9,7 +9,6 @@ const ProtectedRoute = (props) => {
     const userLoggIn = authContext.userLoggIn;
     const isLoading = authContext.isLoading;
 
-    const mustBeUser = props.mustBeUser;
     const element = props.element;
 
     if(isLoading) {

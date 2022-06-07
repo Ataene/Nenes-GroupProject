@@ -37,14 +37,13 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsPending(true)
     try {
       await signup(firstName, lastName, email, password)
       navigate("/login")
+      setIsPending(true)
     } catch (error) {
       setError(`Password must be minimum of 6 characters and number`);
     }
-    setIsPending(false)
   };
  
   return (
@@ -95,7 +94,7 @@ const SignUp = () => {
       <Typography>
         <br />
         <input type="checkbox" id="regulation"></input>
-        By creating an account, you agree to NenesPay Conditions of Use. <br />
+        By creating an account, you agree to HundieTrade Conditions of Use. <br />
         <br />
         <div>
           <Typography sx={{color: "red"}}>{error}</Typography>
@@ -118,7 +117,7 @@ const SignUp = () => {
       </Typography>
       <Typography variant="h5">
         <span class="a-size-mini a-color-secondary">
-          © 2022, NenesPay.com, Inc.
+          © 2022, HundieTrade.com, Inc.
         </span>
       </Typography>
     </form>

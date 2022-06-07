@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import { Toolbar, Typography, Container, Button } from "@mui/material";
@@ -8,7 +8,6 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useSession } from "../auth/UserProvider";
 import Logout from "../auth/Logout";
 import Avatar from '@mui/material/Avatar';
-
 
 const Navigation = () => {
 
@@ -60,9 +59,12 @@ const Navigation = () => {
                 </Button>
               </Link>
             </Box>}
-            {!!user && <Typography sx={{color: 'yellow', display: "flex", flexDirection: "row", position: "relative"}}>
-              Hello, {user.displayName} <Avatar alt="User" src="/static/images/avatar/1.jpg" />
+            {!!user && <Box sx={{color: 'yellow', display: "flex" }}>
+            <Typography sx={{marginTop: "10px", paddingRight: "10px"}}>
+              Hello, {user.displayName} 
             </Typography>
+              <Avatar alt="User" src="/static/images/avatar/1.jpg" />
+            </Box>
             }
             {!!user && <Box style={{ textDecoration: "none", marginLeft: "10px" }} sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
                 <Button sx={{ my: 2, color: "white", alignItem: "center" }} onClick={logoutUser}>
