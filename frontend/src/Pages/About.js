@@ -45,13 +45,13 @@ const About = () => {
 ]
   return (
     <>
+      <div style={{backgroundColor: "#fafafa"}}>
         <Typography variant="h4" sx={{ textAlign: "center", alignItem: 'center', margin: "5px"}}>Meet the Team</Typography>
         <Container >
           <Typography variant="h6" sx={{ alignItem: 'center'}}>
           lorem ipsum dolor sit amet, consectetur adipiscing elit, incididunt ut labore et dolore magna aliqua. 
               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi. 
           </Typography>
-
         </Container>
       <Grid container sx={{ justifyContent: "center"}}>
           <Grid item sx={{justifyContent: "center", display: "flex"}}>
@@ -79,6 +79,7 @@ const About = () => {
           ))}
           </Grid>
       </Grid>
+      </div>
     </>
   )
 }

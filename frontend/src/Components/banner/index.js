@@ -34,7 +34,7 @@ export default function Banner() {
           have.
         </BannerDescription>
 
-        <BannerShopButton color="primary">Shop Now</BannerShopButton>
+        <BannerShopButton color="success">Shop Now</BannerShopButton>
       </BannerContent>
     </BannerContainer>
   );
