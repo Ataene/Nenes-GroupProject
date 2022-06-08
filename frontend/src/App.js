@@ -1,4 +1,8 @@
-import Footer from "./Components/Footer";
+
+
+
+import Navigation from "./Components/Navigation";
+
 import { Routes, Route } from "react-router-dom";
 import Home from './Pages/Home';
 import About from './Pages/About';
@@ -11,8 +15,8 @@ import ProtectedRoute from "./auth/ProtectedRoute";
 import {useAuth} from "./auth/useAuth";
 import { UserProvider } from "./auth/UserProvider";
 import Profile from "./Components/Profile";
+import Footer from "../src/Components/footer/index";
 import AppBar from "./Components/appbar/appbar";
-import AppDrawer from "./Components/drawer";
 
 function App() {
   
@@ -21,7 +25,6 @@ function App() {
     <>
       <UserProvider>
         <AppBar />
-        <AppDrawer />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<ProductPage />} />
@@ -50,8 +53,9 @@ function App() {
         </Routes>
         <Footer />
       </UserProvider>
-</>
-  );
+      </>
+
+);
 }
 
 export default App;
