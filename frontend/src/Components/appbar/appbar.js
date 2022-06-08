@@ -3,6 +3,8 @@ import {
   Typography,
   Container,
   Button,
+  ListItemButton,
+  ListItemIcon,
 } from "@mui/material";
 import {
   AppbarContainer,
@@ -18,9 +20,15 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { useSession } from "../../auth/UserProvider";
 import Logout from "../../auth/Logout";
 import Avatar from "@mui/material/Avatar";
+import SearchIcon from "@mui/icons-material/Search";
+import { useUIContext } from "../context/index";
+import SearchAppBar from "../Search";
+
 
 
 const Appbar = () => {
+
+  const { setShowSearchBox } = useUIContext();
   const { user } = useSession();
 
   const navigate = useNavigate();
@@ -74,6 +82,7 @@ const Appbar = () => {
                   About
                 </Button>
               </Link>
+
             </Box>
             {!user && (
               <Box
