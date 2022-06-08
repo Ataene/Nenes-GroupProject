@@ -17,6 +17,8 @@ import { UserProvider } from "./auth/UserProvider";
 import Profile from "./Components/Profile";
 import Footer from "../src/Components/footer/index";
 import AppBar from "./Components/appbar/appbar";
+import React from "react"
+// import Modal from './Components/modal.js'
 
 function App() {
   
@@ -56,6 +58,16 @@ function App() {
       </>
 
 );
+// const modalBox = ()
+// export default function modalBox(){
+//   return (
+//     <div className="modalBox">
+//       <button>Show Modal</button>
+//       <Modal />
+//     </div>
+//   );
+// }}
+
 }
 
-export default App;
+export default App;  
