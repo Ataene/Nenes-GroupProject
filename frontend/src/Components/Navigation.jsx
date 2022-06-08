@@ -9,6 +9,7 @@ import { useSession } from "../auth/UserProvider";
 import Logout from "../auth/Logout";
 import Avatar from '@mui/material/Avatar';
 
+
 const Navigation = () => {
 
   const { user } = useSession();

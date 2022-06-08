@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import {
   Grid,
   List,
@@ -6,7 +5,6 @@ import {
   Typography,
   Button,
   Stack,
-  Container,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { Colors } from "../styles/theme";

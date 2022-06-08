@@ -1,7 +1,5 @@
 import { Divider, ListItemButton, ListItemIcon } from "@mui/material";
 import {
-  ActionIconsContainerDesktop,
-  ActionIconsContainerMobile,
   MyList,
 } from "../../styles/appbar";
 import PersonIcon from "@mui/icons-material/Person";

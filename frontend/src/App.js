@@ -1,4 +1,3 @@
-import Navigation from "./Components/Navigation";
 import Footer from "./Components/Footer";
 import { Routes, Route } from "react-router-dom";
 import Home from './Pages/Home';
@@ -45,22 +44,13 @@ function App() {
           } 
         /> */}
 
-<<<<<<< HEAD
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/profile" element={<Profile />} />
           <Route exact path="/signup" element={<SignUp />} />
         </Routes>
         <Footer />
       </UserProvider>
-=======
-        <Route exact path="/login" element={<Login />} />
-        <Route exact path="/profile" element={<Profile />} />
-        <Route exact path="/signup" element={<SignUp />} />
-      </Routes>
-      {/* <Footer /> */}
-    </UserProvider>
->>>>>>> 0f739c21b2db249a8d2045a5230632cb51979a69
-    </>
+</>
   );
 }
 

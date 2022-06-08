@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material/styles";
-import { darken, lighten } from "polished";
+import { lighten } from "polished";
 
 export const DrawerWidth = 250;
 

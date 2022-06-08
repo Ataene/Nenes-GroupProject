@@ -41,7 +41,7 @@ export const ProductAddToCart = styled(Button, {
   fontSize: "12px",
     position: "absolute",
     bottom: "2%",
-    width: "300px",
+
     padding: "10px 5px",
     animation:
       show &&

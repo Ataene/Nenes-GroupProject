@@ -1,8 +1,7 @@
-import { Slide, Typography } from "@mui/material";
+import { Slide } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useRef, useState } from "react";
 import { MessageText, PromotionsContainer } from "../styles/promotions";
-import { Colors } from "../styles/theme/index";
 
 const messages = [
   "Do you need something, but have no money?",
