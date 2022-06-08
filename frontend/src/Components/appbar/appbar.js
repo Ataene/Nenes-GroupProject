@@ -22,7 +22,8 @@ import Logout from "../../auth/Logout";
 import Avatar from "@mui/material/Avatar";
 import SearchIcon from "@mui/icons-material/Search";
 import { useUIContext } from "../context/index";
-import SearchAppBar from "../Search";
+import SearchBar from "../Search";
+
 
 
 
@@ -60,7 +61,7 @@ const Appbar = () => {
             </Typography>
             <Box
               style={{ textDecoration: "none" }}
-              sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
+              sx={{ flexGrow: 2, display: { xs: "none", md: "flex" } }}
             >
               <Link style={{ textDecoration: "none" }} to="/products">
                 <Button sx={{ my: 2, color: "green", display: "block" }}>
@@ -83,12 +84,15 @@ const Appbar = () => {
                 </Button>
               </Link>
 
+              
             </Box>
             {!user && (
+              
               <Box
                 style={{ textDecoration: "none" }}
                 sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}
               >
+                <SearchBar />
                 <Link style={{ textDecoration: "none" }} to="/login">
                   <Button sx={{ my: 2, color: "green", alignItem: "center" }}>
                     <LoginIcon />
@@ -98,7 +102,7 @@ const Appbar = () => {
               </Box>
             )}
             {!!user && (
-              <Box sx={{ color: "yellow", display: "flex" }}>
+              <Box sx={{ color: "green", display: "flex" }}>
                 <Typography sx={{ marginTop: "10px", paddingRight: "10px" }}>
                   Hello, {user.displayName}
                 </Typography>
