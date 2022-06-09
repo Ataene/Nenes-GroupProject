@@ -1,9 +1,14 @@
 import React from 'react'
-import { Box, Container, Typography, Avatar } from '@mui/material';
+import { Box, Container, Typography, Avatar, Button } from '@mui/material';
 import { useSession  } from '../auth/UserProvider'
+import { useNavigate } from 'react-router-dom';
+import ModalPop from './modal';
 
 const RightBar = () => {
-
+ const navigate= useNavigate()
+const handleModal = () => {
+  navigate('/modal')
+}
     const { user } = useSession();
   return (
     <Box sx={{flex: "2", backgroundColor: "#DAEAF1", height: "calc(100vh-50px)" }}>
@@ -15,6 +20,7 @@ const RightBar = () => {
         <Typography>
         email: {user.email}
         </Typography>
+       <ModalPop />
      </Container>
     </Box>
   )

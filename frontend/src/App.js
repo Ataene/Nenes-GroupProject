@@ -18,7 +18,8 @@ import Profile from "./Components/Profile";
 import Footer from "../src/Components/footer/index";
 import AppBar from "./Components/appbar/appbar";
 import React from "react"
-// import Modal from './Components/modal.js'
+import Modal from './Components/modal.js'
+import ModalPop from "./Components/modal.js";
 
 function App() {
   
@@ -32,6 +33,8 @@ function App() {
           <Route path="/products" element={<ProductPage />} />
           <Route path="/about" element={<About />} />
           <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/modal" element={<ModalPop />} />
+
           {/* <Route path="/dashboard" element={<ProtectedRoute isAuthed={!!user} isLoading={isLoading} element={<Dashboard />} />} /> */}
           <Route
             path="/dashboard"
