@@ -1,3 +1,4 @@
+import React from "react";
 import { Slide } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useRef, useState } from "react";
