@@ -29,7 +29,7 @@ export default function NestedModal() {
 
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
+      <Button onClick={handleOpen}>Trade Preferences</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -37,11 +37,11 @@ export default function NestedModal() {
         aria-describedby="parent-modal-description"
       >
         <Box sx={{ ...style, width: 400 }}>
-          <h2 id="parent-modal-title">Text in a modal</h2>
+          <h2 id="parent-modal-title">What items are you interested in trading for?</h2>
           <p id="parent-modal-description">
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            questions go here
           </p>
-          <Button onClose={handleClose}>Button</Button>
+          <Button onClose={handleClose}>Submit</Button>
         </Box>
       </Modal>
     </div>
