@@ -1,7 +1,8 @@
-import * as React from 'react';
+import React, { useState, useEffect} from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import Button from '@mui/material/Button';
+import {Button, TextField } from '@mui/material';
+import { useNavigate } from "react-router-dom"
 
 const style = {
   position: 'absolute',
@@ -19,7 +20,10 @@ const style = {
 
 
 export default function NestedModal() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [postalCode, setPostalCode] = useState('');
+  const navigate = useNavigate();
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -27,6 +31,11 @@ export default function NestedModal() {
     setOpen(false);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate("/wishlist")
+  }
+  
   return (
     <div>
       <Button onClick={handleOpen}>Trade Preferences</Button>
@@ -37,11 +46,10 @@ export default function NestedModal() {
         aria-describedby="parent-modal-description"
       >
         <Box sx={{ ...style, width: 400 }}>
-          <h2 id="parent-modal-title">What items are you interested in trading for?</h2>
-          <p id="parent-modal-description">
-            questions go here
-          </p>
-          <Button onClose={handleClose}>Submit</Button>
+          <form onSubmit={handleSubmit}>
+          <TextField placeholder="Enter your Postal Code" type="text" value={postalCode} onChange={(e) => setPostalCode(e.target.value)} />
+          <Button type='submit'>Submit</Button>
+          </form>
         </Box>
       </Modal>
     </div>

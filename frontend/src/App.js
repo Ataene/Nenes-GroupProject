@@ -20,6 +20,7 @@ import AppBar from "./Components/appbar/appbar";
 import React from "react"
 import Modal from './Components/modal.js'
 import ModalPop from "./Components/modal.js";
+import WishList  from "./Components/WishList";
 
 function App() {
   
@@ -34,7 +35,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/modal" element={<ModalPop />} />
-
+          <Route path="/wishlist" element={<WishList />} />
           {/* <Route path="/dashboard" element={<ProtectedRoute isAuthed={!!user} isLoading={isLoading} element={<Dashboard />} />} /> */}
           <Route
             path="/dashboard"
