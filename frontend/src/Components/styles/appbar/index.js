@@ -8,16 +8,16 @@ import { textPopUpTop } from "../../animation";
 
 export const AppbarContainer = styled(Box)(() => ({
   display: "flex",
-  marginTop: 4,
+  marginTop: 1,
   justifyContent: "center",
   alignItems: "center",
-  padding: "2px 8px",
+  padding: "1px 2px",
 }));
 
 export const AppbarHeader = styled(Typography)(() => ({
-  padding: "4px",
+  padding: "2px",
   flexGrow: 1,
-  fontSize: "4em",
+  fontSize: "3em",
   fontFamily: '"Montez", "cursive"',
   color: Colors.secondary,
   "&:hover": {

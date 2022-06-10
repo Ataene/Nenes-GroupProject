@@ -17,7 +17,6 @@ import { useUIContext } from "../context/index";
 import SearchBar from "../Search";
 import { useUserContext  } from '../../auth/userContextProvider'
 
-
 const Appbar = () => {
   const { user, LogoutUser } = useUserContext();
   
@@ -42,18 +41,23 @@ const Appbar = () => {
                 mr: 2,
                 display: { xs: "none", md: "flex" },
                 fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
+                fontWeight: 300,
+                letterSpacing: ".1rem",
                 color: "inherit",
                 textDecoration: "none",
               }}
             >
-              <AppbarHeader variant="h4">Hundie Trade</AppbarHeader>
+              <AppbarHeader variant="h1">Hundie Trade</AppbarHeader>
             </Typography>
             <Box
-              style={{ textDecoration: "none" }}
+              style={{ textDecoration: "none", marginLeft: "15rem" }}
               sx={{ flexGrow: 2, display: { xs: "none", md: "flex" } }}
             >
+              <Link style={{ textDecoration: "none" }} to="/">
+                <Button sx={{ my: 2, color: "green", display: "block" }}>
+                  Home
+                </Button>
+              </Link>
               <Link style={{ textDecoration: "none" }} to="/products">
                 <Button sx={{ my: 2, color: "green", display: "block" }}>
                   Products
@@ -74,11 +78,8 @@ const Appbar = () => {
                   About
                 </Button>
               </Link>
-
-              
             </Box>
             {!user && (
-              
               <Box
                 style={{ textDecoration: "none" }}
                 sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}
