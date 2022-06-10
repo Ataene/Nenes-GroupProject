@@ -3,7 +3,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import PreviewIcon from '@mui/icons-material/Preview';
 import ChatIcon from "@mui/icons-material/Chat";
-import { Container, IconButton, } from "@mui/material";
+import { Container, IconButton } from "@mui/material";
 import ReplayIcon from '@mui/icons-material/Replay';
 import CloseIcon from '@mui/icons-material/Close';
 import { useParams } from 'react-router-dom';

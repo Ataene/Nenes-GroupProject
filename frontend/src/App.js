@@ -12,7 +12,10 @@ import { UserContextProvider } from "./auth/userContextProvider";
 import Profile from "./Components/Profile";
 import Footer from "../src/Components/footer/index";
 import AppBar from "./Components/appbar/appbar";
-import AppDrawer from "./Components/drawer";
+import React from "react"
+import Modal from './Components/modal.js'
+import ModalPop from "./Components/modal.js";
+import WishList  from "./Components/WishList";
 
 function App() {
   
@@ -20,12 +23,13 @@ function App() {
     <>
       <UserContextProvider>
         <AppBar />
-        <AppDrawer />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<ProductPage />} />
           <Route path="/about" element={<About />} />
           <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/modal" element={<ModalPop />} />
+          <Route path="/wishlist" element={<WishList />} />
           {/* <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} /> */}
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/profile" element={<Profile />} />
@@ -37,4 +41,4 @@ function App() {
   );
 }
 
-export default App;
+export default App;  

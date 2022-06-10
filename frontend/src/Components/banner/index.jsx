@@ -1,10 +1,9 @@
-import { Button, Typography, useMediaQuery } from "@mui/material";
-import { useTheme } from "@mui/system";
+import React from 'react';
+import { Typography} from "@mui/material";
 import {
   BannerContainer,
   BannerContent,
   BannerDescription,
-  BannerImage,
   BannerShopButton,
   BannerTitle,
 } from "../styles/banner/index";
@@ -12,8 +11,6 @@ import {
 import MainVideo from "../assets/vistacreate5.mp4";
 
 export default function Banner() {
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
     <BannerContainer>

@@ -22,7 +22,7 @@ const TinderCards = () => {
     getProduct();
   }, []);
 
-  const swiped = (direction, titleToDelete) => {
+  const swiped = (titleToDelete) => {
     console.log('removing' + titleToDelete)
     setLastDirection(lastDirection + 1);
   }

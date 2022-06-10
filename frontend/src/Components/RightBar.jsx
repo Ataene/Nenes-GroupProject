@@ -15,6 +15,7 @@ const RightBar = () => {
         <Typography>
         email: {user.email}
         </Typography>
+       <ModalPop />
      </Container>
     </Box>
   )
