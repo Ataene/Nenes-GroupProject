@@ -1,7 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core";
 import { CssBaseline } from "@material-ui/core";
-// import Footer from "../Components/footer/index";
 import Banner from "../Components/banner";
 import Promotions from "../Components/promotions";
 import Products from "../Components/products";
@@ -16,7 +15,6 @@ export default function Home() {
       <Banner />
       <Promotions />
       <Products />
-      {/* <Footer /> */}
     </div>
   );
 }

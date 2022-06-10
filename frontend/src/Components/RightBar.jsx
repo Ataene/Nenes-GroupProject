@@ -1,10 +1,10 @@
 import React from 'react'
 import { Box, Container, Typography, Avatar } from '@mui/material';
-import { useSession  } from '../auth/UserProvider'
+import { useUserContext  } from '../auth/userContextProvider'
 
 const RightBar = () => {
 
-    const { user } = useSession();
+  const { user } = useUserContext();
   return (
     <Box sx={{flex: "2", backgroundColor: "#DAEAF1", height: "calc(100vh-50px)" }}>
      <Container>

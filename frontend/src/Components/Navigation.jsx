@@ -12,7 +12,6 @@ import Avatar from '@mui/material/Avatar';
 const Navigation = () => {
 
   const { user } = useSession();
-
   const navigate = useNavigate()
   const logoutUser = async() => {
     await Logout();

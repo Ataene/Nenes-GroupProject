@@ -1,12 +1,12 @@
 import React from 'react'
 import { Box } from '@mui/material';
-import { useSession  } from '../auth/UserProvider'
+import { useUserContext  } from '../auth/userContextProvider'
 import LeftBar from "./LeftBar"
 import MiddleBar from "./MiddleBar"
 import RightBar from "./RightBar"
 
 const Profile = () => {
-  const { user } = useSession();
+    const { user } = useUserContext();
   if (!user){
       return null;
   }

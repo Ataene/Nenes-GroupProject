@@ -36,6 +36,7 @@ const TinderCards = () => {
       <Grid container sx={{ justifyContent: "center"}}>
         <Grid sx={{justifyContent: "center", display: "flex"}} item >
           {data.map((product) => (
+            <div style={{height: "50vh"}}>
             <TinderCard 
               key={product.id} 
               className="slideCard"
@@ -49,10 +50,11 @@ const TinderCards = () => {
                 </Typography>
               </Grid>
             </TinderCard>
+            </div>
           ))}
+      <SwipeButtons />
         </Grid>
       </Grid>
-      <SwipeButtons />
     </>
   )
 }

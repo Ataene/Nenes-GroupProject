@@ -6,28 +6,27 @@ import {
   Button,
 } from "@mui/material";
 import {
-  AppbarActionIcons,
   AppbarContainer,
   AppbarHeader,
-  MyList,
 } from "../styles/appbar";
-import PersonIcon from "@mui/icons-material/Person";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import SearchIcon from "@mui/icons-material/Search";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-//import Actions from "./actions";
-import { useUIContext } from "../context/index";
 import React from "react";
-import { Link } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@mui/material/AppBar";
+import { Link, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import LoginIcon from "@mui/icons-material/Login";
 //import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
-
+import Avatar from '@mui/material/Avatar';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { useUserContext  } from '../../auth/userContextProvider'
 
 export default function Appbar() {
-  const { setShowSearchBox } = useUIContext();
+
+  const { LogoutUser, user } = useUserContext();
+  const navigate = useNavigate();
+
+  const logoutUser = async() => {
+    await LogoutUser();
+    navigate("/login");
+  }
 
   return (
     <AppbarContainer>
@@ -41,7 +40,7 @@ export default function Appbar() {
             href="/"
             sx={{
               mr: 2,
-              display: { xs: "none", md: "flex" },
+              display: { xs: "none", md: "flex"},
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
@@ -85,14 +84,25 @@ export default function Appbar() {
               </Button>
             </Link>
           </Box>
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <Link style={{ textDecoration: "none" }} to="/login">
-              <Button sx={{ my: 2, color: "green", alignItem: "center" }}>
-                <LoginIcon />
-                Login
-              </Button>
-            </Link>
-          </Box>
+          {!user && <Box style={{ textDecoration: "none" }} sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
+              <Link style={{ textDecoration: "none" }} to="/login">
+                <Button sx={{ my: 2, color: "green", alignItem: "center" }}>
+                  <LoginIcon />Login
+                </Button>
+              </Link>
+            </Box>}
+            {!!user && <Box sx={{color: 'green', display: "flex" }}>
+            <Typography sx={{marginTop: "10px", paddingRight: "10px"}}>
+              Hello, {user.displayName} 
+            </Typography>
+              <Avatar alt="User" src="/static/images/avatar/1.jpg" />
+            </Box>
+            }
+            {!!user && <Box style={{ textDecoration: "none", marginLeft: "10px" }} sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
+                <Button sx={{ my: 2, color: "green", alignItem: "center" }} onClick={logoutUser}>
+                  <ExitToAppIcon />Logout
+                </Button>
+            </Box>}
         </Toolbar>
       </Container>
     </AppbarContainer>
