@@ -1,8 +1,15 @@
 import React from 'react'
 import { Box, Container, Typography, Avatar } from '@mui/material';
 import { useUserContext  } from '../auth/userContextProvider'
+import { useNavigate } from 'react-router-dom';
+import ModalPop from './modal';
 
 const RightBar = () => {
+
+  const navigate= useNavigate()
+  const handleModal = () => {
+    navigate('/modal')
+  }
 
   const { user } = useUserContext();
   return (
