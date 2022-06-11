@@ -1,17 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import cardImage from "../images/faceremovebg.png"
-import { useUserContext  } from '../auth/userContextProvider'
+import { AuthContext  } from '../auth/AuthProvider'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatIcon from '@mui/icons-material/Chat';
 import Avatar from '@mui/material/Avatar';
 
 const TopProfile = () => {
-
-  const { user } = useUserContext();
+  const authContext = useContext(AuthContext)
+  const { user } = authContext;
   return (
     <>
      <Card sx={{ maxWidth: 1000, height: "20rem", marginTop: "10px" }}>

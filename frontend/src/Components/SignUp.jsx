@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Box, makeStyles, Avatar, TextField } from "@material-ui/core";
 import { Link, useNavigate } from "react-router-dom";
 import { Typography, Button } from "@mui/material";
-import { useUserContext  } from '../auth/userContextProvider'
+import { AuthContext  } from '../auth/AuthProvider'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,8 +23,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignUp = () => {
-
-  const { registerUser } = useUserContext();
+  const authContext = useContext(AuthContext)
+  const { registerUser } = authContext;
   const classes = useStyles();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");

@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Box } from '@mui/material';
-import { useUserContext  } from '../auth/userContextProvider'
+import { AuthContext  } from '../auth/AuthProvider'
 import LeftBar from "./LeftBar"
 import MiddleBar from "./MiddleBar"
 import RightBar from "./RightBar"
 
 const Profile = () => {
-    const { user } = useUserContext();
+    const authContext = useContext(AuthContext)
+    const { user } = authContext;
   if (!user){
       return null;
   }

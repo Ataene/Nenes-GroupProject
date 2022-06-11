@@ -31,20 +31,17 @@ function SearchBar({ placeholder, data }) {
   return (
     <div className="search">
       <div className="searchInputs">
-        <input
-          type="text"
-          placeholder={placeholder}
-          value={wordEntered}
-          onChange={handleFilter}
-        />
+        <input type="text" placeholder={placeholder} value={wordEntered} onChange={handleFilter} />
         <div className="searchIcon">
-          {filteredData.length === 0 ? (
             <SearchIcon />
+          {/* {filteredData.length === 0 ? (
           ) : (
             <CloseIcon id="clearBtn" onClick={clearInput} />
-          )}
+          )} */}
         </div>
       </div>
+
+      
       {filteredData.length != 0 && (
         <div className="dataResult">
           {filteredData.slice(0, 15).map((value, key) => {

@@ -10,7 +10,7 @@ import {
 MyList
 } from "../styles/appbar";
 //import Actions from "./actions";
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import LoginIcon from "@mui/icons-material/Login";
@@ -21,14 +21,13 @@ import PostAd from "../PostAdButton";
 import SearchBar from "../SearchBar";
 import {products} from "../../Components/Data/index";
 
-import { useUserContext  } from '../../auth/userContextProvider'
+import { AuthContext  } from '../../auth/AuthProvider'
 
 const Appbar = () => {
-  const { user, LogoutUser } = useUserContext();
-  
-  const { setShowSearchBox } = useUIContext();
-
+  const authContext = useContext(AuthContext)
+  const { user, LogoutUser } = authContext;
   const navigate = useNavigate();
+  
   const logoutUser = async () => {
     await LogoutUser();
     navigate("/login");
@@ -56,7 +55,7 @@ const Appbar = () => {
               <AppbarHeader variant="h1">Hundie Trade</AppbarHeader>
             </Typography>
             <Box
-              style={{ textDecoration: "none", marginLeft: "15rem" }}
+              style={{ textDecoration: "none", marginLeft: "25rem" }}
               sx={{ flexGrow: 2, display: { xs: "none", md: "flex" } }}
             >
               <Link style={{ textDecoration: "none" }} to="/">
@@ -97,8 +96,8 @@ const Appbar = () => {
                 style={{ textDecoration: "none" }}
                 sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}
               >
-                <SearchBar 
-                  placeholder="Enter an item name..."
+                <SearchBar
+                    placeholder=" Enter an item name..."
                   data={products}
                 />
                 <Link style={{ textDecoration: "none" }} to="/postad">

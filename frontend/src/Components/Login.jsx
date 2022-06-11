@@ -1,14 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext  } from '../auth/AuthProvider';
 import { Box, makeStyles, Avatar, TextField } from "@material-ui/core";
 import { Typography, Button } from "@mui/material";
-import { Link } from "react-router-dom";
-import { gitHub, facebook, twitter, google } from "../auth/gitHub";
-import { useNavigate } from "react-router-dom";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import GoogleIcon from '@mui/icons-material/Google';
-import { useUserContext  } from '../auth/userContextProvider'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,29 +28,22 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = () => {
 
-  const { user, signinInUser } = useUserContext();
+  const authContext = useContext(AuthContext);
+  const { authError, isPending, loading, signInUser, gitHub, google, facebook, twitter } = authContext;
+  const navigate = useNavigate();
 
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isPending, setIsPending] = useState(false);
-  const [error, setError] = useState(null);
   const avatarStyle = { backgroundColor: "#1bbd7e" };
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-     await signinInUser(email, password);
-    } catch (error) {
-      setError(error.message);
-    }
-
-    if(user){
-      setIsPending(true)
-      navigate(`/profile`)
-    } else {
-      setError("Invalid email and password");
+     await signInUser(email, password);
+     navigate("/profile")
+     } catch (error) {
+      console.log(error.message)
     }
   };
 
@@ -60,11 +51,10 @@ const Login = () => {
     try {
       const gitHubUser = await gitHub();
       if(gitHubUser){
-        setIsPending(true)
         navigate("/profile")
       }
     } catch (error) {
-      setError("GitHub Auth Failed");
+      console.log("GitHub Auth Failed");
     }
   }
 
@@ -72,11 +62,10 @@ const Login = () => {
     try {
       const facebookUser = await facebook();
       if(facebookUser){
-        setIsPending(true)
         navigate("/profile")
       }
     } catch (error) {
-      setError("Facebook Auth Failed");
+      console.log("Failed")
     }
   }
 
@@ -84,11 +73,10 @@ const Login = () => {
     try {
       const twitterUser = await twitter();
       if(twitterUser){
-        setIsPending(true)
         navigate("/profile")
       }
     } catch (error) {
-      setError("Twitter Auth Failed");
+      console.log("Twitter Auth Failed");
     }
   }
 
@@ -96,23 +84,18 @@ const Login = () => {
     try {
       const googleUser = await google();
       if(googleUser){
-        setIsPending(true)
         navigate("/profile")
       }
     } catch (error) {
-      setError("Google Auth Failed");
+      console.log("Google Auth Failed");
     }
   }
 
   return (
     <div className={classes.root} style={{backgroundColor: "#fafafa"}}>
       <form className={classes.root} onSubmit={handleSubmit}>
-        <h1>
-          <br />
-          Login
-        </h1>
+        <Typography variant="h4">User Login</Typography> <br />
         <Avatar style={avatarStyle}></Avatar>
-
         <TextField
           label="Email"
           variant="filled"
@@ -130,21 +113,21 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        {error && (
+        {authError && (
           <Typography variant="h6" style={{ color: "red" }}>
-            {error}
+            {authError}
           </Typography>
         )}
         <Box>
           <Button variant="contained">
             Cancel
           </Button>
-          {!isPending && (
+          {loading && (
             <Button type="submit" variant="contained" color="primary">
               Login
             </Button>
           )}
-          {isPending && (
+          {!loading && (
             <Button type="submit" variant="contained" color="primary">
               Login...
             </Button>

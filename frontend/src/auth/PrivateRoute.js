@@ -1,19 +1,18 @@
 import React, { useContext } from 'react'
 import { Navigate  } from 'react-router-dom';
-import { AuthContext } from "./AuthContext"
+import { AuthContext  } from '../auth/AuthProvider';
 
 export const PrivateRoute = (props) => {
 
+    const element = props.element;
     const authContext = useContext(AuthContext);
 
-    const loggedInUser = authContext.loggedInUser;
-    const loading = authContext.loading;
-    const element = props.element;
+    const { user, loading } = authContext;
 
     if(loading) {
         return <div>Loading...</div>
     }
-     if(loggedInUser) {
+     if(user) {
        return element;
       } else {
         return <Navigate to="/login" />
