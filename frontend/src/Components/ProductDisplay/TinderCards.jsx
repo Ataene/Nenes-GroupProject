@@ -30,13 +30,11 @@ const TinderCards = () => {
   const outOfFrame = (title) => {
     console.log(title + 'left the screen')
   }
- //sort(() => Math.random()-0.5)
   return (
     <>
       <Grid container sx={{ justifyContent: "center"}}>
         <Grid sx={{justifyContent: "center", display: "flex"}} item >
           {data.map((product) => (
-            <div style={{height: "50vh"}}>
             <TinderCard 
               key={product.id} 
               className="slideCard"
@@ -50,9 +48,8 @@ const TinderCards = () => {
                 </Typography>
               </Grid>
             </TinderCard>
-            </div>
           ))}
-      <SwipeButtons />
+          <SwipeButtons />
         </Grid>
       </Grid>
     </>

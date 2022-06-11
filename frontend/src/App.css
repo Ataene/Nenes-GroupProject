@@ -19,6 +19,7 @@ width: 100vw;
  }
  .slideCard{
    position: absolute;
+   height: 50vh,
  }
 .cardTypography {
   position: absolute;
