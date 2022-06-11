@@ -3,13 +3,11 @@ import {
   Typography,
   Container,
   Button,
-  ListItemButton,
-  ListItemIcon,
 } from "@mui/material";
 import {
   AppbarContainer,
   AppbarHeader,
-
+MyList
 } from "../styles/appbar";
 //import Actions from "./actions";
 import React from "react";
@@ -22,7 +20,9 @@ import Logout from "../../auth/Logout";
 import Avatar from "@mui/material/Avatar";
 import SearchIcon from "@mui/icons-material/Search";
 import { useUIContext } from "../context/index";
-import SearchBar from "../Search";
+import PostAd from "../PostAdButton";
+import SearchBar from "../SearchBar";
+import {products} from "../../Components/Data/index";
 
 
 
@@ -40,7 +40,7 @@ const Appbar = () => {
   return (
     <div>
       <AppbarContainer>
-        <Container maxWidth="xl">
+        <Container maxWidth="xxl">
           <Toolbar disableGutters>
             <Typography
               variant="h6"
@@ -83,16 +83,28 @@ const Appbar = () => {
                   About
                 </Button>
               </Link>
-
-              
             </Box>
             {!user && (
-              
+              <Box
+                style={{ textDecoration: "none" }}
+                sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}
+              ></Box>
+            )}
+            {!user && (
               <Box
                 style={{ textDecoration: "none" }}
                 sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}
               >
-                <SearchBar />
+                <SearchBar 
+                  placeholder="Enter an item name..."
+                  data={products}
+                />
+                <Link style={{ textDecoration: "none" }} to="/postad">
+                  <Button sx={{ my: 2, color: "green", alignItem: "center" }}>
+                    <PostAd />
+                  </Button>
+                </Link>
+
                 <Link style={{ textDecoration: "none" }} to="/login">
                   <Button sx={{ my: 2, color: "green", alignItem: "center" }}>
                     <LoginIcon />
