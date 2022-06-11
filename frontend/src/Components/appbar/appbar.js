@@ -97,7 +97,7 @@ const Appbar = () => {
                 sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}
               >
                 <SearchBar
-                    placeholder=" Enter an item name..."
+                    placeholder="    Enter an item name..."
                   data={products}
                 />
                 <Link style={{ textDecoration: "none" }} to="/postad">
