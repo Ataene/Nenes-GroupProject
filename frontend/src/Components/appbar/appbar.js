@@ -4,7 +4,11 @@ import {
   Container,
   Button,
 } from "@mui/material";
-import { AppbarContainer, AppbarHeader } from "../styles/appbar";
+import {
+  AppbarContainer,
+  AppbarHeader,
+MyList
+} from "../styles/appbar";
 //import Actions from "./actions";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,9 +16,11 @@ import Box from "@mui/material/Box";
 import LoginIcon from "@mui/icons-material/Login";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import Avatar from "@mui/material/Avatar";
-import SearchIcon from "@mui/icons-material/Search";
 import { useUIContext } from "../context/index";
-import SearchBar from "../Search";
+import PostAd from "../PostAdButton";
+import SearchBar from "../SearchBar";
+import {products} from "../../Components/Data/index";
+
 import { useUserContext  } from '../../auth/userContextProvider'
 
 const Appbar = () => {
@@ -30,7 +36,7 @@ const Appbar = () => {
   return (
     <div>
       <AppbarContainer>
-        <Container maxWidth="xl">
+        <Container maxWidth="xxl">
           <Toolbar disableGutters>
             <Typography
               variant="h6"
@@ -83,8 +89,24 @@ const Appbar = () => {
               <Box
                 style={{ textDecoration: "none" }}
                 sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}
+              ></Box>
+            )}
+            {!user && (
+
+              <Box
+                style={{ textDecoration: "none" }}
+                sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}
               >
-                <SearchBar />
+                <SearchBar 
+                  placeholder="Enter an item name..."
+                  data={products}
+                />
+                <Link style={{ textDecoration: "none" }} to="/postad">
+                  <Button sx={{ my: 2, color: "green", alignItem: "center" }}>
+                    <PostAd />
+                  </Button>
+                </Link>
+
                 <Link style={{ textDecoration: "none" }} to="/login">
                   <Button sx={{ my: 2, color: "green", alignItem: "center" }}>
                     <LoginIcon />
