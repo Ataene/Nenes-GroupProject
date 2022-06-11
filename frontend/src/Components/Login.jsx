@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { Box, makeStyles, Avatar, TextField } from "@material-ui/core";
 import { Typography, Button } from "@mui/material";
 import { Link } from "react-router-dom";
-import signin from "../auth/signin";
 import { gitHub, facebook, twitter, google } from "../auth/gitHub";
 import { useNavigate } from "react-router-dom";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import GoogleIcon from '@mui/icons-material/Google';
+import { useUserContext  } from '../auth/userContextProvider'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,6 +30,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = () => {
 
+  const { user, signinInUser } = useUserContext();
+
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -40,9 +42,8 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let user;
     try {
-      user = await signin(email, password);
+     await signinInUser(email, password);
     } catch (error) {
       setError(error.message);
     }
@@ -99,12 +100,12 @@ const Login = () => {
         navigate("/profile")
       }
     } catch (error) {
-      setError("Twitter Auth Failed");
+      setError("Google Auth Failed");
     }
   }
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} style={{backgroundColor: "#fafafa"}}>
       <form className={classes.root} onSubmit={handleSubmit}>
         <h1>
           <br />

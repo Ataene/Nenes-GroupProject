@@ -1,4 +1,4 @@
-
+import React from "react";
 import { Typography } from "@mui/material";
 import { ProductMetaWrapper } from "../styles/product";
 export default function ProductMeta({ product}) {

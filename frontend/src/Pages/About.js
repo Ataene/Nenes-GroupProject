@@ -3,8 +3,8 @@ import { Button, Card, CardActions, CardMedia, Typography, CardContent, Grid } f
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import images1 from "../images/Alaf.jpg";
-import images2 from "../images/Sam.jpg";
-import images3 from "../images/Nicole.jpg";
+import images2 from "../images/Nicole.jpg";
+import images3 from "../images/Sam.jpg";
 import images4 from "../images/Neetha.png";
 import { Container } from '@mui/system';
 
@@ -20,7 +20,7 @@ const About = () => {
   },
   {
     id: 2,
-    image: images3,
+    image: images2,
     name: "Nicole Dubois",
     profession: "Software Engineer & Nurse",
     github: "https://github.com/nicoleamdubois",
@@ -28,7 +28,7 @@ const About = () => {
   },
   {
     id: 3,
-    image: images2,
+    image: images3,
     name: "Samuel Ojagbohunmi",
     profession: "Software & MBA",
     github: "https://github.com/samm40me",

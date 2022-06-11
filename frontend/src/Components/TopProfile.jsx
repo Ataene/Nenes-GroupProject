@@ -3,13 +3,15 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
-import { useSession  } from '../auth/UserProvider'
+import cardImage from "../images/faceremovebg.png"
+import { useUserContext  } from '../auth/userContextProvider'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatIcon from '@mui/icons-material/Chat';
 import Avatar from '@mui/material/Avatar';
 
 const TopProfile = () => {
-    const { user } = useSession();
+
+  const { user } = useUserContext();
   return (
     <>
      <Card sx={{ maxWidth: 1000, height: "20rem", marginTop: "10px" }}>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, makeStyles, Avatar, TextField } from "@material-ui/core";
 import { Link, useNavigate } from "react-router-dom";
 import { Typography, Button } from "@mui/material";
-import signup from "../auth/signup";
+import { useUserContext  } from '../auth/userContextProvider'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,6 +23,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignUp = () => {
+
+  const { registerUser } = useUserContext();
   const classes = useStyles();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -38,7 +40,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await signup(firstName, lastName, email, password)
+      await registerUser(firstName, lastName, email, password)
       navigate("/login")
       setIsPending(true)
     } catch (error) {
