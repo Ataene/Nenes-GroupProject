@@ -13,6 +13,7 @@ import Footer from "../src/Components/footer/index";
 import AppBar from "./Components/appbar/appbar";
 import React from "react"
 import NestedModal, {Location, NearMe } from "./Components/Location";
+import PostAdPage from "./Components/PostAd";
 import WishList  from "./Components/WishList";
 import FirebaseProvider from "./auth/FirebaseProvider";
 import PostAd from "./Components/PostAd";
