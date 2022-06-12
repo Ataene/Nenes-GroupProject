@@ -1,23 +1,10 @@
-import React, { useContext } from 'react';
-import { collection, addDoc } from "firebase/firestore";
-import { FirebaseContext } from '../providers/FirebaseProvider';
+import React, { createContext } from 'react';
+import { collection, addDoc, setDoc, doc, getDocs } from "firebase/firestore";
+import db  from "./FirebaseProvider";
 
-const user = () => {
-    const fbContext = useContext(FirebaseContext);
-    const { db } = fbContext;
-    
-  return (
-    <div>user</div>
-  )
-}
-
-export default user
-
-
- 
-
-export const createUserDocument = async (user) => {     
-    const docRef = await addDoc(collection(db, "users"), {
+export const createUserDocument = async (user) => {
+    try {
+      const userProfile = {
         uid: user.uid,
         email: user.email,
         name: user.displayName,
@@ -27,9 +14,15 @@ export const createUserDocument = async (user) => {
         postalCode: "",
         ProductWant: "",
         ProductNeeded: "",
-    })
-    return docRef;
-};
+      }
+      let newUser = await setDoc(doc(db, "users", user.uid), userProfile)
+      console.log("New user created!", newUser);
+      return newUser;
+    } catch (error) {
+      console.log("Error creattting user data", error);
+      return false;
+    }
+}
 
 export const readUserDocument = async () => {
     const userDocRef = await getDocs(collection(db, "users"));

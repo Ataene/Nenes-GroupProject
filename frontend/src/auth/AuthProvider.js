@@ -1,6 +1,8 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, updateProfile, GithubAuthProvider, FacebookAuthProvider, TwitterAuthProvider, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { FirebaseContext } from './FirebaseProvider';
+import { createUserDocument } from './user';
+import { doc, setDoc } from 'firebase/firestore';
 
 export const AuthContext = createContext();
 
@@ -8,6 +10,7 @@ const AuthProvider = (props) => {
 
     const children = props.children
     const [ user, setUser ] = useState(null);
+    const [ profile, setProfile ] = useState(null);
     const [ loading, setLoading ] = useState(false);
     const [ authError, setAuthError ] = useState();
     const [ isPending, setIsPending ] = useState();
@@ -19,14 +22,28 @@ const AuthProvider = (props) => {
 
     const fbContext = useContext(FirebaseContext);
     const auth = fbContext.auth;
+    const db = fbContext.db;
 
     const registerUser = async (firstName, lastName, email, password) => {
         try {
-            setLoading(true);
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            const user = await updateProfile(auth.userCredential, {
-                displayName: `${firstName} ${lastName}`})
-            return user;
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password, db);
+            let user = userCredential.user;
+            let newUser = doc(db, "users", user.uid);
+            const userProfile = {
+                uid: user.uid,
+                email: user.email,
+                name: user.displayName,
+                address: "",
+                province: "",
+                city: "",
+                postalCode: "",
+                ProductWant: "",
+                ProductNeeded: "",
+              }
+              setDoc(newUser, userProfile)
+              return true;
+            // await updateProfile(auth.userCredential, {displayName: `${firstName} ${lastName}`});
+            // // return user;
         } catch (error) {
             console.log(error.message);
         }

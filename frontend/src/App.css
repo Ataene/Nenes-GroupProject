@@ -32,7 +32,6 @@ width: 100vw;
 
 .searchInputs {
   margin-top: 18px;
-  display: flex;
   margin-bottom: 10px;
 }
 
@@ -42,8 +41,8 @@ width: 100vw;
   border-radius: 10px;
   font-size: 18px;
   padding: 13px;
-  height: 35px;
-  width: 200px;
+  height: 18px;
+  width: 250px;
 }
 
 .searchIcon {
@@ -51,9 +50,11 @@ width: 100vw;
   width: 50px;
   color: green;
   position: absolute;
-  right: 20rem;
+  display: flex;
+  top: 20px;
+  right: 25rem;
   place-items: center;
-  margin-top: 4px;
+  margin-bottom: 20rem;
 }
 
 input:focus {
