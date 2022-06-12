@@ -31,7 +31,7 @@ const WishList = () => {
           <Button size="small">Learn More</Button>
         </CardActions>
       </Card>
-    ))}
+        ))}
       </Grid>
       </Container>
     </>

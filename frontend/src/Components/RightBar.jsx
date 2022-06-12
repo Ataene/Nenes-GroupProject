@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Box, Container, Typography, Avatar } from '@mui/material';
 import { AuthContext  } from '../auth/AuthProvider'
 import { useNavigate } from 'react-router-dom';
-import ModalPop from './modal';
+import Location from './Location';
 
 const RightBar = () => {
 
@@ -11,7 +11,7 @@ const RightBar = () => {
   const { user } = authContext;
   const navigate= useNavigate()
   const handleModal = () => {
-    navigate('/modal')
+    navigate('/location')
   }
 
   return (
@@ -24,7 +24,7 @@ const RightBar = () => {
         <Typography>
         email: {user.email}
         </Typography>
-       <ModalPop />
+       <Location />
      </Container>
     </Box>
   )

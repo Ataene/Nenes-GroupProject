@@ -9,7 +9,7 @@ const LeftBar = () => {
 
   return (
     <>
-    <Box sx={{flex: "2", backgroundColor: "#A5BECC"}}>
+    <Box sx={{flex: "1.5", backgroundColor: "#A5BECC"}}>
         <Container>
         <List
       component="nav"

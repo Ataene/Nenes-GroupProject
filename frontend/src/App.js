@@ -12,7 +12,7 @@ import Profile from "./Components/Profile";
 import Footer from "../src/Components/footer/index";
 import AppBar from "./Components/appbar/appbar";
 import React from "react"
-import ModalPop from "./Components/modal.js";
+import {Location, NearMe } from "./Components/Location";
 import WishList  from "./Components/WishList";
 import FirebaseProvider from "./auth/FirebaseProvider";
 // import { AddProducts } from "./Components/PostAd";
@@ -29,7 +29,8 @@ function App() {
             <Route path="/products" element={<ProductPage />} />
             <Route path="/about" element={<About />} />
             <Route path="/product/:id" element={<ProductDetail />} />
-            <Route path="/modal" element={<ModalPop />} />
+            <Route path="/location" element={<Location />} />
+            <Route path="/location/nearme" element={<NearMe />} />
             <Route path="/wishlist" element={<WishList />} />
             {/* <Route path="/postadd" element={<AddProducts />} /> */}
             <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />

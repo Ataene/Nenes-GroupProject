@@ -1,7 +1,6 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, updateProfile, GithubAuthProvider, FacebookAuthProvider, TwitterAuthProvider, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { FirebaseContext } from './FirebaseProvider';
-import { createUserDocument } from './user';
 import { doc, setDoc } from 'firebase/firestore';
 
 export const AuthContext = createContext();

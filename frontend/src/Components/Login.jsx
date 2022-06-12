@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 const Login = () => {
 
   const authContext = useContext(AuthContext);
-  const { authError, isPending, loading, signInUser, gitHub, google, facebook, twitter } = authContext;
+  const { authError, forgotPassword, loading, signInUser, gitHub, google, facebook, twitter } = authContext;
   const navigate = useNavigate();
 
   const classes = useStyles();
@@ -41,7 +41,7 @@ const Login = () => {
     e.preventDefault();
     try {
      await signInUser(email, password);
-     navigate("/profile")
+     navigate("/location")
      } catch (error) {
       console.log(error.message)
     }
@@ -84,7 +84,7 @@ const Login = () => {
     try {
       const googleUser = await google();
       if(googleUser){
-        navigate("/profile")
+        navigate("/location")
       }
     } catch (error) {
       console.log("Google Auth Failed");
@@ -134,7 +134,8 @@ const Login = () => {
           )}
         </Box>
         <Box sx={{display: "flex", flexDirection: "column"}}>
-        <Typography variant="h6" sx={{paddingLeft: "8rem"}} >Or Login in with</Typography>
+        <Typography variant="h5" onClick={() =>forgotPassword()} sx={{ paddingLeft: "7rem", color: "green"}}>Forget Password</Typography> <hr />
+        <Typography variant="h6" sx={{paddingLeft: "8rem", color: "red"}} >Or Login in with</Typography>
           <Button onClick={githubLogin}
             variant="contained"
             sx={{ backgroundColor: " #171515", display: "flex", width: "20rem" }}

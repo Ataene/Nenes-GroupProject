@@ -56,7 +56,7 @@ const About = () => {
       <Grid container sx={{ justifyContent: "center"}}>
           <Grid item sx={{justifyContent: "center", display: "flex"}}>
           {teamNames.map((names) => (
-          <Card sx={{ maxWidth: 345, height: "25rem", marginTop: "20px", margin: "20px" }}  key={names.id}>
+          <Card sx={{ maxWidth: 345, height: "25rem", marginTop: "20px", margin: "15px" }}  key={names.id}>
             <CardMedia
             component="img"
             alt="Team Images"
