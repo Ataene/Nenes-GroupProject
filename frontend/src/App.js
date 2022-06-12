@@ -12,9 +12,10 @@ import Profile from "./Components/Profile";
 import Footer from "../src/Components/footer/index";
 import AppBar from "./Components/appbar/appbar";
 import React from "react"
-import {Location, NearMe } from "./Components/Location";
+import NestedModal, {Location, NearMe } from "./Components/Location";
 import WishList  from "./Components/WishList";
 import FirebaseProvider from "./auth/FirebaseProvider";
+import PostAd from "./Components/PostAd";
 // import { AddProducts } from "./Components/PostAd";
 
 function App() {
@@ -32,6 +33,8 @@ function App() {
             <Route path="/location" element={<Location />} />
             <Route path="/location/nearme" element={<NearMe />} />
             <Route path="/wishlist" element={<WishList />} />
+            <Route path="/postad" element={<PostAd />} />
+
             {/* <Route path="/postadd" element={<AddProducts />} /> */}
             <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
             <Route exact path="/login" element={<Login />} />
