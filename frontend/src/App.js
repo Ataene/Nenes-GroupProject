@@ -34,7 +34,7 @@ function App() {
             <Route path="/location" element={<Location />} />
             <Route path="/location/nearme" element={<NearMe />} />
             <Route path="/wishlist" element={<WishList />} />
-            <Route path="/postad" element={<PostAd />} />
+            <Route path="/postad" element={<PostAdPage />} />
 
             {/* <Route path="/postadd" element={<AddProducts />} /> */}
             <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
