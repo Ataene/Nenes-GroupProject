@@ -37,25 +37,26 @@ const Appbar = () => {
       <AppbarContainer>
         <Container maxWidth="xxl">
           <Toolbar disableGutters>
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href="/"
-              sx={{
-                mr: 2,
-                display: { xs: "none", md: "flex" },
-                fontFamily: "monospace",
-                fontWeight: 300,
-                letterSpacing: ".1rem",
-                color: "inherit",
-                textDecoration: "none",
-              }}
-            >
-              <AppbarHeader variant="h1">Hundie Trade</AppbarHeader>
-            </Typography>
+            <Box>
+              <Typography
+                variant="h2"
+                noWrap
+                component="a"
+                href="/"
+                sx={{
+                  mr: 2,
+                  display: { xs: "none", md: "flex" },
+                  fontFamily: '"Montez", "cursive"',
+                  fontSize: "3em",
+                  letterSpacing: ".1rem",
+                  color: "green",
+                }}
+              >
+                Hundie Trade
+              </Typography>
+            </Box>
             <Box
-              style={{ textDecoration: "none", marginLeft: "25rem" }}
+              style={{ textDecoration: "none", marginLeft: "20rem" }}
               sx={{ flexGrow: 2, display: { xs: "none", md: "flex" } }}
             >
               <Link style={{ textDecoration: "none" }} to="/">
@@ -91,13 +92,12 @@ const Appbar = () => {
               ></Box>
             )}
             {!user && (
-
               <Box
                 style={{ textDecoration: "none" }}
                 sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}
               >
                 <SearchBar
-                    placeholder="    Enter an item name..."
+                  placeholder="Enter an item name..."
                   data={products}
                 />
                 <Link style={{ textDecoration: "none" }} to="/postad">

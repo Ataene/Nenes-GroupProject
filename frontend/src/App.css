@@ -31,7 +31,7 @@ width: 100vw;
 }
 
 .searchInputs {
-  margin-top: 18px;
+  margin-top: 25px;
   margin-bottom: 10px;
 }
 
@@ -39,7 +39,7 @@ width: 100vw;
   background-color: white;
   border: 1px solid green;
   border-radius: 10px;
-  font-size: 18px;
+  font-size: 15px;
   padding: 13px;
   height: 18px;
   width: 250px;
@@ -50,18 +50,18 @@ width: 100vw;
   width: 50px;
   color: green;
   position: absolute;
-  display: flex;
-  top: 20px;
-  right: 25rem;
-  place-items: center;
-  margin-bottom: 20rem;
+  display: grid;
+  top: 27px;
+  right: 10rem;
+  place-items: right;
+  margin-bottom: 10rem;
 }
 
 input:focus {
   outline: none;
 }
 .searchIcon svg {
-  font-size: 25px;
+  font-size: 22px;
 }
 .dataResult {
   margin-top: 3px;
@@ -91,10 +91,6 @@ input:focus {
 
 a {
   text-decoration: none;
-}
-
-a:hover {
-  background-color: lightgrey;
 }
 
 #clearBtn {
