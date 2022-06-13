@@ -7,7 +7,6 @@ import Location from './Location';
 const RightBar = () => {
 
   const authContext = useContext(AuthContext);
-
   const { user } = authContext;
   const navigate= useNavigate()
   const handleModal = () => {

@@ -13,6 +13,7 @@ const MiddleBar = () => {
               <Button sx={{margin: "5px"}} variant="outlined" size="large">Products</Button>
               <Button sx={{margin: "5px"}} variant="outlined" size="large">Categories</Button>
               <Button sx={{margin: "5px"}} variant="outlined" size="large">Services</Button>
+              <Button sx={{margin: "5px"}} variant="outlined" size="large">Post Ad</Button>
             </Box><hr />
             <TopProfile/>
             <Feeds />

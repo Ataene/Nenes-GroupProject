@@ -65,7 +65,7 @@ export const Location = () => {
   const [postalCode, setPostalCode] = useState('');
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("location/nearme");
+    navigate("/location/nearme");
   }
 
   return(
