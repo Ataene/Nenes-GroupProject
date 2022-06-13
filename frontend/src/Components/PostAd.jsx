@@ -1,5 +1,5 @@
 import { Box, Button, Modal, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 const style = {
@@ -22,7 +22,7 @@ const PostAdPage = () => {
   const [category, setCategory] = useState("");
   const [condition, setCondition] = useState("");
   const [description, setDescription] = useState("");
-  const [picture, setPicture] = useState("");
+
 
   const navigate = useNavigate();
 
@@ -77,13 +77,13 @@ const PostAdPage = () => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
-            <input
+            {/* <input
               className="file-uploader"
               type="file"
               onChange={handleFileInput}
               placeholder="Upload a picture of your item"
               value={picture}
-            />
+            /> */}
 
             <div></div>
             <Button type="submit">Submit</Button>
