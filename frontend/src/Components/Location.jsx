@@ -49,7 +49,8 @@ export default function NestedModal() {
       >
         <Box sx={{ ...style, width: 400 }}>
           <form onSubmit={handleSubmit}>
-          <TextField placeholder="Enter your Postal Code" type="text" value={postalCode} onChange={(e) => setPostalCode(e.target.value)} />
+          <text>Enter your postal code to see potential trades near you!</text>
+           <TextField placeholder="Enter your Postal Code" type="text" value={postalCode} onChange={(e) => setPostalCode(e.target.value)} />
           <Button type='submit'>Submit</Button>
           </form>
         </Box>
@@ -71,12 +72,13 @@ export const Location = () => {
   return(
     <>
       <Container>
-        <Typography variant='h4' style={{color: "green"}}>A socail market place to trade your unused items under Hundred</Typography>
+        <Typography variant='h4' style={{color: "green"}}>A social market place to trade your unused items under a Hundred</Typography>
         <Box sx={{marginLeft: "20rem"}}>
           <img src={postalImage}/>
         </Box>
         <Box component="form" sx={{'& > :not(style)': { m: 1, width: '25ch' }, marginLeft: "25rem", marginTop: "2rem", }} noValidate autoComplete="off">
           <form onSubmit={handleSubmit}>
+            <text>Enter your postal code to see potential trades near you!</text>
             <TextField sx={{width: "25rem"}} placeholder="Enter Your Postal Code" type="text" value={postalCode} onChange={(e) => setPostalCode(e.target.value)} />
             <Button pattern="^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$" type='submit' sx={{backgroundColor: "yellow"}}>Postal Code</Button>
           </form>

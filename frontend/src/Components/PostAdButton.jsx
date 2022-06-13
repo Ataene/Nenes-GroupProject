@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from "@mui/material/Button";
 
-const PostAd = () => {
+const Postad = () => {
   return (
     <div>
       <Button
@@ -17,4 +17,4 @@ const PostAd = () => {
   );
 }
 
-export default PostAd;
+export default Postad;
