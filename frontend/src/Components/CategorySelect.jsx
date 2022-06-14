@@ -1,6 +1,17 @@
 import React, { useState, useContext } from "react";
 import { useTheme } from "@mui/material/styles";
-import { Button, Modal, TextField, Chip,Select, FormControl, MenuItem, InputLabel, OutlinedInput, Box  } from "@mui/material";
+import {
+  Button,
+  Modal,
+  TextField,
+  Chip,
+  Select,
+  FormControl,
+  MenuItem,
+  InputLabel,
+  OutlinedInput,
+  Box,
+} from "@mui/material";
 import {
   addDoc,
   collection,
@@ -77,10 +88,11 @@ const CategorySelect = ({ visible, onCancel }) => {
   };
 
   const [title, setTitle] = useState("");
-  
+
   const [description, setDescription] = useState("");
   const [file, setFile] = useState();
   const [progress, setProgress] = useState();
+  const [condition, setCondition] = useState("");
 
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
