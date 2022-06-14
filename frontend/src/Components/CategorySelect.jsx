@@ -77,7 +77,7 @@ const CategorySelect = ({ visible, onCancel }) => {
   };
 
   const [title, setTitle] = useState("");
-  const [condition, setCondition] = useState("");
+  
   const [description, setDescription] = useState("");
   const [file, setFile] = useState();
   const [progress, setProgress] = useState();
