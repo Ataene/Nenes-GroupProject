@@ -9,7 +9,6 @@ import SignUp from "./Components/SignUp";
 import {PrivateRoute} from "./auth/PrivateRoute";
 import AuthProvider  from "./auth/AuthProvider";
 import Profile from "./Components/Profile";
-import Footer from "../src/Components/footer/index";
 import AppBar from "./Components/appbar/appbar";
 import React from "react"
 import NestedModal, {Location, NearMe } from "./Components/Location";
@@ -17,6 +16,7 @@ import PostAdPage from "./Components/PostAd";
 import WishList  from "./Components/WishList";
 import FirebaseProvider from "./auth/FirebaseProvider";
 import PostAd from "./Components/PostAd";
+import Footer from "../src/Components/footer/index";
 // import { AddProducts } from "./Components/PostAd";
 
 function App() {
