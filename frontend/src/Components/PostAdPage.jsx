@@ -54,7 +54,7 @@ const PostAdPage = () => {
               type="text"
               value={postalCode}
               onChange={(e) => setPostalCode(e.target.value)} */}
-            />
+            {/* /> */}
             <TextField
               placeholder="Enter the product category"
               type="text"
