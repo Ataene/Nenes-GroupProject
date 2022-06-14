@@ -1,36 +1,44 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import { Toolbar, Typography, Container, Button } from "@mui/material";
+import { Toolbar, Typography, Container, Button, Grid } from "@mui/material";
 import LoginIcon from '@mui/icons-material/Login';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import { useSession } from "../auth/UserProvider";
-import Logout from "../auth/Logout";
 import Avatar from '@mui/material/Avatar';
-
+import {products} from "../Components/Data/index";
+import { AuthContext  } from '../auth/AuthProvider'
+import PostAd from "./PostAdButton";
+import SearchBar from "./SearchBar";
 
 const Navigation = () => {
 
-  const { user } = useSession();
-  const navigate = useNavigate()
-  const logoutUser = async() => {
-    await Logout();
-    navigate("/login")
-  }
+  const authContext = useContext(AuthContext)
+  const { user, LogoutUser } = authContext;
+  const navigate = useNavigate();
+  const logoutUser = async () => {
+    await LogoutUser();
+    navigate("/login");
+  };
+
   return (
     <div>
       <AppBar position="static">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Typography variant="h6" noWrap component="a" href="/"
-              sx={{ mr: 2, display: { xs: "none", md: "flex" }, fontFamily: "monospace", fontWeight: 700, letterSpacing: ".3rem", color: "inherit", textDecoration: "none", }}>
+              sx={{ mr: 1, display: { xs: "none", md: "flex" }, fontFamily: "monospace", fontWeight: 700, letterSpacing: ".1rem", color: "inherit", textDecoration: "none", }}>
               HundieTrade
             </Typography>
             <Box
-              style={{ textDecoration: "none" }}
-              sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
+              style={{ textDecoration: "none", justifyContent: "center" }}
+              sx={{ display: { xs: "none", md: "flex" } }}
             >
+              <Link style={{ textDecoration: "none" }} to="/">
+                <Button sx={{ my: 2, color: "white", display: "block" }}>
+                  Home
+                </Button>
+              </Link>
               <Link style={{ textDecoration: "none" }} to="/products">
                 <Button sx={{ my: 2, color: "white", display: "block" }}>
                   Products
@@ -52,25 +60,37 @@ const Navigation = () => {
                 </Button>
               </Link>
             </Box>
-            {!user && <Box style={{ textDecoration: "none" }} sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
-              <Link style={{ textDecoration: "none" }} to="/login">
-                <Button sx={{ my: 2, color: "white", alignItem: "center" }}>
-                  <LoginIcon />Login
+
+            <Box sx={{ display: { xs: "none", md: "flex" }, marginLeft: "50rem" }}>
+            {!user && (
+              <>
+                <Link style={{ textDecoration: "none" }} to="/login">
+                  <Button sx={{ my: 2, color: "white", alignItem: "center" }}>
+                    <LoginIcon />
+                    Login
+                  </Button>
+                </Link>
+              </>
+            )}
+            {!!user && (
+              <>
+                <Link style={{ textDecoration: "none", marginRight: "10px" }} to="/postad">
+                  <Button sx={{ my: 2, color: "white", alignItem: "center" }}>
+                    Post Ad
+                  </Button>
+                </Link>
+                <Typography style={{marginTop: "22px", marginRight: "10px"}}>Hello, {user.displayName}</Typography>
+                <Avatar sx={{ marginTop: "16px"}} alt="User" src="/static/images/avatar/1.jpg" />
+                <Button
+                  sx={{ my: 2, color: "white", alignItem: "center", marginLeft: "10px" }}
+                  onClick={logoutUser}
+                >
+                  <ExitToAppIcon />
+                  Logout
                 </Button>
-              </Link>
-            </Box>}
-            {!!user && <Box sx={{color: 'yellow', display: "flex" }}>
-            <Typography sx={{marginTop: "10px", paddingRight: "10px"}}>
-              Hello, {user.displayName} 
-            </Typography>
-              <Avatar alt="User" src="/static/images/avatar/1.jpg" />
+              </>
+            )}
             </Box>
-            }
-            {!!user && <Box style={{ textDecoration: "none", marginLeft: "10px" }} sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
-                <Button sx={{ my: 2, color: "white", alignItem: "center" }} onClick={logoutUser}>
-                  <ExitToAppIcon />Logout
-                </Button>
-            </Box>}
           </Toolbar>
         </Container>
       </AppBar>

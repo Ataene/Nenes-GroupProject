@@ -16,7 +16,7 @@ const RightBar = () => {
   return (
     <Box sx={{flex: "2", backgroundColor: "#DAEAF1", height: "calc(100vh-50px)" }}>
      <Container>
-     <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+      <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
         <Typography>
           {user.displayName}
         </Typography>

@@ -41,7 +41,7 @@ const Login = () => {
     e.preventDefault();
     try {
      await signInUser(email, password);
-     navigate("/location")
+     navigate("/profile")
      } catch (error) {
       console.log(error.message)
     }

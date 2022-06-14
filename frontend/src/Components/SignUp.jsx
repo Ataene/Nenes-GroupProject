@@ -41,7 +41,7 @@ const SignUp = () => {
     e.preventDefault();
     try {
       await registerUser(firstName, lastName, email, password)
-      navigate("/profile")
+      navigate("/location")
       setIsPending(true)
     } catch (error) {
       setError(`Password must be minimum of 6 characters and number`);
