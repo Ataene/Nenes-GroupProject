@@ -1,60 +1,33 @@
-import React, { useState, useContext } from "react";
-import { useTheme } from "@mui/material/styles";
-import { Button, Modal, TextField, Chip,Select, FormControl, MenuItem, InputLabel, OutlinedInput, Box  } from "@mui/material";
-import {
-  addDoc,
-  collection,
-  serverTimestamp,
-  updateDoc,
-} from "firebase/firestore";
-import { FirebaseContext } from "../auth/FirebaseProvider";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import * as React from "react";
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
-const Conditions = [
-    "Excellent",
-    "Good",
-    "Fair",
-  ];
-  
-  function getStyles(Conditions, personName, theme) {
-    return {
-      fontWeight:
-        personName.indexOf(Conditions) === -1
-          ? theme.typography.fontWeightRegular
-          : theme.typography.fontWeightMedium,
-    };
-  }
-  const ConditionSelect = ({ visible, onCancel }) => {
-    const theme = useTheme();
-    const [personName, setPersonName] = useState([]);
-  
-    const handleChange = (event) => {
-      const {
-        target: { value },
-      } = event;
-      setPersonName(
-        // On autofill we get a stringified value.
-        typeof value === "string" ? value.split(",") : value
-      );
-    };
-}
-const [condition, setCondition] = useState("");
-const fbContext = useContext(FirebaseContext);
-  const db = fbContext.db;
-  //   const store = fb.fbContext.store;
+export default function ConditionSelect({condition, setCondition}) {
+  // const [condition, setCondition] = React.useState("");
 
-  const postAds = async (e) => {
-    e.preventDefault();
-    try {
-      let collectionRef = collection(db, "postedAds");
-      const response = await addDoc(collectionRef, {
-        title,
-        condition,
-        description,
-        timeStamp: serverTimestamp(),
-      });
-      console.log(response);
-    } catch (error) {
-      console.log(error.message);
-    }
+  const handleChange = (event) => {
+    setCondition(event.target.value);
   };
+
+  return (
+    <Box style= {{marginTop:10}} sx={{ minWidth: 120 }}>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Condition</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={condition}
+          label="Condition"
+          onChange={handleChange}
+        >
+          <MenuItem value={10}>Excellent</MenuItem>
+          <MenuItem value={20}>Good</MenuItem>
+          <MenuItem value={30}>Fair</MenuItem>
+        </Select>
+      </FormControl>
+    </Box>
+  );
+}

@@ -5,6 +5,7 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { FirebaseContext } from "../auth/FirebaseProvider";
 import ImageUpload from "./ImageUpload";
 import { useNavigate } from "react-router-dom";
+import ConditionSelect from "./ConditionSelect";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -74,6 +75,7 @@ const CategorySelect = ({ visible, onCancel }) => {
   const [condition, setCondition] = useState("");
   const [CategoryName, setCategoryName] = useState([]);
 
+
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
 
@@ -94,6 +96,7 @@ const CategorySelect = ({ visible, onCancel }) => {
       console.log(error.message);
     }
   };
+  
 
   return (
     <>
@@ -134,6 +137,7 @@ const CategorySelect = ({ visible, onCancel }) => {
                   </MenuItem>
                 ))}
               </Select>
+              <ConditionSelect condition= {condition} setCondition= {setCondition}/>
               <TextField
                 sx={{ width: "30rem", margin: "2px" }}
                 placeholder="Enter the product title"
