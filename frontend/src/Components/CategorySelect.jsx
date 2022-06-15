@@ -108,8 +108,8 @@ const CategorySelect = ({ visible, onCancel }) => {
       >
         <Box style={ModalStyle}>
           <form onSubmit={postAds}>
-          <Typography variant="h3" sx={{color: "green", marginLeft: "100px", marginTop: "10px"}}>Post Your Ads</Typography>
-            <FormControl sx={{ m: 10, width: 300 }}>
+          <Typography variant="h3" sx={{color: "green", marginLeft: "100px", marginTop: "30px"}}>Post Your Ads</Typography>
+            <FormControl sx={{ m: 10, width: "30rem" }}>
               <InputLabel id="demo-multiple-chip-label">Category</InputLabel>
               <Select
                 labelId="demo-multiple-chip-label"
@@ -139,26 +139,20 @@ const CategorySelect = ({ visible, onCancel }) => {
               </Select>
               <ConditionSelect condition= {condition} setCondition= {setCondition}/>
               <TextField
-                sx={{ width: "30rem", margin: "2px" }}
+                sx={{ width: "30rem", marginTop:"15px" }}
                 placeholder="Enter the product title"
-                variant="filled"
+                label="Title"
+                variant="outlined"
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
               <TextField
-                sx={{ width: "30rem", margin: "2px" }}
-                placeholder="Enter the condition of the item"
-                type="text"
-                variant="filled"
-                value={condition}
-                onChange={(e) => setCondition(e.target.value)}
-              />
-              <TextField
-                sx={{ width: "30rem", margin: "2px" }}
+                sx={{ width: "30rem", marginTop: "15px"}}
                 placeholder="Enter the description of the item"
                 type="text"
-                variant="filled"
+                label="Description"
+                variant="outlined"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />

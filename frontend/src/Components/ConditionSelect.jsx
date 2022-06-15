@@ -13,7 +13,7 @@ export default function ConditionSelect({condition, setCondition}) {
   };
 
   return (
-    <Box style= {{marginTop:10}} sx={{ minWidth: 120 }}>
+    <Box style= {{marginTop:15}} sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Condition</InputLabel>
         <Select
