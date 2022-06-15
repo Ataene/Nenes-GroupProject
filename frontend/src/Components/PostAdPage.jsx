@@ -49,12 +49,12 @@ const PostAdPage = () => {
       >
         <Box sx={{ width: 400 }}>
           <form>
-            <TextField
-              placeholder="Enter your Postal Code"
+            {/* <TextField
+              placeholder="Enter your Postal Code"           **Postal code gathered after sign up**
               type="text"
               value={postalCode}
-              onChange={(e) => setPostalCode(e.target.value)}
-            />
+              onChange={(e) => setPostalCode(e.target.value)} */}
+            {/* /> */}
             <TextField
               placeholder="Enter the product category"
               type="text"
