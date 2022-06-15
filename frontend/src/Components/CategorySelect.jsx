@@ -1,15 +1,10 @@
 import React, { useState, useContext } from "react";
 import { useTheme } from "@mui/material/styles";
-import { Button, Modal, TextField, Chip,Select, FormControl, MenuItem, InputLabel, OutlinedInput, Box  } from "@mui/material";
-import {
-  addDoc,
-  collection,
-  serverTimestamp,
-  updateDoc,
-} from "firebase/firestore";
+import { Button, Modal, TextField, Chip,Select, FormControl, MenuItem, InputLabel, OutlinedInput, Box, Typography } from "@mui/material";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { FirebaseContext } from "../auth/FirebaseProvider";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-// import ModalState from './ModalState';
+import ImageUpload from "./ImageUpload";
+import { useNavigate } from "react-router-dom";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -39,30 +34,29 @@ const Category = [
   "Tickets",
 ];
 
-function getStyles(Category, personName, theme) {
+function getStyles(Category, CategoryName, theme) {
   return {
     fontWeight:
-      personName.indexOf(Category) === -1
+      CategoryName.indexOf(Category) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium,
   };
 }
 const CategorySelect = ({ visible, onCancel }) => {
   const theme = useTheme();
-  const [personName, setPersonName] = useState([]);
 
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
+    setCategoryName(
       typeof value === "string" ? value.split(",") : value
     );
   };
 
   const ModalStyle = {
-    backgroundImage: "linear-gradient(to top, #a8edea 0%, #fed6e3 100%)",
+//    linear-gradient(60deg, #abecd6 0%, #fbed96 100%);
+    backgroundImage: "linear-gradient(60deg, #abecd6 0%, #fbed96 100%)",
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -75,28 +69,28 @@ const CategorySelect = ({ visible, onCancel }) => {
     p: 30,
     borderRadius: "5px",
   };
-
+  const navigate = useNavigate()
   const [title, setTitle] = useState("");
   const [condition, setCondition] = useState("");
   const [description, setDescription] = useState("");
-  const [file, setFile] = useState();
-  const [progress, setProgress] = useState();
+  const [CategoryName, setCategoryName] = useState([]);
 
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
-  //   const store = fb.fbContext.store;
 
   const postAds = async (e) => {
     e.preventDefault();
     try {
       let collectionRef = collection(db, "postedAds");
       const response = await addDoc(collectionRef, {
+        CategoryName,
         title,
         condition,
         description,
         timeStamp: serverTimestamp(),
       });
       console.log(response);
+      navigate("/profile");
     } catch (error) {
       console.log(error.message);
     }
@@ -111,14 +105,15 @@ const CategorySelect = ({ visible, onCancel }) => {
         aria-describedby="modal-modal-description"
       >
         <Box style={ModalStyle}>
-          <form>
-            <FormControl sx={{ m: 6, width: 300 }}>
+          <form onSubmit={postAds}>
+          <Typography variant="h3" sx={{color: "green", marginLeft: "100px", marginTop: "10px"}}>Post Your Ads</Typography>
+            <FormControl sx={{ m: 10, width: 300 }}>
               <InputLabel id="demo-multiple-chip-label">Category</InputLabel>
               <Select
                 labelId="demo-multiple-chip-label"
                 id="demo-multiple-chip"
                 multiple
-                value={personName}
+                value={CategoryName}
                 onChange={handleChange}
                 input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
                 renderValue={(selected) => (
@@ -134,7 +129,7 @@ const CategorySelect = ({ visible, onCancel }) => {
                   <MenuItem
                     key={Category}
                     value={Category}
-                    style={getStyles(Category, personName, theme)}
+                    style={getStyles(Category, CategoryName, theme)}
                   >
                     {Category}
                   </MenuItem>
@@ -164,19 +159,12 @@ const CategorySelect = ({ visible, onCancel }) => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
-              {/* <input
-              style={{ width: "30rem", margin: "2px" }}
-              className="file-uploader"
-              type="file"
-              onChange={(e) => setPicture(e.target.value)}
-              placeholder="Upload a picture of your item"
-              value={picture}
-            /> */}
+              <ImageUpload />
               <Button
                 sx={{
                   width: "30rem",
                   margin: "2px",
-                  backgroundColor: "green",
+                  backgroundColor: "#005555",
                   color: "white",
                 }}
                 type="submit"
