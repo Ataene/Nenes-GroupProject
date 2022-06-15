@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Box, Container, Typography, Avatar } from '@mui/material';
 import { AuthContext  } from '../auth/AuthProvider'
 import { useNavigate } from 'react-router-dom';
-import Location from './Location';
+import Location from './Region/Location';
 
 const RightBar = () => {
 

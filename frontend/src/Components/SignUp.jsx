@@ -30,7 +30,6 @@ const SignUp = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [setConfirmPassword] = useState("");
   const [ setIsPending ] = useState(false)
   const [error, setError ] = useState(null)
   const navigate = useNavigate();
@@ -41,7 +40,7 @@ const SignUp = () => {
     e.preventDefault();
     try {
       await registerUser(firstName, lastName, email, password)
-      navigate("/location")
+      navigate("/welcome")
       setIsPending(true)
     } catch (error) {
       setError(`Password must be minimum of 6 characters and number`);
@@ -85,14 +84,6 @@ const SignUp = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <TextField
-        label="Confirm Password"
-        variant="filled"
-        type="password"
-        required
-        value={password}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-      />
       <Typography>
         <br />
         <input type="checkbox" id="regulation"></input>
@@ -111,7 +102,7 @@ const SignUp = () => {
           </Button>
         </Box>
       </Typography>
-      <Typography variant="h6">
+      <Typography variant="h6" sx={{color: "green"}}>
         Already have an account?{" "}
         <Link to="/login" style={{ textDecoration: "none" }}>
           <Button variant="contained">Login</Button>

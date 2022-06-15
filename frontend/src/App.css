@@ -31,30 +31,31 @@ width: 100vw;
 }
 
 .searchInputs {
-  margin-top: 25px;
+  margin-top: 15px;
   margin-bottom: 10px;
+  margin-right: 10px;
 }
 
 .search input {
   background-color: white;
-  border: 1px solid green;
-  border-radius: 10px;
+  border: none;
+  border-radius: 30px;
   font-size: 15px;
   padding: 13px;
-  height: 18px;
-  width: 250px;
+  height: 15px;
+  width: 300px;
 }
 
 .searchIcon {
   height: 40px;
   width: 50px;
-  color: green;
+  color: blue;
   position: absolute;
   display: grid;
   top: 27px;
-  right: 10rem;
   place-items: right;
   margin-bottom: 10rem;
+  padding-left: 2px;
 }
 
 input:focus {
@@ -95,4 +96,5 @@ a {
 
 #clearBtn {
   cursor: pointer;
+  margin-left: 20px;
 }
