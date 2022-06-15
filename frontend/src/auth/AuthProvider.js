@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, updateProfile, GithubAuthProvider, FacebookAuthProvider, TwitterAuthProvider, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { FirebaseContext } from './FirebaseProvider';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 
 export const AuthContext = createContext();
 
@@ -38,6 +38,7 @@ const AuthProvider = (props) => {
                 postalCode: "",
                 ProductWant: "",
                 ProductNeeded: "",
+                timeStamp: serverTimestamp(),
               }
               setDoc(newUser, userProfile)
               return true;

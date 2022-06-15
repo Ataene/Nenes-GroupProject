@@ -6,8 +6,6 @@ import {
 } from "@mui/material";
 import {
   AppbarContainer,
-  AppbarHeader,
-MyList
 } from "../styles/appbar";
 //import Actions from "./actions";
 import React, { useContext } from "react";
@@ -16,7 +14,6 @@ import Box from "@mui/material/Box";
 import LoginIcon from "@mui/icons-material/Login";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import Avatar from "@mui/material/Avatar";
-import { useUIContext } from "../context/index";
 import PostAd from "../PostAdButton";
 import SearchBar from "../SearchBar";
 import {products} from "../../Components/Data/index";
@@ -85,6 +82,9 @@ const Appbar = () => {
                 </Button>
               </Link>
             </Box>
+
+
+
             {!user && (
               <Box
                 style={{ textDecoration: "none" }}
@@ -136,6 +136,8 @@ const Appbar = () => {
                 </Button>
               </Box>
             )}
+
+
           </Toolbar>
         </Container>
       </AppbarContainer>

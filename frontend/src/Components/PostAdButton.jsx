@@ -1,10 +1,11 @@
 import React from 'react'
-import Button from "@mui/material/Button";
+import { Typography } from '@mui/material';
 
 const Postad = () => {
   return (
-    <div>
-      <Button
+    <>
+      <Typography
+        sx={{color: "white", marginRight: "5px"}}
         variant="outlined"
         color="success"
         size="small"
@@ -12,8 +13,8 @@ const Postad = () => {
         }}
       >
         Post Ad
-      </Button>
-    </div>
+      </Typography>
+    </>
   );
 }
 
