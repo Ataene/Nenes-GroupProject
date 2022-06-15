@@ -17,7 +17,7 @@ const style = {
     pb: 3,
   };
 
-export const NearMe = () => {
+const NearMe = () => {
 
     const navigate = useNavigate()
     const handleClick = () => {
@@ -47,3 +47,5 @@ export const NearMe = () => {
       </>
     )
   }
+
+  export default NearMe;
