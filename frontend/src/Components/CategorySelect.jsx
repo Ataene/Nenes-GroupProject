@@ -55,7 +55,6 @@ const CategorySelect = ({ visible, onCancel }) => {
   };
 
   const ModalStyle = {
-//    linear-gradient(60deg, #abecd6 0%, #fbed96 100%);
     backgroundImage: "linear-gradient(60deg, #abecd6 0%, #fbed96 100%)",
     position: "absolute",
     top: "50%",
@@ -71,8 +70,8 @@ const CategorySelect = ({ visible, onCancel }) => {
   };
   const navigate = useNavigate()
   const [title, setTitle] = useState("");
-  const [condition, setCondition] = useState("");
   const [description, setDescription] = useState("");
+  const [condition, setCondition] = useState("");
   const [CategoryName, setCategoryName] = useState([]);
 
   const fbContext = useContext(FirebaseContext);
