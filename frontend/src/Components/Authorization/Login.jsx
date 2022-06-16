@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext  } from '../auth/AuthProvider';
+import { AuthContext  } from '../../auth/AuthProvider';
 import { Box, makeStyles, Avatar, TextField } from "@material-ui/core";
 import { Typography, Button } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";

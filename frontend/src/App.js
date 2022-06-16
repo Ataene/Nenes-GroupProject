@@ -3,13 +3,13 @@ import Navigation from "./Components/Navigation";
 import Home from './Pages/Home';
 import About from './Pages/About';
 import ProductPage from './Pages/ProductPage';
-import Dashboard from './Components/Dashboard';
+import Dashboard from './Components/Authorization/Dashboard';
 import ProductDetail from './Components/ProductDisplay/ProductDetail';
-import Login from "./Components/Login";
-import SignUp from "./Components/SignUp";
+import Login from "./Components/Authorization/Login";
+import SignUp from "./Components/Authorization/SignUp";
 import {PrivateRoute} from "./auth/PrivateRoute";
 import AuthProvider  from "./auth/AuthProvider";
-import Profile from "./Components/Profile";
+import Profile from "./Components/Profile/Profile";
 import Footer from "../src/Components/footer/index";
 import AppBar from "./Components/appbar/appbar";
 import React from "react"
