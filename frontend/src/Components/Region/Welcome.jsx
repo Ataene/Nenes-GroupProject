@@ -6,6 +6,11 @@ import { Typography } from "@material-ui/core";
 import postalImage from "../../images/computer.png";
 import { AuthContext } from "../../auth/AuthProvider";
 import { Container } from "@mui/system";
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app)
 
 const Welcome = () => {
   const navigate = useNavigate();
