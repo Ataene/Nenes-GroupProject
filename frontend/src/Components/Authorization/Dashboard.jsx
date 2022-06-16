@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import Sidebar from './Sidebar';
-import Table from './Table';
-import {LineData, TableRows, productData} from '../Components/Data/Data';
-import LineDetails from '../Components/LineDetails';
+import Sidebar from '../Sidebar';
+import Table from '../Table';
+import {LineData, TableRows, productData} from '../../Components/Data/Data';
+import LineDetails from '../../Components/LineDetails';
 import { Stack } from '@mui/material';
-import Product from '../Components/Product';
+import Product from '../../Components/Product';
 
 const Dashboard = () => {
   const [componentToShow, setComponentToShow ] = useState("Table");

@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Box, makeStyles, Avatar, TextField } from "@material-ui/core";
 import { Link, useNavigate } from "react-router-dom";
 import { Typography, Button } from "@mui/material";
-import { AuthContext  } from '../auth/AuthProvider'
+import { AuthContext  } from '../../auth/AuthProvider'
 
 const useStyles = makeStyles((theme) => ({
   root: {
