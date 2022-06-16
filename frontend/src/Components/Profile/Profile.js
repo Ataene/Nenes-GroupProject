@@ -13,7 +13,7 @@ const Profile = () => {
   }
   return (
     <>
-        <Box sx={{display: "flex", width: "100%"}}>
+        <Box container sx={{display: "flex", width: "100%"}}>
             <LeftBar />
             <MiddleBar />
             <RightBar />
