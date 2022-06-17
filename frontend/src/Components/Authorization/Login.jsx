@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext  } from '../auth/AuthProvider';
+import { AuthContext  } from '../../auth/AuthProvider';
 import { Box, makeStyles, Avatar, TextField } from "@material-ui/core";
 import { Typography, Button } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -84,7 +84,7 @@ const Login = () => {
     try {
       const googleUser = await google();
       if(googleUser){
-        navigate("/location")
+        navigate("/profile")
       }
     } catch (error) {
       console.log("Google Auth Failed");
@@ -135,7 +135,7 @@ const Login = () => {
         </Box>
         <Box sx={{display: "flex", flexDirection: "column"}}>
         <Typography variant="h5" onClick={() =>forgotPassword()} sx={{ paddingLeft: "7rem", color: "green"}}>Forget Password</Typography> <hr />
-        <Typography variant="h6" sx={{paddingLeft: "8rem", color: "red"}} >Or Login in with</Typography>
+        <Typography variant="h6" sx={{paddingLeft: "8rem", color: "blue"}} >Or Login in with</Typography>
           <Button onClick={githubLogin}
             variant="contained"
             sx={{ backgroundColor: " #171515", display: "flex", width: "20rem" }}

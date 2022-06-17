@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
+
 import { Box, Container, Button, Typography, Modal, Link } from '@mui/material';
 // import { Link, useNavigate } from 'react-router-dom';
-import Feeds from './Feeds';
-import TopProfile from './TopProfile';
-import ModalState from "./ModalState";
-import CategorySelect from "./CategorySelect";
-import Want from "./WantList";
+import Feeds from '../Feeds';
+import TopProfile from '../TopProfile';
+import ModalState from "../ModalState";
+import CategorySelect from "../CategorySelect";
+import Wish from "../WishList"
+
+
 
 
 const MiddleBar = () => {
@@ -18,10 +21,6 @@ const MiddleBar = () => {
   }
   const handleCancel = () => {
     setModalVisible(false)
-  }
-
-  const handleOk = () => {
-    setModalVisible(false);
   }
 
   return (
