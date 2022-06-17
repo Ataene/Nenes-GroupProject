@@ -14,13 +14,14 @@ import AppBar from "./Components/appbar/appbar";
 import React from "react"
 import NestedModal, {Location, NearMe } from "./Components/Location";
 import PostAdPage from "./Components/PostAdPage";
-import WishList  from "./Components/WishList";
+import WishList from "./Components/WishList";
 import FirebaseProvider from "./auth/FirebaseProvider";
 
 //import PostAd from "./Components/PostAd";
 import Footer from "../src/Components/footer/index";
 
 import Example from "./Components/Example";
+import Want from "./Components/WantList";
 
 function App() {
   
@@ -38,11 +39,18 @@ function App() {
             <Route path="/location/nearme" element={<NearMe />} />
             <Route path="/wishlist" element={<WishList />} />
             <Route path="/postad" element={<PostAdPage />} />
+            <Route path="/wantlist" element={<Want />} />
             <Route path="/blog" element={<Example />} />
 
-
             {/* <Route path="/postadd" element={<AddProducts />} /> */}
-            <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+            <Route
+              path="/dashboard"
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            />
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/profile" element={<Profile />} />
             <Route exact path="/signup" element={<SignUp />} />
