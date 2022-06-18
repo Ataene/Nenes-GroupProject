@@ -7,6 +7,7 @@ import TopProfile from '../TopProfile';
 import ModalState from "../ModalState";
 import CategorySelect from "../CategorySelect";
 import Wish from "../WishList"
+import Test from "../WantList/Test";
 
 
 
@@ -44,7 +45,7 @@ const MiddleBar = () => {
             onClick={() => setOpen(false)}
             variant="outlined"
             size="large"
-            href="/wantlist"
+            href="/test"
           >
             Want List
           </Button>

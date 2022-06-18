@@ -25,7 +25,11 @@ import FirebaseProvider from "./auth/FirebaseProvider";
 //import PostAd from "./Components/PostAd";
 
 import Example from "./Components/Example";
-import Want from "./Components/WantList";
+//import Want from "./Components/WantList";
+import Test from './Components/WantList/Test'
+import { Watchlist } from "./Components/WantList/Wishlist";
+import { Watched } from "./Components/WantList/Wished";
+import { Add } from "./Components/WantList/Add";
 
 function App() {
   
@@ -43,9 +47,11 @@ function App() {
             <Route path="/nearme" element={<NearMe />} />
             <Route path="/wishlist" element={<WishList />} />
             <Route path="/postad" element={<PostAdPage />} />
-            <Route path="/wantlist" element={<Want />} />
+            <Route path="/test" element={<Test />} />
             <Route path="/blog" element={<Example />} />
-
+            <Route path="/watchlist" element={<Watchlist />} />
+            <Route path="/watched" element={<Watched />} />
+            <Route path="/add" element={<Add />} />
 
             {/* <Route path="/postadd" element={<AddProducts />} /> */}
             <Route

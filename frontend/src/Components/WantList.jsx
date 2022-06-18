@@ -15,7 +15,7 @@ import {
   Box,
   Container,
 } from "@mui/material";
-import FileBase from "react-file-base64";
+//import FileBase from "react-file-base64";
 import {
   addDoc,
   collection,
