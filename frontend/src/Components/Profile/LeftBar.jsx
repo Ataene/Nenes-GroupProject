@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Container,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-} from "@mui/material";
+import { Box, Container, List, ListItemButton, ListItemIcon, ListItemText, Card } from "@mui/material";
 import RssFeedIcon from "@mui/icons-material/RssFeed";
 import ChatIcon from "@mui/icons-material/Chat";
 import InventoryIcon from "@mui/icons-material/Inventory";
@@ -16,11 +9,11 @@ const LeftBar = () => {
     <>
       <Box sx={{ 
         flex: "1.5", 
-        backgroundColor: "#A5BECC", 
+        // backgroundColor: "#A5BECC", 
         position: "sticky", 
-        maxHeight: "600px"
+        maxHeight: "auto"
       }}>
-        <Container>
+        <Card>
           <List component="nav" aria-labelledby="nested-list-subheader">
             <ListItemButton active>
               <ListItemIcon>
@@ -89,7 +82,7 @@ const LeftBar = () => {
               <ListItemText primary="Inbox" />
             </ListItemButton>
           </List>
-        </Container>
+        </Card>
       </Box>
     </>
   );

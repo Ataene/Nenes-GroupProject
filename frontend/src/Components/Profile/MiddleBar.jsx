@@ -1,29 +1,20 @@
 import React, { useState } from 'react'
-
 import { Box, Container, Button, Typography, Modal, Link } from '@mui/material';
-// import { Link, useNavigate } from 'react-router-dom';
 import Feeds from '../Feeds';
-import TopProfile from '../TopProfile';
-import ModalState from "../ModalState";
+import TopProfile from './TopProfile';
 import CategorySelect from "../CategorySelect";
-import Wish from "../WishList"
+import Wish from "./WishList"
 import Test from "../WantList/Test";
 
-
-
-
 const MiddleBar = () => {
-
   const [modalVisible, setModalVisible] = useState(false);
   const [open, setOpen] = useState(false);
-
   const handleModalOpen = () => {
     setModalVisible(true)
   }
   const handleCancel = () => {
     setModalVisible(false)
   }
-
   return (
     <Box sx={{ flex: "8.5", backgroundColor: "#FFE6E6" }}>
       <Container>
@@ -68,7 +59,7 @@ const MiddleBar = () => {
           )}
         </Box>
         <hr />
-        <TopProfile />
+        <TopProfile /> /* We want to render this TopProfile Conditionally based on the onClick event*/
         <Feeds />
       </Container>
     </Box>

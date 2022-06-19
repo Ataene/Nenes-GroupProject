@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardMedia, Typography, CardContent, Button, CardActions, Grid, Container } from '@mui/material'
-import {products} from "./Data/index"
+import {products} from "../Data/index"
 
 
 const WishList = () => {

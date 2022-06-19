@@ -19,11 +19,9 @@ import { Location } from "./Components/Region/Location";
 import Welcome from "./Components/Region/Welcome";
 import NearMe from "./Components/Region/NearMe";
 import PostAdPage from "./Components/PostAdPage";
-import WishList from "./Components/WishList";
+import WishList from "./Components/Profile/WishList";
 import FirebaseProvider from "./auth/FirebaseProvider";
-
 //import PostAd from "./Components/PostAd";
-
 import Example from "./Components/Example";
 //import Want from "./Components/WantList";
 import Test from './Components/WantList/Test'

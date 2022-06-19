@@ -22,7 +22,7 @@ import {
   serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
-import { FirebaseContext } from "../auth/FirebaseProvider";
+import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 

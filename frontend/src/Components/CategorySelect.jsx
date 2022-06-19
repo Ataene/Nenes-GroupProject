@@ -1,11 +1,17 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useTheme } from "@mui/material/styles";
-import { Button, Modal, TextField, Chip,Select, FormControl, MenuItem, InputLabel, OutlinedInput, Box, Typography } from "@mui/material";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { Button, Modal, TextField, Chip, Select, FormControl, MenuItem, InputLabel, OutlinedInput, Box, Typography } from "@mui/material";
+import {
+  addDoc,
+  collection,
+  serverTimestamp,
+} from "firebase/firestore";
 import { FirebaseContext } from "../auth/FirebaseProvider";
-import ImageUpload from "./ImageUpload";
+import { AuthContext  } from '../auth/AuthProvider';
 import { useNavigate } from "react-router-dom";
 import ConditionSelect from "./ConditionSelect";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -50,9 +56,7 @@ const CategorySelect = ({ visible, onCancel }) => {
     const {
       target: { value },
     } = event;
-    setCategoryName(
-      typeof value === "string" ? value.split(",") : value
-    );
+    setCategoryName(typeof value === "string" ? value.split(",") : value);
   };
 
   const ModalStyle = {
@@ -69,34 +73,68 @@ const CategorySelect = ({ visible, onCancel }) => {
     p: 30,
     borderRadius: "5px",
   };
-  const navigate = useNavigate()
+
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [condition, setCondition] = useState("");
   const [CategoryName, setCategoryName] = useState([]);
-
+  const [file, setFile] = useState("");
+  const [progress, setProgress] = useState(null);
+  const [url, setUrl] = useState('');
 
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
+  const store = fbContext.store;
+  const authContext = useContext(AuthContext);
+  const { user } = authContext;
+
+  useEffect(() => {
+    const handleImageUpload = () => {
+      const name = new Date().getTime() + file.name;
+      console.log(name);
+      const imageRef = ref(store, file.name);
+      const uploadTask = uploadBytesResumable(imageRef, file);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshort) => {
+          const percentage =
+            (snapshort.bytesTransferred / snapshort.totalBytes) * 100;
+          setProgress(percentage);
+        },
+        (error) => {
+          console.log("Upload Error", error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            setUrl(downloadURL);
+         });
+        }
+      );
+    };
+
+    file && handleImageUpload();
+  }, [file]);
 
   const postAds = async (e) => {
     e.preventDefault();
     try {
       let collectionRef = collection(db, "postedAds");
-      const response = await addDoc(collectionRef, {
+      await addDoc(collectionRef, {
         CategoryName,
         title,
         condition,
         description,
+        url,
+        uid: user.uid,
         timeStamp: serverTimestamp(),
       });
-      console.log(response);
-      navigate("/profile");
+      navigate("1")
     } catch (error) {
       console.log(error.message);
     }
   };
-  
 
   return (
     <>
@@ -108,15 +146,20 @@ const CategorySelect = ({ visible, onCancel }) => {
       >
         <Box style={ModalStyle}>
           <form onSubmit={postAds}>
-          <Typography variant="h3" sx={{color: "green", marginLeft: "100px", marginTop: "30px"}}>Post Your Ads</Typography>
-            <FormControl sx={{ m: 10, width: "30rem" }}>
+            <Typography
+              variant="h3"
+              sx={{ color: "green", marginLeft: "100px", marginTop: "30px" }}
+            >
+              Post Your Ads
+            </Typography>
+            <FormControl  sx={{ m: 10, width: "30rem" }}>
               <InputLabel id="demo-multiple-chip-label">Category</InputLabel>
               <Select
                 labelId="demo-multiple-chip-label"
                 id="demo-multiple-chip"
                 multiple
                 value={CategoryName}
-                onChange={handleChange}
+                onChange={(e) => setCategoryName(e.target.value)}
                 input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
                 renderValue={(selected) => (
                   <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.9 }}>
@@ -137,9 +180,12 @@ const CategorySelect = ({ visible, onCancel }) => {
                   </MenuItem>
                 ))}
               </Select>
-              <ConditionSelect condition= {condition} setCondition= {setCondition}/>
+              <ConditionSelect
+                condition={condition}
+                setCondition={setCondition}
+              />
               <TextField
-                sx={{ width: "30rem", marginTop:"15px" }}
+                sx={{ width: "30rem", marginTop: "15px" }}
                 placeholder="Enter the product title"
                 label="Title"
                 variant="outlined"
@@ -148,7 +194,7 @@ const CategorySelect = ({ visible, onCancel }) => {
                 onChange={(e) => setTitle(e.target.value)}
               />
               <TextField
-                sx={{ width: "30rem", marginTop: "15px"}}
+                sx={{ width: "30rem", marginTop: "15px" }}
                 placeholder="Enter the description of the item"
                 type="text"
                 label="Description"
@@ -156,8 +202,16 @@ const CategorySelect = ({ visible, onCancel }) => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
-              <ImageUpload />
+              <input
+                type="file"
+                onChange={(e) => {
+                let selectedFile = e.target.files[0];
+                setFile(selectedFile);
+            }}
+              />
+              {progress ? <div>progress: {progress}%</div> : <div />}
               <Button
+                disable={progress !== null  &&  progress  <  100}
                 sx={{
                   width: "30rem",
                   margin: "2px",
