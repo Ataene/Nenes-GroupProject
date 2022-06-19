@@ -130,7 +130,12 @@ const CategorySelect = ({ visible, onCancel }) => {
         uid: user.uid,
         timeStamp: serverTimestamp(),
       });
-      navigate("1")
+      setTitle("")
+      setDescription("")
+      setCondition("")
+      setCategoryName("")
+      setFile("")
+
     } catch (error) {
       console.log(error.message);
     }
