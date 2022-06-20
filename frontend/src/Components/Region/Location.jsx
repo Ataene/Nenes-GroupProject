@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { Button, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { Typography } from "@material-ui/core";
 import postalImage from "../../images/computer.png";
 import { AuthContext  } from '../../auth/AuthProvider';
 

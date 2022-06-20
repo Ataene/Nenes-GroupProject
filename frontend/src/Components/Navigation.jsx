@@ -43,14 +43,14 @@ const Navigation = () => {
                 Products
               </Button>
             </Link>
-            <Link style={{ textDecoration: "none" }} to="/pricing">
-              <Button sx={{ my: 2, color: "white", display: "block" }}>
-                Pricing
-              </Button>
-            </Link>
             <Link style={{ textDecoration: "none" }} to="/blog">
               <Button sx={{ my: 2, color: "white", display: "block" }}>
                 Blog
+              </Button>
+            </Link>
+            <Link style={{ textDecoration: "none" }} to="/addlocation">
+              <Button sx={{ my: 2, color: "white", display: "block" }}>
+                Map
               </Button>
             </Link>
             <Link style={{ textDecoration: "none" }} to="/about">
@@ -58,8 +58,16 @@ const Navigation = () => {
                 About
               </Button>
             </Link>
+            {user && (
+            <>
+              <Link style={{ textDecoration: "none" }} to="/profile">
+                <Button sx={{ my: 2, color: "white", alignItem: "block" }}>
+                  Profile
+                </Button>
+              </Link>
+            </>
+          )}
           </Box>
-
           <Box sx={{ display: { xs: "none", md: "flex" }, marginLeft: "auto" }}>
           {!user && (
             <>
@@ -77,12 +85,6 @@ const Navigation = () => {
                 placeholder="   Enter an item name..."
                 data={products}
               style={{marginRight: "auto"}} />
-              {/* <PostAd /> */}
-              {/* <Link style={{ textDecoration: "none", marginRight: "10px" }}>
-                <Button sx={{ my: 2, color: "white", alignItem: "center" }}>
-                  Post Ad
-                </Button>
-              </Link> */}
               <Typography style={{marginTop: "22px", marginRight: "10px"}}>Hi, {user.displayName}</Typography>
               <Avatar sx={{ marginTop: "16px"}} alt="User" src="/static/images/avatar/1.jpg" />
               <Button

@@ -32,8 +32,9 @@ width: 100vw;
 
 .searchInputs {
   margin-top: 15px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   margin-right: 10px;
+  position: relative;
 }
 
 .search input {
@@ -42,8 +43,10 @@ width: 100vw;
   border-radius: 30px;
   font-size: 15px;
   padding: 13px;
-  height: 15px;
+  height: 25px;
   width: 300px;
+  display: block;
+  outline: none;
 }
 
 .searchIcon {
@@ -52,7 +55,7 @@ width: 100vw;
   color: blue;
   position: absolute;
   display: grid;
-  top: 27px;
+  top: 5px;
   place-items: right;
   margin-bottom: 10rem;
   padding-left: 2px;
@@ -98,3 +101,54 @@ a {
   cursor: pointer;
   margin-left: 20px;
 }
+
+
+
+/* .search {
+  position: relative;
+}
+
+.search button,
+.search span {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.search > * > svg {
+  display: block;
+}
+
+.search span {
+  left: 20px;
+  opacity: .5;
+  margin-top: 1px;
+}
+
+.search button {
+  right: 20px;
+  left: auto;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  color: #333;
+}
+
+.search button:hover {
+  color: #f48fb1;
+}
+
+.search input {
+  box-sizing: border-box;
+  display: block;
+  width: 650px;
+  height: 70px;
+  border-radius: 5px;
+  padding: 0 50px 0 45px;
+  font-size: 20px;
+  outline: none;
+  border: 2px solid #f48fb1;
+  background: white;
+} */

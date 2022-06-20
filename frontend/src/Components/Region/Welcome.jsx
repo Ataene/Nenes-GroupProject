@@ -7,38 +7,58 @@ import postalImage from "../../images/computer.png";
 import { Container } from "@mui/system";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { AuthContext  } from '../../auth/AuthProvider';
 
 const Welcome = () => {
+
+  const authContext = useContext(AuthContext);
+  const { user } = authContext;
   const navigate = useNavigate();
   const [postalCode, setPostalCode] = useState("");
   const [firstItem, setFirstItem] = useState("");
   const [secondItem, setSecondItem] = useState("");
   const [thirdItem, setThirdItem] = useState("");
+
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
+
   const matchingInfo = async (e) => {
     e.preventDefault();
     try {
-      let collectionRef = collection(db, "Cool");
+      let collectionRef = collection(db, "matchingInfo");
       const response = await addDoc(collectionRef, {
-        // postalCode,
-        // firstItem,
-        // secondItem,
+        postalCode,
+        firstItem,
+        secondItem,
         thirdItem,
+        uid: user.uid,
         timeStamp: serverTimestamp(),
       });
+      // navigate("/nearme");
       console.log(response);
+      setPostalCode("")
+      setFirstItem("")
+      setSecondItem("")
+      setThirdItem("")
+
     } catch (error) {
       console.log(error.message);
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    matchingInfo();
-    navigate("/nearme");
-  };
+  const postalFilter =  (postalCode) => {
+    if (! postalCode) {
+        return null;
+    }
+    postalCode = postalCode.toString().trim();
+    let ca = new RegExp(/([ABCEGHJKLMNPRSTVXY]\d)([ABCEGHJKLMNPRSTVWXYZ]\d){2}/i);
 
+    if (ca.test(postalCode.toString().replace(/\W+/g, ''))) {
+      setPostalCode()
+        return postalCode;
+    }
+    return null;
+}
   return (
     <>
       <Box
@@ -61,11 +81,11 @@ const Welcome = () => {
             The Social market place to trade items under a Hundred
           </Typography>
         </Container>
-        <Container>
+        <Container sx={{display: "flex", flexDirection: "row"}}>
           <img src={postalImage} />
           <Typography
             variant="h4"
-            style={{ color: "green", marginLeft: "13rem" }}
+            style={{ color: "green", marginTop: "8rem" }}
           >
             We just need some info first...
           </Typography>
@@ -81,7 +101,7 @@ const Welcome = () => {
           noValidate
           autoComplete="on"
         >
-          <form>
+          <Box  style={{display: "flex", flexDirection: "column", flexWrap: "nowrap"}} >
             <TextField
               value={postalCode}
               onChange={(e) => setPostalCode(e.target.value)}
@@ -112,26 +132,13 @@ const Welcome = () => {
             />
             <Button
               type="submit"
-              sx={{ backgroundColor: "green", color: "white" }}
+              onClick={matchingInfo}
+              sx={{ backgroundColor: "green", color: "white", marginTop: "10px" }}
             >
               Get Started
             </Button>
-          </form>
+          </Box>
         </Container>
-        <form onSubmit={matchingInfo}> 
-          <TextField
-              value={thirdItem}
-              onChange={(e) => setThirdItem(e.target.value)}
-              id="standard-basic"
-              label="Third Item"
-              variant="standard"
-            />
-            <Button type="submit">
-              Hi!
-            </Button>
-            </form>
-       
-        
       </Box>
     </>
   );

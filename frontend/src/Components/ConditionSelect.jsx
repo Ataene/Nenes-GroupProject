@@ -6,12 +6,10 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 export default function ConditionSelect({condition, setCondition}) {
-  // const [condition, setCondition] = React.useState("");
 
   const handleChange = (event) => {
     setCondition(event.target.value);
   };
-
   return (
     <Box style= {{marginTop:15}} sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
