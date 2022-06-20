@@ -8,8 +8,6 @@ import { Add }  from "./Add"
 import "../font-awesome/css/all.min.css"
 import "../WantList/WishList.css"
 
-
-
 const Test = () => {
   return (
     <div>
