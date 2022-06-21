@@ -1,10 +1,10 @@
 Stove, Oven, Range
 Couch, Sofa, Sectional, futon, Pull-out Couch
 Bed, Mattress, Futon
-TV, Television
+TV, Television, Smart TV, Smart Television
 Radio, Stereo
 Speakers, Home entertainment
-Cups, Mugs
+Cups, Mugs, Coffee Cup, Tea Cup
 Dishes, Place Setting
 Silverware, Forks, Knives, Spoons, Knife Block
 Pot, Stock-pot
@@ -23,15 +23,22 @@ Phone, Cell, Telephone, Cellphone
 Dishwasher, Washer
 Game Console, Game System
 Toaster Oven, Convectional Oven
-Deep Fryer, Fryer, Air fryer
+Oil-free fryer, Deep Fryer, Fryer, Air fryer, 
 Chair, Lounger, Lazy-Boy
 Table, Coffee Table
 Chopping Block, Cutting Board
 Side table, Table
 Kitchen Table, Table
 remote, control, converter
-Lamp, Light
+Floor lamp, Reading lamp, Lamp, Light, 
 Rug, Area Rug, Mat
+Inkjet printer, Printer, Copier, Fax, All-In-One
+Kitchen Scale, Scale
+Refridgerator, Fridge
+Panini Maker, Indoor grill
+Ice Cream Maker, Ice Cream Machine
+
+
 
 
 
@@ -55,14 +62,11 @@ Facial cleansing machine,
 Fan
 Fax
 Fish tank
-Floor lamp
 Game controller
-Garage
 Grandfather clock
 Hair dryer
 Hair straightening machine
 Headset
-Inkjet printer
 Iron
 Juicer
 Kettle
@@ -78,7 +82,6 @@ Monitor
 Mosquito racket
 Mouse
 Mp3 player
-Oil-free fryer
 Oven
 Piano
 Plotter
@@ -87,7 +90,6 @@ Printer
 Projector
 Radiator
 Radio
-Reading lamp
 Refrigerator
 Remote control
 Rice cooker
