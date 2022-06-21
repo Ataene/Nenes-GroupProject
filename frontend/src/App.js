@@ -1,15 +1,15 @@
-import React from "react"
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Navigation from "./Components/Navigation";
-import Home from './Pages/Home';
-import About from './Pages/About';
-import ProductPage from './Pages/ProductPage';
-import Dashboard from './Components/Authorization/Dashboard';
-import ProductDetail from './Components/ProductDisplay/ProductDetail';
+import Home from "./Pages/Home";
+import About from "./Pages/About";
+import ProductPage from "./Pages/ProductPage";
+import Dashboard from "./Components/Authorization/Dashboard";
+import ProductDetail from "./Components/ProductDisplay/ProductDetail";
 import Login from "./Components/Authorization/Login";
 import SignUp from "./Components/Authorization/SignUp";
-import {PrivateRoute} from "./auth/PrivateRoute";
-import AuthProvider  from "./auth/AuthProvider";
+import { PrivateRoute } from "./auth/PrivateRoute";
+import AuthProvider from "./auth/AuthProvider";
 import Profile from "./Components/Profile/Profile";
 import Footer from "../src/Components/footer/index";
 import AppBar from "./Components/appbar/appbar";
@@ -23,13 +23,12 @@ import FirebaseProvider from "./auth/FirebaseProvider";
 //import PostAd from "./Components/PostAd";
 import Example from "./Components/Example";
 //import Want from "./Components/WantList";
-import Test from './Components/WantList/Test'
-import { Watchlist } from "./Components/WantList/Wishlist";
-import { Watched } from "./Components/WantList/Wished";
+import Test from "./Components/WantList/Test";
+import { Watchlist, Wishlist } from "./Components/WantList/Wishlist";
+import { Watched, Exchanged } from "./Components/WantList/Wished";
 import { Add } from "./Components/WantList/Add";
 
 function App() {
-  
   return (
     <>
       <FirebaseProvider>
@@ -43,12 +42,12 @@ function App() {
             <Route path="/welcome" element={<Welcome />} />
             <Route path="/nearme" element={<NearMe />} />
             <Route path="/addlocation" element={<AddLocation />} />
-            <Route path="/wishlist" element={<WishList />} />
+            {<Route path="/wishlist" element={<WishList />} />}
             <Route path="/postad" element={<PostAdPage />} />
             <Route path="/test" element={<Test />} />
             <Route path="/blog" element={<Example />} />
-            <Route path="/watchlist" element={<Watchlist />} />
-            <Route path="/watched" element={<Watched />} />
+            {<Route path="/watchlist" element={<Wishlist />} />}
+            <Route path="/watched" element={<Exchanged />} />
             <Route path="/add" element={<Add />} />
             {/* <Route path="/postadd" element={<AddProducts />} /> */}
             <Route
@@ -70,4 +69,4 @@ function App() {
   );
 }
 
-export default App;  
+export default App;

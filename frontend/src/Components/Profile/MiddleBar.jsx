@@ -5,6 +5,7 @@ import TopProfile from './TopProfile';
 import CategorySelect from "../CategorySelect";
 import Wish from "./WishList"
 import Test from "../WantList/Test";
+import ProductScreen from '../ProductPage/Product';
 
 const MiddleBar = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -59,7 +60,7 @@ const MiddleBar = () => {
           )}
         </Box>
         <hr />
-        <TopProfile /> /* We want to render this TopProfile Conditionally based on the onClick event*/
+        <TopProfile /> 
         <Feeds />
       </Container>
     </Box>
