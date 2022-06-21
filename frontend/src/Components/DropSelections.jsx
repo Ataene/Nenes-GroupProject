@@ -1,64 +1,14 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useTheme } from "@mui/material/styles";
-import { Button, Modal, TextField, Chip, Select, FormControl, MenuItem, InputLabel, OutlinedInput, Box, Typography } from "@mui/material";
-import {
-  addDoc,
-  collection,
-  serverTimestamp,
-} from "firebase/firestore";
+// import { useNavigate } from "react-router-dom";
+import { Button, Modal, TextField, FormControl, Box,Typography } from "@mui/material";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { FirebaseContext } from "../auth/FirebaseProvider";
-import { AuthContext  } from '../auth/AuthProvider';
-import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../auth/AuthProvider";
 import ConditionSelect from "./ConditionSelect";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import CategoryOptions from "./CategoryOptions";
 
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
-
-const Category = [
-  "Electronics",
-  "Services",
-  "Pets",
-  "Livestock",
-  "Groceries",
-  "Automobiles",
-  "Vacation Rentals",
-  "Computer",
-  "Furnitures",
-  "Home",
-  "Fashion",
-  "Recreation",
-  "Garden",
-  "Tickets",
-];
-
-function getStyles(Category, CategoryName, theme) {
-  return {
-    fontWeight:
-      CategoryName.indexOf(Category) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
-const CategorySelect = ({ visible, onCancel }) => {
-  const theme = useTheme();
-
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setCategoryName(typeof value === "string" ? value.split(",") : value);
-  };
-
+const DropSelections = ({ visible, onCancel }) => {
   const ModalStyle = {
     backgroundImage: "linear-gradient(60deg, #abecd6 0%, #fbed96 100%)",
     position: "absolute",
@@ -74,15 +24,15 @@ const CategorySelect = ({ visible, onCancel }) => {
     borderRadius: "5px",
   };
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [condition, setCondition] = useState("");
   const [CategoryName, setCategoryName] = useState([]);
+  const [category, setCategory] = useState('');
   const [file, setFile] = useState("");
   const [progress, setProgress] = useState(null);
-  const [url, setUrl] = useState('');
-
+  const [url, setUrl] = useState("");
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const store = fbContext.store;
@@ -109,7 +59,7 @@ const CategorySelect = ({ visible, onCancel }) => {
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             setUrl(downloadURL);
-         });
+          });
         }
       );
     };
@@ -122,23 +72,26 @@ const CategorySelect = ({ visible, onCancel }) => {
     try {
       let collectionRef = collection(db, "postedAds");
       await addDoc(collectionRef, {
-        CategoryName,
         title,
         condition,
         description,
+        category,
         url,
         uid: user.uid,
         timeStamp: serverTimestamp(),
       });
-      setTitle("")
-      setDescription("")
-      setCondition("")
-      setCategoryName("")
-      setFile("")
-
+      setTitle("");
+      setDescription("");
+      setCondition("");
+      setCategoryName("");
+      setCategory("");
+      setFile("");
     } catch (error) {
       console.log(error.message);
     }
+  };
+  const startChange = (event) => {
+    setCategory(event.target.value);
   };
 
   return (
@@ -151,40 +104,14 @@ const CategorySelect = ({ visible, onCancel }) => {
       >
         <Box style={ModalStyle}>
           <form onSubmit={postAds}>
-            <Typography
-              variant="h3"
-              sx={{ color: "green", marginLeft: "100px", marginTop: "30px" }}
-            >
+           <FormControl sx={{ m: 10, width: 300 }}>
+              <Typography variant="h5" sx={{ color: "green", marginLeft: "100px"}}>
               Post Your Ads
             </Typography>
-            <FormControl  sx={{ m: 10, width: "30rem" }}>
-              <InputLabel id="demo-multiple-chip-label">Category</InputLabel>
-              <Select
-                labelId="demo-multiple-chip-label"
-                id="demo-multiple-chip"
-                multiple
-                value={CategoryName}
-                onChange={(e) => setCategoryName(e.target.value)}
-                input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-                renderValue={(selected) => (
-                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.9 }}>
-                    {selected.map((value) => (
-                      <Chip key={value} label={value} />
-                    ))}
-                  </Box>
-                )}
-                MenuProps={MenuProps}
-              >
-                {Category.map((Category) => (
-                  <MenuItem
-                    key={Category}
-                    value={Category}
-                    style={getStyles(Category, CategoryName, theme)}
-                  >
-                    {Category}
-                  </MenuItem>
-                ))}
-              </Select>
+            <CategoryOptions
+             category={category}
+             setCategory={setCategory}
+            />
               <ConditionSelect
                 condition={condition}
                 setCondition={setCondition}
@@ -210,13 +137,13 @@ const CategorySelect = ({ visible, onCancel }) => {
               <input
                 type="file"
                 onChange={(e) => {
-                let selectedFile = e.target.files[0];
-                setFile(selectedFile);
-            }}
+                  let selectedFile = e.target.files[0];
+                  setFile(selectedFile);
+                }}
               />
               {progress ? <div>progress: {progress}%</div> : <div />}
               <Button
-                disable={progress !== null  &&  progress  <  100}
+                disable={progress !== null && progress < 100}
                 sx={{
                   width: "30rem",
                   margin: "2px",
@@ -233,6 +160,6 @@ const CategorySelect = ({ visible, onCancel }) => {
       </Modal>
     </>
   );
-};
+}
 
-export default CategorySelect;
+export default DropSelections;

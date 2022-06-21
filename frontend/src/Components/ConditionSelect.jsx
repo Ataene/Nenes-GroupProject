@@ -5,9 +5,10 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-export default function ConditionSelect({condition, setCondition}) {
+const ConditionSelect = ({condition, setCondition}) => {
 
   const handleChange = (event) => {
+    
     setCondition(event.target.value);
   };
   return (
@@ -15,6 +16,7 @@ export default function ConditionSelect({condition, setCondition}) {
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Condition</InputLabel>
         <Select
+        sx={{width: "30rem"}}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={condition}
@@ -29,3 +31,4 @@ export default function ConditionSelect({condition, setCondition}) {
     </Box>
   );
 }
+export default ConditionSelect;

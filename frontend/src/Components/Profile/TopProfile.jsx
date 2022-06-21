@@ -18,12 +18,16 @@ import { ImageList, ImageListItem, ImageListItemBar } from "@mui/material";
 import { Wishlist } from '../WantList/Wishlist';
 
 const TopProfile = () => {
+  
   const authContext = useContext(AuthContext);
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const { user } = authContext;
   // const [ allUsers, setAllUser ] = useState([])
+
   const [postedAds, setSetAllPostedAds] = useState([]);
+
+
 
   useEffect(() => {
     if (db && user) {
@@ -43,6 +47,7 @@ const TopProfile = () => {
       return unsubscribe;
     }
   }, [db, user]);
+
 
 
 
