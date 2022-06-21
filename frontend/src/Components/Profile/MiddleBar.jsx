@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Box, Container, Button, Typography, Modal, Link } from '@mui/material';
 import Feeds from '../Feeds';
 import TopProfile from './TopProfile';
-import CategorySelect from "../CategorySelect";
+import dropSelections from "../DropSelections";
 import Wish from "./WishList"
 import Test from "../WantList/Test";
 
@@ -49,7 +49,7 @@ const MiddleBar = () => {
             Post Ad
           </Button>
           {modalVisible && (
-            <CategorySelect
+            <dropSelections
               visible={modalVisible}
               onCancel={handleCancel}
               sx={{ margin: "5px" }}
