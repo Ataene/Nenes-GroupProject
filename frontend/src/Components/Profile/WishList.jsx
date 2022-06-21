@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardMedia, Typography, CardContent, Button, CardActions, Grid, Container } from '@mui/material'
 import {products} from "../Data/index"
 
 
-const WishList = () => {
+const WishList = (props) => {
 
+  const show = props.SwipCards;
+  const [data, setData ] = useState(show)
 
   return (
     <>

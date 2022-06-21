@@ -1,9 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import { Box } from '@mui/material';
-import ReactMapGL from "react-map-gl";
+// import ReactMapGL from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css"
-import { Container } from '@mui/system';
+// import { Container } from '@mui/system';
 mapboxgl.accessToken = "pk.eyJ1IjoiYXRhZW5lIiwiYSI6ImNsMnRpc3EwcDAxaXMzY3FlOGg4a3A5ZmEifQ.dtj_XStiWa_Uy15mfMAM7Q";
 
 const AddLocation = () => {
@@ -13,47 +13,6 @@ const AddLocation = () => {
         const [ lat, setLat   ] = useState(51.049)
         const [ zoom, setZoom   ] = useState(12)
         const [ pointer, setPointer   ] = useState()
-
-        // const marker = new mapboxgl.Marker()
-        // .setLngLat([-114.067, 51.149])
-        // .addTop(map)
-        // setPointer(marker);
-
-        // const geocoder = new MapboxGeocoder({
-        //         accessToken: mapboxgl.accessToken, 
-        //         mapboxgl: mapboxgl, 
-        //         marker: false,
-        //         placeholder: 'Search for places in Berkeley', 
-        //         bbox: [-122.30937, 37.84214, -122.23715, 37.89838], 
-        //         proximity: {
-        //         longitude: -122.25948,
-        //         latitude: 37.87221
-        //         }
-        //         });
-                 
-                // map.addControl(geocoder);
-                // map.on('load', () => {
-                // map.addSource('single-point', {
-                // 'type': 'geojson',
-                // 'data': {
-                // 'type': 'FeatureCollection',
-                // 'features': []
-                // }
-                // });
-                 
-                // map.addLayer({
-                // 'id': 'point',
-                // 'source': 'single-point',
-                // 'type': 'circle',
-                // 'paint': {
-                // 'circle-radius': 10,
-                // 'circle-color': '#448ee4'
-                // } });
-                // geocoder.on('result', (event) => {
-                // map.getSource('single-point').setData(event.result.geometry);
-                // });
-                // });
-
 
         useEffect(() => {
                 if(map.current) return;
@@ -83,7 +42,6 @@ const AddLocation = () => {
     </Box>
   )
 }
-
 export default AddLocation;
 
 // import { geocodeByAddress, getLatLng, geocodeByPlaceId } from 'react-places-autocomplete';

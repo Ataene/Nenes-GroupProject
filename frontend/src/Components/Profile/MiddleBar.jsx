@@ -1,35 +1,69 @@
-import React, { useState } from 'react'
-import { Box, Container, Button, Typography, Modal, Link } from '@mui/material';
-import Feeds from '../Feeds';
-import TopProfile from './TopProfile';
+import React, { useState } from "react";
+import { Box, Container, Button } from "@mui/material";
+// import Feeds from '../Feeds';
+import TopProfile from "./TopProfile";
 import CategorySelect from "../CategorySelect";
-import Wish from "./WishList"
+import Wish from "./WishList";
 import Test from "../WantList/Test";
+import SwipCards from "./SwipCards";
+import WishList from "./WishList";
+import Market from "./Market";
+import Settings from "./Settings";
 
 const MiddleBar = () => {
+  const [active, setActive] = useState("topProfile");
+
   const [modalVisible, setModalVisible] = useState(false);
   const [open, setOpen] = useState(false);
   const handleModalOpen = () => {
-    setModalVisible(true)
-  }
+    setModalVisible(true);
+  };
   const handleCancel = () => {
-    setModalVisible(false)
-  }
+    setModalVisible(false);
+  };
   return (
     <Box sx={{ flex: "8.5", backgroundColor: "#FFE6E6" }}>
       <Container>
         <Box sx={{ margin: "5px" }}>
-          <Button sx={{ margin: "5px" }} variant="outlined" size="large">
-            Messenger
+          <Button
+            onClick={() => setActive("swipCards")}
+            sx={{ margin: "5px" }}
+            variant="outlined"
+            size="large"
+          >
+            SwipCards
           </Button>
-          <Button sx={{ margin: "5px" }} variant="outlined" size="large">
-            Products
+          <Button
+            onClick={() => setActive("topProfile")}
+            sx={{ margin: "5px" }}
+            variant="outlined"
+            size="large"
+          >
+            TopProfile
           </Button>
-          <Button sx={{ margin: "5px" }} variant="outlined" size="large">
-            Categories
+          <Button
+            onClick={() => setActive("market")}
+            sx={{ margin: "5px" }}
+            variant="outlined"
+            size="large"
+          >
+            Market
           </Button>
-          <Button sx={{ margin: "5px" }} variant="outlined" size="large">
-            Services
+          <Button
+            onClick={() => setActive("wishList")}
+            sx={{ margin: "5px" }}
+            variant="outlined"
+            size="large"
+          >
+            WishList
+          </Button>
+          <Button
+            onClick={() => setActive("settings")}
+            sx={{ margin: "5px" }}
+            variant="outlined"
+            size="large"
+          >
+            Settings
           </Button>
           <Button
             open={open}
@@ -59,11 +93,18 @@ const MiddleBar = () => {
           )}
         </Box>
         <hr />
-        <TopProfile /> /* We want to render this TopProfile Conditionally based on the onClick event*/
-        <Feeds />
+        <>
+          {active === "topProfile" && <TopProfile />}
+          {active === "swipCards" && <SwipCards />}
+          {active === "wishList" && <WishList />}
+          {active === "market" && <Market />}
+          {active === "test" && <Test />}
+          {active === "settings" && <Settings />}
+        </>
+        {/* <Feeds /> */}
       </Container>
     </Box>
   );
-}
+};
 
 export default MiddleBar;

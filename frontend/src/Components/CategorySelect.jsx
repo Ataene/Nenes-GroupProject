@@ -159,32 +159,10 @@ const CategorySelect = ({ visible, onCancel }) => {
             </Typography>
             <FormControl  sx={{ m: 10, width: "30rem" }}>
               <InputLabel id="demo-multiple-chip-label">Category</InputLabel>
-              <Select
-                labelId="demo-multiple-chip-label"
-                id="demo-multiple-chip"
-                multiple
-                value={CategoryName}
-                onChange={(e) => setCategoryName(e.target.value)}
-                input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-                renderValue={(selected) => (
-                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.9 }}>
-                    {selected.map((value) => (
-                      <Chip key={value} label={value} />
-                    ))}
-                  </Box>
-                )}
-                MenuProps={MenuProps}
-              >
-                {Category.map((Category) => (
-                  <MenuItem
-                    key={Category}
-                    value={Category}
-                    style={getStyles(Category, CategoryName, theme)}
-                  >
-                    {Category}
-                  </MenuItem>
-                ))}
-              </Select>
+              <ConditionSelect
+                condition={condition}
+                setCondition={setCondition}
+              />
               <ConditionSelect
                 condition={condition}
                 setCondition={setCondition}

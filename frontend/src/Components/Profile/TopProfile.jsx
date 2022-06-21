@@ -14,14 +14,13 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ShareIcon from '@mui/icons-material/Share';
 
 const TopProfile = () => {
+  
   const authContext = useContext(AuthContext);
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const { user } = authContext;
   // const [ allUsers, setAllUser ] = useState([])
   const [ postedAds , setSetAllPostedAds ] = useState([])
-
-
 
   useEffect(() => {
     if(db && user){
@@ -42,10 +41,9 @@ const TopProfile = () => {
     }
   }, [db, user]);
   
-
   return (
    <>
-   <Grid>
+   <Grid >
     <Grid item>
     {postedAds.map((item) => (
     <Card sx={{ height: "25rem", marginTop: "15px", margin: "10px"}} key={item.timeStamp}>
@@ -77,13 +75,13 @@ const TopProfile = () => {
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+          <FavoriteIcon  sx={{color: "red"}}/>
         </IconButton>
         <IconButton aria-label="share">
-          <ShareIcon />
+          <ShareIcon  sx={{color: "blue"}}/>
         </IconButton>
         <IconButton aria-label="share">
-          <ChatIcon />
+          <ChatIcon  sx={{color: "green"}} />
         </IconButton>
       </CardActions>
     </Card>
