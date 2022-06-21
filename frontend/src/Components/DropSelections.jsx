@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
-// import { useTheme } from "@mui/material/styles";
 import { Button, Modal, TextField, FormControl, Box,Typography } from "@mui/material";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { FirebaseContext } from "../auth/FirebaseProvider";
@@ -9,12 +8,7 @@ import ConditionSelect from "./ConditionSelect";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import CategoryOptions from "./CategoryOptions";
 
-const dropSelections = ({ visible, onCancel }) => {
-  // const theme = useTheme();
-  // const handleChange = (event) => {const handleChange = (event) => {
-  //   setCategory(event.target.value)};
-  // };
-
+const DropSelections = ({ visible, onCancel }) => {
   const ModalStyle = {
     backgroundImage: "linear-gradient(60deg, #abecd6 0%, #fbed96 100%)",
     position: "absolute",
@@ -39,7 +33,6 @@ const dropSelections = ({ visible, onCancel }) => {
   const [file, setFile] = useState("");
   const [progress, setProgress] = useState(null);
   const [url, setUrl] = useState("");
-
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const store = fbContext.store;
@@ -79,10 +72,10 @@ const dropSelections = ({ visible, onCancel }) => {
     try {
       let collectionRef = collection(db, "postedAds");
       await addDoc(collectionRef, {
-        CategoryName,
         title,
         condition,
         description,
+        category,
         url,
         uid: user.uid,
         timeStamp: serverTimestamp(),
@@ -91,6 +84,7 @@ const dropSelections = ({ visible, onCancel }) => {
       setDescription("");
       setCondition("");
       setCategoryName("");
+      setCategory("");
       setFile("");
     } catch (error) {
       console.log(error.message);
@@ -98,7 +92,6 @@ const dropSelections = ({ visible, onCancel }) => {
   };
   const startChange = (event) => {
     setCategory(event.target.value);
-    const [category, setCategory] = React.useState('')
   };
 
   return (
@@ -111,10 +104,8 @@ const dropSelections = ({ visible, onCancel }) => {
       >
         <Box style={ModalStyle}>
           <form onSubmit={postAds}>
-           <FormControl>
-              <Typography>
-              variant="h3"
-              sx={{ color: "green", marginLeft: "100px", marginTop: "30px" }}
+           <FormControl sx={{ m: 10, width: 300 }}>
+              <Typography variant="h5" sx={{ color: "green", marginLeft: "100px"}}>
               Post Your Ads
             </Typography>
             <CategoryOptions
@@ -171,4 +162,4 @@ const dropSelections = ({ visible, onCancel }) => {
   );
 }
 
-export default dropSelections;
+export default DropSelections;

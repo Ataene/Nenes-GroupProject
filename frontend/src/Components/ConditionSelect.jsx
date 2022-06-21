@@ -16,6 +16,7 @@ const ConditionSelect = ({condition, setCondition}) => {
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Condition</InputLabel>
         <Select
+        sx={{width: "30rem"}}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={condition}

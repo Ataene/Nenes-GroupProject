@@ -11,10 +11,11 @@ const CategoryOptions =({ category, setCategory }) => {
     setCategory(event.target.value);
   };
   return (
-    <Box style={{ marginTop: 15 }} sx={{ minWidth: 120 }}>
+    <Box style={{ marginTop: 15 }} sx={{ maxWidth: 600 }}>
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Category</InputLabel>
         <Select
+        sx={{width: "30rem"}}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={category}

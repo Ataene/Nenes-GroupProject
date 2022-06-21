@@ -3,7 +3,7 @@ import { Box, Container, Button } from "@mui/material";
 // import Feeds from '../Feeds';
 import TopProfile from "./TopProfile";
 import Feeds from '../Feeds';
-import dropSelections from "../DropSelections";
+import DropSelections from "../DropSelections";
 import Wish from "./WishList"
 import Test from "../WantList/Test";
 import SwipCards from "./SwipCards";
@@ -12,10 +12,12 @@ import Market from "./Market";
 import Settings from "./Settings";
 
 const MiddleBar = () => {
-  const [active, setActive] = useState("topProfile");
 
+  const [active, setActive] = useState("topProfile");
   const [modalVisible, setModalVisible] = useState(false);
+
   const [open, setOpen] = useState(false);
+  
   const handleModalOpen = () => {
     setModalVisible(true);
   };
@@ -75,23 +77,8 @@ const MiddleBar = () => {
           >
             Want List
           </Button>
-          <Button
-            onClick={handleModalOpen}
-            sx={{ margin: "5px" }}
-            variant="outlined"
-            size="large"
-          >
-            Post Ad
-          </Button>
-          {modalVisible && (
-            <dropSelections
-              visible={modalVisible}
-              onCancel={handleCancel}
-              sx={{ margin: "5px" }}
-              variant="outlined"
-              size="large"
-            />
-          )}
+          <Button onClick={handleModalOpen} sx={{ margin: "5px" }} variant="outlined" size="large">Post Ad</Button>
+        {modalVisible && ( <DropSelections visible={modalVisible} onCancel={handleCancel} sx={{ margin: "5px" }}variant="outlined" size="large" />)}
         </Box>
         <hr />
         <>
