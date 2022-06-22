@@ -10,6 +10,7 @@ import {products} from "../Components/Data/index";
 import { AuthContext  } from '../auth/AuthProvider'
 // import PostAd from "./PostAdButton";
 import SearchBar from "./SearchBar";
+import { AppbarContainer } from "./styles/appbar";
 
 const Navigation = () => {
 
@@ -22,12 +23,12 @@ const Navigation = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppbarContainer >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography variant="h6" noWrap component="a" href="/"
-            sx={{ mr: 3, display: { xs: "none", md: "flex" }, fontFamily: "monospace", fontWeight: 700, letterSpacing: ".01rem", color: "#EC994B", textDecoration: "none", }}>
-            HUNDIE
+          <Typography variant="h4" noWrap component="a" href="/"
+            sx={{ mr: 3, display: { xs: "none", md: "flex" }, fontFamily: '"Montez", "cursive"', fontWeight: 700, letterSpacing: ".01rem", color: "white", textDecoration: "none", }}>
+            Hundie
           </Typography>
           <Box
             style={{ textDecoration: "none", marginLeft: "auto" }}
@@ -48,7 +49,7 @@ const Navigation = () => {
                 Blog
               </Button>
             </Link>
-            <Link style={{ textDecoration: "none" }} to="/addlocation">
+            <Link style={{ textDecoration: "none" }} to="/maps">
               <Button sx={{ my: 2, color: "white", display: "block" }}>
                 Map
               </Button>
@@ -99,7 +100,7 @@ const Navigation = () => {
           </Box>
         </Toolbar>
       </Container>
-    </AppBar>
+    </AppbarContainer>
   );
 };
 

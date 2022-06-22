@@ -9,7 +9,7 @@ function SlideTransition(props) {
 }
 
 
-function ItemDetails({ open, Onclose, item }) {
+function ItemDetails({ open, onClose, item }) {
   return (
       <Dialog TransitionComponent={SlideTransition}
           variant="permanent"

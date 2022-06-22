@@ -8,7 +8,7 @@ export const BannerContainer = styled(Box)(({theme }) => ({
   width: "100%",
   height: "100%",
   padding: "0px 0px",
-  background: Colors.light_gray,
+  background: Colors.light_white,
   [theme.breakpoints.down("sm")]: {
     flexDirection: "column",
     alignItems: "center",
@@ -68,12 +68,14 @@ export const BannerShopButton = styled(Button, {
   // We are specifying here how the styleOverrides are being applied based on props
   overridesResolver: (props, styles) => [
     styles.root,
-    props.color === "primary" && styles.primary,
-    props.color === "secondary" && styles.secondary,
+    props.color === "black" && styles.green,
+    //     props.color === "secondary",
+    // props.color === "primary" && styles.primary,
+    // props.color === "secondary" && styles.secondary,
   ],
 })(({ theme }) => ({
   padding: "20px 0px",
-  color: Colors.white,
+  color: Colors.black,
   fontWeight: "bold",
   fontSize: "16px",
   [theme.breakpoints.down("sm")]: {

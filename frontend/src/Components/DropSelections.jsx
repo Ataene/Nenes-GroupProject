@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
 import { Button, Modal, TextField, FormControl, Box,Typography } from "@mui/material";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { FirebaseContext } from "../auth/FirebaseProvider";
@@ -23,8 +22,6 @@ const DropSelections = ({ visible, onCancel }) => {
     p: 30,
     borderRadius: "5px",
   };
-
-  // const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [condition, setCondition] = useState("");
