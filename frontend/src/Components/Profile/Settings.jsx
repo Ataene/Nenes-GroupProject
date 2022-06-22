@@ -7,10 +7,8 @@ import { addDoc, collection, doc, serverTimestamp, setDoc } from "firebase/fires
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 
-
-
 const Settings = (props) => {
-  
+
   const params = useParams();
   const show = props.SwipCards;
   const [data, setData ] = useState(show);
@@ -43,6 +41,7 @@ const Settings = (props) => {
     // console.log("e", e);
     const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
     const name = e.target.name;
+    console.log(name, value)
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
@@ -72,11 +71,9 @@ const Settings = (props) => {
   useEffect(() => {
 
     const handleImageUpload = () => {
-
       const name = new Date().getTime() + file.name;
       const imageRef = ref(store, name);
       const uploadTask = uploadBytesResumable(imageRef, file);
-
       uploadTask.on(
         "state_changed",
         (snapshort) => {
@@ -95,7 +92,6 @@ const Settings = (props) => {
             }));
           });
         }
-
       );
     };
     console.log("***", file);
@@ -139,8 +135,8 @@ const Settings = (props) => {
               label="Postal Code"
               variant="standard"
               type="text"
-              name="postcalCode"
-              // required={true}
+              name="postalCode"
+              required={true}
               value={formData.postalCode}
               onChange={handleChange}
             />
