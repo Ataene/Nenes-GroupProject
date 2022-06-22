@@ -1,0 +1,242 @@
+{
+  "Location": [
+    {
+      "postalCode": "T2A",
+      "city": "Calgary",
+      "neighborhood": "Penbrooke Meadows, Marlborough",
+      "latitude": 51.04968,
+      "longitude": -113.96432
+    },
+    {
+      "postalCode": "T3A",
+      "city": "Calgary",
+      "neighborhood": "Dalhousie, Edgemont, Hamptons, Hidden Valley",
+      "latitude": 51.12606,
+      "longitude": -114.143158
+    },
+    {
+      "postalCode": "T2B",
+      "city": "Calgary",
+      "neighborhood": "Forest Lawn, Dover, Erin Woods",
+      "latitude": 51.0318,
+      "longitude": -113.9786
+    },
+    {
+      "postalCode": "T3B",
+      "city": "Calgary",
+      "neighborhood": "Montgomery, Bowness, Silver Springs, Greenwood",
+      "latitude": 51.0809,
+      "longitude": -114.1616
+    },
+    {
+      "postalCode": "T2C",
+      "city": "Calgary",
+      "neighborhood": "Lynnwood Ridge, Ogden, Foothills Industrial, Great Plains",
+      "latitude": 50.9878,
+      "longitude": -114.0001
+    },
+    {
+      "postalCode": "T3C",
+      "city": "Calgary",
+      "neighborhood": "Rosscarrock, Westgate, Wildwood, Shaganappi, Sunalta",
+      "latitude": 51.0388,
+      "longitude": -114.098
+    },
+    {
+      "postalCode": "T2E",
+      "city": "Calgary",
+      "neighborhood": "Bridgeland, Greenview, Zoo, YYC",
+      "latitude": 51.0632,
+      "longitude": -114.0614
+    },
+    {
+      "postalCode": "T3E",
+      "city": "Calgary",
+      "neighborhood": "Lakeview, Glendale, Killarney, Glamorgan",
+      "latitude": 51.0227,
+      "longitude": -114.1342
+    },
+    {
+      "postalCode": "T2G",
+      "city": "Calgary",
+      "neighborhood": "Inglewood, Burnsland, Chinatown, East Victoria Park, Saddledome",
+      "latitude": 51.0415,
+      "longitude": -114.0599
+    },
+    {
+      "postalCode": "T3G",
+      "city": "Calgary",
+      "neighborhood": "Hawkwood, Arbour Lake, Citadel, Ranchlands, Royal Oak, Rocky Ridge",
+      "latitude": 51.1147,
+      "longitude": -114.1796
+    },
+    {
+      "postalCode": "T2H",
+      "city": "Calgary",
+      "neighborhood": "Highfield, Burns Industrial",
+      "latitude": 50.9857,
+      "longitude": -114.0631
+    },
+    {
+      "postalCode": "T3H",
+      "city": "Calgary",
+      "neighborhood": "Discovery Ridge, Signal Hill, West Springs, Christie Estates, Patterson, Cougar Ridge",
+      "latitude": 51.0566,
+      "longitude": -114.1815
+    },
+    {
+      "postalCode": "T2J",
+      "city": "Calgary",
+      "neighborhood": "Queensland, Lake Bonavista, Willow Park, Acadia",
+      "latitude": 50.9693,
+      "longitude": -114.0514
+    },
+    {
+      "postalCode": "T3J",
+      "city": "Calgary",
+      "neighborhood": "Martindale, Taradale, Falconridge, Saddle Ridge",
+      "latitude": 51.0999,
+      "longitude": -113.9422
+    },
+    {
+      "postalCode": "T2K",
+      "city": "Calgary",
+      "neighborhood": "Thorncliffe, Tuxedo Park",
+      "latitude": 51.0857,
+      "longitude": -114.0714
+    },
+    {
+      "postalCode": "T3K",
+      "city": "Calgary",
+      "neighborhood": "Sandstone, MacEwan Glen, Beddington, Harvest Hills, Coventry Hills, Panorama Hills",
+      "latitude": 51.127,
+      "longitude": -114.0787
+    },
+    {
+      "postalCode": "T2L",
+      "city": "Calgary",
+      "neighborhood": "Brentwood, Collingwood, Nose Hill",
+      "latitude": 51.0917,
+      "longitude": -114.1127
+    },
+    {
+      "postalCode": "T3L",
+      "city": "Calgary",
+      "neighborhood": "Tuscany, Scenic Acres",
+      "latitude": 51.1162,
+      "longitude": -114.2089
+    },
+    {
+      "postalCode": "T2M",
+      "city": "Calgary",
+      "neighborhood": "Mount Pleasant, Capitol Hill, Banff Trail",
+      "latitude": 51.0696,
+      "longitude": -114.0862
+    },
+    {
+      "postalCode": "T3M",
+      "city": "Calgary",
+      "neighborhood": "Cranston, Auburn Bay, Mahogany",
+      "latitude": 50.8902,
+      "longitude": -113.9892
+    },
+    {
+      "postalCode": "T2N",
+      "city": "Calgary",
+      "neighborhood": "Kensington, Westmont, Parkdale, University",
+      "latitude": 51.0591,
+      "longitude": -114.1146
+    },
+    {
+      "postalCode": "T3N",
+      "city": "Calgary",
+      "neighborhood": "Northeast Calgary",
+      "latitude": 51.1494,
+      "longitude": -114.0019
+    },
+    {
+      "postalCode": "T2P",
+      "city": "Calgary",
+      "neighborhood": "City Centre, Calgary Tower",
+      "latitude": 51.0472,
+      "longitude": -114.0802
+    },
+    {
+      "postalCode": "T3P",
+      "city": "Calgary",
+      "neighborhood": "Symons Valley",
+      "latitude": 51.1793,
+      "longitude": -114.1333
+    },
+    {
+      "postalCode": "T2R",
+      "city": "Calgary",
+      "neighborhood": "Connaught, West Victoria Park",
+      "latitude": 51.0426,
+      "longitude": -114.0791
+    },
+    {
+      "postalCode": "T3R",
+      "city": "Calgary",
+      "neighborhood": "Northwest Calgary",
+      "latitude": 51.1497,
+      "longitude": -114.2695
+    },
+    {
+      "postalCode": "T2S",
+      "city": "Calgary",
+      "neighborhood": "Elbow Park, Britannia, Parkhill, Mission",
+      "latitude": 51.0171,
+      "longitude": -114.0812
+    },
+    {
+      "postalCode": "T2T",
+      "city": "Calgary",
+      "neighborhood": "South Calgary (Altadore / Bankview / Richmond)",
+      "latitude": 51.0316,
+      "longitude": -114.0994
+    },
+    {
+      "postalCode": "T2V",
+      "city": "Calgary",
+      "neighborhood": "Oak Ridge, Haysboro, Kingsland, Kelvin Grove, Windsor Park",
+      "latitude": 50.9909,
+      "longitude": -114.074
+    },
+    {
+      "postalCode": "T2W",
+      "city": "Calgary",
+      "neighborhood": "Braeside, Cedarbrae, Woodbine",
+      "latitude": 50.9604,
+      "longitude": -114.1001
+    },
+    {
+      "postalCode": "T2X",
+      "city": "Calgary",
+      "neighborhood": "Midnapore, Sundance",
+      "latitude": 50.9204,
+      "longitude": -114.0674
+    },
+    {
+      "postalCode": "T1Y",
+      "city": "Calgary",
+      "neighborhood": "Rundle, Whitehorn, Monterey Park",
+      "latitude": 51.0759,
+      "longitude": -114.0015
+    },
+    {
+      "postalCode": "T2Y",
+      "city": "Calgary",
+      "neighborhood": "Millrise, Somerset, Bridlewood, Evergreen",
+      "latitude": 50.9093,
+      "longitude": -114.0721
+    },
+    {
+      "postalCode": "T2Z",
+      "city": "Calgary",
+      "neighborhood": "Douglas Glen, McKenzie Lake, Copperfield, East Shepard",
+      "latitude": 50.9023,
+      "longitude": -113.9873
+    }
+  ]
+}
