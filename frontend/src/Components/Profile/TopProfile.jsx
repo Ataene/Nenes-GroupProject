@@ -12,12 +12,15 @@ import { FirebaseContext } from '../../auth/FirebaseProvider';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ShareIcon from '@mui/icons-material/Share';
-import WishList from './WishList';
+//import WishList from './WishList';
 import Test from '../WantList/Test';
 import { ImageList, ImageListItem, ImageListItemBar } from "@mui/material";
 import { Wishlist } from '../WantList/Wishlist';
+import useDialogModal from "../hooks/useDialogModal";
+import ItemDetails from './ItemDetails';
+import { textAlign } from '@mui/system';
 
-const TopProfile = () => {
+const TopProfile = (item) => {
   
   const authContext = useContext(AuthContext);
   const fbContext = useContext(FirebaseContext);
@@ -49,7 +52,8 @@ const TopProfile = () => {
   }, [db, user]);
 
 
-
+  const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
+    useDialogModal(ItemDetails);
 
   
   return (
@@ -57,7 +61,7 @@ const TopProfile = () => {
       <Container>
         <div>
           <h1>Items Up for Trade</h1>
-          <Grid container spacing={3}>
+          <Grid container spacing={4}>
             {postedAds.map((item) => (
               <Grid item md={3} key={item.timeStamp}>
                 <Card
@@ -91,7 +95,7 @@ const TopProfile = () => {
                       </CardContent>
                     </CardActionArea>
                   </Link>
-                  <CardActions>
+                  <CardActions onClick={() => showProductDetailDialog}>
                     <IconButton aria-label="add to favorites">
                       <FavoriteIcon />
                     </IconButton>
@@ -101,9 +105,13 @@ const TopProfile = () => {
                     <IconButton aria-label="share">
                       <ChatIcon />
                     </IconButton>
-                    <Button size="small" color="primary">
-                      Want List
-                    </Button>
+                    <Link href="/WantList/Wishlist">
+                      <Button
+                        sx={{ my: 2, color: "green", display: "inline-grid" }}
+                      >
+                        Want List
+                      </Button>
+                    </Link>
                   </CardActions>
                 </Card>
               </Grid>
@@ -111,6 +119,7 @@ const TopProfile = () => {
           </Grid>
         </div>
       </Container>
+      <useDialogModal title={item.title} />
     </>
   );
 };

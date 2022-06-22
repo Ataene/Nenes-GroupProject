@@ -17,21 +17,21 @@ export default function Banner() {
       <video
         src={MainVideo}
         type="video/mp4"
-        width="400px"
+        width="600px"
         autoPlay
         muted
         loop
       />
       <BannerContent>
-        <Typography variant="h6">Huge Collection</Typography>
+        <Typography variant="h6">Awesome Collection</Typography>
         <BannerTitle variant="h3">Trade Items</BannerTitle>
 
         <BannerDescription variant="subtitle">
-          Find things you need on Hundie and trade them for items you would love to
-          have.
+          Find things you need on Hundie and trade them for items you would love
+          to have.
         </BannerDescription>
 
-        <BannerShopButton color="success">Shop Now</BannerShopButton>
+        <BannerShopButton href="/profile">Find Item Now</BannerShopButton>
       </BannerContent>
     </BannerContainer>
   );

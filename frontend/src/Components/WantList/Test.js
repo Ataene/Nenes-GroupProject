@@ -1,8 +1,8 @@
-import React from "react";
+import React, {useState } from "react";
 import {BrowserRouter, Switch, Router, Routes, Route} from 'react-router-dom'
 import Header from "./Header"
-import { Watchlist, Wishlist } from "./Wishlist"
-import { Exchanged}  from "./Wished"
+import { Wishlist } from "./Wishlist"
+import { Traded}  from "./Traded"
 import { Add }  from "./Add"
 import "../font-awesome/css/all.min.css"
 import "../WantList/WishList.css"
@@ -13,17 +13,18 @@ import WishList from "../Profile/WishList";
 
 
 const Test = () => {
+  const [active, setActive] = useState('Wishlist')
   return (
     <>
       <div>
-        <Button>Wishlist</Button>
-        <Button>Exchanged</Button>
-        <Button>+Add</Button>
+        <Button onClick={() => setActive("WishList")}>Wishlist</Button>
+        <Button onClick={() => setActive("Traded")}>Traded</Button>
+        <Button onClick={() => setActive("Add")}> + Add</Button>
       </div>
       <div>
-        <Wishlist />
-        <Exchanged />
-        <Add />
+        {active === "WishList" && <Wishlist title="WishList" />}
+        {active === "Traded" && <Traded title="Traded" />}
+        {active === "Add" && <Add title="Add" />}
       </div>
     </>
   );

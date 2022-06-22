@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Exchanged = () => {
+export const Traded = () => {
   return (
       <div>
           <h1>Traded Page</h1>

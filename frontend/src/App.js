@@ -24,9 +24,10 @@ import FirebaseProvider from "./auth/FirebaseProvider";
 import Example from "./Components/Example";
 //import Want from "./Components/WantList";
 import Test from "./Components/WantList/Test";
-import { Watchlist, Wishlist } from "./Components/WantList/Wishlist";
-import { Watched, Exchanged } from "./Components/WantList/Wished";
+import { Wishlist } from "./Components/WantList/Wishlist";
+import { Traded } from "./Components/WantList/Traded";
 import { Add } from "./Components/WantList/Add";
+import { ProductScreen } from "./Components/Profile/title";
 
 function App() {
   return (
@@ -42,13 +43,14 @@ function App() {
             <Route path="/welcome" element={<Welcome />} />
             <Route path="/nearme" element={<NearMe />} />
             <Route path="/addlocation" element={<AddLocation />} />
-            {<Route path="/wishlist" element={<WishList />} />}
+            {/*<Route path="/wishlist" element={<WishList />} />*/}
             <Route path="/postad" element={<PostAdPage />} />
             <Route path="/test" element={<Test />} />
             <Route path="/blog" element={<Example />} />
-            {<Route path="/watchlist" element={<Wishlist />} />}
-            <Route path="/watched" element={<Exchanged />} />
-            <Route path="/add" element={<Add />} />
+            {/*<Route path="/watchlist" element={<Wishlist />} />*/}
+            <Route path="/traded" element={<Traded />} />
+            {/*<Route path="/add" element={<Add />} />/*}
+            <Route path="/title" element={<ProductScreen />} />
             {/* <Route path="/postadd" element={<AddProducts />} /> */}
             <Route
               path="/dashboard"
