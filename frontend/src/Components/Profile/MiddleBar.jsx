@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Box, Container, Button } from "@mui/material";
-// import Feeds from '../Feeds';
 import TopProfile from "./TopProfile";
 import Feeds from '../Feeds';
 import DropSelections from "../DropSelections";
@@ -17,7 +16,7 @@ const MiddleBar = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const [open, setOpen] = useState(false);
-  
+
   const handleModalOpen = () => {
     setModalVisible(true);
   };
