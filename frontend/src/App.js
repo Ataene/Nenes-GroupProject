@@ -16,12 +16,15 @@ import AppBar from "./Components/appbar/appbar";
 import { Location } from "./Components/Region/Location";
 import Welcome from "./Components/Region/Welcome";
 import NearMe from "./Components/Region/NearMe";
-import AddLocation from "./Components/Region/AddLocation";
+
+
+import Maps from "./Components/Region/Maps";
+
+
 import PostAdPage from "./Components/PostAdPage";
 import WishList from "./Components/Profile/WishList";
 import FirebaseProvider from "./auth/FirebaseProvider";
 //import PostAd from "./Components/PostAd";
-import Example from "./Components/Example";
 //import Want from "./Components/WantList";
 import Test from "./Components/WantList/Test";
 import { Watchlist, Wishlist } from "./Components/WantList/Wishlist";
@@ -41,11 +44,12 @@ function App() {
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/welcome" element={<Welcome />} />
             <Route path="/nearme" element={<NearMe />} />
-            <Route path="/addlocation" element={<AddLocation />} />
+            <Route path="/maps" element={<Maps />} />
             {<Route path="/wishlist" element={<WishList />} />}
             <Route path="/postad" element={<PostAdPage />} />
             <Route path="/test" element={<Test />} />
-            <Route path="/blog" element={<Example />} />
+            <Route path="/maps" element={<Maps />} />
+            {/* <Route path="/blog" element={<Blog />} /> */}
             {<Route path="/watchlist" element={<Wishlist />} />}
             <Route path="/watched" element={<Exchanged />} />
             <Route path="/add" element={<Add />} />
