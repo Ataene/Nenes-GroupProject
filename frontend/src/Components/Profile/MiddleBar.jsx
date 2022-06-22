@@ -5,10 +5,14 @@ import Feeds from '../Feeds';
 import DropSelections from "../DropSelections";
 import Wish from "./WishList"
 import Test from "../WantList/Test";
+
+import ProductScreen from '../ProductPage/Product';
+
 import SwipCards from "./SwipCards";
 import WishList from "./WishList";
 import Market from "./Market";
 import Settings from "./Settings";
+
 
 const MiddleBar = () => {
 
@@ -80,6 +84,10 @@ const MiddleBar = () => {
         {modalVisible && ( <DropSelections visible={modalVisible} onCancel={handleCancel} sx={{ margin: "5px" }}variant="outlined" size="large" />)}
         </Box>
         <hr />
+
+        <TopProfile /> 
+        <Feeds />
+
         <>
           {active === "topProfile" && <TopProfile />}
           {active === "swipCards" && <SwipCards />}
@@ -89,6 +97,7 @@ const MiddleBar = () => {
           {active === "settings" && <Settings />}
         </>
         {/* <Feeds /> */}
+
       </Container>
     </Box>
   );
