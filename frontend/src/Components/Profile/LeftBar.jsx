@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Container, List, ListItemButton, ListItemIcon, ListItemText, Card } from "@mui/material";
 import RssFeedIcon from "@mui/icons-material/RssFeed";
 import ChatIcon from "@mui/icons-material/Chat";
 import InventoryIcon from "@mui/icons-material/Inventory";
+import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import LiveHelpIcon from '@mui/icons-material/LiveHelp';
+import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
+import WorkIcon from '@mui/icons-material/Work';
+import StorefrontIcon from '@mui/icons-material/Storefront';
+import GroupsIcon from '@mui/icons-material/Groups';
 
 const LeftBar = () => {  
+  const [ active, setActive ] = useState('');
+
+
   return (
     <>
       <Box sx={{ 
@@ -15,7 +25,7 @@ const LeftBar = () => {
       }}>
         <Card>
           <List component="nav" aria-labelledby="nested-list-subheader">
-            <ListItemButton active>
+            <ListItemButton>
               <ListItemIcon>
                 <RssFeedIcon />
               </ListItemIcon>
@@ -29,21 +39,15 @@ const LeftBar = () => {
             </ListItemButton>
             <ListItemButton>
               <ListItemIcon>
-                <InventoryIcon />
+                <GroupsIcon />
               </ListItemIcon>
-              <ListItemText primary="Inbox" />
+              <ListItemText primary="Groups" />
             </ListItemButton>
             <ListItemButton>
               <ListItemIcon>
-                <InventoryIcon />
+                <StorefrontIcon />
               </ListItemIcon>
-              <ListItemText primary="Inbox" />
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemIcon>
-                <InventoryIcon />
-              </ListItemIcon>
-              <ListItemText primary="Inbox" />
+              <ListItemText primary="Market" />
             </ListItemButton>
             <ListItemButton>
               <ListItemIcon>
@@ -53,33 +57,33 @@ const LeftBar = () => {
             </ListItemButton><hr />
             <ListItemButton>
               <ListItemIcon>
-                <InventoryIcon />
+                <WorkIcon />
               </ListItemIcon>
-              <ListItemText primary="Inbox" />
+              <ListItemText primary="Jobs" />
             </ListItemButton>
             <ListItemButton>
               <ListItemIcon>
-                <InventoryIcon />
+                <CircleNotificationsIcon />
               </ListItemIcon>
-              <ListItemText primary="Inbox" />
+              <ListItemText primary="Notify" />
             </ListItemButton>
             <ListItemButton>
               <ListItemIcon>
-                <InventoryIcon />
+                <LiveHelpIcon />
               </ListItemIcon>
-              <ListItemText primary="Inbox" />
+              <ListItemText primary="FAQ" />
             </ListItemButton>
             <ListItemButton>
               <ListItemIcon>
-                <InventoryIcon />
+                <CalendarMonthIcon />
               </ListItemIcon>
-              <ListItemText primary="Inbox" />
+              <ListItemText primary="Event" />
             </ListItemButton>
             <ListItemButton>
               <ListItemIcon>
-                <InventoryIcon />
+                <OndemandVideoIcon />
               </ListItemIcon>
-              <ListItemText primary="Inbox" />
+              <ListItemText primary="Video" />
             </ListItemButton>
           </List>
         </Card>

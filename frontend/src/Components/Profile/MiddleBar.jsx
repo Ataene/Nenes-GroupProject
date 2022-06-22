@@ -21,7 +21,7 @@ const MiddleBar = () => {
     setModalVisible(false);
   };
   return (
-    <Box sx={{ flex: "8.5", backgroundColor: "#FFE6E6" }}>
+    <Box sx={{ flex: "8.5", backgroundColor: "#B8F1B0" }}>
       <Container>
         <Box sx={{ margin: "5px" }}>
           <Button
