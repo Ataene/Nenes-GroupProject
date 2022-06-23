@@ -2,28 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import {
-  Box,
-  Button,
-  CardActionArea,
-  CardActions,
-  CardHeader,
-  CardMedia,
-  Container,
-  Grid,
-  IconButton,
-  Link,
-} from "@mui/material";
-// import cardImage from "../../images/Alaf.jpg"
+import { Box, CardActions, CardHeader, CardMedia, Container, Grid, IconButton } from "@mui/material";
 import { AuthContext } from "../../auth/AuthProvider";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
 import Avatar from "@mui/material/Avatar";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ShareIcon from "@mui/icons-material/Share";
-import AddIcon from "@mui/icons-material/Add";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import { addDoc, serverTimestamp } from "firebase/firestore";
 
@@ -32,9 +18,7 @@ const Market = (item) => {
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const { user } = authContext;
-
   const [postedAds, setSetAllPostedAds] = useState([]);
-
   const [title, setTitle] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -76,15 +60,20 @@ const Market = (item) => {
     }
   }, [db, user]);
 
+  const handleClick = (item) => {
+  }
+
   return (
     <>
-      <Container onClick={postWants}>
+      <Container>
         <Box>
           <Grid container spacing={1}>
             {postedAds.map((item) => (
               <Grid item md={3} key={item.timeStamp}>
                 <Card
-                  sx={{ height: "30rem", marginTop: "10px", margin: "10px" }}
+                  sx={{ height: "33rem", marginTop: "10px", margin: "10px" }}
+                  item={item}
+                  handleClick={handleClick}
                 >
                     <CardHeader
                       avatar={
@@ -101,6 +90,7 @@ const Market = (item) => {
                     />
                       <CardMedia
                         component="img"
+                        sx={{height: "280px"}}
                         image={item.url}
                         title={item.title}
                       ></CardMedia>
@@ -108,28 +98,23 @@ const Market = (item) => {
                         <Typography>{item.name}</Typography>
                       </CardContent>
                   <Box
-                    sx={{
-                      justifyContent: "center",
-                      alignItems: "center",
-                      display: "flex",
-                      flexDirection: "column"
-                    }}
+                    sx={{  justifyContent: "center", alignItems: "center", display: "flex", flexDirection: "column"}}
                   >
                     <Typography>{item.description}</Typography>
                     <Typography>Condition: {item.condition}</Typography>
-
+                    <Typography>I want : {item.want}</Typography>
                     <CardActions sx={{marginBottom: "20px"}}>
                       <IconButton aria-label="add to favorites">
-                        <FavoriteIcon sx={{color: "red"}} fontSize="large"/>
+                        <FavoriteIcon sx={{color: "red"}} />
                       </IconButton>
                       <IconButton aria-label="share">
-                        <ShareIcon sx={{color: "#62b4f9" }} fontSize="large" />
+                        <ShareIcon sx={{color: "#62b4f9" }} />
                       </IconButton>
                       <IconButton aria-label="share">
-                        <ChatIcon sx={{color: "green"}} fontSize="large" />
+                        <ChatIcon sx={{color: "green"}}  />
                       </IconButton>
                       <IconButton aria-label="share" type="click">
-                        <ListAltIcon sx={{color: "purple"}} fontSize="large" />
+                        <ListAltIcon sx={{color: "purple"}} onClick={handleClick} />
                       </IconButton>
                     </CardActions>
                   </Box>

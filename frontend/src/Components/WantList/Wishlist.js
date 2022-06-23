@@ -1,10 +1,13 @@
+import { Typography } from '@mui/material';
+import { Box } from '@mui/system';
 import React from 'react'
 
-export const Wishlist = () => {
+const Wishlist = () => {
   return (
-      <div>
-          <h1>Wishlist Page</h1>
-      </div>
+      <Box>
+          <Typography>Wishlist Page</Typography>
+      </Box>
   )
 }
 
+export default Wishlist;

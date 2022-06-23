@@ -1,6 +1,5 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import { Toolbar, Typography, Container, Button, Grid } from "@mui/material";
 import LoginIcon from '@mui/icons-material/Login';
@@ -8,14 +7,37 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import Avatar from '@mui/material/Avatar';
 import {products} from "../Components/Data/index";
 import { AuthContext  } from '../auth/AuthProvider'
-// import PostAd from "./PostAdButton";
 import SearchBar from "./SearchBar";
 import { AppbarContainer } from "./styles/appbar";
+import { collection, doc, getDoc, onSnapshot, orderBy, query } from "firebase/firestore";
+import { FirebaseContext } from "../auth/FirebaseProvider";
 
 const Navigation = () => {
-
   const authContext = useContext(AuthContext)
   const { user, LogoutUser } = authContext;
+  const fbContext = useContext(FirebaseContext);
+  const db = fbContext.db;
+  const [ usePicture, setUserPicture ] = useState();
+  useEffect(() => {
+
+    if (db && user) {
+      let collectionRef = collection(db, "users");
+      let queryRef = query(collectionRef, orderBy("timeStamp"));
+      const unsubscribe = onSnapshot(queryRef, (querySnap) => {
+
+        if (querySnap.empty) {
+          console.log("Ads not found");
+        } else {
+          let usersData = querySnap.docs.map((doc) => {
+            return { ...doc.data().Avatar};
+          });
+          setUserPicture(usersData);
+          console.log("YYYYYYYYYYYY", usePicture)
+        }
+      });
+      return unsubscribe;
+    }
+  }, [db, user]);
   const navigate = useNavigate();
   const logoutUser = async () => {
     await LogoutUser();
@@ -87,7 +109,7 @@ const Navigation = () => {
                 data={products}
               style={{marginRight: "auto"}} />
               <Typography style={{marginTop: "22px", marginRight: "10px"}}>Hi, {user.displayName}</Typography>
-              <Avatar sx={{ marginTop: "16px"}} alt="User" src="/static/images/avatar/1.jpg" />
+              <Avatar sx={{ marginTop: "16px"}} alt="User" src={usePicture} />
               <Button
                 sx={{ my: 2, color: "white", alignItem: "center", marginLeft: "10px" }}
                 onClick={logoutUser}

@@ -2,11 +2,9 @@ import React, { useState, useContext, useEffect } from "react";
 import { CardActions, IconButton, Typography } from "@mui/material";
 import TinderCard from "react-tinder-card";
 import { Box, Container } from "@mui/system";
-
 import { AuthContext } from "../../auth/AuthProvider";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
-import Avatar from "@mui/material/Avatar";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import ShareIcon from "@mui/icons-material/Share";
@@ -15,12 +13,7 @@ import ReplayIcon from '@mui/icons-material/Replay';
 import CloseIcon from '@mui/icons-material/Close';
 import PersonIcon from '@mui/icons-material/Person';
 
-
-
 const Swipe = () => {
-  // const show = props.SwipCards;
-  // const [data, setData ] = useState(show)
-
   const authContext = useContext(AuthContext);
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
@@ -82,7 +75,6 @@ const Swipe = () => {
   return (
     <>
       <Container>
-        {/* <Typography>Swipable Products</Typography> */}
         <Box sx={{display: "flex", flexDirection: "row", justifyContent: "space-evenly"}}>
         <IconButton>
           <PersonIcon fontSize="large" style={{ color: "#ec5e6f" }} />
