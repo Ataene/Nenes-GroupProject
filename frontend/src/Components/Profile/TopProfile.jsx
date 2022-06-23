@@ -12,13 +12,6 @@ import { FirebaseContext } from '../../auth/FirebaseProvider';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ShareIcon from '@mui/icons-material/Share';
-//import WishList from './WishList';
-import Test from '../WantList/Want';
-import { ImageList, ImageListItem, ImageListItemBar } from "@mui/material";
-import { Wishlist } from '../WantList/Wishlist';
-import useDialogModal from "../hooks/useDialogModal";
-import ItemDetails from './ItemDetails';
-import { textAlign } from '@mui/system';
 import AddIcon from "@mui/icons-material/Add";
 import {
   addDoc,
@@ -148,7 +141,6 @@ const TopProfile = (item) => {
           </Grid>
         </div>
       </Container>
-      <useDialogModal title={item.title} />
     </>
   );
 };

@@ -1,19 +1,16 @@
 import React, {useState } from "react";
-import {BrowserRouter, Switch, Router, Routes, Route} from 'react-router-dom'
-import Header from "./Header"
 import { Wishlist } from "./Wishlist"
 import { Traded}  from "./Traded"
 import { Add }  from "./Add"
 import "../font-awesome/css/all.min.css"
 import "../WantList/WishList.css"
 
-import { Box, Button, Stack } from "@mui/material";
-import Sidebar from "../Sidebar";
-import WishList from "../Profile/WishList";
+import { Button} from "@mui/material";
+
 
 
 const Want = () => {
-  const [active, setActive] = useState('Wishlist')
+  const [active, setActive] = useState('WishList')
   return (
     <>
       <div>

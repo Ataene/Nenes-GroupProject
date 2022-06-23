@@ -1,4 +1,5 @@
 
+
 import React, { useContext, useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -36,26 +37,22 @@ import AddIcon from "@mui/icons-material/Add";
 
 import { addDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import {ResultCard} from "./ResultCard"
 
-export const Add = () => {
-    
+export const ResultCard = () => {
   const authContext = useContext(AuthContext);
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const { user } = authContext;
   // const [ allUsers, setAllUser ] = useState([])
 
-    const [postedAds, setSetAllPostedAds] = useState([]);
-    const items = postedAds.filter((value) => value.item === "item");
-
+  const [postedAds, setSetAllPostedAds] = useState([]);
+  const items = postedAds.filter((value) => value.item === "item");
 
   const [title, setTitle] = useState("");
-  const [name, setName] = useState("");
+  const [image, setImage] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [condition, setCondition] = useState("");
-
 
   useEffect(() => {
     if (db && user) {
@@ -75,37 +72,32 @@ export const Add = () => {
       return unsubscribe;
     }
   }, [db, user]);
-    
+
   return (
-    <div className="add-page">
-      <div className="container">
-        <div className="add-content">
-          <div className="input-wrapper">
-            <div
-              name="title"
-              value={title}
-              onChange={(e) => setSetAllPostedAds(e.target.value)}
-              type={"text"}
-              placeholder="Search for an item"
-            />
-          </div>
-          {postedAds.map((item) => {
-              return (
-                <ul>
-                  <li
-                    className="flex items-stretch justify-between"
-                    key={item.timeStamp}
-                  >
-                    <p>{item.title}</p>
-                  </li>
-                  <li>
-                    <ResultCard item={item} />
-                  </li>
-                </ul>
-              );
-          })}
+    <div className="result-card">
+      <div className="image-wrapper">
+        <div>
+          name="title"
+          value={title}
+          component="img"
+          image={item.url}
+          title={item.title}
         </div>
+        {postedAds.map((item) => {
+          return (
+            <ul>
+              <li
+                className="flex items-stretch justify-between"
+                key={item.timeStamp}
+              >
+              </li>
+              <li>
+                <ResultCard image={image} />
+              </li>
+            </ul>
+          );
+        })}
       </div>
     </div>
   );
-}
+};
