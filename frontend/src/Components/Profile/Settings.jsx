@@ -1,16 +1,25 @@
-import React, { useContext, useState } from "react";
-import { Avatar, Input, TextField, Typography } from "@mui/material";
-import { serverTimestamp } from "firebase/firestore";
+import React, { useContext, useEffect, useState } from "react";
+import { Avatar, Button, TextField, Typography } from "@mui/material";
+import { useParams } from "react-router-dom";
 import { AuthContext } from "../../auth/AuthProvider";
-import { Box, Container } from "@mui/system";
+import { Container } from "@mui/system";
+import { addDoc, collection, doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { FirebaseContext } from "../../auth/FirebaseProvider";
 
 const Settings = (props) => {
-        
+
+  const params = useParams();
   const show = props.SwipCards;
-  const [data, setData ] = useState(show)
-  
+  const [data, setData ] = useState(show);
+  const [file, setFile] = useState("");
+  const [progress, setProgress] = useState(null);
   const authContext = useContext(AuthContext);
   const { user } = authContext;
+  const [ userDocument, setUserDocument ] = useState(null);
+  const fbContext = useContext(FirebaseContext);
+  const db = fbContext.db;
+  const store = fbContext.store;
 
   const [formData, setFormData] = useState({
     uid: user.uid,
@@ -29,60 +38,76 @@ const Settings = (props) => {
   });
 
   const handleChange = (e) => {
-    console.log("e", e);
-    const value =
-      e.target.type === "checkbox" ? e.target.checked : e.target.value;
-
+    // console.log("e", e);
+    const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
     const name = e.target.name;
-
+    console.log(name, value)
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
+    console.log(formData);
   };
 
-  const handleSubmit = (e) => {
+  const handleFileChange = (e) => {
+    console.log("File handle Change")
+    let selectedFile = e.target.files[0];
+    setFile(selectedFile);
+    handleChange(e)
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try{
+      const res = await setDoc(doc(db, "users", user.uid), {
+        ...formData,
+        timeStamp: serverTimestamp(),
+      })
+      console.log(res);
+    } catch(error){
+      console.log(error.message);
+    }
   };
+  useEffect(() => {
+
+    const handleImageUpload = () => {
+      const name = new Date().getTime() + file.name;
+      const imageRef = ref(store, name);
+      const uploadTask = uploadBytesResumable(imageRef, file);
+      uploadTask.on(
+        "state_changed",
+        (snapshort) => {
+          const percentage =
+            (snapshort.bytesTransferred / snapshort.totalBytes) * 100;
+          setProgress(percentage);
+        },
+        (error) => {
+          console.log("Upload Error", error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            setFormData((prev) => ({
+              ...prev, 
+              Avatar: downloadURL
+            }));
+          });
+        }
+      );
+    };
+    console.log("***", file);
+
+    file && handleImageUpload();
+  }, [file]);
+
   return (
     <>
-      <Typography sx={{display: "flex", justifyContent: "center"}}>CREATE ACCOUNT</Typography>
+      <Typography sx={{display: "flex", justifyContent: "center"}}>UPDATE ACCOUNT</Typography>
       <Container>
         <form
           onSubmit={handleSubmit}
           style={{ display: "flex", justifyContent: "space-between" }}
         >
           <section>
-            <TextField
-              id="First Name"
-              label="First Name"
-              variant="standard"
-              type="text"
-              name="firstName"
-              required={true}
-              value={formData.firstName}
-              onChange={handleChange}
-            />
-            <TextField
-              id="Last Name"
-              label="Last Name"
-              variant="standard"
-              type="text"
-              name="lastName"
-              required={true}
-              value={formData.lastName}
-              onChange={handleChange}
-            />
-            <TextField
-              id="standard-basic"
-              label="Email"
-              variant="standard"
-              type="text"
-              name="email"
-              required={true}
-              value={formData.email}
-              onChange={handleChange}
-            />
           </section>
           <section>
             <TextField
@@ -110,7 +135,7 @@ const Settings = (props) => {
               label="Postal Code"
               variant="standard"
               type="text"
-              name="postcalCode"
+              name="postalCode"
               required={true}
               value={formData.postalCode}
               onChange={handleChange}
@@ -139,7 +164,12 @@ const Settings = (props) => {
             />
           </section>
           <section>
-            <Avatar sx={{ bgcolor: "green"[500], width: 100, height: 100, marginTop: "30px" }} variant="rounded"></Avatar>
+            <Avatar 
+             src={
+              file ? URL.createObjectURL(file) : <Typography>Image failed to load</Typography>
+             }
+              sx={{ bgcolor: "green"[500], width: 100, height: 100, marginTop: "30px" }} 
+              variant="rounded" />
             <input
               id="standard-basic"
               label="Profile Photo"
@@ -148,8 +178,12 @@ const Settings = (props) => {
               name="url"
               required={true}
               value={formData.url}
-              onChange={handleChange}
+              onChange={handleFileChange}
             />
+          </section>
+          <section style={{display: "flex"}}>
+            <Button disabled={progress !== null && progress < 100} type="submit">Submit</Button>
+            {progress ? <div>progress: {progress}%</div> : <div />}
           </section>
         </form>
       </Container>

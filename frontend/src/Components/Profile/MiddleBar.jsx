@@ -1,27 +1,19 @@
 import React, { useState } from "react";
 import { Box, Container, Button } from "@mui/material";
-// import Feeds from '../Feeds';
 import TopProfile from "./TopProfile";
-import Feeds from '../Feeds';
 import DropSelections from "../DropSelections";
 import Wish from "./WishList"
 import Test from "../WantList/Test";
-
 import ProductScreen from '../ProductPage/Product';
-
 import SwipCards from "./SwipCards";
 import WishList from "./WishList";
 import Market from "./Market";
 import Settings from "./Settings";
 
-
 const MiddleBar = () => {
-
   const [active, setActive] = useState("topProfile");
   const [modalVisible, setModalVisible] = useState(false);
-
   const [open, setOpen] = useState(false);
-  
   const handleModalOpen = () => {
     setModalVisible(true);
   };
@@ -29,7 +21,7 @@ const MiddleBar = () => {
     setModalVisible(false);
   };
   return (
-    <Box sx={{ flex: "8.5", backgroundColor: "#FFE6E6" }}>
+    <Box sx={{ flex: "8.5", backgroundColor: "#B8F1B0" }}>
       <Container>
         <Box sx={{ margin: "5px" }}>
           <Button
@@ -85,10 +77,6 @@ const MiddleBar = () => {
         {modalVisible && ( <DropSelections visible={modalVisible} onCancel={handleCancel} sx={{ margin: "5px" }}variant="outlined" size="large" />)}
         </Box>
         <hr />
-
-        <TopProfile /> 
-        <Feeds />
-
         <>
           {active === "topProfile" && <TopProfile />}
           {active === "swipCards" && <SwipCards />}
@@ -97,8 +85,6 @@ const MiddleBar = () => {
           {active === "test" && <Test />}
           {active === "settings" && <Settings />}
         </>
-        {/* <Feeds /> */}
-
       </Container>
     </Box>
   );

@@ -16,18 +16,22 @@ import AppBar from "./Components/appbar/appbar";
 import { Location } from "./Components/Region/Location";
 import Welcome from "./Components/Region/Welcome";
 import NearMe from "./Components/Region/NearMe";
-import AddLocation from "./Components/Region/AddLocation";
+
+
+import Maps from "./Components/Region/Maps";
+
+
 import PostAdPage from "./Components/PostAdPage";
 import WishList from "./Components/Profile/WishList";
 import FirebaseProvider from "./auth/FirebaseProvider";
 //import PostAd from "./Components/PostAd";
-import Example from "./Components/Example";
 //import Want from "./Components/WantList";
 import Test from "./Components/WantList/Test";
 import { Wishlist } from "./Components/WantList/Wishlist";
 import { Traded } from "./Components/WantList/Traded";
 import { Add } from "./Components/WantList/Add";
 import { ProductScreen } from "./Components/Profile/title";
+import AddLocation from "./Components/Region/AddLocation";
 
 function App() {
   return (
@@ -46,7 +50,6 @@ function App() {
             {/*<Route path="/wishlist" element={<WishList />} />*/}
             <Route path="/postad" element={<PostAdPage />} />
             <Route path="/test" element={<Test />} />
-            <Route path="/blog" element={<Example />} />
             {/*<Route path="/watchlist" element={<Wishlist />} />*/}
             <Route path="/traded" element={<Traded />} />
             {/*<Route path="/add" element={<Add />} />/*}

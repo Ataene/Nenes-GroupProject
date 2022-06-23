@@ -49,7 +49,7 @@ const Navigation = () => {
                 Blog
               </Button>
             </Link>
-            <Link style={{ textDecoration: "none" }} to="/addlocation">
+            <Link style={{ textDecoration: "none" }} to="/maps">
               <Button sx={{ my: 2, color: "white", display: "block" }}>
                 Map
               </Button>

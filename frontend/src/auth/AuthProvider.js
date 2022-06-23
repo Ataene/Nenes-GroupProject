@@ -3,10 +3,13 @@ import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndP
 import { FirebaseContext } from './FirebaseProvider';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 
+import { useParams } from "react-router-dom";
+
 export const AuthContext = createContext();
 
 const AuthProvider = (props) => {
 
+    const params = useParams();
     const children = props.children
     const [ user, setUser ] = useState(null);
     const [ profile, setProfile ] = useState(null);
@@ -32,18 +35,18 @@ const AuthProvider = (props) => {
                 uid: user.uid,
                 email: user.email,
                 name: user.displayName,
-                address: "",
+                firstName: user.firstName,
+                lastName: user.lastName,
                 province: "",
                 city: "",
                 postalCode: "",
-                ProductWant: "",
-                ProductNeeded: "",
+                Want: "",
+                Have: "",
                 timeStamp: serverTimestamp(),
               }
               setDoc(newUser, userProfile)
               return true;
             // await updateProfile(auth.userCredential, {displayName: `${firstName} ${lastName}`});
-            // // return user;
         } catch (error) {
             console.log(error.message);
         }

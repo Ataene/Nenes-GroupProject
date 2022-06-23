@@ -1,8 +1,9 @@
 import React, { useContext } from 'react'
-import { Box, Container, Typography, Avatar } from '@mui/material';
+import { Box, Container, Typography, Avatar, TextareaAutosize } from '@mui/material';
 import { AuthContext  } from '../../auth/AuthProvider'
 import { useNavigate } from 'react-router-dom';
 import Location from '../Region/Location';
+import SendIcon from '@mui/icons-material/Send';
 
 const RightBar = () => {
 

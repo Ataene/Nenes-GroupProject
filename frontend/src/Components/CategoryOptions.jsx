@@ -26,7 +26,7 @@ const CategoryOptions =({ category, setCategory }) => {
           <MenuItem value={20}>Services</MenuItem>
           <MenuItem value={30}>Pets</MenuItem>
           <MenuItem value={40}>Livestock</MenuItem>
-          <MenuItem value={50}>Grpceries</MenuItem>
+          <MenuItem value={50}>Groceries</MenuItem>
           <MenuItem value={60}>Autmobiles</MenuItem>
           <MenuItem value={70}>Vacation Rentals</MenuItem>
           <MenuItem value={80}>Computer</MenuItem>

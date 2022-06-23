@@ -26,6 +26,7 @@
     "react-dom": "^18.1.0",
     "react-file-base64": "^1.0.3",
     "react-map-gl": "^7.0.16",
+    "react-map-gl-geocoder": "^2.2.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
     "react-tinder-card": "^1.4.5",
