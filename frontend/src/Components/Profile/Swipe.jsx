@@ -17,7 +17,7 @@ import PersonIcon from '@mui/icons-material/Person';
 
 
 
-const SwipCards = () => {
+const Swipe = () => {
   // const show = props.SwipCards;
   // const [data, setData ] = useState(show)
 
@@ -81,7 +81,7 @@ const SwipCards = () => {
   };
   return (
     <>
-      <Container SwipCards={SwipCards}>
+      <Container>
         {/* <Typography>Swipable Products</Typography> */}
         <Box sx={{display: "flex", flexDirection: "row", justifyContent: "space-evenly"}}>
         <IconButton>
@@ -160,4 +160,4 @@ const SwipCards = () => {
   );
 };
 
-export default SwipCards;
+export default Swipe;
