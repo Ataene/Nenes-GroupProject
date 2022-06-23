@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions, CardHeader, CardMedia, Container, Grid, IconButton, Link } from '@mui/material';
+import { Box, Button, CardActionArea, CardActions, CardHeader, CardMedia, Container, Grid, IconButton, Link } from '@mui/material';
 // import cardImage from "../../images/Alaf.jpg"
 import { AuthContext  } from '../../auth/AuthProvider'
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -19,6 +19,13 @@ import { Wishlist } from '../WantList/Wishlist';
 import useDialogModal from "../hooks/useDialogModal";
 import ItemDetails from './ItemDetails';
 import { textAlign } from '@mui/system';
+import AddIcon from "@mui/icons-material/Add";
+import {
+  addDoc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 const TopProfile = (item) => {
   
@@ -30,7 +37,27 @@ const TopProfile = (item) => {
 
   const [postedAds, setSetAllPostedAds] = useState([]);
 
+  const [title, setTitle] = useState("");
+   const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [url, setUrl] = useState("");
 
+  const postWants = async (e) => {
+    e.preventDefault();
+    try {
+      let collectionRef = collection(db, "wantlist");
+      const response = await addDoc(collectionRef, {
+        title,
+        name,
+        description,
+        url,
+        timeStamp: serverTimestamp(),
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   useEffect(() => {
     if (db && user) {
@@ -51,14 +78,10 @@ const TopProfile = (item) => {
     }
   }, [db, user]);
 
-
-  const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
-    useDialogModal(ItemDetails);
-
   
   return (
     <>
-      <Container>
+      <Container onClick={postWants}>
         <div>
           <h1>Items Up for Trade</h1>
           <Grid container spacing={4}>
@@ -83,6 +106,8 @@ const TopProfile = (item) => {
                         </IconButton>
                       }
                       title={item.title}
+                      onClick={(e) => setTitle(e.target.value)}
+                      name="title"
                     />
                     <CardActionArea>
                       <CardMedia
@@ -95,24 +120,28 @@ const TopProfile = (item) => {
                       </CardContent>
                     </CardActionArea>
                   </Link>
-                  <CardActions onClick={() => showProductDetailDialog}>
-                    <IconButton aria-label="add to favorites">
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="share">
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton aria-label="share">
-                      <ChatIcon />
-                    </IconButton>
-                    <Link href="/WantList/Wishlist">
-                      <Button
-                        sx={{ my: 2, color: "green", display: "inline-grid" }}
-                      >
-                        Want List
-                      </Button>
-                    </Link>
-                  </CardActions>
+                  <Box
+                    sx={{
+                      justifyContent: "center",
+                      alignItems: "center",
+                      display: "flex",
+                    }}
+                  >
+                    <CardActions>
+                      <IconButton aria-label="add to favorites">
+                        <FavoriteIcon />
+                      </IconButton>
+                      <IconButton aria-label="share">
+                        <ShareIcon />
+                      </IconButton>
+                      <IconButton aria-label="share">
+                        <ChatIcon />
+                      </IconButton>
+                      <IconButton aria-label="share" type="click">
+                        <AddIcon />
+                      </IconButton>
+                    </CardActions>
+                  </Box>
                 </Card>
               </Grid>
             ))}

@@ -40,13 +40,6 @@ const Want = () => {
     const [condition, setCondition] = useState("");
     const [subscribe, setSubscribe] = useState("");
 
-  const [postData, setPostData] = useState({
-    title: "",
-    message: "",
-    tags: "",
-    selectedFile: "",
-  });
-
 
     
   const postWants = async (e) => {
@@ -166,13 +159,7 @@ const Want = () => {
             </FormControl>
             <br />
             <FormControl fullWidth>
-              <FileBase
-                type="file"
-                multiple={false}
-                onDone={({ base64 }) =>
-                  setPostData({ ...postData, selectedFile: base64 })
-                }
-              />
+
             </FormControl>
             <FormGroup>
               <FormControlLabel

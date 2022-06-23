@@ -56,14 +56,14 @@ const MiddleBar = () => {
           >
             Market
           </Button>
-          <Button
+          {/*<Button
             onClick={() => setActive("wishList")}
             sx={{ margin: "5px" }}
             variant="outlined"
             size="large"
           >
             WishList
-          </Button>
+  </Button>*/}
           <Button
             onClick={() => setActive("settings")}
             sx={{ margin: "5px" }}
