@@ -108,3 +108,37 @@ a {
   margin-left: 20px;
 }
 /* ------------Swipe Card Styles ....................... */
+
+.cluster-Marker {
+  color: #fff;
+  background: #1978c8;
+  border-radius: 50%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  align-items: center;
+}
+
+.App-link {
+  color: #61dafb;
+  /* .crime-marker {
+  background: none;
+  border: none; */
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+
+/* .crime-marker img {
+  width: 25px;
+} */
+}
