@@ -15,7 +15,7 @@ const DropSelections = ({ visible, onCancel }) => {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: 600,
-    height: 600,
+    height: 700,
     bgcolor: "background.paper",
     border: "1px solid #000",
     boxShadow: 24,
@@ -27,6 +27,8 @@ const DropSelections = ({ visible, onCancel }) => {
   const [condition, setCondition] = useState("");
   const [CategoryName, setCategoryName] = useState([]);
   const [category, setCategory] = useState('');
+  const [quantity, setQuantity] = useState('');
+  const [want, setWant] = useState('');
   const [file, setFile] = useState("");
   const [progress, setProgress] = useState(null);
   const [url, setUrl] = useState("");
@@ -73,6 +75,8 @@ const DropSelections = ({ visible, onCancel }) => {
         condition,
         description,
         category,
+        quantity,
+        want,
         url,
         uid: user.uid,
         timeStamp: serverTimestamp(),
@@ -83,6 +87,9 @@ const DropSelections = ({ visible, onCancel }) => {
       setCategoryName("");
       setCategory("");
       setFile("");
+      setQuantity("")
+      setWant("")
+      setFile("")
     } catch (error) {
       console.log(error.message);
     }
@@ -131,7 +138,26 @@ const DropSelections = ({ visible, onCancel }) => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
+              <TextField
+                sx={{ width: "30rem", marginTop: "15px" }}
+                placeholder="Enter the item quantity"
+                type="number"
+                label="Quantity"
+                variant="outlined"
+                value={quantity}
+                onChange={(e) => setQuantity(e.target.value)}
+              />
+              <TextField
+                sx={{ width: "30rem", marginTop: "15px" }}
+                placeholder="What you Want?"
+                type="text"
+                label="Want"
+                variant="outlined"
+                value={want}
+                onChange={(e) => setWant(e.target.value)}
+              />
               <input
+              style={{marginTop: "10px", marginBottom: "10px"}}
                 type="file"
                 onChange={(e) => {
                   let selectedFile = e.target.files[0];

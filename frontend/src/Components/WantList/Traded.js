@@ -1,10 +1,13 @@
 import React from 'react'
+import { Box, Typography } from '@mui/material';
 
-export const Traded = () => {
+const Traded = () => {
   return (
-      <div>
-          <h1>Traded Page</h1>
-      </div>
+      <Box>
+          <Typography>Traded Page</Typography>
+      </Box>
   )
 }
+
+export default Traded;
 
