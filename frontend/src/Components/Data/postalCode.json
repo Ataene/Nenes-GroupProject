@@ -1,5 +1,4 @@
-{
-  "Location": [
+[
     {
       "postalCode": "T2A",
       "city": "Calgary",
@@ -238,5 +237,5 @@
       "latitude": 50.9023,
       "longitude": -113.9873
     }
-  ]
-}
+  
+]

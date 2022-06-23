@@ -38,7 +38,7 @@ function App() {
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/welcome" element={<Welcome />} />
             <Route path="/nearme" element={<NearMe />} />
-            <Route path="/addlocation" element={<AddLocation />} />
+            {/* <Route path="/addlocation" element={<AddLocation />} /> */}
             <Route path="/maps" element={<Maps />} />
             {/*<Route path="/wishlist" element={<WishList />} />*/}
             <Route path="/postad" element={<PostAdPage />} />
