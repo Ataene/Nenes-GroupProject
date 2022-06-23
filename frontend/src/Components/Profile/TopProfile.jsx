@@ -13,7 +13,7 @@ import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ShareIcon from '@mui/icons-material/Share';
 //import WishList from './WishList';
-import Test from '../WantList/Test';
+import Test from '../WantList/Want';
 import { ImageList, ImageListItem, ImageListItemBar } from "@mui/material";
 import { Wishlist } from '../WantList/Wishlist';
 import useDialogModal from "../hooks/useDialogModal";
@@ -38,7 +38,7 @@ const TopProfile = (item) => {
   const [postedAds, setSetAllPostedAds] = useState([]);
 
   const [title, setTitle] = useState("");
-   const [name, setName] = useState("");
+  const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [url, setUrl] = useState("");
 

@@ -25,7 +25,7 @@ import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ShareIcon from "@mui/icons-material/Share";
 //import WishList from './WishList';
-import Test from "../WantList/Test";
+import Test from "./Want";
 import { ImageList, ImageListItem, ImageListItemBar } from "@mui/material";
 import { Wishlist } from "../WantList/Wishlist";
 

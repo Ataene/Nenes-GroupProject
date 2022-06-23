@@ -29,7 +29,7 @@ import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ShareIcon from '@mui/icons-material/Share';
 import WishList from "../Profile/WishList";
-import Test from '../WantList/Test';
+import Test from '../WantList/Want';
 import { Box } from "@mui/system";
 
 export default function ProductScreen(props) {

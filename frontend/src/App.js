@@ -26,7 +26,7 @@ import WishList from "./Components/Profile/WishList";
 import FirebaseProvider from "./auth/FirebaseProvider";
 //import PostAd from "./Components/PostAd";
 //import Want from "./Components/WantList";
-import Test from "./Components/WantList/Test";
+import Test from "./Components/WantList/Want";
 import { Wishlist } from "./Components/WantList/Wishlist";
 import { Traded } from "./Components/WantList/Traded";
 import { Add } from "./Components/WantList/Add";

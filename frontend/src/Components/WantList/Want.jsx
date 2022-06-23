@@ -12,7 +12,7 @@ import Sidebar from "../Sidebar";
 import WishList from "../Profile/WishList";
 
 
-const Test = () => {
+const Want = () => {
   const [active, setActive] = useState('Wishlist')
   return (
     <>
@@ -30,4 +30,4 @@ const Test = () => {
   );
 };
 
-export default Test;
+export default Want;

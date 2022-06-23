@@ -3,7 +3,7 @@ import { Box, Container, Button } from "@mui/material";
 import TopProfile from "./TopProfile";
 import DropSelections from "../DropSelections";
 import Wish from "./WishList"
-import Test from "../WantList/Test";
+import Want from "../WantList/Want";
 import ProductScreen from '../ProductPage/Product';
 import SwipCards from "./SwipCards";
 import WishList from "./WishList";
@@ -65,24 +65,37 @@ const MiddleBar = () => {
             Settings
           </Button>
           <Button
-            open={open}
-            onClick={() => setOpen(false)}
+            onClick={() => setActive("wantList")}
+            sx={{ margin: "5px" }}
             variant="outlined"
             size="large"
-            href="/test"
           >
             Want List
           </Button>
-          <Button onClick={handleModalOpen} sx={{ margin: "5px" }} variant="outlined" size="large">Post Ad</Button>
-        {modalVisible && ( <DropSelections visible={modalVisible} onCancel={handleCancel} sx={{ margin: "5px" }}variant="outlined" size="large" />)}
+          <Button
+            onClick={handleModalOpen}
+            sx={{ margin: "5px" }}
+            variant="outlined"
+            size="large"
+          >
+            Post Ad
+          </Button>
+          {modalVisible && (
+            <DropSelections
+              visible={modalVisible}
+              onCancel={handleCancel}
+              sx={{ margin: "5px" }}
+              variant="outlined"
+              size="large"
+            />
+          )}
         </Box>
         <hr />
         <>
           {active === "topProfile" && <TopProfile />}
           {active === "swipCards" && <SwipCards />}
-          {active === "wishList" && <WishList />}
           {active === "market" && <Market />}
-          {active === "test" && <Test />}
+          {active === "wantList" && <Want />}
           {active === "settings" && <Settings />}
         </>
       </Container>
