@@ -79,13 +79,12 @@ const Market = (item) => {
   return (
     <>
       <Container onClick={postWants}>
-        <div>
-          <h1>Items Up for Trade</h1>
+        <Box>
           <Grid container spacing={1}>
             {postedAds.map((item) => (
               <Grid item md={3} key={item.timeStamp}>
                 <Card
-                  sx={{ height: "25rem", marginTop: "10px", margin: "10px" }}
+                  sx={{ height: "30rem", marginTop: "10px", margin: "10px" }}
                 >
                     <CardHeader
                       avatar={
@@ -100,7 +99,6 @@ const Market = (item) => {
                       onClick={(e) => setTitle(e.target.value)}
                       name="title"
                     />
-                    <CardActionArea>
                       <CardMedia
                         component="img"
                         image={item.url}
@@ -109,7 +107,6 @@ const Market = (item) => {
                       <CardContent>
                         <Typography>{item.name}</Typography>
                       </CardContent>
-                    </CardActionArea>
                   <Box
                     sx={{
                       justifyContent: "center",
@@ -140,7 +137,7 @@ const Market = (item) => {
               </Grid>
             ))}
           </Grid>
-        </div>
+        </Box>
       </Container>
       <useDialogModal title={item.title} />
     </>
