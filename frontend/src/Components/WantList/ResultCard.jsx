@@ -80,8 +80,6 @@ export const ResultCard = () => {
           name="title"
           value={title}
           component="img"
-          image={item.url}
-          title={item.title}
         </div>
         {postedAds.map((item) => {
           return (

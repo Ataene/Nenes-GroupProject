@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { Box, Container, Button } from "@mui/material";
-import TopProfile from "./TopProfile";
+import TopProfile from "./Market";
 import DropSelections from "../DropSelections";
 import Wish from "./WishList"
 import Want from "../WantList/Want";
 import ProductScreen from '../ProductPage/Product';
-import SwipCards from "./SwipCards";
 import WishList from "./WishList";
 import Market from "./Market";
+import Swipe from "./Swipe";
 import Settings from "./Settings";
 
 const MiddleBar = () => {
-  const [active, setActive] = useState("topProfile");
+  const [active, setActive] = useState("market");
   const [modalVisible, setModalVisible] = useState(false);
   const [open, setOpen] = useState(false);
   const handleModalOpen = () => {
@@ -23,23 +23,7 @@ const MiddleBar = () => {
   return (
     <Box sx={{ flex: "8.5", backgroundColor: "#B8F1B0" }}>
       <Container>
-        <Box sx={{ margin: "5px" }}>
-          <Button
-            onClick={() => setActive("swipCards")}
-            sx={{ margin: "5px" }}
-            variant="outlined"
-            size="large"
-          >
-            SwipCards
-          </Button>
-          <Button
-            onClick={() => setActive("topProfile")}
-            sx={{ margin: "5px" }}
-            variant="outlined"
-            size="large"
-          >
-            TopProfile
-          </Button>
+        <Box sx={{ justifyContent: "center", display: "flex"}}>
           <Button
             onClick={() => setActive("market")}
             sx={{ margin: "5px" }}
@@ -48,14 +32,14 @@ const MiddleBar = () => {
           >
             Market
           </Button>
-          {/*<Button
-            onClick={() => setActive("wishList")}
+          <Button
+            onClick={() => setActive("swipe")}
             sx={{ margin: "5px" }}
             variant="outlined"
             size="large"
           >
-            WishList
-  </Button>*/}
+            Swipe
+          </Button>
           <Button
             onClick={() => setActive("settings")}
             sx={{ margin: "5px" }}
@@ -92,9 +76,8 @@ const MiddleBar = () => {
         </Box>
         <hr />
         <>
-          {active === "topProfile" && <TopProfile />}
-          {active === "swipCards" && <SwipCards />}
           {active === "market" && <Market />}
+          {active === "swipe" && <Swipe />}
           {active === "wantList" && <Want />}
           {active === "settings" && <Settings />}
         </>
