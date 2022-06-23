@@ -23,7 +23,6 @@ import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ShareIcon from "@mui/icons-material/Share";
-//import WishList from './WishList';
 import AddIcon from "@mui/icons-material/Add";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import { addDoc, serverTimestamp } from "firebase/firestore";
@@ -82,13 +81,12 @@ const Market = (item) => {
       <Container onClick={postWants}>
         <div>
           <h1>Items Up for Trade</h1>
-          <Grid container spacing={4}>
+          <Grid container spacing={1}>
             {postedAds.map((item) => (
               <Grid item md={3} key={item.timeStamp}>
                 <Card
                   sx={{ height: "25rem", marginTop: "10px", margin: "10px" }}
                 >
-                  <Link href="/title">
                     <CardHeader
                       avatar={
                         <Avatar
@@ -97,11 +95,6 @@ const Market = (item) => {
                         >
                           R
                         </Avatar>
-                      }
-                      action={
-                        <IconButton aria-label="settings">
-                          <MoreVertIcon />
-                        </IconButton>
                       }
                       title={item.title}
                       onClick={(e) => setTitle(e.target.value)}
@@ -117,26 +110,29 @@ const Market = (item) => {
                         <Typography>{item.name}</Typography>
                       </CardContent>
                     </CardActionArea>
-                  </Link>
                   <Box
                     sx={{
                       justifyContent: "center",
                       alignItems: "center",
                       display: "flex",
+                      flexDirection: "column"
                     }}
                   >
-                    <CardActions>
+                    <Typography>{item.description}</Typography>
+                    <Typography>Condition: {item.condition}</Typography>
+
+                    <CardActions sx={{marginBottom: "20px"}}>
                       <IconButton aria-label="add to favorites">
-                        <FavoriteIcon />
+                        <FavoriteIcon sx={{color: "red"}} fontSize="large"/>
                       </IconButton>
                       <IconButton aria-label="share">
-                        <ShareIcon />
+                        <ShareIcon sx={{color: "#62b4f9" }} fontSize="large" />
                       </IconButton>
                       <IconButton aria-label="share">
-                        <ChatIcon />
+                        <ChatIcon sx={{color: "green"}} fontSize="large" />
                       </IconButton>
                       <IconButton aria-label="share" type="click">
-                        <ListAltIcon />
+                        <ListAltIcon sx={{color: "purple"}} fontSize="large" />
                       </IconButton>
                     </CardActions>
                   </Box>
