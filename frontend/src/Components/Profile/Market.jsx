@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, {  useContext, useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -9,14 +9,17 @@ import Avatar from "@mui/material/Avatar";
 import ShareIcon from "@mui/icons-material/Share";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 
+import { AuthContext } from "../../auth/AuthProvider";
 const Market = ({postedAds, handleClick}) => {
-
+  
+  const authContext = useContext(AuthContext);
+  const { user } = authContext;
   return (
     <>
       <Container>
         <Box>
           <Grid container spacing={1}>
-            {postedAds.map((item) => (
+            {postedAds.filter((item) => item.uid !== user.uid).map((item) => (
               <Grid item md={3} key={item.timeStamp}>
                 <Card
                   sx={{ height: "33rem", marginTop: "10px", margin: "10px" }}

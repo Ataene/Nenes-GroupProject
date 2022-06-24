@@ -6,6 +6,7 @@ import images1 from "../images/Alaf.jpg";
 import images2 from "../images/Nicole.jpg";
 import images3 from "../images/Sam.jpg";
 import images4 from "../images/Neetha.png";
+import images5 from "../images/Eva.jpg";
 import { Container } from '@mui/system';
 
 const About = () => {
@@ -52,7 +53,29 @@ const About = () => {
           The Hundie App grew from our Scrum Master/Product owner Eva's lived experience. Eva, along with her family, live in beautiful rural Alberta. Eva shared a common experience when living in a rural community: trading goods and services for other goods and services. Her idea is what became the vision for the Hundie App and helped guide the development. 
           </Typography>
         </Container>
-        <Typography  variant="h4" sx={{ textAlign: 'center', alignItem: 'center', marginTop: "30px", marginBottom: "30px"}}>Eva's Picture Here</Typography>
+        <Typography  variant="h4" sx={{ textAlign: 'center', alignItem: 'center', marginTop: "30px", marginBottom: "30px"}}>Scrum Master</Typography>
+        <Container sx={{display: "flex", justifyContent: "center"}}>
+        <Card sx={{ maxWidth: 345, height: "30rem", marginTop: "20px", margin: "15px" }}>
+            <CardMedia
+            component="img"
+            alt="Team Images"
+            height="250"
+            image={images5}
+            />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+            Eva Lapp
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Software Engineer
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small"><GitHubIcon /></Button>
+            <Button size="small"><LinkedInIcon /></Button>
+          </CardActions>
+          </Card>
+        </Container>
         <Container >
           <Typography variant="h6" sx={{ alignItem: 'center'}}>
           The idea is simple, trade to have goods and services you need for stuff you don't! In the Hundie App, you will find a streamlined experience from sign up to meeting a "trader". Ad matching is quick and simple! You enter your Postal Code, add 3 items to your wishlist and begin seeing potential trades near you! Once you find your trade, send a message to set up meeting details, meet and complete your first trade. We hope you enjoy trading in our App, Cheers!
@@ -62,7 +85,7 @@ const About = () => {
       <Grid container sx={{ justifyContent: "center"}}>
           <Grid item sx={{justifyContent: "center", display: "flex"}}>
           {teamNames.map((names) => (
-          <Card sx={{ maxWidth: 345, height: "25rem", marginTop: "20px", margin: "15px" }}  key={names.id}>
+          <Card sx={{ maxWidth: 345, height: "30rem", marginTop: "20px", margin: "15px" }}  key={names.id}>
             <CardMedia
             component="img"
             alt="Team Images"
