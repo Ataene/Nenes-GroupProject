@@ -12,7 +12,7 @@ import { PrivateRoute } from "./auth/PrivateRoute";
 import AuthProvider from "./auth/AuthProvider";
 import Profile from "./Components/Profile/Profile";
 import Footer from "../src/Components/footer/index";
-import { Location } from "./Components/Region/Location";
+// import { Location } from "./Components/Region/Location";
 import Welcome from "./Components/Region/Welcome";
 import NearMe from "./Components/Region/NearMe";
 import Maps from "./Components/Region/Maps";
@@ -23,7 +23,7 @@ import Wishlist  from "./Components/WantList/Wishlist";
 import Traded  from "./Components/WantList/Traded";
 import  Add  from "./Components/WantList/Add";
 import { ProductScreen } from "./Components/Profile/title";
-import AddLocation from "./Components/Region/AddLocation";
+// import AddLocation from "./Components/Region/AddLocation";
 
 function App() {
   return (

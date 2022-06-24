@@ -4,6 +4,7 @@ import { AuthContext  } from '../../auth/AuthProvider'
 import { useNavigate } from 'react-router-dom';
 import Location from '../Region/Location';
 import SendIcon from '@mui/icons-material/Send';
+import Messenger from '../../Pages/messenger/Messenger';
 
 const RightBar = () => {
 
@@ -25,6 +26,7 @@ const RightBar = () => {
         email: {user.email}
         </Typography>
        <Location />
+       <Messenger />
      </Container>
     </Box>
   )
