@@ -105,7 +105,7 @@ const Navigation = () => {
           {user && (
             <>
               <SearchBar 
-                placeholder="   Enter an item name..."
+                placeholder="Enter an item name..."
                 data={products}
               style={{marginRight: "auto"}} />
               <Typography style={{marginTop: "22px", marginRight: "10px"}}>Hi, {user.displayName}</Typography>
