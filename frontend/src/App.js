@@ -23,6 +23,7 @@ import Wishlist  from "./Components/WantList/Wishlist";
 import Traded  from "./Components/WantList/Traded";
 import  Add  from "./Components/WantList/Add";
 import { ProductScreen } from "./Components/Profile/title";
+import WantProvider from "./providers/WantProvider";
 // import AddLocation from "./Components/Region/AddLocation";
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
     <>
       <FirebaseProvider>
         <AuthProvider>
+        <WantProvider>
           <Navigation />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -61,6 +63,7 @@ function App() {
             <Route exact path="/signup" element={<SignUp />} />
           </Routes>
           <Footer />
+        </WantProvider>
         </AuthProvider>
       </FirebaseProvider>
     </>

@@ -18,21 +18,19 @@ const Navigation = () => {
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const [ usePicture, setUserPicture ] = useState();
-  useEffect(() => {
 
+  useEffect(() => {
+console.log(user)
     if (db && user) {
-      let collectionRef = collection(db, "users");
-      let queryRef = query(collectionRef, orderBy("timeStamp"));
-      const unsubscribe = onSnapshot(queryRef, (querySnap) => {
+      let docRef = doc(db, "users", user.uid);
+
+      const unsubscribe = onSnapshot(docRef, (querySnap) => {
 
         if (querySnap.empty) {
           console.log("Ads not found");
         } else {
-          let usersData = querySnap.docs.map((doc) => {
-            return { ...doc.data().Avatar};
-          });
-          setUserPicture(usersData);
-          console.log("YYYYYYYYYYYY", usePicture)
+          let usersData = querySnap.data()
+          setUserPicture(usersData.Avatar);
         }
       });
       return unsubscribe;

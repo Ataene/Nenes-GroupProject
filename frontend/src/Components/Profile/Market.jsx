@@ -14,6 +14,8 @@ const Market = ({postedAds, handleClick}) => {
   
   const authContext = useContext(AuthContext);
   const { user } = authContext;
+
+  
   return (
     <>
       <Container>

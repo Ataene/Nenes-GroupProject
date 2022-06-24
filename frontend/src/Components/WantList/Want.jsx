@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Avatar, Box, Card, CardActions, CardHeader, CardMedia, Grid, IconButton, Typography, CardContent } from "@mui/material";
 import { Container } from "@mui/system";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -6,8 +6,13 @@ import ChatIcon from "@mui/icons-material/Chat";
 import ShareIcon from "@mui/icons-material/Share";
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 import PersonIcon from '@mui/icons-material/Person';
+import { WantContext } from "../../providers/WantProvider";
 
-const Want = ({wantList, removeItem}) => {
+const Want = () => {
+
+  const wantContext = useContext(WantContext);
+  const { wantList, removeFromWantList } = wantContext;
+
   const [search, setSearch ] = useState('')
   return (
     <>
@@ -71,7 +76,7 @@ const Want = ({wantList, removeItem}) => {
                         <ChatIcon sx={{color: "green"}}  />
                       </IconButton>
                       <IconButton aria-label="share">
-                        <CancelPresentationIcon sx={{color: "green"}} onClick={() => removeItem(item)} />
+                        <CancelPresentationIcon sx={{color: "green"}} onClick={() => removeFromWantList(item)} />
                       </IconButton>
                     </CardActions>
                   </Box>

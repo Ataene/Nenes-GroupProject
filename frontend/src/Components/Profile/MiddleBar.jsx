@@ -11,19 +11,23 @@ import Settings from "./Settings";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { AuthContext } from "../../auth/AuthProvider";
+import { WantContext } from "../../providers/WantProvider";
+
 
 const MiddleBar = () => {
 
   //Auth and DB Context
   const authContext = useContext(AuthContext);
   const fbContext = useContext(FirebaseContext);
+  const wantContext = useContext(WantContext);
+
   const db = fbContext.db;
   const { user } = authContext;
+  const { addToWantList, removeFromWantList } = wantContext;
 
   const [active, setActive] = useState("market");
   const [modalVisible, setModalVisible] = useState(false);
   const [postedAds, setSetAllPostedAds] = useState([]);
-  const [wantList, setWantList ] = useState([]);
 //useEffect to call db
   useEffect(() => {
     if (db && user) {
@@ -43,13 +47,15 @@ const MiddleBar = () => {
     }
   }, [db, user]);
 
+
+
   //Handle add to WantList
   const handleClick = (item) => {
-    setWantList([...wantList, { ...item }])
+    addToWantList(item)
   }
   //Handle Remove from wantList
   const removeItem = (removedItem) => {
-    setWantList(wantList.filter((item) => item !== removedItem))
+    removeFromWantList(removedItem)
   }
 
   const handleModalOpen = () => {
@@ -116,7 +122,7 @@ const MiddleBar = () => {
         <>
           {active === "market" && <Market  postedAds ={postedAds}  handleClick={handleClick}/>}
           {active === "swipe" && <Swipe />}
-          {active === "wantList" && <Want wantList={wantList} removeItem={removeItem}/>}
+          {active === "wantList" && <Want />}
           {active === "settings" && <Settings />}
         </>
       </Container>
