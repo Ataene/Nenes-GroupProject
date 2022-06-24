@@ -2,7 +2,8 @@ import React, { useRef, useState } from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Map, { Marker, Popup } from "react-map-gl";
 import { Box, Button, Link  } from "@mui/material";
-import testData from "../Data/testData.json";
+// import postalData from "../Data/testData.json";
+import postalData from "../Data/postalCode.json";
 import ParkIcon from "@mui/icons-material/Park";
 import HomeIcon from "@mui/icons-material/Home";
 import { Container } from "@mui/system";
@@ -46,11 +47,11 @@ const mapRef = useRef(null);
         style={{ width: 1300, height: 660 }}
         mapStyle="mapbox://styles/ataene/cl4lf3mv9000h14nyykjem276"
       >
-        {testData.map((park) => (
+        {postalData.map((postal) => (
           <Marker
-            key={park.Name}
-            latitude={park.Latitude}
-            longitude={park.Longitude}
+            key={postal.postalCode}
+            latitude={postal.latitude}
+            longitude={postal.longitude}
           >
               <ParkIcon
                 color="primary"
@@ -64,16 +65,16 @@ const mapRef = useRef(null);
 
         {selectedPark ? (
           <Popup
-            latitude={parseFloat(selectedPark.Latitude)}
-            longitude={parseFloat(selectedPark.Longitude)}
+            latitude={parseFloat(selectedPark.latitude)}
+            longitude={parseFloat(selectedPark.longitude)}
             closeButton={true}
             closeOnClick={false}
             anchor="left"
           >
             <div className="card-container">
               <label className="popups-label">Place</label>
-              <h5 className="place">{selectedPark.Name}</h5>
-              <p className="descInfo">{selectedPark.Address}</p>
+              <h5 className="place">{selectedPark.postalCode}</h5>
+              <p className="descInfo">{selectedPark.neighborhood}</p>
               <label className="popups-label">Review</label>
               <br />
               <Link to="http://localhost:3000/">
@@ -83,7 +84,7 @@ const mapRef = useRef(null);
               <label className="popups-label">Ratings</label>
               {/* <p className="star">{(selectedPark.Ratings).fill(<MapRatings className="star"/>)}</p> */}
               <label className="popups-label">Information</label>
-              <p className="descInfo">{selectedPark.Description}</p>
+              <p className="descInfo">{selectedPark.neighborhood}</p>
               <div className="btn">
                 <Button className="btn-button">
                   <Link to="/blog">Survey</Link>
