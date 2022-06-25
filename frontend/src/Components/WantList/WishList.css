@@ -289,3 +289,78 @@ header .nav-links li:last-child {
     font-size: 3rem;
     text-align: center;
 }
+.searchInputs {
+    margin-top: 15px;
+    margin-bottom: 8px;
+    margin-right: 10px;
+    position: relative;
+}
+
+.search input {
+    background-color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 15px;
+    padding: 13px;
+    height: 25px;
+    width: 300px;
+    display: block;
+    outline: none;
+}
+
+.searchIcon {
+    height: 40px;
+    width: 50px;
+    color: green;
+    position: absolute;
+    display: grid;
+    top: 5px;
+    place-items: right;
+    margin-bottom: 10rem;
+    padding-left: 2px;
+}
+
+input:focus {
+    outline: none;
+}
+
+.searchIcon svg {
+    font-size: 22px;
+}
+
+.dataResult {
+    margin-top: 3px;
+    width: 300px;
+    height: 800px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    overflow: hidden;
+    overflow-y: auto;
+    position: absolute;
+    z-index: 100;
+}
+
+.dataResult::-webkit-scrollbar {
+    display: none;
+}
+
+.dataResult .dataItem {
+    width: 100%;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    color: black;
+}
+
+.dataItem p {
+    margin-left: 10px;
+}
+
+a {
+    text-decoration: none;
+}
+
+#clearBtn {
+    cursor: pointer;
+    margin-left: 20px;
+}

@@ -38,7 +38,9 @@ import AddIcon from "@mui/icons-material/Add";
 import { addDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
-export const ResultCard = () => {
+  
+
+export const ImageCard = () => {
   const authContext = useContext(AuthContext);
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
@@ -53,6 +55,7 @@ export const ResultCard = () => {
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [condition, setCondition] = useState("");
+ 
 
   useEffect(() => {
     if (db && user) {
@@ -73,29 +76,22 @@ export const ResultCard = () => {
     }
   }, [db, user]);
 
+const itemData = [
+  {
+    img: "gs://hundiepay.appspot.com/",
+  },
+];  
+
   return (
-    <div className="result-card">
-      <div className="image-wrapper">
-        <div>
-          name="title"
-          value={title}
-          component="img"
-        </div>
-        {postedAds.map((item) => {
-          return (
-            <ul>
-              <li
-                className="flex items-stretch justify-between"
-                key={item.timeStamp}
-              >
-              </li>
-              <li>
-                <ResultCard image={image} />
-              </li>
-            </ul>
-          );
-        })}
-      </div>
-    </div>
+    <Box>
+      <ImageList variant="standard" sx={{ width: 400, height: 400 }} cols={3}>
+        {itemData.map((image, item) => (
+          <ImageListItem key={item.timeStamp} image={item.url}>
+            <img src={item.url} alt={image.title} loading="lazy" />
+            <ImageListItemBar position="below" title={item.title} />
+          </ImageListItem>
+        ))}
+      </ImageList>
+    </Box>
   );
 };
