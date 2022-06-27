@@ -11,8 +11,8 @@ import Settings from "./Settings";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { AuthContext } from "../../auth/AuthProvider";
-import { WantContext } from "../../providers/WantProvider";
 
+import { WantContext } from "../../providers/WantProvider";
 
 const MiddleBar = () => {
 

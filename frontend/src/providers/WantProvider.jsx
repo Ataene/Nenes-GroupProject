@@ -18,13 +18,21 @@ const WantProvider = (props) => {
     const authContext = useContext(AuthContext);
     const { user } = authContext; 
 
-    const [ wantList, setWantList ] = useState([])
+  const [wantList, setWantList] = useState([])
+  const [traded, setTraded] = useState([]);
 
     const addToWantList = (newItem) =>{
         let newWantList = [...wantList, newItem]
         let docRef = doc(db, "wantlist", user.uid);
         setDoc(docRef, {items: newWantList})
-    }
+  }
+  
+      const moveToTraded = (newItem) => {
+        let newTraded = [...traded, newItem];
+        let docRef = doc(db, "traded", user.uid);
+        setDoc(docRef, { items: newTraded });
+  };
+  
     const removeFromWantList = (itemToRemove) =>{
         let newWantList = wantList.filter((item) =>item !== itemToRemove);
         let docRef = doc(db, "wantlist", user.uid);
@@ -49,8 +57,9 @@ useEffect(() => {
 
     const theValues = {
        wantList,
-       addToWantList,
-       removeFromWantList
+      addToWantList,
+       moveToTraded,
+       removeFromWantList,
     }
     return <WantContext.Provider value={theValues}>{children}</WantContext.Provider>
 }

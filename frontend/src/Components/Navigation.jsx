@@ -39,11 +39,29 @@ const Navigation = () => {
   };
 
   return (
-    <AppbarContainer >
+    <AppbarContainer
+      sx={{
+        backgroundImage:
+          "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(27,100,14,1) 0%, rgba(30,114,11,0.03545168067226889) 37%, rgba(32,121,9,0.6615021008403361) 57%, rgba(30,128,28,0) 100%, rgba(0,212,255,1) 100%, rgba(28,135,41,1) 100%, rgba(25,143,70,1) 100%)",
+      }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography variant="h4" noWrap component="a" href="/"
-            sx={{ mr: 3, display: { xs: "none", md: "flex" }, fontFamily: '"Montez", "cursive"', fontWeight: 700, letterSpacing: ".01rem", color: "white", textDecoration: "none", }}>
+          <Typography
+            variant="h4"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 3,
+              display: { xs: "none", md: "flex" },
+              fontFamily: '"Montez", "cursive"',
+              fontWeight: 700,
+              letterSpacing: ".01rem",
+              color: "white",
+              textDecoration: "none",
+            }}
+          >
             Hundie
           </Typography>
           <Box
@@ -76,43 +94,55 @@ const Navigation = () => {
               </Button>
             </Link>
             {user && (
-            <>
-              <Link style={{ textDecoration: "none" }} to="/profile">
-                <Button sx={{ my: 2, color: "white", alignItem: "block" }}>
-                  Profile
-                </Button>
-              </Link>
-            </>
-          )}
+              <>
+                <Link style={{ textDecoration: "none" }} to="/profile">
+                  <Button sx={{ my: 2, color: "white", alignItem: "block" }}>
+                    Profile
+                  </Button>
+                </Link>
+              </>
+            )}
           </Box>
           <Box sx={{ display: { xs: "none", md: "flex" }, marginLeft: "auto" }}>
-          {!user && (
-            <>
-              <Link style={{ textDecoration: "none" }} to="/login">
-                <Button sx={{ my: 2, color: "white", alignItem: "center" }}>
-                  <LoginIcon />
-                  Login
+            {!user && (
+              <>
+                <Link style={{ textDecoration: "none" }} to="/login">
+                  <Button sx={{ my: 2, color: "white", alignItem: "center" }}>
+                    <LoginIcon />
+                    Login
+                  </Button>
+                </Link>
+              </>
+            )}
+            {user && (
+              <>
+                <SearchBar
+                  placeholder="Enter an item name..."
+                  data={products}
+                  style={{ marginRight: "auto" }}
+                />
+                <Typography style={{ marginTop: "22px", marginRight: "10px" }}>
+                  Hi, {user.displayName}
+                </Typography>
+                <Avatar
+                  sx={{ marginTop: "16px" }}
+                  alt="User"
+                  src={usePicture}
+                />
+                <Button
+                  sx={{
+                    my: 2,
+                    color: "white",
+                    alignItem: "center",
+                    marginLeft: "10px",
+                  }}
+                  onClick={logoutUser}
+                >
+                  <ExitToAppIcon />
+                  Logout
                 </Button>
-              </Link>
-            </>
-          )}
-          {user && (
-            <>
-              <SearchBar 
-                placeholder="Enter an item name..."
-                data={products}
-              style={{marginRight: "auto"}} />
-              <Typography style={{marginTop: "22px", marginRight: "10px"}}>Hi, {user.displayName}</Typography>
-              <Avatar sx={{ marginTop: "16px"}} alt="User" src={usePicture} />
-              <Button
-                sx={{ my: 2, color: "white", alignItem: "center", marginLeft: "10px" }}
-                onClick={logoutUser}
-              >
-                <ExitToAppIcon />
-                Logout
-              </Button>
-            </>
-          )}
+              </>
+            )}
           </Box>
         </Toolbar>
       </Container>
