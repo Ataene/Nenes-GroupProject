@@ -106,7 +106,7 @@ const Welcome = () => {
               value={postalCode}
               onChange={(e) => setPostalCode(e.target.value)}
               id="standard-basic"
-              label="POSTAL CODE"
+              label="First 3 characters of your postal code"
               variant="standard"
             />
             <TextField
