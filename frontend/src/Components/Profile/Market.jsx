@@ -34,9 +34,8 @@ const Market = ({postedAds, handleClick}) => {
                         <Avatar
                           sx={{ bgcolor: "red"[500] }}
                           aria-label="recipe"
-                        >
-                          R
-                        </Avatar>
+                          src={item.userPicture}
+                         />
                       }
                       title={item.title}
                       name="title"

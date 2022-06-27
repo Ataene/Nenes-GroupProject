@@ -121,7 +121,7 @@ const Navigation = () => {
                   data={products}
                   style={{ marginRight: "auto" }}
                 />
-                <Typography style={{ marginTop: "22px", marginRight: "10px" }}>
+                <Typography style={{ marginTop: "22px", marginRight: "10px", color: "white" }}>
                   Hi, {user.displayName}
                 </Typography>
                 <Avatar

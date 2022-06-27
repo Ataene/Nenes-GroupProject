@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
-import {collection, query,  onSnapshot, orderBy } from "firebase/firestore"
 import { Typography } from '@mui/material';
 import { Box, Container } from '@mui/system';
 import { AuthContext  } from '../../auth/AuthProvider'
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 
-const UsersDisplay = ({ onlineUsers, online, offline, handleOpen}) => {
+const UsersDisplay = ({ onlineUsers, handleOpen}) => {
   const authContext = useContext(AuthContext);
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;

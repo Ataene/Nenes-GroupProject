@@ -6,6 +6,8 @@ import { AuthContext } from "../auth/AuthProvider";
 import ConditionSelect from "./ConditionSelect";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import CategoryOptions from "./CategoryOptions";
+import {  doc, getDoc, onSnapshot, orderBy, query } from "firebase/firestore";
+
 
 const DropSelections = ({ visible, onCancel }) => {
   const ModalStyle = {
@@ -32,6 +34,7 @@ const DropSelections = ({ visible, onCancel }) => {
   const [file, setFile] = useState("");
   const [progress, setProgress] = useState(null);
   const [url, setUrl] = useState("");
+  const [userPicture, setUserPicture ] = useState("");
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const store = fbContext.store;
@@ -65,6 +68,20 @@ const DropSelections = ({ visible, onCancel }) => {
 
     file && handleImageUpload();
   }, [file]);
+//Handle User profile on product posted.
+  useEffect(() => {
+    if (db && user) {
+      let docRef = doc(db, "users", user.uid);
+      const unsubscribe = onSnapshot(docRef, (querySnap) => {
+        if (querySnap.empty) {
+        } else {
+          let usersData = querySnap.data()
+          setUserPicture(usersData.Avatar);
+        }
+      });
+      return unsubscribe;
+    }
+  }, [db, user]);
 
   const postAds = async (e) => {
     e.preventDefault();
@@ -79,7 +96,7 @@ const DropSelections = ({ visible, onCancel }) => {
         want,
         url,
         uid: user.uid,
-        Avatar: user.Avatar,
+        userPicture,
         timeStamp: serverTimestamp(),
       });
       setTitle("");
