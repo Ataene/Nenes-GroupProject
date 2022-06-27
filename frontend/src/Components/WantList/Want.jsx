@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Grid, Typography } from "@mui/material";
-
-
+import { Button, Container, Grid, Typography } from "@mui/material";
 import Wishlist from "./Wishlist";
 import Traded from "./Traded";
 import Add from "./Add";
@@ -9,14 +7,11 @@ import "../font-awesome/css/all.min.css";
 import "../WantList/WishList.css";
 import { GlobalProvider } from "./GlobalState";
 import { AuthContext } from "../../auth/AuthProvider";
-
 import { WantContext } from "../../providers/WantProvider";
 import { TradeContext } from "../../providers/TradedProvider";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { Box } from "@mui/system";
-
-
 
 const Want = () => {
   const [active, setActive] = useState("Wishlist");
@@ -72,15 +67,7 @@ const Want = () => {
     <>
       <div>
         <Box>
-                          <center>
-                  <Typography color="green" variant="h4">
-                    <h1>Welcome to your want-list page</h1>
-                  </Typography>
-                  <Typography variant="h8">
-                    <p>(click the wantlist to view items on your list)</p>
-                  </Typography>
-            <br />
-            </center>
+          <Container sx={{display: "flex", justifyContent: "center"}}>
           <Button
             sx={{ margin: 3 }}
             color="success"
@@ -106,6 +93,7 @@ const Want = () => {
             {" "}
             + Add
           </Button>
+          </Container>
         </Box>
       </div>
       <div>
