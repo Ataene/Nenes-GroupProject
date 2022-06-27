@@ -79,6 +79,7 @@ const DropSelections = ({ visible, onCancel }) => {
         want,
         url,
         uid: user.uid,
+        Avatar: user.Avatar,
         timeStamp: serverTimestamp(),
       });
       setTitle("");

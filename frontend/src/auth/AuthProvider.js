@@ -4,6 +4,7 @@ import { FirebaseContext } from './FirebaseProvider';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 
 import { useParams } from "react-router-dom";
+import { TrendingUpOutlined } from '@mui/icons-material';
 
 export const AuthContext = createContext();
 
@@ -16,6 +17,7 @@ const AuthProvider = (props) => {
     const [ loading, setLoading ] = useState(false);
     const [ authError, setAuthError ] = useState();
     const [ isPending, setIsPending ] = useState();
+    const [ isOnline, setIsOnline ] = useState(false);
 
     const gitHubprovider = new GithubAuthProvider();
     const facebookprovider = new FacebookAuthProvider();
@@ -45,6 +47,7 @@ const AuthProvider = (props) => {
                 timeStamp: serverTimestamp(),
               }
               setDoc(newUser, userProfile)
+              setIsOnline(true)
               return true;
             // await updateProfile(auth.userCredential, {displayName: `${firstName} ${lastName}`});
         } catch (error) {
@@ -58,6 +61,7 @@ const AuthProvider = (props) => {
             if(userCredential){
                 setAuthError(null)
                 setIsPending(true)
+                setIsOnline(true)
             } else {
                 setAuthError(`Failed Credentials`);
             }
@@ -69,6 +73,7 @@ const AuthProvider = (props) => {
       const LogoutUser = async () => {
         try {
             await signOut(auth);
+            setIsOnline(false)
         } catch (error) {
             console.log("Error logging out");
         }
@@ -85,6 +90,7 @@ const AuthProvider = (props) => {
     const gitHub = async() => {
         const result = await signInWithPopup(auth, gitHubprovider);
         const user = result
+        setIsOnline(true)
         return user;
       }
 
@@ -92,6 +98,7 @@ const AuthProvider = (props) => {
     try {
         const result = await signInWithPopup(auth, googleprovider);
         const user = result
+        setIsOnline(true)
         return user;
     } catch (error) {
         console.log(error.message)
@@ -101,12 +108,14 @@ const AuthProvider = (props) => {
     const facebook = async() => {
         const result = await signInWithPopup(auth, facebookprovider);
         const user = result
+        setIsOnline(true)
         return user;
        }
        
     const twitter = async() => {
         const result = await signInWithPopup(auth, twitterprovider);
         const user = result
+        setIsOnline(true)
         return user;
        }
 
@@ -124,6 +133,7 @@ const AuthProvider = (props) => {
         loading,
         authError,
         isPending,
+        isOnline,
         registerUser,
         signInUser,
         LogoutUser,

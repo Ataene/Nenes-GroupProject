@@ -1,93 +1,123 @@
-import React, { useState, useContext } from "react";
-import { Avatar, Box, Card, CardActions, CardHeader, CardMedia, Grid, IconButton, Typography, CardContent } from "@mui/material";
-import { Container } from "@mui/system";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ChatIcon from "@mui/icons-material/Chat";
-import ShareIcon from "@mui/icons-material/Share";
-import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
-import PersonIcon from '@mui/icons-material/Person';
+import React, { useContext, useEffect, useState } from "react";
+import { Button, Grid, Typography } from "@mui/material";
+
+
+import Wishlist from "./Wishlist";
+import Traded from "./Traded";
+import Add from "./Add";
+import "../font-awesome/css/all.min.css";
+import "../WantList/WishList.css";
+import { GlobalProvider } from "./GlobalState";
+import { AuthContext } from "../../auth/AuthProvider";
+
 import { WantContext } from "../../providers/WantProvider";
+import { TradeContext } from "../../providers/TradedProvider";
+import { FirebaseContext } from "../../auth/FirebaseProvider";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { Box } from "@mui/system";
+
+
 
 const Want = () => {
+  const [active, setActive] = useState("Wishlist");
 
+  //Auth and DB Context
+  const authContext = useContext(AuthContext);
+  const fbContext = useContext(FirebaseContext);
   const wantContext = useContext(WantContext);
-  const { wantList, removeFromWantList } = wantContext;
+  const tradeContext = useContext(TradeContext);
 
-  const [search, setSearch ] = useState('')
+  const db = fbContext.db;
+  const { user } = authContext;
+  const { addToWantList, removeFromWantList } = wantContext;
+  const { addToTraded, removeFromTraded } = tradeContext;
+
+  const [postedAds, setSetAllPostedAds] = useState([]);
+
+  //useEffect to call db
+  useEffect(() => {
+    if (db && user) {
+      let collectionRef = collection(db, "postedAds");
+      let queryRef = query(collectionRef, orderBy("timeStamp"));
+      const unsubscribe = onSnapshot(queryRef, (querySnap) => {
+        if (querySnap.empty) {
+          console.log("Ads not found");
+        } else {
+          let usersData = querySnap.docs.map((doc) => {
+            return { ...doc.data(), DOC_ID: doc.id };
+          });
+          setSetAllPostedAds(usersData);
+        }
+      });
+      return unsubscribe;
+    }
+  }, [db, user]);
+
+  //Handle add to WantList
+  const handleClick = (item) => {
+    addToWantList(item);
+  };
+
+  //Handle add to Traded
+  const handleClickTraded = (item) => {
+    addToTraded(item);
+  };
+
+  //Handle Remove from wantList
+  const removeItem = (removedItem) => {
+    removeFromWantList(removedItem);
+  };
+
   return (
     <>
-      <Box>
-        <Container>
-          <Box sx={{display: "flex", flexDirection: "row", justifyContent: "space-evenly"}}>
-            <IconButton>
-              <PersonIcon fontSize="large" style={{ color: "#ec5e6f" }} />
-            </IconButton>
-              <input 
-                onChange={(event) => setSearch(event.target.value)}
-                type="text"
-                placeholder="Search list..."
-                style={{border: "none", borderRadius: "30px", width: "20rem", height: "35px", paddingLeft: "30px", fontSize: "15px"}}
-                 />
-            <IconButton>
-              <ChatIcon fontSize="large" className="headerIcon" style={{ color: "#ec5e6f" }} />
-            </IconButton>
-          </Box>
-            <Grid container spacing={1}>
-            {wantList.map(( item) => (
-              <Grid item md={3} key={item.description}>
-                <Card
-                  sx={{ height: "33rem", marginTop: "10px", margin: "10px" }}
-                >
-                    <CardHeader
-                      avatar={
-                        <Avatar
-                          sx={{ bgcolor: "red"[500] }}
-                          aria-label="recipe"
-                        >
-                          R
-                        </Avatar>
-                      }
-                      title={item.title}
-                      name="title"
-                    />
-                      <CardMedia
-                        component="img"
-                        sx={{height: "280px"}}
-                        image={item.url}
-                        title={item.title}
-                      ></CardMedia>
-                      <CardContent>
-                        <Typography>{item.name}</Typography>
-                      </CardContent>
-                  <Box
-                    sx={{  justifyContent: "center", alignItems: "center", display: "flex", flexDirection: "column"}}
-                  >
-                    <Typography>{item.description}</Typography>
-                    <Typography>Condition: {item.condition}</Typography>
-                    <Typography>I want : {item.want}</Typography>
-                    <CardActions sx={{marginBottom: "20px"}}>
-                      <IconButton aria-label="add to favorites">
-                        <FavoriteIcon sx={{color: "red"}} />
-                      </IconButton>
-                      <IconButton aria-label="share">
-                        <ShareIcon sx={{color: "#62b4f9" }} />
-                      </IconButton>
-                      <IconButton aria-label="share">
-                        <ChatIcon sx={{color: "green"}}  />
-                      </IconButton>
-                      <IconButton aria-label="share">
-                        <CancelPresentationIcon sx={{color: "green"}} onClick={() => removeFromWantList(item)} />
-                      </IconButton>
-                    </CardActions>
-                  </Box>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </Box>
+      <div>
+        <Box>
+                          <center>
+                  <Typography color="green" variant="h4">
+                    <h1>Welcome to your want-list page</h1>
+                  </Typography>
+                  <Typography variant="h8">
+                    <p>(click the wantlist to view items on your list)</p>
+                  </Typography>
+            <br />
+            </center>
+          <Button
+            sx={{ margin: 3 }}
+            color="success"
+            variant="contained"
+            onClick={() => setActive("WishList")}
+          >
+            Wishlist
+          </Button>
+          <Button
+            sx={{ margin: 3 }}
+            color="success"
+            variant="contained"
+            onClick={() => setActive("Traded")}
+          >
+            Traded
+          </Button>
+          <Button
+            sx={{ margin: 3 }}
+            color="success"
+            variant="contained"
+            onClick={() => setActive("Add")}
+          >
+            {" "}
+            + Add
+          </Button>
+        </Box>
+      </div>
+      <div>
+        {active === "WishList" && (
+          <Wishlist title="WishList" handleClick={handleClickTraded} />
+        )}
+        {active === "Traded" && (
+          <Traded title="Traded" handleClick={handleClickTraded} />
+        )}
+        {active === "Add" && <Add title="Add" handleClick={handleClick} />}
+      </div>
     </>
   );
 };
-
 export default Want;

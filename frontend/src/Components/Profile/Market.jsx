@@ -15,7 +15,9 @@ const Market = ({postedAds, handleClick}) => {
   const authContext = useContext(AuthContext);
   const { user } = authContext;
 
-  
+  if (!postedAds) {
+    return <p className="mx-auto">Loading Data...</p>;
+  }
   return (
     <>
       <Container>
