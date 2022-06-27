@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Location from '../Region/Location';
 import SendIcon from '@mui/icons-material/Send';
 import Messenger from '../../Pages/messenger/Messenger';
+import ChatRoom from "./ChatRoom";
 
 const RightBar = () => {
 
@@ -25,8 +26,11 @@ const RightBar = () => {
         <Typography>
         email: {user.email}
         </Typography>
-       <Location />
-       <Messenger />
+       {/* <Location /> */}
+       {/* <Messenger /> */}
+     </Container>
+     <Container>
+      <ChatRoom />
      </Container>
     </Box>
   )

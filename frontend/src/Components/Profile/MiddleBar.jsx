@@ -46,9 +46,6 @@ const MiddleBar = () => {
       return unsubscribe;
     }
   }, [db, user]);
-
-
-
   //Handle add to WantList
   const handleClick = (item) => {
     addToWantList(item)

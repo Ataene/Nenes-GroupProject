@@ -20,14 +20,10 @@ const Navigation = () => {
   const [ usePicture, setUserPicture ] = useState();
 
   useEffect(() => {
-console.log(user)
     if (db && user) {
       let docRef = doc(db, "users", user.uid);
-
       const unsubscribe = onSnapshot(docRef, (querySnap) => {
-
         if (querySnap.empty) {
-          console.log("Ads not found");
         } else {
           let usersData = querySnap.data()
           setUserPicture(usersData.Avatar);
