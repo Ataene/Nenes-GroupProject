@@ -1,79 +1,31 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {  useContext, useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Box, CardActions, CardHeader, CardMedia, Container, Grid, IconButton } from "@mui/material";
-import { AuthContext } from "../../auth/AuthProvider";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
 import Avatar from "@mui/material/Avatar";
-import { FirebaseContext } from "../../auth/FirebaseProvider";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import ShareIcon from "@mui/icons-material/Share";
 import ListAltIcon from "@mui/icons-material/ListAlt";
-import { addDoc, serverTimestamp } from "firebase/firestore";
 
-const Market = (item) => {
+import { AuthContext } from "../../auth/AuthProvider";
+const Market = ({postedAds, handleClick}) => {
+  
   const authContext = useContext(AuthContext);
-  const fbContext = useContext(FirebaseContext);
-  const db = fbContext.db;
   const { user } = authContext;
-  const [postedAds, setSetAllPostedAds] = useState([]);
-  const [title, setTitle] = useState("");
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [url, setUrl] = useState("");
 
-  const postWants = async (e) => {
-    e.preventDefault();
-    try {
-      let collectionRef = collection(db, "wantlist");
-      const response = await addDoc(collectionRef, {
-        title,
-        name,
-        description,
-        url,
-        timeStamp: serverTimestamp(),
-      });
-      console.log(response);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  useEffect(() => {
-    if (db && user) {
-      let collectionRef = collection(db, "postedAds");
-      let queryRef = query(collectionRef, orderBy("timeStamp"));
-
-      const unsubscribe = onSnapshot(queryRef, (querySnap) => {
-        if (querySnap.empty) {
-          console.log("Ads not found");
-        } else {
-          let usersData = querySnap.docs.map((doc) => {
-            return { ...doc.data(), DOC_ID: doc.id };
-          });
-          setSetAllPostedAds(usersData);
-        }
-      });
-      return unsubscribe;
-    }
-  }, [db, user]);
-
-  const handleClick = (item) => {
-  }
-
+  
   return (
     <>
       <Container>
         <Box>
           <Grid container spacing={1}>
-            {postedAds.map((item) => (
+            {postedAds.filter((item) => item.uid !== user.uid).map((item) => (
               <Grid item md={3} key={item.timeStamp}>
                 <Card
                   sx={{ height: "33rem", marginTop: "10px", margin: "10px" }}
                   item={item}
-                  handleClick={handleClick}
                 >
                     <CardHeader
                       avatar={
@@ -85,7 +37,6 @@ const Market = (item) => {
                         </Avatar>
                       }
                       title={item.title}
-                      onClick={(e) => setTitle(e.target.value)}
                       name="title"
                     />
                       <CardMedia
@@ -114,7 +65,7 @@ const Market = (item) => {
                         <ChatIcon sx={{color: "green"}}  />
                       </IconButton>
                       <IconButton aria-label="share" type="click">
-                        <ListAltIcon sx={{color: "purple"}} onClick={handleClick} />
+                        <ListAltIcon sx={{color: "purple"}} onClick={() => handleClick(item)} />
                       </IconButton>
                     </CardActions>
                   </Box>
@@ -124,7 +75,6 @@ const Market = (item) => {
           </Grid>
         </Box>
       </Container>
-      <useDialogModal title={item.title} />
     </>
   );
 };

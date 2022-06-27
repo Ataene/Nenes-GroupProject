@@ -3,7 +3,7 @@ import { Avatar, Button, TextField, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../../auth/AuthProvider";
 import { Container } from "@mui/system";
-import { addDoc, collection, doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 
@@ -94,8 +94,6 @@ const Settings = (props) => {
         }
       );
     };
-    console.log("***", file);
-
     file && handleImageUpload();
   }, [file]);
 
@@ -107,8 +105,6 @@ const Settings = (props) => {
           onSubmit={handleSubmit}
           style={{ display: "flex", justifyContent: "space-between" }}
         >
-          <section>
-          </section>
           <section>
             <TextField
               id="standard-basic"

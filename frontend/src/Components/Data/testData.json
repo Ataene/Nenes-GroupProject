@@ -1,146 +1,195 @@
 [
-        {
-         "City": "Calgary",
-         "Name": "Carburn Park",
-         "Address": "67 Riverview Dr SE, Calgary, AB T2C 4H8",
-         "Description": "Verdant park offering abundant outdoor activities, such as ice skating, fishing & bird watching.",
-         "Latitude": 50.9743,
-         "Longitude": -114.0327,
-         "LatLong": "50.9743, -114.0327"
-        },
-        {
-         "City": "Calgary",
-         "Name": "Bowness Park",
-         "Address": "8900 48 Ave NW, Calgary, AB T3B 2B2",
-         "Description": "Bowness Park is a 30-hectare urban park on the Bow River in Bowness, a neighbourhood in the northwest quadrant of the City of Calgary, Alberta, Canada. ",
-         "Latitude": 51.0971,
-         "Longitude": -114.2171,
-         "LatLong": "51.0971, -114.2171"
-        },
-        {
-         "City": "Calgary",
-         "Name": "Stanley Park",
-         "Address": "4011 1a St SW, Calgary, AB T2S 2P5",
-         "Description": "Parkhill\/Stanley Park is a residential neighbourhood in the south-west quadrant of Calgary, Alberta. It is bounded by Mission Road to the north, Macleod Trail to the east,Crescent Boulevard to the south and the Elbow River to the west.",
-         "Latitude": 51.0179,
-         "Longitude": -114.0664,
-         "LatLong": "51.0179, -114.0664"
-        },
-        {
-         "City": "Calgary",
-         "Name": "South Glenmore Park",
-         "Address": "24 St SW, Calgary, AB T2V 3N8",
-         "Description": "Waterfront green space with biking & hiking paths, plus a sailing school & an aquatic playground.",
-         "Latitude": 50.973,
-         "Longitude": -114.119,
-         "LatLong": "50.973, -114.1190"
-        },
-        {
-         "City": "Calgary",
-         "Name": "Elliston Park",
-         "Address": "1827 68 St SE, Calgary, AB",
-         "Description": "Relaxed public park with a pond, rose garden, playgrounds, picnic shelters & off-leash dog area.",
-         "Latitude": 51.036,
-         "Longitude": -113.9455,
-         "LatLong": "51.0360, -113.9455"
-        },
-        {
-         "City": "Calgary",
-         "Name": "Haultain Park",
-         "Address": "225 13 Ave SW, Calgary, AB T2R 1N8",
-         "Description": "Park featuring tennis courts, a playground & picnic tables, plus the historic Haultain School.",
-         "Latitude": 51.0404,
-         "Longitude": -114.0677,
-         "LatLong": "51.0404-114.0677"
-        },
-        {
-         "City": "Calgary",
-         "Name": "Nose Hill Park",
-         "Address": "5620 14 St NW, Calgary, AB T3K 2P6",
-         "Description": "Nose Hill Park is a natural park in the northwest quadrant of Calgary, Alberta which covers over 11 km². It is the fourth-largest urban park in Canada, and one of the largest urban parks in North America. It is a municipal park, unlike Fish Creek, which is a provincial park. It was created in 1980.",
-         "Latitude": 51.1095,
-         "Longitude": -114.1089,
-         "LatLong": "51.1095,-114.1089"
-        },
-        {
-         "City": "Calgary",
-         "Name": "Confederation Park",
-         "Address": "905 30 Ave NW, Calgary, AB T2K 0A2",
-         "Description": "Confederation Park is an urban park in northwest Calgary, Alberta. It is developed over an area of 160 hectares between the neighbourhoods of Mount Pleasant, Capitol Hill, Collingwood and Highland Park. 10th Street West bisects the park from north to south.",
-         "Latitude": 51.0798,
-         "Longitude": -114.0793,
-         "LatLong": "51.0798, -114.0793"
-        },
-        {
-         "City": "Calgary",
-         "Name": "Riley Park",
-         "Address": "800 12 St NW, Calgary, AB T2N 0S2",
-         "Description": "Riley Park is an urban park in Calgary, Alberta, Canada.",
-         "Latitude": 51.0585,
-         "Longitude": -114.089,
-         "LatLong": "51.0585, -114.089"
-        },
-        {
-         "City": "Calgary",
-         "Name": "James Short Park",
-         "Address": "115 4 Ave SW, Calgary, AB T2P 4L6",
-         "Description": "Compact urban plaza park with a small playground, a lawn & benches.",
-         "Latitude": 51.0491,
-         "Longitude": -114.0638,
-         "LatLong": "51.0491, -114.0638"
-        },
-        {
-         "City": "Calgary",
-         "Name": "Edworthy Park",
-         "Address": "5050 Spruce Dr SW, Calgary, AB T3C 3B2",
-         "Description": "Edworthy Park is a city park located in the Northwest section of Calgary along the south shore of the Bow River.",
-         "Latitude": 51.0608,
-         "Longitude": -114.1575,
-         "LatLong": "51.0608, -114.1575"
-        },
-        {
-         "City": "Calgary",
-         "Name": "Pearce Estate Park",
-         "Address": "1440 17a St SE, Calgary, AB T2G 4T9",
-         "Description": "The Pearce Estate Wetland is a city park located in Calgary, Alberta. The park occupies 21 hectares along the Bow River to the east of downtown Calgary.",
-         "Latitude": 51.0412,
-         "Longitude": -114.015,
-         "LatLong": "51.0412, -114.015"
-        },
-        {
-         "City": "Calgary",
-         "Name": "Prairie Winds Park",
-         "Address": "223 Castleridge Blvd NE, Calgary, AB T3J 1P6",
-         "Description": "Park featuring a playground with a zip line & a water area, plus fitness stations, sports & more.",
-         "Latitude": 51.1049,
-         "Longitude": -113.9719,
-         "LatLong": "51.1049, -113.9719"
-        },
-        {
-         "City": "Calgary",
-         "Name": "Shouldice Park",
-         "Address": "4900 Monserrat Dr NW, Calgary, AB T3B 1H9",
-         "Description": "4900 Monserrat Dr NW, Calgary, AB T3B 1H9",
-         "Latitude": 51.076,
-         "Longitude": -114.1704,
-         "LatLong": "51.076, -114.1704"
-        },
-        {
-         "City": "Calgary",
-         "Name": "Baker Park",
-         "Address": "933 Scenic Bow Rd SW Calgary, AB T3L 1S5",
-         "Description": "Baker Park is a 12-hectare urban park on the bank of the Bow River in the west edge of the city of Calgary. It is part of the pedestrian and bicycle Bow River pathway that links a vast network of urban parks on both sides of the river. ",
-         "Latitude": 51.0973,
-         "Longitude": -114.12564,
-         "LatLong": "51.0973,-114.21564"
-        },
-        {
-         "City": "Calgary",
-         "Name": "North Glenmore Park",
-         "Address": "7305 Crowchild Trail SW, Calgary, AB T3E 5N5",
-         "Description": "Waterfront 208-acre park with trails, playgrounds, tennis courts, fire pits, BBQs & picnic areas.",
-         "Latitude": 50.9896,
-         "Longitude": -114.1253,
-         "LatLong": "50.9896, -114.1253"
-        }
-       ]
+  {
+    "postalCode": "T2A",
+    "city": "Calgary",
+    "neighborhood": "Penbrooke Meadows, Marlborough",
+    "latitude": 51.04968,
+    "longitude": -113.96432
+  },
+  {
+    "postalCode": "T3A",
+    "city": "Calgary",
+    "neighborhood": "Dalhousie, Edgemont, Hamptons, Hidden Valley",
+    "latitude": 51.12606,
+    "longitude": -114.143158
+  },
+  {
+    "postalCode": "T2B",
+    "city": "Calgary",
+    "neighborhood": "Forest Lawn, Dover, Erin Woods",
+    "latitude": 51.0318,
+    "longitude": -113.9786
+  },
+  {
+    "postalCode": "T3B",
+    "city": "Calgary",
+    "neighborhood": "Montgomery, Bowness, Silver Springs, Greenwood",
+    "latitude": 51.0809,
+    "longitude": -114.1616
+  },
+  {
+    "postalCode": "T2C",
+    "city": "Calgary",
+    "neighborhood": "Lynnwood Ridge, Ogden, Foothills Industrial, Great Plains",
+    "latitude": 50.9878,
+    "longitude": -114.0001
+  },
+  {
+    "postalCode": "T3C",
+    "city": "Calgary",
+    "neighborhood": "Rosscarrock, Westgate, Wildwood, Shaganappi, Sunalta",
+    "latitude": 51.0388,
+    "longitude": -114.098
+  },
+  {
+    "postalCode": "T2E",
+    "city": "Calgary",
+    "neighborhood": "Bridgeland, Greenview, Zoo, YYC",
+    "latitude": 51.0632,
+    "longitude": -114.0614
+  },
+  {
+    "City": "Calgary",
+    "Name": "Carburn Park",
+    "Address": "67 Riverview Dr SE, Calgary, AB T2C 4H8",
+    "Description": "Verdant park offering abundant outdoor activities, such as ice skating, fishing & bird watching.",
+    "Latitude": 50.9743,
+    "Longitude": -114.0327,
+    "LatLong": "50.9743, -114.0327"
+  },
+  {
+    "City": "Calgary",
+    "Name": "Bowness Park",
+    "Address": "8900 48 Ave NW, Calgary, AB T3B 2B2",
+    "Description": "Bowness Park is a 30-hectare urban park on the Bow River in Bowness, a neighbourhood in the northwest quadrant of the City of Calgary, Alberta, Canada. ",
+    "Latitude": 51.0971,
+    "Longitude": -114.2171,
+    "LatLong": "51.0971, -114.2171"
+  },
+  {
+    "City": "Calgary",
+    "Name": "Stanley Park",
+    "Address": "4011 1a St SW, Calgary, AB T2S 2P5",
+    "Description": "Parkhill/Stanley Park is a residential neighbourhood in the south-west quadrant of Calgary, Alberta. It is bounded by Mission Road to the north, Macleod Trail to the east,Crescent Boulevard to the south and the Elbow River to the west.",
+    "Latitude": 51.0179,
+    "Longitude": -114.0664,
+    "LatLong": "51.0179, -114.0664"
+  },
+  {
+    "City": "Calgary",
+    "Name": "South Glenmore Park",
+    "Address": "24 St SW, Calgary, AB T2V 3N8",
+    "Description": "Waterfront green space with biking & hiking paths, plus a sailing school & an aquatic playground.",
+    "Latitude": 50.973,
+    "Longitude": -114.119,
+    "LatLong": "50.973, -114.1190"
+  },
+  {
+    "City": "Calgary",
+    "Name": "Elliston Park",
+    "Address": "1827 68 St SE, Calgary, AB",
+    "Description": "Relaxed public park with a pond, rose garden, playgrounds, picnic shelters & off-leash dog area.",
+    "Latitude": 51.036,
+    "Longitude": -113.9455,
+    "LatLong": "51.0360, -113.9455"
+  },
+  {
+    "City": "Calgary",
+    "Name": "Haultain Park",
+    "Address": "225 13 Ave SW, Calgary, AB T2R 1N8",
+    "Description": "Park featuring tennis courts, a playground & picnic tables, plus the historic Haultain School.",
+    "Latitude": 51.0404,
+    "Longitude": -114.0677,
+    "LatLong": "51.0404-114.0677"
+  },
+  {
+    "City": "Calgary",
+    "Name": "Nose Hill Park",
+    "Address": "5620 14 St NW, Calgary, AB T3K 2P6",
+    "Description": "Nose Hill Park is a natural park in the northwest quadrant of Calgary, Alberta which covers over 11 km². It is the fourth-largest urban park in Canada, and one of the largest urban parks in North America. It is a municipal park, unlike Fish Creek, which is a provincial park. It was created in 1980.",
+    "Latitude": 51.1095,
+    "Longitude": -114.1089,
+    "LatLong": "51.1095,-114.1089"
+  },
+  {
+    "City": "Calgary",
+    "Name": "Confederation Park",
+    "Address": "905 30 Ave NW, Calgary, AB T2K 0A2",
+    "Description": "Confederation Park is an urban park in northwest Calgary, Alberta. It is developed over an area of 160 hectares between the neighbourhoods of Mount Pleasant, Capitol Hill, Collingwood and Highland Park. 10th Street West bisects the park from north to south.",
+    "Latitude": 51.0798,
+    "Longitude": -114.0793,
+    "LatLong": "51.0798, -114.0793"
+  },
+  {
+    "City": "Calgary",
+    "Name": "Riley Park",
+    "Address": "800 12 St NW, Calgary, AB T2N 0S2",
+    "Description": "Riley Park is an urban park in Calgary, Alberta, Canada.",
+    "Latitude": 51.0585,
+    "Longitude": -114.089,
+    "LatLong": "51.0585, -114.089"
+  },
+  {
+    "City": "Calgary",
+    "Name": "James Short Park",
+    "Address": "115 4 Ave SW, Calgary, AB T2P 4L6",
+    "Description": "Compact urban plaza park with a small playground, a lawn & benches.",
+    "Latitude": 51.0491,
+    "Longitude": -114.0638,
+    "LatLong": "51.0491, -114.0638"
+  },
+  {
+    "City": "Calgary",
+    "Name": "Edworthy Park",
+    "Address": "5050 Spruce Dr SW, Calgary, AB T3C 3B2",
+    "Description": "Edworthy Park is a city park located in the Northwest section of Calgary along the south shore of the Bow River.",
+    "Latitude": 51.0608,
+    "Longitude": -114.1575,
+    "LatLong": "51.0608, -114.1575"
+  },
+  {
+    "City": "Calgary",
+    "Name": "Pearce Estate Park",
+    "Address": "1440 17a St SE, Calgary, AB T2G 4T9",
+    "Description": "The Pearce Estate Wetland is a city park located in Calgary, Alberta. The park occupies 21 hectares along the Bow River to the east of downtown Calgary.",
+    "Latitude": 51.0412,
+    "Longitude": -114.015,
+    "LatLong": "51.0412, -114.015"
+  },
+  {
+    "City": "Calgary",
+    "Name": "Prairie Winds Park",
+    "Address": "223 Castleridge Blvd NE, Calgary, AB T3J 1P6",
+    "Description": "Park featuring a playground with a zip line & a water area, plus fitness stations, sports & more.",
+    "Latitude": 51.1049,
+    "Longitude": -113.9719,
+    "LatLong": "51.1049, -113.9719"
+  },
+  {
+    "City": "Calgary",
+    "Name": "Shouldice Park",
+    "Address": "4900 Monserrat Dr NW, Calgary, AB T3B 1H9",
+    "Description": "4900 Monserrat Dr NW, Calgary, AB T3B 1H9",
+    "Latitude": 51.076,
+    "Longitude": -114.1704,
+    "LatLong": "51.076, -114.1704"
+  },
+  {
+    "City": "Calgary",
+    "Name": "Baker Park",
+    "Address": "933 Scenic Bow Rd SW Calgary, AB T3L 1S5",
+    "Description": "Baker Park is a 12-hectare urban park on the bank of the Bow River in the west edge of the city of Calgary. It is part of the pedestrian and bicycle Bow River pathway that links a vast network of urban parks on both sides of the river. ",
+    "Latitude": 51.0973,
+    "Longitude": -114.12564,
+    "LatLong": "51.0973,-114.21564"
+  },
+  {
+    "City": "Calgary",
+    "Name": "North Glenmore Park",
+    "Address": "7305 Crowchild Trail SW, Calgary, AB T3E 5N5",
+    "Description": "Waterfront 208-acre park with trails, playgrounds, tennis courts, fire pits, BBQs & picnic areas.",
+    "Latitude": 50.9896,
+    "Longitude": -114.1253,
+    "LatLong": "50.9896, -114.1253"
+  }
+]

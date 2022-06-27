@@ -13,18 +13,8 @@ import {
   CardActions,
   CardHeader,
   CardMedia,
-  Container,
   Grid,
   IconButton,
-  ImageList,
-  ImageListItem,
-  ImageListItemBar,
-  Input,
-  Link,
-  List,
-  ListItem,
-  Rating,
-  TextField,
 } from "@mui/material";
 // import cardImage from "../../images/Alaf.jpg"
 import { AuthContext } from "../../auth/AuthProvider";
@@ -48,17 +38,30 @@ import "../WantList/WishList.css";
 import Wishlist from "./Wishlist";
 import Traded from "./Traded";
 
-function Add({ placeholder, data }) {
+import { Container } from "@mui/system";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ChatIcon from "@mui/icons-material/Chat";
+import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
+import PersonIcon from "@mui/icons-material/Person";
+import { WantContext } from "../../providers/WantProvider";
+import ListAltIcon from "@mui/icons-material/ListAlt";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+
+function Add({ handleClick }) {
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
-  const [title, setTitle] = useState("");
-  const [postedAds, setSetAllPostedAds] = useState([]);
-  const authContext = useContext(AuthContext);
+ 
+  
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
+ 
+  const authContext = useContext(AuthContext);
   const { user } = authContext;
-  const [allUsers, setAllUser] = useState([]);
-    const [value, setValue] = useState();
+  
+  const [postedAds, setSetAllPostedAds] = useState([]);
+
+
+
 
   useEffect(() => {
     if (db && user) {
@@ -98,8 +101,6 @@ function Add({ placeholder, data }) {
     setWordEntered("");
   };
 
-
-
   return (
     <>
       <Container>
@@ -108,13 +109,16 @@ function Add({ placeholder, data }) {
             <div className="add-content">
               <div className="input-wrapper">
                 <center>
-                  <Typography variant="h4">
-                    <h1>Search Marketplace for Items</h1>
+                  <Typography color="green" variant="h4">
+                    <h1>Search Hundie Store for Items</h1>
+                  </Typography>
+                  <Typography variant="h8">
+                    <p>(Enter any of the alphabetical search words)</p>
                   </Typography>
                   <br />
                   <input
                     type="text"
-                    placeholder="Search for a item"
+                    placeholder="Search for an item..."
                     value={wordEntered}
                     onChange={handleFilter}
                   />
@@ -125,101 +129,68 @@ function Add({ placeholder, data }) {
                 <Grid>
                   {filteredData.length !== 0 && (
                     <div className="info">
-                      {filteredData.slice(0, 15).map((data, key) => (
-                        <Grid container spacing={1}>
-                          <Grid
-                            data
-                            lg={4}
-                            sm={6}
-                            md={5}
-                            xs={12}
-                            key={data.timeStamp}
+                      {filteredData.slice(0, 15).map((item) => (
+                        <Grid item md={3} key={item.description}>
+                          <Card
+                            sx={{
+                              height: "33rem",
+                              marginTop: "10px",
+                              margin: "10px",
+                            }}
                           >
+                            <CardHeader
+                              avatar={
+                                <Avatar
+                                  sx={{ bgcolor: "red"[500] }}
+                                  aria-label="recipe"
+                                >
+                                  R
+                                </Avatar>
+                              }
+                              title={item.title}
+                              name="title"
+                            />
                             <CardMedia
                               component="img"
-                              image={data.url}
-                              title={data.title}
-                              width={640}
-                              height={640}
-                              layout="responsive"
+                              sx={{ height: "280px" }}
+                              image={item.url}
+                              title={item.title}
                             ></CardMedia>
-                          </Grid>
-                          <Grid item lg={4} sm={6} md={5} xs={12}>
-                            <List>
-                              <ListItem>
-                                <Typography component="h1" variant="h6">
-                                  {data.title}
-                                </Typography>
-                              </ListItem>
-                              <ListItem>
-                                <Typography>
-                                  Category: {data.category}
-                                </Typography>
-                              </ListItem>
-                              <ListItem>
-                                <Typography>Brand: {data.brand}</Typography>
-                              </ListItem>
-                              <ListItem>
-                                <Typography>
-                                  Rating: {data.rating} stars ({data.numReviews}{" "}
-                                  reviews)
-                                </Typography>
-                              </ListItem>
-                              <ListItem>
-                                <Typography>
-                                  {" "}
-                                  Description: {data.description}
-                                </Typography>
-                              </ListItem>
-                              <ListItem>
-                                <Typography> I Want: {data.want}</Typography>
-                              </ListItem>
-                            </List>
-                          </Grid>
-                          <Grid item lg={4} sm={6} md={5} xs={12}>
-                            <Card>
-                              <List>
-                                <ListItem>
-                                  <Grid container></Grid>
-                                </ListItem>
-                                <ListItem>
-                                  <Grid container>
-                                    <Grid item xs={12}>
-                                      <Typography>Status</Typography>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                      <Typography>
-                                        {data.countInStock > 0
-                                          ? "In stock"
-                                          : "Unavailable"}
-                                      </Typography>
-                                    </Grid>
-                                  </Grid>
-                                </ListItem>
-                                <ListItem>
-                                  <Button
-                                    fullWidth
-                                    variant="contained"
-                                    color="primary"
-                                     sx={{ background: "green" }}
-                                  >
-                                    Add to Wishlist
-                                  </Button>
-                                </ListItem>
-                                <ListItem>
-    <Box>
-      <Rating
-        precision={0.1}
-        size="large"
-        value={value}
-        onChange={(e, val) => setValue(val)}
-      />
-      <Typography>Rated {value !== undefined ? value : 0} Stars</Typography>
-    </Box>
-                                </ListItem>
-                              </List>
-                            </Card>
-                          </Grid>
+                            <CardContent>
+                              <Typography>{item.name}</Typography>
+                            </CardContent>
+                            <Box
+                              sx={{
+                                justifyContent: "center",
+                                alignItems: "center",
+                                display: "flex",
+                                flexDirection: "column",
+                              }}
+                            >
+                              <Typography>{item.description}</Typography>
+                              <Typography>
+                                Condition: {item.condition}
+                              </Typography>
+                              <Typography>I want : {item.want}</Typography>
+                              <CardActions sx={{ marginBottom: "20px" }}>
+                                <IconButton aria-label="add to favorites">
+                                  <FavoriteIcon sx={{ color: "red" }} />
+                                </IconButton>
+                                <IconButton aria-label="share">
+                                  <ShareIcon sx={{ color: "#62b4f9" }} />
+                                </IconButton>
+                                <IconButton aria-label="share">
+                                  <ChatIcon sx={{ color: "green" }} />
+                                </IconButton>
+                                <IconButton aria-label="share" type="click">
+                                  <AddShoppingCartIcon
+                                    sx={{ color: "purple" }}
+                                    onClick={() => handleClick(item)}
+                                  />
+                                </IconButton>
+                              </CardActions>
+                            </Box>
+                          </Card>
                         </Grid>
                       ))}
                     </div>

@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Box, Container, Button } from "@mui/material";
-import TopProfile from "./Market";
 import DropSelections from "../DropSelections";
 import Wish from "./WishList"
 import Want from "../WantList/Want";
@@ -9,11 +8,56 @@ import WishList from "./WishList";
 import Market from "./Market";
 import Swipe from "./Swipe";
 import Settings from "./Settings";
+import { FirebaseContext } from "../../auth/FirebaseProvider";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { AuthContext } from "../../auth/AuthProvider";
+
+import { WantContext } from "../../providers/WantProvider";
 
 const MiddleBar = () => {
+
+  //Auth and DB Context
+  const authContext = useContext(AuthContext);
+  const fbContext = useContext(FirebaseContext);
+  const wantContext = useContext(WantContext);
+
+  const db = fbContext.db;
+  const { user } = authContext;
+  const { addToWantList, removeFromWantList } = wantContext;
+
   const [active, setActive] = useState("market");
   const [modalVisible, setModalVisible] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [postedAds, setSetAllPostedAds] = useState([]);
+//useEffect to call db
+  useEffect(() => {
+    if (db && user) {
+      let collectionRef = collection(db, "postedAds");
+      let queryRef = query(collectionRef, orderBy("timeStamp"));
+      const unsubscribe = onSnapshot(queryRef, (querySnap) => {
+        if (querySnap.empty) {
+          console.log("Ads not found");
+        } else {
+          let usersData = querySnap.docs.map((doc) => {
+            return { ...doc.data(), DOC_ID: doc.id };
+          });
+          setSetAllPostedAds(usersData);
+        }
+      });
+      return unsubscribe;
+    }
+  }, [db, user]);
+
+
+
+  //Handle add to WantList
+  const handleClick = (item) => {
+    addToWantList(item)
+  }
+  //Handle Remove from wantList
+  const removeItem = (removedItem) => {
+    removeFromWantList(removedItem)
+  }
+
   const handleModalOpen = () => {
     setModalVisible(true);
   };
@@ -76,7 +120,7 @@ const MiddleBar = () => {
         </Box>
         <hr />
         <>
-          {active === "market" && <Market />}
+          {active === "market" && <Market  postedAds ={postedAds}  handleClick={handleClick}/>}
           {active === "swipe" && <Swipe />}
           {active === "wantList" && <Want />}
           {active === "settings" && <Settings />}

@@ -51,6 +51,7 @@ width: 100vw;
   width: 300px;
   display: block;
   outline: none;
+  padding-left: 30px;
 }
 
 .searchIcon {

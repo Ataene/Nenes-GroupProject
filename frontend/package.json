@@ -16,6 +16,7 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.27.2",
     "dotenv": "^16.0.1",
     "firebase": "^9.8.3",
     "firebase-tools": "^11.1.0",
@@ -31,6 +32,7 @@
     "react-scripts": "^5.0.1",
     "react-tinder-card": "^1.4.5",
     "recharts": "^2.1.10",
+    "socket.io-client": "^4.5.1",
     "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"
   },
