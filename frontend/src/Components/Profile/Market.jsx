@@ -62,7 +62,7 @@ const Market = ({postedAds, handleClick}) => {
                       <IconButton aria-label="share">
                         <ShareIcon sx={{color: "#62b4f9" }} />
                       </IconButton>
-                      <IconButton aria-label="share">
+                      <IconButton aria-label="chat">
                         <ChatIcon sx={{color: "green"}}  />
                       </IconButton>
                       <IconButton aria-label="share" type="click">
