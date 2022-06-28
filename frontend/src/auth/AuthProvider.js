@@ -18,6 +18,7 @@ const AuthProvider = (props) => {
     const [ authError, setAuthError ] = useState();
     const [ isPending, setIsPending ] = useState();
     const [ isOnline, setIsOnline ] = useState(false);
+    const [ userToMessage, setUserToMessage ] = useState(false);
 
     const gitHubprovider = new GithubAuthProvider();
     const facebookprovider = new FacebookAuthProvider();
@@ -37,8 +38,8 @@ const AuthProvider = (props) => {
                 uid: user.uid,
                 email: user.email,
                 name: user.displayName,
-                firstName: user.firstName,
-                lastName: user.lastName,
+                firstName: firstName,
+                lastName: lastName,
                 province: "",
                 city: "",
                 postalCode: "",
@@ -142,6 +143,8 @@ const AuthProvider = (props) => {
         google,
         twitter,
         facebook,
+        userToMessage,
+        setUserToMessage,
     }
     return <AuthContext.Provider value={theValues}>{children}</AuthContext.Provider>
 }
