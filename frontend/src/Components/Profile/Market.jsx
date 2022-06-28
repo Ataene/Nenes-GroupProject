@@ -18,11 +18,17 @@ const Market = ({ postedAds, handleClick }) => {
   const authContext = useContext(AuthContext);
   const { user } = authContext;
 
+
    const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
      useDialogModal(ItemDetail);
 
 
   
+
+  if (!postedAds) {
+    return <p className="mx-auto">Loading Data...</p>;
+  }
+
   return (
     <>
       <Container>
@@ -41,13 +47,13 @@ const Market = ({ postedAds, handleClick }) => {
                         <Avatar
                           sx={{ bgcolor: "red"[500] }}
                           aria-label="recipe"
-                        >
-                          R
-                        </Avatar>
+                          src={item.userPicture}
+                         />
                       }
                       title={item.title}
                       name="title"
                     />
+
                     <CardMedia
                       component="img"
                       sx={{ height: "280px" }}
@@ -93,11 +99,9 @@ const Market = ({ postedAds, handleClick }) => {
                 </Grid>
               ))}
           </Grid>
-        </Box>
-        
+        </Box> 
       </Container>
-      
-    </>
+      </>
   );
 };
 

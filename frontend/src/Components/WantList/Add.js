@@ -6,30 +6,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import {
-  Box,
-  Button,
-  CardActionArea,
-  CardActions,
-  CardHeader,
-  CardMedia,
-  Grid,
-  IconButton,
-} from "@mui/material";
+import {Box, Button, CardActionArea, CardActions, CardHeader, CardMedia, Grid, IconButton,} from "@mui/material";
 // import cardImage from "../../images/Alaf.jpg"
 import { AuthContext } from "../../auth/AuthProvider";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
-import {
-  collection,
-  onSnapshot,
-  orderBy,
-  query,
-  doc,
-  setDoc,
-  updateDoc,
-  deleteField,
-  getDoc,
-} from "firebase/firestore";
+import {collection, onSnapshot, orderBy, query, doc, setDoc, updateDoc, deleteField, getDoc} from "firebase/firestore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ShareIcon from "@mui/icons-material/Share";
 import AddIcon from "@mui/icons-material/Add";
@@ -50,18 +31,11 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 function Add({ handleClick }) {
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
- 
-  
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
- 
   const authContext = useContext(AuthContext);
   const { user } = authContext;
-  
   const [postedAds, setSetAllPostedAds] = useState([]);
-
-
-
 
   useEffect(() => {
     if (db && user) {
@@ -109,13 +83,6 @@ function Add({ handleClick }) {
             <div className="add-content">
               <div className="input-wrapper">
                 <center>
-                  <Typography color="green" variant="h4">
-                    <h1>Search Hundie Store for Items</h1>
-                  </Typography>
-                  <Typography variant="h8">
-                    <p>(Enter any of the alphabetical search words)</p>
-                  </Typography>
-                  <br />
                   <input
                     type="text"
                     placeholder="Search for an item..."

@@ -23,8 +23,8 @@ const Settings = (props) => {
 
   const [formData, setFormData] = useState({
     uid: user.uid,
-    firstName: "",
-    lastName: "",
+    firstName: user.firstName,
+    lastName: user.lastName,
     email: user.email,
     name: user.displayName,
     matches: [],
@@ -38,7 +38,6 @@ const Settings = (props) => {
   });
 
   const handleChange = (e) => {
-    // console.log("e", e);
     const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
     const name = e.target.name;
     console.log(name, value)

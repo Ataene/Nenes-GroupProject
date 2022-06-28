@@ -44,9 +44,6 @@ const Wishlist = ({ handleClickTraded }) => {
               justifyContent: "space-evenly",
             }}
           >
-            <IconButton>
-              <PersonIcon fontSize="large" style={{ color: "#ec5e6f" }} />
-            </IconButton>
             <input
               onChange={(event) => setSearch(event.target.value)}
               type="text"
@@ -60,13 +57,6 @@ const Wishlist = ({ handleClickTraded }) => {
                 fontSize: "15px",
               }}
             />
-            <IconButton>
-              <ChatIcon
-                fontSize="large"
-                className="headerIcon"
-                style={{ color: "#ec5e6f" }}
-              />
-            </IconButton>
           </Box>
           <Grid container spacing={1}>
             {wantList.map((item) => (

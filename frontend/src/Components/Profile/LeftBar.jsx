@@ -27,61 +27,61 @@ const LeftBar = () => {
           <List component="nav" aria-labelledby="nested-list-subheader">
             <ListItemButton>
               <ListItemIcon>
-                <RssFeedIcon />
+                <RssFeedIcon sx={{ color: "#B8F1B0"}} />
               </ListItemIcon>
               <ListItemText primary="Sent mail" />
             </ListItemButton>
             <ListItemButton>
               <ListItemIcon>
-                <ChatIcon />
+                <ChatIcon sx={{ color: "#B8F1B0"}} />
               </ListItemIcon>
               <ListItemText primary="Drafts" />
             </ListItemButton>
             <ListItemButton>
               <ListItemIcon>
-                <GroupsIcon />
+                <GroupsIcon sx={{ color: "#B8F1B0"}} />
               </ListItemIcon>
               <ListItemText primary="Groups" />
             </ListItemButton>
             <ListItemButton>
               <ListItemIcon>
-                <StorefrontIcon />
+                <StorefrontIcon sx={{ color: "#B8F1B0"}} />
               </ListItemIcon>
               <ListItemText primary="Market" />
             </ListItemButton>
             <ListItemButton>
               <ListItemIcon>
-                <InventoryIcon />
+                <InventoryIcon sx={{ color: "#B8F1B0"}} />
               </ListItemIcon>
               <ListItemText primary="Inbox" />
             </ListItemButton><hr />
             <ListItemButton>
               <ListItemIcon>
-                <WorkIcon />
+                <WorkIcon sx={{ color: "#B8F1B0"}} />
               </ListItemIcon>
               <ListItemText primary="Jobs" />
             </ListItemButton>
             <ListItemButton>
               <ListItemIcon>
-                <CircleNotificationsIcon />
+                <CircleNotificationsIcon sx={{ color: "#B8F1B0"}} />
               </ListItemIcon>
               <ListItemText primary="Notify" />
             </ListItemButton>
             <ListItemButton>
               <ListItemIcon>
-                <LiveHelpIcon />
+                <LiveHelpIcon sx={{ color: "#B8F1B0"}} />
               </ListItemIcon>
               <ListItemText primary="FAQ" />
             </ListItemButton>
             <ListItemButton>
               <ListItemIcon>
-                <CalendarMonthIcon />
+                <CalendarMonthIcon sx={{ color: "#B8F1B0"}} />
               </ListItemIcon>
               <ListItemText primary="Event" />
             </ListItemButton>
             <ListItemButton>
               <ListItemIcon>
-                <OndemandVideoIcon />
+                <OndemandVideoIcon sx={{ color: "#B8F1B0"}} />
               </ListItemIcon>
               <ListItemText primary="Video" />
             </ListItemButton>
