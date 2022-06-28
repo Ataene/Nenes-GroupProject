@@ -3,12 +3,15 @@ import { Button } from '@mui/material';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { AuthContext  } from '../../auth/AuthProvider'
 import { FirebaseContext } from "../../auth/FirebaseProvider";
-import {collection, query,  onSnapshot, orderBy } from "firebase/firestore"
-
-const ChatInput = () => {
-  const [ text, setText ] = useState("")
-  const [ chat, setChat ] = useState("")
+import {  doc, getDoc, onSnapshot, orderBy, query, collection } from "firebase/firestore";
+import { addDoc, serverTimestamp } from "firebase/firestore";
+  
+const ChatInput = ({scroll}) => {
+  // const [ text, setText ] = useState("")
+  const [ newChat, setNewChat ] = useState("")
   const fbContext = useContext(FirebaseContext);
+  const authContext = useContext(AuthContext);
+  const { user } = authContext;
   const db = fbContext.db;
 
     const styleInput = {
@@ -17,11 +20,30 @@ const ChatInput = () => {
       flexDirection: "row",
       borderRadius: "5px",
     }
-    const handleSubmit = () => {
-      // e.preventDefault();
-
-      // const user2 = chat.uid
-
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      
+      // await db.collection("messages").add({
+      //   newChat,
+      //   // photoURL,
+      //   uid,
+      //   timeStamp: serverTimestamp()
+      // })
+      // setNewChat("")
+      
+      try {
+        let collectionRef = collection(db, "messages");
+        await addDoc(collectionRef, {
+          newChat,
+          uid: user.uid,
+          // userPicture,
+          timeStamp: serverTimestamp(),
+        });
+        setNewChat("")
+        scroll.current.scrollIntoView({behavior: "smooth"})
+      } catch (error) {
+        console.log(error.message);
+      }
     }
   return (
     <>
@@ -39,7 +61,8 @@ const ChatInput = () => {
           <input 
           type="text" 
           placeholder='Enter message'
-
+          value={newChat}
+          onChange={(e) => setNewChat(e.target.value)}
           />
         </div>
         <Button type="submit">Send</Button>
