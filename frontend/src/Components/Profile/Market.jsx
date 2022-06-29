@@ -13,7 +13,8 @@ import { AuthContext } from "../../auth/AuthProvider";
 const Market = ({postedAds, handleClick}) => {
   
   const authContext = useContext(AuthContext);
-  const { user } = authContext;
+  const { user, setUserToMessage } = authContext;
+  
 
   if (!postedAds) {
     return <p className="mx-auto">Loading Data...</p>;
@@ -62,8 +63,8 @@ const Market = ({postedAds, handleClick}) => {
                       <IconButton aria-label="share">
                         <ShareIcon sx={{color: "#62b4f9" }} />
                       </IconButton>
-                      <IconButton aria-label="share">
-                        <ChatIcon sx={{color: "green"}}   />
+                      <IconButton aria-label="chat">
+                        <ChatIcon sx={{color: "green"}} onClick={() => setUserToMessage(item.uid)} />
                       </IconButton>
                       <IconButton aria-label="share" type="click">
                         <ListAltIcon sx={{color: "purple"}} onClick={() => handleClick(item)} />

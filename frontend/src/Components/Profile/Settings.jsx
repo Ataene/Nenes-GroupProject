@@ -117,6 +117,26 @@ const Settings = (props) => {
             />
             <TextField
               id="standard-basic"
+              label="First Name"
+              variant="standard"
+              type="text"
+              name="firstName"
+              required={true}
+              value={formData.firstName}
+              onChange={handleChange}
+            />
+            <TextField
+              id="standard-basic"
+              label="Last Name"
+              variant="standard"
+              type="text"
+              name="lastName"
+              required={true}
+              value={formData.lastName}
+              onChange={handleChange}
+            />
+            <TextField
+              id="standard-basic"
               label="Province"
               variant="standard"
               type="text"
