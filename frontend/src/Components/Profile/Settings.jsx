@@ -8,15 +8,14 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 
 const Settings = (props) => {
-
   const params = useParams();
   const show = props.SwipCards;
-  const [data, setData ] = useState(show);
+  const [data, setData] = useState(show);
   const [file, setFile] = useState("");
   const [progress, setProgress] = useState(null);
   const authContext = useContext(AuthContext);
   const { user } = authContext;
-  const [ userDocument, setUserDocument ] = useState(null);
+  const [userDocument, setUserDocument] = useState(null);
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const store = fbContext.store;
@@ -31,16 +30,17 @@ const Settings = (props) => {
     province: "",
     city: "",
     postalCode: "",
-    want: "",
-    have: "",
+    gender: "",
+    occupation: "",
     url: "",
     timeStamp: serverTimestamp(),
   });
 
   const handleChange = (e) => {
-    const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    const value =
+      e.target.type === "checkbox" ? e.target.checked : e.target.value;
     const name = e.target.name;
-    console.log(name, value)
+    console.log(name, value);
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
@@ -49,26 +49,25 @@ const Settings = (props) => {
   };
 
   const handleFileChange = (e) => {
-    console.log("File handle Change")
+    console.log("File handle Change");
     let selectedFile = e.target.files[0];
     setFile(selectedFile);
-    handleChange(e)
-  }
+    handleChange(e);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try{
+    try {
       const res = await setDoc(doc(db, "users", user.uid), {
         ...formData,
         timeStamp: serverTimestamp(),
-      })
+      });
       console.log(res);
-    } catch(error){
+    } catch (error) {
       console.log(error.message);
     }
   };
   useEffect(() => {
-
     const handleImageUpload = () => {
       const name = new Date().getTime() + file.name;
       const imageRef = ref(store, name);
@@ -86,8 +85,8 @@ const Settings = (props) => {
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             setFormData((prev) => ({
-              ...prev, 
-              Avatar: downloadURL
+              ...prev,
+              Avatar: downloadURL,
             }));
           });
         }
@@ -98,7 +97,9 @@ const Settings = (props) => {
 
   return (
     <>
-      <Typography sx={{display: "flex", justifyContent: "center"}}>UPDATE ACCOUNT</Typography>
+      <Typography sx={{ display: "flex", justifyContent: "center" }}>
+        UPDATE ACCOUNT
+      </Typography>
       <Container>
         <form
           onSubmit={handleSubmit}
@@ -159,32 +160,42 @@ const Settings = (props) => {
           <section>
             <TextField
               id="standard-basic"
-              label="Want"
+              label="Gender"
               variant="standard"
               type="text"
-              name="want"
+              name="gender"
               required={true}
-              value={formData.want}
+              value={formData.gender}
               onChange={handleChange}
             />
             <TextField
               id="standard-basic"
-              label="Have"
+              label="Occupation"
               variant="standard"
               type="text"
-              name="have"
+              name="occupation"
               required={true}
-              value={formData.have}
+              value={formData.occupation}
               onChange={handleChange}
             />
           </section>
           <section>
-            <Avatar 
-             src={
-              file ? URL.createObjectURL(file) : <Typography>Image failed to load</Typography>
-             }
-              sx={{ bgcolor: "green"[500], width: 100, height: 100, marginTop: "30px" }} 
-              variant="rounded" />
+            <Avatar
+              src={
+                file ? (
+                  URL.createObjectURL(file)
+                ) : (
+                  <Typography>Image failed to load</Typography>
+                )
+              }
+              sx={{
+                bgcolor: "green"[500],
+                width: 100,
+                height: 100,
+                marginTop: "30px",
+              }}
+              variant="rounded"
+            />
             <input
               id="standard-basic"
               label="Profile Photo"
@@ -196,8 +207,13 @@ const Settings = (props) => {
               onChange={handleFileChange}
             />
           </section>
-          <section style={{display: "flex"}}>
-            <Button disabled={progress !== null && progress < 100} type="submit">Submit</Button>
+          <section style={{ display: "flex" }}>
+            <Button
+              disabled={progress !== null && progress < 100}
+              type="submit"
+            >
+              Submit
+            </Button>
             {progress ? <div>progress: {progress}%</div> : <div />}
           </section>
         </form>
