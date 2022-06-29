@@ -25,6 +25,8 @@ const [ chat, setChat ] = useState('')
 const [ messages, setMessages] = useState([])
 const scroll = useRef()
 
+console.log(user)
+
 useEffect(() => {
         if (db && user) {
           let collectionRef = collection(db, "users");
@@ -68,9 +70,9 @@ useEffect(() => {
       //   e.preventDefault()
       // }
 
-      // const selectedUserProduct = (user2) => {
-      //   set
-      // }
+      const selectedProductOwner = (productOwner) => {
+       console.log(productOwner)
+      }
    
 
   return (
@@ -88,7 +90,7 @@ useEffect(() => {
           </div>
         ))}
         </div>
-        <ChatInput scroll={scroll} />
+        <ChatInput scroll={scroll} selectedProductOwner={selectedProductOwner}  />
         <div ref={scroll}></div>
     </Box>
     </>

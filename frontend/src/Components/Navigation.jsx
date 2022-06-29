@@ -27,6 +27,7 @@ const Navigation = () => {
         } else {
           let usersData = querySnap.data()
           setUserPicture(usersData.Avatar);
+          console.log("++++++", user)
         }
       });
       return unsubscribe;

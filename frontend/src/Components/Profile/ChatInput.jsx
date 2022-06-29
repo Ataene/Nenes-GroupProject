@@ -6,7 +6,7 @@ import { FirebaseContext } from "../../auth/FirebaseProvider";
 import {  doc, getDoc, onSnapshot, orderBy, query, collection } from "firebase/firestore";
 import { addDoc, serverTimestamp } from "firebase/firestore";
   
-const ChatInput = ({scroll}) => {
+const ChatInput = ({scroll, selectedProductOwner}) => {
   // const [ text, setText ] = useState("")
   const [ newChat, setNewChat ] = useState("")
   const fbContext = useContext(FirebaseContext);

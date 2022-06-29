@@ -4,8 +4,6 @@ import { FirebaseContext } from './FirebaseProvider';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 
 import { useParams } from "react-router-dom";
-import { TrendingUpOutlined } from '@mui/icons-material';
-
 export const AuthContext = createContext();
 
 const AuthProvider = (props) => {
@@ -30,7 +28,7 @@ const AuthProvider = (props) => {
 
     const registerUser = async (firstName, lastName, email, password) => {
         try {
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password, db);
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);  
             let user = userCredential.user;
             let newUser = doc(db, "users", user.uid);
             const userProfile = {
