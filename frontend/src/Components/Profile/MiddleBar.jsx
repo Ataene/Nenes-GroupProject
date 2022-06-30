@@ -28,6 +28,7 @@ const MiddleBar = () => {
   const [active, setActive] = useState("market");
   const [modalVisible, setModalVisible] = useState(false);
   const [postedAds, setSetAllPostedAds] = useState([]);
+  const [loading, setLoading] = useState(false);
 //useEffect to call db
   useEffect(() => {
     if (db && user) {
@@ -41,6 +42,7 @@ const MiddleBar = () => {
             return { ...doc.data(), DOC_ID: doc.id };
           });
           setSetAllPostedAds(usersData);
+          setLoading(true)
         }
       });
       return unsubscribe;
@@ -117,7 +119,7 @@ const MiddleBar = () => {
         </Box>
         <hr />
         <>
-          {active === "market" && <Market  postedAds ={postedAds}  handleClick={handleClick}/>}
+          {active === "market" && <Market  postedAds ={postedAds}  handleClick={handleClick} loading={loading}/>}
           {active === "swipe" && <Swipe />}
           {active === "wantList" && <Want />}
           {active === "settings" && <Settings />}

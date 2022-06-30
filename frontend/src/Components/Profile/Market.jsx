@@ -8,16 +8,22 @@ import ChatIcon from "@mui/icons-material/Chat";
 import Avatar from "@mui/material/Avatar";
 import ShareIcon from "@mui/icons-material/Share";
 import ListAltIcon from "@mui/icons-material/ListAlt";
-
+import CircularProgress from '@mui/material/CircularProgress';
 import { AuthContext } from "../../auth/AuthProvider";
-const Market = ({postedAds, handleClick}) => {
+import ChatBox from "./ChatBox";
+
+const Market = ({postedAds, handleClick, loading}) => {
   
   const authContext = useContext(AuthContext);
   const { user, setUserToMessage } = authContext;
-  
+  const [ active, setActive ] = useState(null)
 
-  if (!postedAds) {
-    return <p className="mx-auto">Loading Data...</p>;
+  const handleOpenChat = () => {
+    <ChatBox />
+  }
+  
+  if(loading){
+    <CircularProgress />
   }
   return (
     <>
@@ -64,7 +70,7 @@ const Market = ({postedAds, handleClick}) => {
                         <ShareIcon sx={{color: "#62b4f9" }} />
                       </IconButton>
                       <IconButton aria-label="chat">
-                        <ChatIcon sx={{color: "green"}} onClick={() => setUserToMessage(item.uid)} />
+                        <ChatIcon sx={{color: "green"}} onClick={() => {setUserToMessage(item.uid); handleOpenChat(); setActive("chatBubble")}} />
                       </IconButton>
                       <IconButton aria-label="share" type="click">
                         <ListAltIcon sx={{color: "purple"}} onClick={() => handleClick(item)} />
