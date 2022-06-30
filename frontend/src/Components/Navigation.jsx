@@ -15,9 +15,30 @@ import { FirebaseContext } from "../auth/FirebaseProvider";
 const Navigation = () => {
   const authContext = useContext(AuthContext)
   const { user, LogoutUser } = authContext;
+  console.log("+++++++****", user)
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const [ usePicture, setUserPicture ] = useState();
+  const [ displayName, setDisplayName ] = useState('');
+
+  // useEffect(() => {
+  //   if (db && user) {
+  //     let collectionRef = collection(db, "users");
+  //     let queryRef = query(collectionRef, orderBy("timeStamp"));
+  //     const unsubscribe = onSnapshot(queryRef, (querySnap) => {
+  //       if (querySnap.empty) {
+  //         console.log("Ads not found");
+  //       } else {
+  //         let usersData = querySnap.docs.map((doc) => {
+  //           return { ...doc.data(), DOC_ID: doc.id };
+  //         });
+  //         setSetAllPostedAds(usersData);
+  //         setLoading(true)
+  //       }
+  //     });
+  //     return unsubscribe;
+  //   }
+  // }, [db, user]);
 
   useEffect(() => {
     if (db && user) {
@@ -27,7 +48,7 @@ const Navigation = () => {
         } else {
           let usersData = querySnap.data()
           setUserPicture(usersData.Avatar);
-          console.log("++++++", user)
+          setDisplayName(usersData.firstName)
         }
       });
       return unsubscribe;
@@ -123,7 +144,7 @@ const Navigation = () => {
                   style={{ marginRight: "auto" }}
                 />
                 <Typography style={{ marginTop: "22px", marginRight: "10px", color: "white" }}>
-                  Hi, {user.displayName}
+                  Hi, {displayName}
                 </Typography>
                 <Avatar
                   sx={{ marginTop: "16px" }}

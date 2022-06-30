@@ -15,7 +15,7 @@ const AuthProvider = (props) => {
     const [ loading, setLoading ] = useState(false);
     const [ authError, setAuthError ] = useState();
     const [ isPending, setIsPending ] = useState();
-    const [ isOnline, setIsOnline ] = useState(false);
+    const [ isOnline, setIsOnline ] = useState("#F94C66");
     const [ userToMessage, setUserToMessage ] = useState(false);
 
     const gitHubprovider = new GithubAuthProvider();
@@ -29,7 +29,7 @@ const AuthProvider = (props) => {
 
     const registerUser = async (firstName, lastName, email, password) => {
         try {
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);  
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password, db);  
             let user = userCredential.user;
             let newUser = doc(db, "users", user.uid);
             const userProfile = {
@@ -46,7 +46,7 @@ const AuthProvider = (props) => {
                 timeStamp: serverTimestamp(),
               }
               setDoc(newUser, userProfile)
-              setIsOnline(true)
+              setIsOnline("#00FFAB")
               return true;
             // await updateProfile(auth.userCredential, {displayName: `${firstName} ${lastName}`});
         } catch (error) {
@@ -60,7 +60,7 @@ const AuthProvider = (props) => {
             if(userCredential){
                 setAuthError(null)
                 setIsPending(true)
-                setIsOnline(true)
+                setIsOnline("")
             } else {
                 setAuthError(`Failed Credentials`);
             }
@@ -72,7 +72,7 @@ const AuthProvider = (props) => {
       const LogoutUser = async () => {
         try {
             await signOut(auth);
-            setIsOnline(false)
+            setIsOnline("#F94C66")
         } catch (error) {
             console.log("Error logging out");
         }

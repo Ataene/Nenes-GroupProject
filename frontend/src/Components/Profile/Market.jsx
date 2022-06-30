@@ -15,16 +15,9 @@ import ChatBox from "./ChatBox";
 const Market = ({postedAds, handleClick, loading}) => {
   
   const authContext = useContext(AuthContext);
-  const { user, setUserToMessage } = authContext;
-  const [ active, setActive ] = useState(null)
+  const { user, setUserToMessage, isOnline } = authContext;
+  const [ open, setOpen ] = useState(false)
 
-  const handleOpenChat = () => {
-    <ChatBox />
-  }
-  
-  if(loading){
-    <CircularProgress />
-  }
   return (
     <>
       <Container>
@@ -44,7 +37,7 @@ const Market = ({postedAds, handleClick, loading}) => {
                           src={item.userPicture}
                          />
                       }
-                      title={item.title}
+                      title={item.displayName}
                       name="title"
                     />
                       <CardMedia
@@ -54,6 +47,7 @@ const Market = ({postedAds, handleClick, loading}) => {
                         title={item.title}
                       ></CardMedia>
                       <CardContent>
+                        <Typography>{item.title}</Typography>
                         <Typography>{item.name}</Typography>
                       </CardContent>
                   <Box
@@ -70,7 +64,7 @@ const Market = ({postedAds, handleClick, loading}) => {
                         <ShareIcon sx={{color: "#62b4f9" }} />
                       </IconButton>
                       <IconButton aria-label="chat">
-                        <ChatIcon sx={{color: "green"}} onClick={() => {setUserToMessage(item.uid); handleOpenChat(); setActive("chatBubble")}} />
+                        <ChatIcon sx={{color: "green"}} onClick={() => setUserToMessage(item.uid)} />
                       </IconButton>
                       <IconButton aria-label="share" type="click">
                         <ListAltIcon sx={{color: "purple"}} onClick={() => handleClick(item)} />

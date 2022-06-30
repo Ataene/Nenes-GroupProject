@@ -35,11 +35,12 @@ const DropSelections = ({ visible, onCancel }) => {
   const [progress, setProgress] = useState(null);
   const [url, setUrl] = useState("");
   const [userPicture, setUserPicture ] = useState("");
+  const [displayName, setDisplayName ] = useState("");
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const store = fbContext.store;
   const authContext = useContext(AuthContext);
-  const { user } = authContext;
+  const { user, isOnline } = authContext;
 
   useEffect(() => {
     const handleImageUpload = () => {
@@ -77,6 +78,7 @@ const DropSelections = ({ visible, onCancel }) => {
         } else {
           let usersData = querySnap.data()
           setUserPicture(usersData.Avatar);
+          setDisplayName(usersData.firstName);
         }
       });
       return unsubscribe;
@@ -97,6 +99,8 @@ const DropSelections = ({ visible, onCancel }) => {
         url,
         uid: user.uid,
         userPicture,
+        displayName,
+        isOnline,
         timeStamp: serverTimestamp(),
       });
       setTitle("");
