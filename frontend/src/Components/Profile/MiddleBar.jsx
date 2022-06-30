@@ -25,7 +25,7 @@ const MiddleBar = () => {
   const { user } = authContext;
   const { addToWantList, removeFromWantList } = wantContext;
 
-  const [active, setActive] = useState("market");
+  const [active, setActive] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [postedAds, setSetAllPostedAds] = useState([]);
   const [loading, setLoading] = useState(false);

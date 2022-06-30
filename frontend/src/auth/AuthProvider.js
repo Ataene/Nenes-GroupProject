@@ -41,8 +41,8 @@ const AuthProvider = (props) => {
                 province: "",
                 city: "",
                 postalCode: "",
-                Want: "",
-                Have: "",
+                gender: "",
+                occupation: "",
                 timeStamp: serverTimestamp(),
               }
               setDoc(newUser, userProfile)
