@@ -16,7 +16,8 @@ import { AuthContext } from "../../auth/AuthProvider";
 const Market = ({ postedAds, handleClick }) => {
   
   const authContext = useContext(AuthContext);
-  const { user } = authContext;
+  const { user, setUserToMessage } = authContext;
+  
 
 
    const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
@@ -48,12 +49,11 @@ const Market = ({ postedAds, handleClick }) => {
                           sx={{ bgcolor: "red"[500] }}
                           aria-label="recipe"
                           src={item.userPicture}
-                         />
+                        />
                       }
                       title={item.title}
                       name="title"
                     />
-
                     <CardMedia
                       component="img"
                       sx={{ height: "280px" }}
@@ -82,8 +82,11 @@ const Market = ({ postedAds, handleClick }) => {
                         <IconButton aria-label="share">
                           <ShareIcon sx={{ color: "#62b4f9" }} />
                         </IconButton>
-                        <IconButton aria-label="share">
-                          <ChatIcon sx={{ color: "green" }} />
+                        <IconButton aria-label="chat">
+                          <ChatIcon
+                            sx={{ color: "green" }}
+                            onClick={() => setUserToMessage(item.uid)}
+                          />
                         </IconButton>
                         <IconButton aria-label="share" type="click">
                           <ListAltIcon
@@ -91,17 +94,16 @@ const Market = ({ postedAds, handleClick }) => {
                             onClick={() => handleClick(item)}
                           />
                         </IconButton>
-                          
+                        <ProductDetailDialog item={item} />
                       </CardActions>
-                      <ProductDetailDialog item={item} />
                     </Box>
                   </Card>
                 </Grid>
               ))}
           </Grid>
-        </Box> 
+        </Box>
       </Container>
-      </>
+    </>
   );
 };
 

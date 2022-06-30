@@ -1,11 +1,14 @@
 import CloseIcon from "@mui/icons-material/Close";
 import {
-    CardMedia,
+  CardMedia,
   Dialog,
   DialogContent,
   DialogTitle,
   Grid,
   IconButton,
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
   Slide,
 } from "@mui/material";
 import { Box } from "@mui/system";
@@ -25,6 +28,7 @@ import {
   CardHeader,
   Container,
   Link,
+Rating,
 } from "@mui/material";
 // import cardImage from "../../images/Alaf.jpg"
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -38,8 +42,12 @@ import AddIcon from "@mui/icons-material/Add";
 import { addDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { Image } from "@mui/icons-material";
+import { useStateValue } from "../../providers/StateProvider";
+import { actionType } from "./reducer";
+import { doc, setDoc } from "firebase/firestore";
+import { List, ListItem } from "@material-ui/core";
 
-
+let cartData = [];
 
 function SlideTransition(props) {
   return <Slide direction="down" {...props} />;
@@ -65,30 +73,35 @@ function ItemDetail({ open, onClose, item }) {
   const db = fbContext.db;
   const { user } = authContext;
   const [title, setTitle] = useState("");
-  // const [ allUsers, setAllUser ] = useState([])
 
   const [postedAds, setPostedAds] = useState([]);
 
-  const [filteredData, setFilteredData] = useState([]);
+  const addToItemDetailList = (newItem) => {
+    let newPost = [...postedAds, newItem];
+    let docRef = doc(db, "postedAds", user.uid);
+    setDoc(docRef, { items: newPost });
+  };
 
   useEffect(() => {
     if (db && user) {
-      let collectionRef = collection(db, "postedAds");
-      let queryRef = query(collectionRef, orderBy("timeStamp"));
-
-      const unsubscribe = onSnapshot(queryRef, (querySnap) => {
+      let docRef = doc(db, "postedAds", user.uid);
+      const unsubscribe = onSnapshot(docRef, (querySnap) => {
         if (querySnap.empty) {
-          console.log("Ads not found");
+          setDoc(docRef, { items: [] });
+          setPostedAds([]);
         } else {
-          let usersData = querySnap.docs.map((doc) => {
-            return { ...doc.data(), DOC_ID: doc.id };
-          });
-          setPostedAds(usersData);
+          let data = querySnap.data().items;
+          setPostedAds(data);
         }
       });
       return unsubscribe;
     }
   }, [db, user]);
+
+  const theValues = {
+    addToItemDetailList,
+    };
+      const [value, setValue] = useState();
 
   return (
     <Dialog
@@ -103,67 +116,152 @@ function ItemDetail({ open, onClose, item }) {
           alignItems="center"
           justifyContent={"space-between"}
         >
-          Item Title
+          {item.title}
           <IconButton onClick={onClose}>
             <CloseIcon />
           </IconButton>
         </Box>
       </DialogTitle>
       <DialogContent>
-        <Grid container spacing={1}>
-          {postedAds
-            .filter((item) => item.uid !== user.uid)
-            .map((item) => (
-              <Grid item md={3} key={item.timeStamp}>
+        <div
+          sx={{
+            justifyContent: "center",
+            alignItems: "center",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Card sx={{ maxWidth: 800, height: 500 }}>
+            <Grid className="details" container spacing={1}>
+              <Grid
+                item
+                md={4}
+                key={item.uid}
+                onClick={(e) => setPostedAds(item)}
+              >
+                <CardHeader
+                  avatar={
+                    <Avatar sx={{ bgcolor: "red"[500] }} aria-label="recipe">
+                      R
+                    </Avatar>
+                  }
+                />
+                <CardMedia
+                  component="img"
+                  sx={{ height: "350px" }}
+                  image={item.url}
+                  title={item.title}
+                  onClick={() => setPostedAds(item)}
+                ></CardMedia>
+              </Grid>
+              <Grid item md={4} xs={6}>
+                <List>
+                  <ListItem>
+                    <Typography component="h4" variant="h6">
+                      {item.title}
+                    </Typography>
+                  </ListItem>
+                  <ListItem>
+                    <Typography>Name: {item.displayName}</Typography>
+                  </ListItem>
+                  <ListItem>
+                    <Typography>Category: {item.category}</Typography>
+                  </ListItem>
+                  <ListItem>
+                    <Typography>Brand: {item.brand}</Typography>
+                  </ListItem>
+                  <ListItem>
+                    <Typography>Quantity: {item.quantity}</Typography>
+                  </ListItem>
+                  <ListItem>
+                    <Typography>
+                      Rating: {item.rating} stars ({item.numReviews} reviews)
+                    </Typography>
+                  </ListItem>
+
+                  <ListItem>
+                    <Typography> Condition: {item.condition}</Typography>
+                  </ListItem>
+                  <ListItem>
+                    <Typography> Description: {item.description}</Typography>
+                  </ListItem>
+                </List>
+              </Grid>
+              <Grid item md={4} xs={12}>
                 <Card
-                  sx={{ height: "33rem", marginTop: "10px", margin: "10px" }}
-                  item={item}
+                  sx={{
+                    justifyContent: "center",
+                    alignItems: "center",
+
+                    flexDirection: "column",
+                    height: "420px",
+                  }}
                 >
-                  <CardHeader
-                    avatar={
-                      <Avatar sx={{ bgcolor: "red"[500] }} aria-label="recipe">
-                        R
-                      </Avatar>
-                    }
-                    title={item.title}
-                    name="title"
-                  />
-                  <CardMedia
-                    component="img"
-                    sx={{ height: "280px" }}
-                    image={item.url}
-                    title={item.title}
-                  ></CardMedia>
-                  <CardContent>
-                    <Typography>{item.name}</Typography>
-                  </CardContent>
-                  <Box
-                    sx={{
-                      justifyContent: "center",
-                      alignItems: "center",
-                      display: "flex",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <Typography>{item.description}</Typography>
-                    <Typography>Condition: {item.condition}</Typography>
-                    <Typography>I want : {item.want}</Typography>
-                    <CardActions sx={{ marginBottom: "20px" }}>
-                      <IconButton aria-label="add to favorites">
-                        <FavoriteIcon sx={{ color: "red" }} />
-                      </IconButton>
-                      <IconButton aria-label="share">
-                        <ShareIcon sx={{ color: "#62b4f9" }} />
-                      </IconButton>
-                      <IconButton aria-label="share">
-                        <ChatIcon sx={{ color: "green" }} />
-                      </IconButton>
-                    </CardActions>
-                  </Box>
+                  <List>
+                    <ListItem>
+                      <Grid container>
+                        <Grid item xs={6}>
+                          <Typography>I Want:</Typography>
+                        </Grid>
+                                              <Grid item xs={6}>
+                                                  
+                        <Typography>{item.want}</Typography>
+                        </Grid>
+                      </Grid>
+                    </ListItem>
+                    <ListItem>
+                      <Grid container>
+                        <Grid item xs={6}>
+                          <Typography>Status</Typography>
+                        </Grid>
+                        <Grid item xs={6}>
+                          <Typography>
+                            {item.countInStock > 0 ? "In stock" : "Unavailable"}
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                    </ListItem>
+                    <IconButton aria-label="add to favorites">
+                      <FavoriteIcon sx={{ color: "red" }} />
+                    </IconButton>
+                    <IconButton aria-label="share">
+                      <ShareIcon sx={{ color: "#62b4f9" }} />
+                    </IconButton>
+                    <IconButton aria-label="share">
+                      <ChatIcon sx={{ color: "green" }} />
+                    </IconButton>
+                    <ListItem>
+                      <Button fullWidth variant="contained" color="primary">
+                        Add to Wishlist
+                      </Button>
+                    </ListItem>
+                    <ListItem>
+                      <Box
+                        sx={{
+                          justifyContent: "center",
+                          alignItems: "center",
+                          display: "flex",
+                          PaddingTop: "row",
+                          flexDirection: "column",
+                        }}
+                      >
+                        <Rating
+                          precision={0.1}
+                          size="large"
+                          value={value}
+                          onChange={(e, val) => setValue(val)}
+                        />
+                        <Typography>
+                          Rated {value !== undefined ? value : 0} Stars
+                        </Typography>
+                      </Box>
+                    </ListItem>
+                  </List>
                 </Card>
               </Grid>
-            ))}
-        </Grid>
+            </Grid>
+          </Card>
+        </div>
       </DialogContent>
     </Dialog>
   );
