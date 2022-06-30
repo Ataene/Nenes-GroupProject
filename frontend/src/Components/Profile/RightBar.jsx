@@ -6,6 +6,7 @@ import Location from '../Region/Location';
 import SendIcon from '@mui/icons-material/Send';
 import Messenger from '../../Pages/messenger/Messenger';
 import ChatRoom from "./ChatRoom";
+import ChatBox from './ChatBox';
 
 const RightBar = () => {
 
@@ -17,7 +18,7 @@ const RightBar = () => {
   }
 
   return (
-    <Box sx={{flex: "2", height: "calc(100vh-50px)" }}>
+    <Box sx={{flex: "2"}}>
      <Container>
      <Box sx={{marginTop: "20px"}}>
      <Card sx={{ maxWidth: 345 }}>
@@ -40,6 +41,9 @@ const RightBar = () => {
      
        {/* <Location /> */}
        {/* <Messenger /> */}
+     </Container>
+     <Container>
+     {/* {active === "chatButtle" && <ChatBox />} */}
      </Container>
      <Container>
       <ChatRoom />

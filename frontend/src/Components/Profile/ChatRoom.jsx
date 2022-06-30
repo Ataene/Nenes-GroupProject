@@ -1,8 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import ChatHeader from "./ChatHeader";
 import ChatInput from "./ChatInput";
-import UsersDisplay from "./UsersDisplay";
 import { AuthContext } from "../../auth/AuthProvider";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import {
@@ -11,7 +10,6 @@ import {
   onSnapshot,
   limit,
   orderBy,
-  where,
   doc,
 } from "firebase/firestore";
 
@@ -29,7 +27,6 @@ const ChatRoom = () => {
   const db = fbContext.db;
   const { user, isOnline, userToMessage } = authContext;
   const [onlineUsers, setOnlineUsers] = useState([]);
-  // const [ text, setText ] = useState('')
   const [chat, setChat] = useState("");
   const [messages, setMessages] = useState([]);
   const scroll = useRef();
@@ -81,19 +78,10 @@ const ChatRoom = () => {
     }
   }, [db, user]);
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault()
-  // }
-
-  // const selectedUserProduct = (user2) => {
-  //   set
-  // }
-
   return (
     <>
       <Box style={chatroom}>
         <ChatHeader />
-        <UsersDisplay onlineUsers={onlineUsers} />
         <div>
           {messages.map((item) => (
             <div>
@@ -103,7 +91,7 @@ const ChatRoom = () => {
             </div>
           ))}
         </div>
-        <ChatInput scroll={scroll} />
+        <ChatInput scroll={scroll}  />
         <div ref={scroll}></div>
       </Box>
     </>

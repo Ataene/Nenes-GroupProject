@@ -211,7 +211,8 @@ function ItemDetail({ open, onClose, item }) {
                     </ListItem>
                     <ListItem>
                       <Grid container>
-                        <Grid item xs={6}>
+               
+                                              <Grid item xs={6}>
                           <Typography>Status</Typography>
                         </Grid>
                         <Grid item xs={6}>

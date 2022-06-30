@@ -8,16 +8,23 @@ import ChatIcon from "@mui/icons-material/Chat";
 import Avatar from "@mui/material/Avatar";
 import ShareIcon from "@mui/icons-material/Share";
 import ListAltIcon from "@mui/icons-material/ListAlt";
+
 import useDialogModal  from ".././productdetail/useDialogModal";
 import  ItemDetail  from ".././productdetail/ProductDetail";
 
 import { AuthContext } from "../../auth/AuthProvider";
+import CircularProgress from '@mui/material/CircularProgress';
+import ChatBox from "./ChatBox";
 
-const Market = ({ postedAds, handleClick }) => {
+
+
+const Market = ({postedAds, handleClick, loading}) => {
+
   
   const authContext = useContext(AuthContext);
-  const { user, setUserToMessage } = authContext;
-  
+  const { user, setUserToMessage, isOnline } = authContext;
+  const [ open, setOpen ] = useState(false)
+
 
 
    const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
@@ -51,7 +58,7 @@ const Market = ({ postedAds, handleClick }) => {
                           src={item.userPicture}
                         />
                       }
-                      title={item.title}
+                      title={item.displayName}
                       name="title"
                     />
                     <CardMedia

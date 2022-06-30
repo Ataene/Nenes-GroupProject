@@ -4,7 +4,7 @@ import Map, { Marker, Popup } from "react-map-gl";
 import { Box, Button, Link  } from "@mui/material";
 // import postalData from "../Data/testData.json";
 import postalData from "../Data/postalCode.json";
-import ParkIcon from "@mui/icons-material/Park";
+import HandshakeIcon from "@mui/icons-material/Handshake";
 import HomeIcon from "@mui/icons-material/Home";
 import { Container } from "@mui/system";
 
@@ -53,7 +53,7 @@ const mapRef = useRef(null);
             latitude={postal.latitude}
             longitude={postal.longitude}
           >
-              <ParkIcon
+              <HandshakeIcon
                 color="primary"
                 style={{
                   height: "30px",

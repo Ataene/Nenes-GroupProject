@@ -7,8 +7,8 @@ import RightBar from "./RightBar"
 
 const Profile = () => {
     const authContext = useContext(AuthContext)
-    const { user } = authContext;
-  if (!user){
+    const { user, isOnline } = authContext;
+  if (!user && !isOnline){
       return null;
   }
   return (

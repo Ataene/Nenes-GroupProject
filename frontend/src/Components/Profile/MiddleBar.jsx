@@ -28,13 +28,18 @@ const MiddleBar = () => {
   const { addToWantList, removeFromWantList } = wantContext;
   const { showInDetailedPage } = itemContext;
 
-  const [active, setActive] = useState("market");
+  const [active, setActive] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [postedAds, setSetAllPostedAds] = useState([]);
 
 
 
+
   //useEffect to call db
+
+  const [loading, setLoading] = useState(false);
+//useEffect to call db
+
   useEffect(() => {
     if (db && user) {
       let collectionRef = collection(db, "postedAds");
@@ -47,6 +52,7 @@ const MiddleBar = () => {
             return { ...doc.data(), DOC_ID: doc.id };
           });
           setSetAllPostedAds(usersData);
+          setLoading(true)
         }
       });
       return unsubscribe;
@@ -128,6 +134,7 @@ const MiddleBar = () => {
         </Box>
         <hr />
         <>
+
           {active === "market" && (
             <Market
               postedAds={postedAds}
@@ -135,6 +142,9 @@ const MiddleBar = () => {
               Click={showProductDetailDialog}
             />
           )}
+
+          {active === "market" && <Market  postedAds ={postedAds}  handleClick={handleClick} loading={loading}/>}
+
           {active === "swipe" && <Swipe />}
           {active === "wantList" && <Want />}
           {active === "settings" && <Settings />}
