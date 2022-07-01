@@ -1,5 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Avatar, Button, TextField, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Grid,
+  Paper,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../../auth/AuthProvider";
 import { Container } from "@mui/system";
@@ -8,7 +17,6 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 
 const Settings = () => {
-
   const [file, setFile] = useState("");
   const [progress, setProgress] = useState(null);
   const authContext = useContext(AuthContext);
@@ -95,127 +103,162 @@ const Settings = () => {
 
   return (
     <>
-      <Typography sx={{ display: "flex", justifyContent: "center" }}>
-        UPDATE ACCOUNT
-      </Typography>
-      <Container>
-        <form
-          onSubmit={handleSubmit}
-          style={{ display: "flex", justifyContent: "space-between" }}
+      <Paper elevation={10} sx={{ backgroundColor: "#B8F1B0" }}>
+        <br />
+        <Typography sx={{ display: "flex", justifyContent: "center" }}>
+          UPDATE ACCOUNT
+        </Typography>
+        <br />
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": { m: 1, width: "25ch" },
+          }}
+          noValidate
+          autoComplete="off"
         >
-          <section>
-            <TextField
-              id="standard-basic"
-              label="City"
-              variant="standard"
-              type="text"
-              name="city"
-              required={true}
-              value={formData.city}
-              onChange={handleChange}
-            />
-            <TextField
-              id="standard-basic"
-              label="First Name"
-              variant="standard"
-              type="text"
-              name="firstName"
-              required={true}
-              value={formData.firstName}
-              onChange={handleChange}
-            />
-            <TextField
-              id="standard-basic"
-              label="Last Name"
-              variant="standard"
-              type="text"
-              name="lastName"
-              required={true}
-              value={formData.lastName}
-              onChange={handleChange}
-            />
-            <TextField
-              id="standard-basic"
-              label="Province"
-              variant="standard"
-              type="text"
-              name="province"
-              required={true}
-              value={formData.province}
-              onChange={handleChange}
-            />
-            <TextField
-              id="standard-basic"
-              label="Postal Code"
-              variant="standard"
-              type="text"
-              name="postalCode"
-              required={true}
-              value={formData.postalCode}
-              onChange={handleChange}
-            />
-          </section>
-          <section>
-            <TextField
-              id="standard-basic"
-              label="Gender"
-              variant="standard"
-              type="text"
-              name="gender"
-              required={true}
-              value={formData.gender}
-              onChange={handleChange}
-            />
-            <TextField
-              id="standard-basic"
-              label="Occupation"
-              variant="standard"
-              type="text"
-              name="occupation"
-              required={true}
-              value={formData.occupation}
-              onChange={handleChange}
-            />
-          </section>
-          <section>
-            <Avatar
-              src={
-                file ? (
-                  URL.createObjectURL(file)
-                ) : (
-                  <Typography>Image failed to load</Typography>
-                )
-              }
-              sx={{
-                bgcolor: "green"[500],
-                width: 100,
-                height: 100,
-                marginTop: "30px",
-              }}
-              variant="rounded"
-            />
-            <input
-              id="standard-basic"
-              label="Profile Photo"
-              variant="standard"
-              type="file"
-              name="url"
-              required={true}
-              value={formData.url}
-              onChange={handleFileChange}
-            />
-          </section>
-          <section style={{ display: "flex" }}>
-            <Button
-              disabled={progress !== null && progress < 100}
-              type="submit"
-            >
-              Submit
-            </Button>
-            {progress ? <div>progress: {progress}%</div> : <div />}
-          </section>
-        </form>
-      </Container>
+          <form
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              height: "500px",
+              width: "100%",
+              margin: "5px",
+              paddingLeft: "70px",
+            }}
+            onSubmit={handleSubmit}
+          >
+            <Grid item xs={2}>
+              <section style={{ borderSpacing: "5px" }}>
+                <TextField
+                  id="outlined-multiline-flexible"
+                  label="First Name"
+                  variant="outlined"
+                  type="text"
+                  name="firstName"
+                  required={true}
+                  value={formData.firstName}
+                  onChange={handleChange}
+                />
+
+                <TextField
+                  id="outlined-basic"
+                  label="Last Name"
+                  variant="outlined"
+                  type="text"
+                  name="lastName"
+                  required={true}
+                  value={formData.lastName}
+                  onChange={handleChange}
+                />
+              </section>
+              <section>
+                <TextField
+                  iid="outlined-basic"
+                  label="City"
+                  variant="outlined"
+                  type="text"
+                  name="city"
+                  required={true}
+                  value={formData.city}
+                  onChange={handleChange}
+                />
+
+                <TextField
+                  id="outlined-basic"
+                  label="Province"
+                  variant="outlined"
+                  type="text"
+                  name="province"
+                  required={true}
+                  value={formData.province}
+                  onChange={handleChange}
+                />
+
+                <TextField
+                  id="outlined-basic"
+                  label="Postal Code"
+                  variant="outlined"
+                  type="text"
+                  name="postalCode"
+                  required={true}
+                  value={formData.postalCode}
+                  onChange={handleChange}
+                />
+              </section>
+              <section>
+                <TextField
+                  id="outlined-basic"
+                  label="Gender"
+                  variant="outlined"
+                  type="text"
+                  name="gender"
+                  required={true}
+                  value={formData.gender}
+                  onChange={handleChange}
+                />
+
+                <TextField
+                  id="outlined-basic"
+                  label="Occupation"
+                  variant="outlined"
+                  type="text"
+                  name="occupation"
+                  required={true}
+                  value={formData.occupation}
+                  onChange={handleChange}
+                />
+              </section>
+
+              <section
+                style={{
+                  transform: "translate(-30%, -60%)",
+                  position: "absolute",
+                  top: "80%",
+                  left: "48%",
+                }}
+              >
+                <Avatar
+                  src={
+                    file ? (
+                      URL.createObjectURL(file)
+                    ) : (
+                      <Typography>Image failed to load</Typography>
+                    )
+                  }
+                  sx={{
+                    bgcolor: "green"[500],
+                    width: 90,
+                    height: 100,
+                    marginTop: "30px",
+                  }}
+                  variant="rounded"
+                />
+                <input
+                  id="standard-basic"
+                  label="Profile Photo"
+                  variant="standard"
+                  type="file"
+                  name="url"
+                  required={true}
+                  value={formData.url}
+                  onChange={handleFileChange}
+                />
+                <br />
+                <br />
+                <Button
+                  style={{ display: "flex", color: "green" }}
+                  disabled={progress !== null && progress < 100}
+                  type="submit"
+                >
+                  Submit
+                </Button>
+                {progress ? <div>progress: {progress}%</div> : <div />}
+              </section>
+            </Grid>
+          </form>
+        </Box>
+      </Paper>
     </>
   );
 };
