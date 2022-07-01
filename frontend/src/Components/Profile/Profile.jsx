@@ -16,7 +16,7 @@ import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 
-const Settings = () => {
+const Profile = () => {
   const [file, setFile] = useState("");
   const [progress, setProgress] = useState(null);
   const authContext = useContext(AuthContext);
@@ -263,4 +263,4 @@ const Settings = () => {
   );
 };
 
-export default Settings;
+export default Profile;

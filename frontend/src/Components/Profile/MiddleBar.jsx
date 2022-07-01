@@ -7,7 +7,7 @@ import ProductScreen from '../ProductPage/Product';
 import WishList from "./WishList";
 import Market from "./Market";
 import Swipe from "./Swipe";
-import Settings from "./Settings";
+import Profile from "./Profile";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { AuthContext } from "../../auth/AuthProvider";
@@ -96,7 +96,7 @@ const MiddleBar = () => {
             Swipe
           </Button>
           <Button
-            onClick={() => setActive("settings")}
+            onClick={() => setActive("profile")}
             sx={{ margin: "5px" }}
             variant="outlined"
             size="large"
@@ -144,7 +144,7 @@ const MiddleBar = () => {
 
           {active === "swipe" && <Swipe />}
           {active === "myList" && <MyList />}
-          {active === "settings" && <Settings />}
+          {active === "profile" && <Profile />}
         </>
       </Container>
     </Box>
