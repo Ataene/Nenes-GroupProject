@@ -46,8 +46,8 @@ const Navigation = () => {
         if (querySnap.empty) {
         } else {
           let usersData = querySnap.data()
-          setUserPicture(usersData.Avatar);
-          setDisplayName(usersData.firstName)
+          setUserPicture(usersData?.Avatar);
+          setDisplayName(usersData?.firstName)
         }
       });
       return unsubscribe;

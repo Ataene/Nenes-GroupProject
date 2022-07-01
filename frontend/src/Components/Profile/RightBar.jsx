@@ -1,17 +1,30 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Box, Container, Typography,  CardMedia, CardContent, Card } from '@mui/material';
 import { AuthContext  } from '../../auth/AuthProvider'
 import { useNavigate } from 'react-router-dom';
 import ChatRoom from "./ChatRoom";
+import ChatBox from './ChatBox';
 
 const RightBar = () => {
 
   const authContext = useContext(AuthContext);
-  const { user } = authContext;
+  const { user, userToMessage } = authContext;
   const navigate= useNavigate()
   const handleModal = () => {
     navigate('/location')
   }
+
+  const [open, setOpen] = useState(true);
+  const [transition, setTransition] = useState(undefined);
+
+  const handleClick = (Transition) => () => {
+    setTransition(() => Transition);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <Box sx={{flex: "2"}}>
@@ -35,11 +48,9 @@ const RightBar = () => {
     </Card>
      </Box>
      </Container>
-     <Container>
-     </Container>
-     <Container>
-      <ChatRoom />
-     </Container>
+     <Box>
+     {open && userToMessage && <ChatBox setOpen={setOpen} />}
+     </Box>
     </Box>
   )
 }

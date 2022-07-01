@@ -23,7 +23,7 @@ const ChatHeader = () => {
           console.log("Ads not found");
         } else {
           let usersData = querySnap.data();
-          setUserPicture(usersData.Avatar);
+          setUserPicture(usersData?.Avatar);
         }
       });
       return unsubscribe;
