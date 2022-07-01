@@ -13,7 +13,7 @@ import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { Box } from "@mui/system";
 
-const Want = () => {
+const MyList = () => {
   const [active, setActive] = useState("Wishlist");
 
   //Auth and DB Context
@@ -108,4 +108,4 @@ const Want = () => {
     </>
   );
 };
-export default Want;
+export default MyList;

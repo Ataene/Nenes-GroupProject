@@ -116,9 +116,9 @@ const Navigation = () => {
             </Link>
             {user && (
               <>
-                <Link style={{ textDecoration: "none" }} to="/profile">
+                <Link style={{ textDecoration: "none" }} to="/dashboard">
                   <Button sx={{ my: 2, color: "white", alignItem: "block" }}>
-                    Profile
+                    Dashboard
                   </Button>
                 </Link>
               </>

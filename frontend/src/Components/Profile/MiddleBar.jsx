@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Box, Container, Button } from "@mui/material";
 import DropSelections from "../DropSelections";
 import Wish from "./WishList"
-import Want from "../WantList/Want";
+import MyList from "../WantList/MyList";
 import ProductScreen from '../ProductPage/Product';
 import WishList from "./WishList";
 import Market from "./Market";
@@ -31,9 +31,6 @@ const MiddleBar = () => {
   const [active, setActive] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [postedAds, setSetAllPostedAds] = useState([]);
-
-
-
 
   //useEffect to call db
 
@@ -104,15 +101,15 @@ const MiddleBar = () => {
             variant="outlined"
             size="large"
           >
-            Settings
+            Profile
           </Button>
           <Button
-            onClick={() => setActive("wantList")}
+            onClick={() => setActive("myList")}
             sx={{ margin: "5px" }}
             variant="outlined"
             size="large"
           >
-            Want List
+            My List
           </Button>
           <Button
             onClick={handleModalOpen}
@@ -146,7 +143,7 @@ const MiddleBar = () => {
           {active === "market" && <Market  postedAds ={postedAds}  handleClick={handleClick} loading={loading}/>}
 
           {active === "swipe" && <Swipe />}
-          {active === "wantList" && <Want />}
+          {active === "myList" && <MyList />}
           {active === "settings" && <Settings />}
         </>
       </Container>

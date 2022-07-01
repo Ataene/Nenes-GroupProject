@@ -1,12 +1,5 @@
 
 import {
-  Grid,
-  Link,
-  List,
-  ListItem,
-  Typography,
-  Card,
-  Button,
   ImageList,
   ImageListItem,
   ImageListItemBar,
@@ -15,21 +8,13 @@ import {
 import useStyles from "./styles";
 //import Product from "../../models/Product";
 //import db from "../../utils/db";
-
 import React, { useContext, useEffect, useState } from 'react'
-import CardContent from '@mui/material/CardContent';
-import { CardActions, CardHeader, CardMedia, Container, IconButton } from '@mui/material';
 // import cardImage from "../../images/Alaf.jpg"
 import { AuthContext  } from '../../auth/AuthProvider'
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ChatIcon from '@mui/icons-material/Chat';
-import Avatar from '@mui/material/Avatar';
+
 import { FirebaseContext } from '../../auth/FirebaseProvider';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import ShareIcon from '@mui/icons-material/Share';
-import WishList from "../Profile/WishList";
-import Test from '../WantList/Want';
+
 import { Box } from "@mui/system";
 
 export default function ProductScreen(props) {

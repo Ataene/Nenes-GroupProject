@@ -16,23 +16,14 @@ import { AuthContext } from "../../auth/AuthProvider";
 import CircularProgress from '@mui/material/CircularProgress';
 import ChatBox from "./ChatBox";
 
-
-
 const Market = ({postedAds, handleClick, loading}) => {
 
-  
   const authContext = useContext(AuthContext);
   const { user, setUserToMessage, isOnline } = authContext;
   const [ open, setOpen ] = useState(false)
 
-
-
    const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
      useDialogModal(ItemDetail);
-
-
-  
-
   if (!postedAds) {
     return <p className="mx-auto">Loading Data...</p>;
   }
