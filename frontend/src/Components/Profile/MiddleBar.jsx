@@ -13,6 +13,7 @@ import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { AuthContext } from "../../auth/AuthProvider";
 
 import { WantContext } from "../../providers/WantProvider";
+import { ItemContext } from "../../providers/ItemDetailProvider";
 
 const MiddleBar = () => {
 
@@ -20,16 +21,25 @@ const MiddleBar = () => {
   const authContext = useContext(AuthContext);
   const fbContext = useContext(FirebaseContext);
   const wantContext = useContext(WantContext);
+  const itemContext = useContext(ItemContext);
 
   const db = fbContext.db;
   const { user } = authContext;
   const { addToWantList, removeFromWantList } = wantContext;
+  const { showInDetailedPage } = itemContext;
 
   const [active, setActive] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [postedAds, setSetAllPostedAds] = useState([]);
+
+
+
+
+  //useEffect to call db
+
   const [loading, setLoading] = useState(false);
 //useEffect to call db
+
   useEffect(() => {
     if (db && user) {
       let collectionRef = collection(db, "postedAds");
@@ -63,10 +73,15 @@ const MiddleBar = () => {
   const handleCancel = () => {
     setModalVisible(false);
   };
+
+    const showProductDetailDialog = (item) => {
+      showInDetailedPage(item);
+    };
+
   return (
     <Box sx={{ flex: "8.5", backgroundColor: "#B8F1B0" }}>
       <Container>
-        <Box sx={{ justifyContent: "center", display: "flex"}}>
+        <Box sx={{ justifyContent: "center", display: "flex" }}>
           <Button
             onClick={() => setActive("market")}
             sx={{ margin: "5px" }}
@@ -119,7 +134,17 @@ const MiddleBar = () => {
         </Box>
         <hr />
         <>
+
+          {active === "market" && (
+            <Market
+              postedAds={postedAds}
+              handleClick={handleClick}
+              Click={showProductDetailDialog}
+            />
+          )}
+
           {active === "market" && <Market  postedAds ={postedAds}  handleClick={handleClick} loading={loading}/>}
+
           {active === "swipe" && <Swipe />}
           {active === "wantList" && <Want />}
           {active === "settings" && <Settings />}

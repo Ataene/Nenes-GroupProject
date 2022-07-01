@@ -22,7 +22,8 @@ import Wishlist  from "./Components/WantList/Wishlist";
 import Traded  from "./Components/WantList/Traded";
 import  Add  from "./Components/WantList/Add";
 import WantProvider from "./providers/WantProvider";
-import TradedProvider  from "./providers/TradedProvider";
+import TradedProvider from "./providers/TradedProvider";
+import DetailPageProvider from "./providers/ItemDetailProvider";
 
 // import AddLocation from "./Components/Region/AddLocation";
 
@@ -31,40 +32,42 @@ function App() {
     <>
       <FirebaseProvider>
         <AuthProvider>
-          <WantProvider>
-            <TradedProvider>
-              <Navigation />
-              <Routes>
-                <Route path="/" element={<Home />} />
-                {/* <Route path="/products" element={<ProductPage />} /> */}
-                <Route path="/about" element={<About />} />
-                <Route path="/product/:id" element={<ProductDetail />} />
-                <Route path="/welcome" element={<Welcome />} />
-                <Route path="/nearme" element={<NearMe />} />
-                {/* <Route path="/addlocation" element={<AddLocation />} /> */}
-                <Route path="/maps" element={<Maps />} />
-                {/*<Route path="/wishlist" element={<WishList />} />*/}
+          <DetailPageProvider>
+            <WantProvider>
+              <TradedProvider>
+                <Navigation />
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  {/* <Route path="/products" element={<ProductPage />} /> */}
+                  <Route path="/about" element={<About />} />
+                  <Route path="/product/:id" element={<ProductDetail />} />
+                  <Route path="/welcome" element={<Welcome />} />
+                  <Route path="/nearme" element={<NearMe />} />
+                  {/* <Route path="/addlocation" element={<AddLocation />} /> */}
+                  <Route path="/maps" element={<Maps />} />
+                  {/*<Route path="/wishlist" element={<WishList />} />*/}
 
-                {/*<Route path="/test" element={<Test />} />*/}
-                {/*<Route path="/watchlist" element={<Wishlist />} />*/}
-                <Route path="/traded" element={<Traded />} />
-                {/*<Route path="/add" element={<Add />} />/*}
+                  {/*<Route path="/test" element={<Test />} />*/}
+                  {/*<Route path="/watchlist" element={<Wishlist />} />*/}
+                  <Route path="/traded" element={<Traded />} />
+                  {/*<Route path="/add" element={<Add />} />/*}
             {/* <Route path="/postadd" element={<AddProducts />} /> */}
-                <Route
-                  path="/dashboard"
-                  element={
-                    <PrivateRoute>
-                      <Dashboard />
-                    </PrivateRoute>
-                  }
-                />
-                <Route exact path="/login" element={<Login />} />
-                <Route exact path="/profile" element={<Profile />} />
-                <Route exact path="/signup" element={<SignUp />} />
-              </Routes>
-              <Footer />
-            </TradedProvider>
-          </WantProvider>
+                  <Route
+                    path="/dashboard"
+                    element={
+                      <PrivateRoute>
+                        <Dashboard />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route exact path="/login" element={<Login />} />
+                  <Route exact path="/profile" element={<Profile />} />
+                  <Route exact path="/signup" element={<SignUp />} />
+                </Routes>
+                <Footer />
+              </TradedProvider>
+            </WantProvider>
+          </DetailPageProvider>
         </AuthProvider>
       </FirebaseProvider>
     </>

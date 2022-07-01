@@ -1,12 +1,20 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Map, { Marker, Popup } from "react-map-gl";
 import { Box, Button, Link  } from "@mui/material";
 // import postalData from "../Data/testData.json";
 import postalData from "../Data/postalCode.json";
-import ParkIcon from "@mui/icons-material/Park";
+import HandshakeIcon from "@mui/icons-material/Handshake";
 import HomeIcon from "@mui/icons-material/Home";
 import { Container } from "@mui/system";
+import Search from "./seachPostalCode";
+
+
+const searchStyle = {
+  position: "absolute",
+  top: 0,
+  right: 50,
+};
 
 const MAP_TOKEN ="pk.eyJ1IjoiYXRhZW5lIiwiYSI6ImNsMnRpc3EwcDAxaXMzY3FlOGg4a3A5ZmEifQ.dtj_XStiWa_Uy15mfMAM7Q";
 
@@ -15,9 +23,9 @@ const AddLocation = () => {
   const [long, setLong] = useState(-114.0719);
   const [lat, setLat] = useState(51.0447);
   const [zoom, setZoom] = useState(9.4);
-  const [selectedPark, setSelectedPark] = useState(null);
+  const [selectedItems, setSelectedItems] = useState(null);
   const [viewport, setViewport] = useState();
-  const [searchPark, setSearchPark] = useState();
+  const [searchItems, setSearchItems] = useState();
 
   const [viewState, setViewState] = useState({
         longitude: -114.0719,
@@ -36,6 +44,24 @@ const mapRef = useRef(null);
     height: window.innerHeight,
   };
 
+  //search bar for map
+  useEffect(() => {
+    if (searchItems > -1) {
+      let items = postalData[searchItems];
+      let itemsLat = items.latitude;
+      let itemsLong = items.longitude;
+      setViewState((cur) => {
+        return {
+          ...cur,
+          zoom: 13,
+          latitude: itemsLat,
+          longitude: itemsLong,
+        };
+      });
+    }
+  }, [searchItems]);
+
+
   return (
     <>
     <Container>
@@ -53,7 +79,7 @@ const mapRef = useRef(null);
             latitude={postal.latitude}
             longitude={postal.longitude}
           >
-              <ParkIcon
+              <HandshakeIcon
                 color="primary"
                 style={{
                   height: "30px",
@@ -63,18 +89,18 @@ const mapRef = useRef(null);
           </Marker>
         ))}
 
-        {selectedPark ? (
+        {selectedItems ? (
           <Popup
-            latitude={parseFloat(selectedPark.latitude)}
-            longitude={parseFloat(selectedPark.longitude)}
+            latitude={parseFloat(selectedItems.latitude)}
+            longitude={parseFloat(selectedItems.longitude)}
             closeButton={true}
             closeOnClick={false}
             anchor="left"
           >
             <div className="card-container">
               <label className="popups-label">Place</label>
-              <h5 className="place">{selectedPark.postalCode}</h5>
-              <p className="descInfo">{selectedPark.neighborhood}</p>
+              <h5 className="place">{selectedItems.postalCode}</h5>
+              <p className="descInfo">{selectedItems.neighborhood}</p>
               <label className="popups-label">Review</label>
               <br />
               <Link to="http://localhost:3000/">
@@ -84,7 +110,7 @@ const mapRef = useRef(null);
               <label className="popups-label">Ratings</label>
               {/* <p className="star">{(selectedPark.Ratings).fill(<MapRatings className="star"/>)}</p> */}
               <label className="popups-label">Information</label>
-              <p className="descInfo">{selectedPark.neighborhood}</p>
+              <p className="descInfo">{selectedItems.neighborhood}</p>
               <div className="btn">
                 <Button className="btn-button">
                   <Link to="/blog">Survey</Link>
@@ -107,9 +133,9 @@ const mapRef = useRef(null);
           />
         </button>
 
-        {/* <div style={searchStyle}>
-          <Search setSearchPark={setSearchPark} />
-        </div> */}
+        <div style={searchStyle}>
+          <Search setSearchItems={setSearchItems} />
+        </div>
 
         {/* <div className="nav" style={navStyle}>
           <GeolocateControl />
