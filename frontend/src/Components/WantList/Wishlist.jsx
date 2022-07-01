@@ -20,11 +20,17 @@ import PersonIcon from "@mui/icons-material/Person";
 import { WantContext } from "../../providers/WantProvider";
 import { TradeContext } from "../../providers/TradedProvider";
 import ListAltIcon from "@mui/icons-material/ListAlt";
+import useDialogModal from ".././productdetail/useDialogModal";
+import ItemDetail from ".././productdetail/ProductDetail";
 
 const Wishlist = ({ handleClickTraded }) => {
   const wantContext = useContext(WantContext);
   const tradedContext = useContext(TradeContext);
   const { wantList, removeFromWantList } = wantContext;
+
+     const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
+       useDialogModal(ItemDetail);
+
 
   const [search, setSearch] = useState("");
   return (
@@ -72,6 +78,7 @@ const Wishlist = ({ handleClickTraded }) => {
                     sx={{ height: "280px" }}
                     image={item.url}
                     title={item.title}
+                    onClick={() => showProductDetailDialog()}
                   ></CardMedia>
                   <CardContent>
                     <Typography>{item.name}</Typography>
@@ -109,6 +116,7 @@ const Wishlist = ({ handleClickTraded }) => {
                           onClick={() => removeFromWantList(item)}
                         />
                       </IconButton>
+                      <ProductDetailDialog item={item} />
                     </CardActions>
                   </Box>
                 </Card>
