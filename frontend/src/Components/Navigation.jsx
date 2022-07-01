@@ -15,7 +15,6 @@ import { FirebaseContext } from "../auth/FirebaseProvider";
 const Navigation = () => {
   const authContext = useContext(AuthContext)
   const { user, LogoutUser } = authContext;
-  console.log("+++++++****", user)
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const [ usePicture, setUserPicture ] = useState();
@@ -139,7 +138,7 @@ const Navigation = () => {
             {user && (
               <>
                 <SearchBar
-                  placeholder="Enter an item name..."
+                  placeholder="     Enter an item name..."
                   data={products}
                   style={{ marginRight: "auto" }}
                 />

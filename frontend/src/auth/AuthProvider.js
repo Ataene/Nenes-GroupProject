@@ -15,7 +15,7 @@ const AuthProvider = (props) => {
     const [ loading, setLoading ] = useState(false);
     const [ authError, setAuthError ] = useState();
     const [ isPending, setIsPending ] = useState();
-    const [ isOnline, setIsOnline ] = useState("#F94C66");
+    const [ isOnline, setIsOnline ] = useState(false);
     const [ userToMessage, setUserToMessage ] = useState(false);
 
     const gitHubprovider = new GithubAuthProvider();
@@ -46,7 +46,7 @@ const AuthProvider = (props) => {
                 timeStamp: serverTimestamp(),
               }
               setDoc(newUser, userProfile)
-              setIsOnline("#00FFAB")
+              setIsOnline(true)
               return true;
             // await updateProfile(auth.userCredential, {displayName: `${firstName} ${lastName}`});
         } catch (error) {
@@ -60,7 +60,7 @@ const AuthProvider = (props) => {
             if(userCredential){
                 setAuthError(null)
                 setIsPending(true)
-                setIsOnline("")
+                setIsOnline(true)
             } else {
                 setAuthError(`Failed Credentials`);
             }
@@ -72,7 +72,7 @@ const AuthProvider = (props) => {
       const LogoutUser = async () => {
         try {
             await signOut(auth);
-            setIsOnline("#F94C66")
+            setIsOnline(false)
         } catch (error) {
             console.log("Error logging out");
         }

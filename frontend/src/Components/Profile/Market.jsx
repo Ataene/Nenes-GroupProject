@@ -12,7 +12,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { AuthContext } from "../../auth/AuthProvider";
 import ChatBox from "./ChatBox";
 
-const Market = ({postedAds, handleClick, loading}) => {
+const Market = ({postedAds, handleClick }) => {
   
   const authContext = useContext(AuthContext);
   const { user, setUserToMessage, isOnline } = authContext;
@@ -40,6 +40,7 @@ const Market = ({postedAds, handleClick, loading}) => {
                       title={item.displayName}
                       name="title"
                     />
+                    <div className={`user_status  ${user.isOnline ? "online" : "offline"}`}></div>
                       <CardMedia
                         component="img"
                         sx={{height: "280px"}}
@@ -64,8 +65,9 @@ const Market = ({postedAds, handleClick, loading}) => {
                         <ShareIcon sx={{color: "#62b4f9" }} />
                       </IconButton>
                       <IconButton aria-label="chat">
-                        <ChatIcon sx={{color: "green"}} onClick={() => setUserToMessage(item.uid)} />
+                        <ChatIcon sx={{color: "green"}} onClick={() => {setUserToMessage(item.uid); setOpen(true)}} />
                       </IconButton>
+                      {open && <ChatBox />}
                       <IconButton aria-label="share" type="click">
                         <ListAltIcon sx={{color: "purple"}} onClick={() => handleClick(item)} />
                       </IconButton>

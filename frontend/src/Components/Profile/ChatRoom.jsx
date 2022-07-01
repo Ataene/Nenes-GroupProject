@@ -4,14 +4,7 @@ import ChatHeader from "./ChatHeader";
 import ChatInput from "./ChatInput";
 import { AuthContext } from "../../auth/AuthProvider";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
-import {
-  collection,
-  query,
-  onSnapshot,
-  limit,
-  orderBy,
-  doc,
-} from "firebase/firestore";
+import { collection, query, onSnapshot, limit, orderBy, doc} from "firebase/firestore";
 
 const ChatRoom = () => {
   const chatroom = {
@@ -35,7 +28,6 @@ const ChatRoom = () => {
       let docRef = doc(db, "users", userToMessage);
       const unsubscribe = onSnapshot(docRef, (querySnap) => {
         let userToMessageData = querySnap.data();
-        console.log(userToMessageData);
       });
       return unsubscribe;
     }

@@ -1,12 +1,8 @@
 import React, { useContext } from 'react'
-import { Box, Container, Typography, CardActionArea, CardMedia, CardContent, Card } from '@mui/material';
+import { Box, Container, Typography,  CardMedia, CardContent, Card } from '@mui/material';
 import { AuthContext  } from '../../auth/AuthProvider'
 import { useNavigate } from 'react-router-dom';
-import Location from '../Region/Location';
-import SendIcon from '@mui/icons-material/Send';
-import Messenger from '../../Pages/messenger/Messenger';
 import ChatRoom from "./ChatRoom";
-import ChatBox from './ChatBox';
 
 const RightBar = () => {
 
@@ -38,12 +34,8 @@ const RightBar = () => {
         </CardContent>
     </Card>
      </Box>
-     
-       {/* <Location /> */}
-       {/* <Messenger /> */}
      </Container>
      <Container>
-     {/* {active === "chatButtle" && <ChatBox />} */}
      </Container>
      <Container>
       <ChatRoom />

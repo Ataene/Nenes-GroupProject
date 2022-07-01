@@ -15,7 +15,6 @@ const ChatHeader = () => {
   const [usePicture, setUserPicture] = useState();
 
   useEffect(() => {
-    console.log(user);
     if (db && user) {
       let docRef = doc(db, "users", user.uid);
 
