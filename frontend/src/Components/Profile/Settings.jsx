@@ -154,6 +154,29 @@ const Settings = () => {
               </section>
               <section>
                 <TextField
+                  id="outlined-basic"
+                  label="Gender"
+                  variant="outlined"
+                  type="text"
+                  name="gender"
+                  required={true}
+                  value={formData.gender}
+                  onChange={handleChange}
+                />
+
+                <TextField
+                  id="outlined-basic"
+                  label="Occupation"
+                  variant="outlined"
+                  type="text"
+                  name="occupation"
+                  required={true}
+                  value={formData.occupation}
+                  onChange={handleChange}
+                />
+              </section>
+              <section>
+                <TextField
                   iid="outlined-basic"
                   label="City"
                   variant="outlined"
@@ -186,36 +209,13 @@ const Settings = () => {
                   onChange={handleChange}
                 />
               </section>
-              <section>
-                <TextField
-                  id="outlined-basic"
-                  label="Gender"
-                  variant="outlined"
-                  type="text"
-                  name="gender"
-                  required={true}
-                  value={formData.gender}
-                  onChange={handleChange}
-                />
-
-                <TextField
-                  id="outlined-basic"
-                  label="Occupation"
-                  variant="outlined"
-                  type="text"
-                  name="occupation"
-                  required={true}
-                  value={formData.occupation}
-                  onChange={handleChange}
-                />
-              </section>
 
               <section
                 style={{
                   transform: "translate(-30%, -60%)",
                   position: "absolute",
                   top: "80%",
-                  left: "48%",
+                  left: "45%",
                 }}
               >
                 <Avatar
