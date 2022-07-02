@@ -57,27 +57,27 @@ const Appbar = () => {
               sx={{ flexGrow: 2, display: { xs: "none", md: "flex" } }}
             >
               <Link style={{ textDecoration: "none" }} to="/">
-                <Button sx={{ my: 2, color: "green", display: "block" }}>
+                <Button sx={{ my: 2, color: "green", display: "block",fontFamily:"Montserrat" }}>
                   Home
                 </Button>
               </Link>
               <Link style={{ textDecoration: "none" }} to="/products">
-                <Button sx={{ my: 2, color: "green", display: "block" }}>
+                <Button sx={{ my: 2, color: "green", display: "block",fontFamily:"Montserrat" }}>
                   Products
                 </Button>
               </Link>
               <Link style={{ textDecoration: "none" }} to="/pricing">
-                <Button sx={{ my: 2, color: "green", display: "block" }}>
+                <Button sx={{ my: 2, color: "green", display: "block",fontFamily:"Montserrat" }}>
                   Pricing
                 </Button>
               </Link>
               <Link style={{ textDecoration: "none" }} to="/blog">
-                <Button sx={{ my: 2, color: "green", display: "block" }}>
+                <Button sx={{ my: 2, color: "green", display: "block",fontFamily:"Montserrat" }}>
                   Blog
                 </Button>
               </Link>
               <Link style={{ textDecoration: "none" }} to="/about">
-                <Button sx={{ my: 2, color: "green", display: "block" }}>
+                <Button sx={{ my: 2, color: "green", display: "block",fontFamily:"Montserrat" }}>
                   About
                 </Button>
               </Link>
@@ -107,7 +107,7 @@ const Appbar = () => {
                 </Link>
 
                 <Link style={{ textDecoration: "none" }} to="/login">
-                  <Button sx={{ my: 2, color: "green", alignItem: "center" }}>
+                  <Button sx={{ my: 2, color: "green", alignItem: "center",fontFamily:"Montserrat" }}>
                     <LoginIcon />
                     Login
                   </Button>
@@ -116,7 +116,7 @@ const Appbar = () => {
             )}
             {!!user && (
               <Box sx={{ color: "green", display: "flex" }}>
-                <Typography sx={{ marginTop: "10px", paddingRight: "10px" }}>
+                <Typography sx={{ marginTop: "10px", paddingRight: "10px",fontFamily:"Montserrat" }}>
                   Hello, {user.displayName}
                 </Typography>
                 <Avatar alt="User" src="/static/images/avatar/1.jpg" />
@@ -128,7 +128,7 @@ const Appbar = () => {
                 sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}
               >
                 <Button
-                  sx={{ my: 2, color: "green", alignItem: "center" }}
+                  sx={{ my: 2, color: "green", alignItem: "center",fontFamily:"Montserrat" }}
                   onClick={logoutUser}
                 >
                   <ExitToAppIcon />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Grid,
   List,
@@ -24,16 +24,22 @@ export default function Footer() {
         p: { xs: 4, md: 10 },
         pt: 12,
         pb: 12,
-        fontSize: { xs: '12px', md: '14px' }
+        fontSize: { xs: "12px", md: "14px" },
       }}
     >
       <Grid container spacing={2} justifyContent="center">
         <Grid item md={6} lg={4}>
-          <FooterTitle variant="body1">About us</FooterTitle>
-          <Typography variant="caption2">
-            Lorem ipsum dolor sit amet cons adipisicing elit sed do eiusm tempor
-            incididunt ut labor et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud.
+          <FooterTitle variant="body1" sx={{ fontFamily: "Montserrat" }}>
+            About us
+          </FooterTitle>
+          <Typography
+            variant="caption2"
+            sx={{ fontFamily: "Montserrat", fontSize: "15px" }}
+          >
+            Hundie is live ads in a wide range of categories. We’re proud to
+            provide a platform that connects Calgarians, helping them to swap
+            great items in their community, make great experience, and help the
+            country waste less.
           </Typography>
           <Box
             sx={{
@@ -47,57 +53,95 @@ export default function Footer() {
           </Box>
         </Grid>
         <Grid item md={6} lg={2}>
-          <FooterTitle variant="body1">information</FooterTitle>
+          <FooterTitle variant="body1" sx={{ fontFamily: "Montserrat" }}>
+            information
+          </FooterTitle>
           <List>
             <ListItemText>
-              <Typography lineHeight={2} variant="caption2">
+              <Typography
+                lineHeight={2}
+                variant="caption2"
+                sx={{ fontFamily: "Montserrat" }}
+              >
                 About Us
               </Typography>
             </ListItemText>
             <ListItemText>
-              <Typography lineHeight={2} variant="caption2">
+              <Typography
+                lineHeight={2}
+                variant="caption2"
+                sx={{ fontFamily: "Montserrat" }}
+              >
                 Order Tracking
               </Typography>
             </ListItemText>
             <ListItemText>
-              <Typography lineHeight={2} variant="caption2">
+              <Typography
+                lineHeight={2}
+                variant="caption2"
+                sx={{ fontFamily: "Montserrat" }}
+              >
                 Privacy &amp; Policy
               </Typography>
             </ListItemText>
             <ListItemText>
-              <Typography lineHeight={2} variant="caption2">
+              <Typography
+                lineHeight={2}
+                variant="caption2"
+                sx={{ fontFamily: "Montserrat" }}
+              >
                 Terms &amp; Conditions
               </Typography>
             </ListItemText>
           </List>
         </Grid>
         <Grid item md={6} lg={2}>
-          <FooterTitle variant="body1">my account</FooterTitle>
+          <FooterTitle variant="body1" sx={{ fontFamily: "Montserrat" }}>
+            my account
+          </FooterTitle>
           <List>
             <ListItemText>
-              <Typography lineHeight={2} variant="caption2">
+              <Typography
+                lineHeight={2}
+                variant="caption2"
+                sx={{ fontFamily: "Montserrat" }}
+              >
                 Login
               </Typography>
             </ListItemText>
             <ListItemText>
-              <Typography lineHeight={2} variant="caption2">
+              <Typography
+                lineHeight={2}
+                variant="caption2"
+                sx={{ fontFamily: "Montserrat" }}
+              >
                 My Cart
               </Typography>
             </ListItemText>
             <ListItemText>
-              <Typography lineHeight={2} variant="caption2">
+              <Typography
+                lineHeight={2}
+                variant="caption2"
+                sx={{ fontFamily: "Montserrat" }}
+              >
                 My Account
               </Typography>
             </ListItemText>
             <ListItemText>
-              <Typography lineHeight={2} variant="caption2">
+              <Typography
+                lineHeight={2}
+                variant="caption2"
+                sx={{ fontFamily: "Montserrat" }}
+              >
                 Wishlist
               </Typography>
             </ListItemText>
           </List>
         </Grid>
         <Grid item md={6} lg={4}>
-          <FooterTitle variant="body1">newsletter</FooterTitle>
+          <FooterTitle variant="body1" sx={{ fontFamily: "Montserrat" }}>
+            newsletter
+          </FooterTitle>
           <Stack>
             <SubscribeTf
               color="primary"
@@ -106,7 +150,7 @@ export default function Footer() {
             />
             <Button
               startIcon={<SendIcon sx={{ color: Colors.white }} />}
-              sx={{ mt: 4, mb: 4 }}
+              sx={{ mt: 4, mb: 4, fontFamily: "Montserrat" }}
               variant="contained"
             >
               Subscribe
