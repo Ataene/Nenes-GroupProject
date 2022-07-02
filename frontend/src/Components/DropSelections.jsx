@@ -33,7 +33,10 @@ const DropSelections = ({ visible, onCancel }) => {
   const [file, setFile] = useState("");
   const [progress, setProgress] = useState(null);
   const [url, setUrl] = useState("");
-
+  
+  const [ratings, setRatings] = useState("");
+  
+  
   const [userPicture, setUserPicture ] = useState("");
   const [displayName, setDisplayName ] = useState("");
   const fbContext = useContext(FirebaseContext);
@@ -100,6 +103,7 @@ const DropSelections = ({ visible, onCancel }) => {
         uid: user.uid,
         userPicture,
         displayName,
+        ratings: Number(""),
         timeStamp: serverTimestamp(),
       });
       setTitle("");
