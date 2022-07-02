@@ -35,11 +35,20 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
 import Avatar from "@mui/material/Avatar";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ShareIcon from "@mui/icons-material/Share";
 import AddIcon from "@mui/icons-material/Add";
-import { addDoc, serverTimestamp, updateDoc } from "firebase/firestore";
+import {
+  addDoc,
+  serverTimestamp,
+  updateDoc,
+  getFirestore,
+  collection,
+  onSnapshot,
+  orderBy,
+    query,
+  getDoc
+} from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { Image } from "@mui/icons-material";
 import { useStateValue } from "../../providers/StateProvider";
@@ -47,7 +56,6 @@ import { actionType } from "./reducer";
 import { doc, setDoc } from "firebase/firestore";
 import { List, ListItem } from "@material-ui/core";
 
-let cartData = [];
 
 function SlideTransition(props) {
   return <Slide direction="down" {...props} />;
@@ -82,6 +90,9 @@ function ItemDetail({ open, onClose, item }) {
     setDoc(docRef, { items: newPost });
   };
 
+     const [ratings, setRatings] = useState("");
+    
+
   useEffect(() => {
     if (db && user) {
       let docRef = doc(db, "postedAds", user.uid);
@@ -102,6 +113,19 @@ function ItemDetail({ open, onClose, item }) {
     addToItemDetailList,
     };
       const [value, setValue] = useState();
+
+  async function handleAdd() {
+    console.log("here");
+     setPostedAds([]);
+    const postedAdsRef = doc(db, "postedAds", "doc.id");
+    await setDoc(
+      postedAdsRef,
+      {
+        [ratings]: "ratings",
+      },
+      { merge: true }
+    );
+  }
 
   return (
     <Dialog
@@ -250,7 +274,7 @@ function ItemDetail({ open, onClose, item }) {
                           precision={0.1}
                           size="large"
                           value={value}
-                          onChange={(e, val) => setValue(val)}
+                          onChange={(e, value) => setValue(value)}
                         />
                         <Typography>
                           Rated {value !== undefined ? value : 0} Stars
