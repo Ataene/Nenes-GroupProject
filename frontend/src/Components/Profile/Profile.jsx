@@ -1,7 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Avatar, Box, Button, Grid, Paper, Stack, TextField, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Grid,
+  Paper,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { useParams } from "react-router-dom";
 import { AuthContext } from "../../auth/AuthProvider";
-import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { Container } from "@mui/system";
+import { doc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 
@@ -17,23 +28,21 @@ const Profile = () => {
 
   const [formData, setFormData] = useState({
     uid: user.uid,
+    email: user.email,
     firstName: user.firstName,
     lastName: user.lastName,
-    email: user.email,
-    name: user.displayName,
-    matches: [],
     province: "",
     city: "",
     postalCode: "",
     gender: "",
     occupation: "",
+    matches: [],
     url: "",
     timeStamp: serverTimestamp(),
   });
 
   const handleChange = (e) => {
-    const value =
-      e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
     const name = e.target.name;
     console.log(name, value);
     setFormData((prevState) => ({
@@ -53,7 +62,7 @@ const Profile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await setDoc(doc(db, "users", user.uid), {
+      const res = await updateDoc(doc(db, "users", user.uid), {
         ...formData,
         timeStamp: serverTimestamp(),
       });
@@ -64,9 +73,7 @@ const Profile = () => {
   };
   useEffect(() => {
     const handleImageUpload = () => {
-
       const name = new Date().getTime() + file.name;
-
       const imageRef = ref(store, name);
       const uploadTask = uploadBytesResumable(imageRef, file);
       uploadTask.on(
@@ -100,26 +107,11 @@ const Profile = () => {
           UPDATE ACCOUNT
         </Typography>
         <br />
-        <Box
-          component="form"
-          sx={{
-            "& .MuiTextField-root": { m: 1, width: "25ch" },
-          }}
-          noValidate
-          autoComplete="off"
-        >
-          <form
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              height: "300px",
-              width: "100%",
-              margin: "5px",
+          <form style={{ display: "flex", justifyContent: "space-between", height: "500px", width: "100%",margin: "5px",
               paddingLeft: "70px",
             }}
             onSubmit={handleSubmit}
           >
-            <Grid item xs={2}>
               <section style={{ borderSpacing: "5px" }}>
                 <TextField
                   id="outlined-multiline-flexible"
@@ -200,12 +192,13 @@ const Profile = () => {
                   onChange={handleChange}
                 />
               </section>
+
               <section
                 style={{
                   transform: "translate(-30%, -60%)",
                   position: "absolute",
-                  top: "30%",
-                  left: "50%",
+                  top: "80%",
+                  left: "45%",
                 }}
               >
                 <Avatar
@@ -234,9 +227,8 @@ const Profile = () => {
                   value={formData.url}
                   onChange={handleFileChange}
                 />
-                {progress ? <div>progress: {progress}%</div> : <div />}
-              </section>
-              <section>
+                <br />
+                <br />
                 <Button
                   style={{ display: "flex", color: "green" }}
                   disabled={progress !== null && progress < 100}
@@ -244,10 +236,9 @@ const Profile = () => {
                 >
                   Submit
                 </Button>
+                {progress ? <div>progress: {progress}%</div> : <div />}
               </section>
-            </Grid>
           </form>
-        </Box>
       </Paper>
     </>
   );

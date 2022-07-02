@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import {
@@ -16,18 +16,20 @@ import ChatIcon from "@mui/icons-material/Chat";
 import Avatar from "@mui/material/Avatar";
 import ShareIcon from "@mui/icons-material/Share";
 import ListAltIcon from "@mui/icons-material/ListAlt";
-
 import useDialogModal from ".././productdetail/useDialogModal";
 import ItemDetail from ".././productdetail/ProductDetail";
-
 import { AuthContext } from "../../auth/AuthProvider";
 import CircularProgress from "@mui/material/CircularProgress";
-import ChatBox from "./ChatBox";
+import { FirebaseContext } from "../../auth/FirebaseProvider";
+import OnlineStatus from "./OnlineStatus";
 
-const Market = ({ postedAds, handleClick, loading }) => {
+const Market = ({ postedAds, handleClick }) => {
   const authContext = useContext(AuthContext);
-  const { user, setUserToMessage, isOnline } = authContext;
+  const { user, setUserToMessage } = authContext;
+  const fbContext = useContext(FirebaseContext);
+  const db = fbContext.db;
   const [open, setOpen] = useState(false);
+ const [ online, setOnline ] = useState('')
 
   const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
     useDialogModal(ItemDetail);
@@ -35,7 +37,6 @@ const Market = ({ postedAds, handleClick, loading }) => {
   if (!postedAds) {
     return <p className="mx-auto">Loading Data...</p>;
   }
-
   return (
     <>
       <Container>
@@ -61,6 +62,7 @@ const Market = ({ postedAds, handleClick, loading }) => {
                       title={item.displayName}
                       name="title"
                     />
+                    <OnlineStatus />
                     <CardMedia
                       component="img"
                       sx={{ height: "280px" }}

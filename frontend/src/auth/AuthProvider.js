@@ -47,7 +47,6 @@ const AuthProvider = (props) => {
               }
               setDoc(newUser, userProfile)
               return true;
-            // await updateProfile(auth.userCredential, {displayName: `${firstName} ${lastName}`});
         } catch (error) {
             console.log(error.message);
         }
