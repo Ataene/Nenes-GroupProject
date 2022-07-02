@@ -1,5 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Avatar, Box, Button, Grid, Paper, Stack, TextField, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Grid,
+  Paper,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { AuthContext } from "../../auth/AuthProvider";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
@@ -64,7 +73,6 @@ const Profile = () => {
   };
   useEffect(() => {
     const handleImageUpload = () => {
-
       const name = new Date().getTime() + file.name;
 
       const imageRef = ref(store, name);
@@ -204,8 +212,8 @@ const Profile = () => {
                 style={{
                   transform: "translate(-30%, -60%)",
                   position: "absolute",
-                  top: "30%",
-                  left: "50%",
+                  top: "38%",
+                  left: "60%",
                 }}
               >
                 <Avatar
@@ -238,7 +246,11 @@ const Profile = () => {
               </section>
               <section>
                 <Button
-                  style={{ display: "flex", color: "green" }}
+                  style={{
+                    display: "flex",
+                    color: "green",
+                    left: "55%",
+                  }}
                   disabled={progress !== null && progress < 100}
                   type="submit"
                 >
