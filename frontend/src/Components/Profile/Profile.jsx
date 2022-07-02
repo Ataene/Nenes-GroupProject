@@ -3,6 +3,7 @@ import {
   Avatar,
   Box,
   Button,
+  Container,
   Grid,
   Paper,
   Stack,
@@ -116,7 +117,7 @@ const Profile = () => {
           noValidate
           autoComplete="off"
         >
-          <form
+          <Container
             style={{
               display: "flex",
               justifyContent: "space-between",
@@ -213,7 +214,7 @@ const Profile = () => {
                   transform: "translate(-30%, -60%)",
                   position: "absolute",
                   top: "38%",
-                  left: "60%",
+                  left: "63%",
                 }}
               >
                 <Avatar
@@ -247,9 +248,9 @@ const Profile = () => {
               <section>
                 <Button
                   style={{
-                    display: "flex",
                     color: "green",
-                    left: "55%",
+                    left: "53%",
+                    paddingTop: "20px",
                   }}
                   disabled={progress !== null && progress < 100}
                   type="submit"
@@ -258,7 +259,7 @@ const Profile = () => {
                 </Button>
               </section>
             </Grid>
-          </form>
+          </Container>
         </Box>
       </Paper>
     </>
