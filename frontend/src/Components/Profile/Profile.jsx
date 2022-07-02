@@ -9,7 +9,6 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useParams } from "react-router-dom";
 import { AuthContext } from "../../auth/AuthProvider";
 import { Container } from "@mui/system";
 import { doc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
@@ -197,8 +196,8 @@ const Profile = () => {
                 style={{
                   transform: "translate(-30%, -60%)",
                   position: "absolute",
-                  top: "80%",
-                  left: "45%",
+                  top: "38%",
+                  left: "60%",
                 }}
               >
                 <Avatar
@@ -230,7 +229,11 @@ const Profile = () => {
                 <br />
                 <br />
                 <Button
-                  style={{ display: "flex", color: "green" }}
+                  style={{
+                    display: "flex",
+                    color: "green",
+                    left: "55%",
+                  }}
                   disabled={progress !== null && progress < 100}
                   type="submit"
                 >
