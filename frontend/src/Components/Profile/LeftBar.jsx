@@ -59,7 +59,7 @@ const LeftBar = () => {
               <ListItemIcon>
                 <WorkIcon sx={{ color: "#B8F1B0"}} />
               </ListItemIcon>
-              <ListItemText primary="Jobs" />
+              <ListItemText primary="Career" />
             </ListItemButton>
             <ListItemButton>
               <ListItemIcon>

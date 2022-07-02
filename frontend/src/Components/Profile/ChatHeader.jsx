@@ -15,7 +15,6 @@ const ChatHeader = () => {
   const [usePicture, setUserPicture] = useState();
 
   useEffect(() => {
-    console.log(user);
     if (db && user) {
       let docRef = doc(db, "users", user.uid);
 
@@ -24,7 +23,7 @@ const ChatHeader = () => {
           console.log("Ads not found");
         } else {
           let usersData = querySnap.data();
-          setUserPicture(usersData.Avatar);
+          setUserPicture(usersData?.Avatar);
         }
       });
       return unsubscribe;

@@ -15,7 +15,6 @@ import { FirebaseContext } from "../auth/FirebaseProvider";
 const Navigation = () => {
   const authContext = useContext(AuthContext)
   const { user, LogoutUser } = authContext;
-  console.log("+++++++****", user)
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const [ usePicture, setUserPicture ] = useState();
@@ -47,8 +46,8 @@ const Navigation = () => {
         if (querySnap.empty) {
         } else {
           let usersData = querySnap.data()
-          setUserPicture(usersData.Avatar);
-          setDisplayName(usersData.firstName)
+          setUserPicture(usersData?.Avatar);
+          setDisplayName(usersData?.firstName)
         }
       });
       return unsubscribe;
@@ -117,9 +116,9 @@ const Navigation = () => {
             </Link>
             {user && (
               <>
-                <Link style={{ textDecoration: "none" }} to="/profile">
+                <Link style={{ textDecoration: "none" }} to="/dashboard">
                   <Button sx={{ my: 2, color: "white", alignItem: "block" }}>
-                    Profile
+                    Dashboard
                   </Button>
                 </Link>
               </>
@@ -139,7 +138,7 @@ const Navigation = () => {
             {user && (
               <>
                 <SearchBar
-                  placeholder="Enter an item name..."
+                  placeholder="     Enter an item name..."
                   data={products}
                   style={{ marginRight: "auto" }}
                 />

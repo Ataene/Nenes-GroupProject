@@ -1,37 +1,36 @@
-import React, {  useContext, useState } from "react";
-import Card from "@mui/material/Card";
+import React, { useContext, useState } from "react";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { Box, CardActions, CardHeader, CardMedia, Container, Grid, IconButton } from "@mui/material";
+import {
+  Box,
+  CardActions,
+  CardHeader,
+  CardMedia,
+  Container,
+  Grid,
+  IconButton,
+  Paper,
+} from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
 import Avatar from "@mui/material/Avatar";
 import ShareIcon from "@mui/icons-material/Share";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 
-import useDialogModal  from ".././productdetail/useDialogModal";
-import  ItemDetail  from ".././productdetail/ProductDetail";
+import useDialogModal from ".././productdetail/useDialogModal";
+import ItemDetail from ".././productdetail/ProductDetail";
 
 import { AuthContext } from "../../auth/AuthProvider";
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from "@mui/material/CircularProgress";
 import ChatBox from "./ChatBox";
 
-
-
-const Market = ({postedAds, handleClick, loading}) => {
-
-  
+const Market = ({ postedAds, handleClick, loading }) => {
   const authContext = useContext(AuthContext);
   const { user, setUserToMessage, isOnline } = authContext;
-  const [ open, setOpen ] = useState(false)
+  const [open, setOpen] = useState(false);
 
-
-
-   const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
-     useDialogModal(ItemDetail);
-
-
-  
+  const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
+    useDialogModal(ItemDetail);
 
   if (!postedAds) {
     return <p className="mx-auto">Loading Data...</p>;
@@ -45,8 +44,9 @@ const Market = ({postedAds, handleClick, loading}) => {
             {postedAds
               .filter((item) => item.uid !== user.uid)
               .map((item) => (
-                <Grid item md={3} key={item.timeStamp}>
-                  <Card
+                <Grid item md={3} key={item.uid}>
+                  <Paper
+                    elevation={10}
                     sx={{ height: "33rem", marginTop: "10px", margin: "10px" }}
                     item={item}
                   >
@@ -104,7 +104,7 @@ const Market = ({postedAds, handleClick, loading}) => {
                         <ProductDetailDialog item={item} />
                       </CardActions>
                     </Box>
-                  </Card>
+                  </Paper>
                 </Grid>
               ))}
           </Grid>

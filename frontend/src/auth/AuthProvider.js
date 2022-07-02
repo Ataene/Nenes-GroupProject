@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, updateProfile, GithubAuthProvider, FacebookAuthProvider, TwitterAuthProvider, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { FirebaseContext } from './FirebaseProvider';
-import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { doc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore';
 
 import { useParams } from "react-router-dom";
 export const AuthContext = createContext();
@@ -15,7 +15,7 @@ const AuthProvider = (props) => {
     const [ loading, setLoading ] = useState(false);
     const [ authError, setAuthError ] = useState();
     const [ isPending, setIsPending ] = useState();
-    const [ isOnline, setIsOnline ] = useState("#F94C66");
+    // const [ isOnline, setIsOnline ] = useState(false);
     const [ userToMessage, setUserToMessage ] = useState(false);
 
     const gitHubprovider = new GithubAuthProvider();
@@ -35,7 +35,6 @@ const AuthProvider = (props) => {
             const userProfile = {
                 uid: user.uid,
                 email: user.email,
-                name: user.displayName,
                 firstName: firstName,
                 lastName: lastName,
                 province: "",
@@ -43,10 +42,10 @@ const AuthProvider = (props) => {
                 postalCode: "",
                 gender: "",
                 occupation: "",
+                isOnline: true,
                 timeStamp: serverTimestamp(),
               }
               setDoc(newUser, userProfile)
-              setIsOnline("#00FFAB")
               return true;
             // await updateProfile(auth.userCredential, {displayName: `${firstName} ${lastName}`});
         } catch (error) {
@@ -57,10 +56,12 @@ const AuthProvider = (props) => {
     const signInUser = async (email, password) => {
         try {
           const userCredential = await signInWithEmailAndPassword(auth, email, password);
+          await updateDoc(doc(db, "users", userCredential.user.uid), {
+            isOnline: true
+          })
             if(userCredential){
                 setAuthError(null)
                 setIsPending(true)
-                setIsOnline("")
             } else {
                 setAuthError(`Failed Credentials`);
             }
@@ -71,8 +72,10 @@ const AuthProvider = (props) => {
 
       const LogoutUser = async () => {
         try {
+            await updateDoc(doc(db, "users", user.uid), {
+                isOnline: false
+              })
             await signOut(auth);
-            setIsOnline("#F94C66")
         } catch (error) {
             console.log("Error logging out");
         }
@@ -89,7 +92,6 @@ const AuthProvider = (props) => {
     const gitHub = async() => {
         const result = await signInWithPopup(auth, gitHubprovider);
         const user = result
-        setIsOnline(true)
         return user;
       }
 
@@ -97,7 +99,6 @@ const AuthProvider = (props) => {
     try {
         const result = await signInWithPopup(auth, googleprovider);
         const user = result
-        setIsOnline(true)
         return user;
     } catch (error) {
         console.log(error.message)
@@ -107,14 +108,12 @@ const AuthProvider = (props) => {
     const facebook = async() => {
         const result = await signInWithPopup(auth, facebookprovider);
         const user = result
-        setIsOnline(true)
         return user;
        }
        
     const twitter = async() => {
         const result = await signInWithPopup(auth, twitterprovider);
         const user = result
-        setIsOnline(true)
         return user;
        }
 
@@ -132,7 +131,6 @@ const AuthProvider = (props) => {
         loading,
         authError,
         isPending,
-        isOnline,
         registerUser,
         signInUser,
         LogoutUser,

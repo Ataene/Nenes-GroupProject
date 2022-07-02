@@ -35,7 +35,7 @@ const DetailPageProvider = (props) => {
           setDoc(docRef, { items: [] });
           setSetAllPostedAds([]);
         } else {
-          let Data = querySnap.data().items;
+          let Data = querySnap.data()?.items;
           setSetAllPostedAds(Data);
         }
       });

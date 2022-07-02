@@ -40,7 +40,7 @@ useEffect(() => {
               setDoc(docRef, {items: []});
               setTraded([])
             } else {
-              let tradeData = querySnap.data().items
+              let tradeData = querySnap.data()?.items
               setTraded(tradeData);
             }
           });

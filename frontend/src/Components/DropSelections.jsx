@@ -25,22 +25,22 @@ const DropSelections = ({ visible, onCancel }) => {
     borderRadius: "5px",
   };
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
   const [condition, setCondition] = useState("");
-  const [CategoryName, setCategoryName] = useState([]);
+  const [description, setDescription] = useState("");
   const [category, setCategory] = useState('');
   const [quantity, setQuantity] = useState('');
   const [want, setWant] = useState('');
   const [file, setFile] = useState("");
   const [progress, setProgress] = useState(null);
   const [url, setUrl] = useState("");
+
   const [userPicture, setUserPicture ] = useState("");
   const [displayName, setDisplayName ] = useState("");
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const store = fbContext.store;
   const authContext = useContext(AuthContext);
-  const { user, isOnline } = authContext;
+  const { user } = authContext;
 
   useEffect(() => {
     const handleImageUpload = () => {
@@ -100,26 +100,20 @@ const DropSelections = ({ visible, onCancel }) => {
         uid: user.uid,
         userPicture,
         displayName,
-        isOnline,
         timeStamp: serverTimestamp(),
       });
       setTitle("");
-      setDescription("");
       setCondition("");
-      setCategoryName("");
+      setDescription("");
       setCategory("");
       setFile("");
       setQuantity("")
       setWant("")
-      setFile("")
     } catch (error) {
       console.log(error.message);
     }
   };
-  const startChange = (event) => {
-    setCategory(event.target.value);
-  };
-
+ 
   return (
     <>
       <Modal

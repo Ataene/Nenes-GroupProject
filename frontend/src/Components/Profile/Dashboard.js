@@ -5,7 +5,7 @@ import LeftBar from "./LeftBar"
 import MiddleBar from "./MiddleBar"
 import RightBar from "./RightBar"
 
-const Profile = () => {
+const Dashboard = () => {
     const authContext = useContext(AuthContext)
     const { user, isOnline } = authContext;
   if (!user && !isOnline){
@@ -22,4 +22,4 @@ const Profile = () => {
     )
 }
 
-export default Profile;
+export default Dashboard;
