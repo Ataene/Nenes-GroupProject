@@ -1,17 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Box, Container, Button } from "@mui/material";
 import DropSelections from "../DropSelections";
-import Wish from "./WishList"
 import MyList from "../WantList/MyList";
-import ProductScreen from '../ProductPage/Product';
-import WishList from "./WishList";
 import Market from "./Market";
 import Swipe from "./Swipe";
 import Profile from "./Profile";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { AuthContext } from "../../auth/AuthProvider";
-
 import { WantContext } from "../../providers/WantProvider";
 import { ItemContext } from "../../providers/ItemDetailProvider";
 
@@ -28,15 +24,13 @@ const MiddleBar = () => {
   const { addToWantList, removeFromWantList } = wantContext;
   const { showInDetailedPage } = itemContext;
 
-  const [active, setActive] = useState(true);
+  const [active, setActive] = useState("market");
   const [modalVisible, setModalVisible] = useState(false);
   const [postedAds, setSetAllPostedAds] = useState([]);
 
   //useEffect to call db
-
   const [loading, setLoading] = useState(false);
 //useEffect to call db
-
   useEffect(() => {
     if (db && user) {
       let collectionRef = collection(db, "postedAds");
@@ -131,17 +125,7 @@ const MiddleBar = () => {
         </Box>
         <hr />
         <>
-
-          {active === "market" && (
-            <Market
-              postedAds={postedAds}
-              handleClick={handleClick}
-              Click={showProductDetailDialog}
-            />
-          )}
-
-          {active === "market" && <Market  postedAds ={postedAds}  handleClick={handleClick} loading={loading}/>}
-
+          {active === "market" && <Market  postedAds ={postedAds}  handleClick={handleClick} loading={loading} Click={showProductDetailDialog} />}
           {active === "swipe" && <Swipe />}
           {active === "myList" && <MyList />}
           {active === "profile" && <Profile />}

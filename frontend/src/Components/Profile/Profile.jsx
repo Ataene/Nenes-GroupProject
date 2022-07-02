@@ -1,17 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  Avatar,
-  Box,
-  Button,
-  Grid,
-  Paper,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { useParams } from "react-router-dom";
+import { Avatar, Box, Button, Grid, Paper, Stack, TextField, Typography } from "@mui/material";
 import { AuthContext } from "../../auth/AuthProvider";
-import { Container } from "@mui/system";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
@@ -75,7 +64,9 @@ const Profile = () => {
   };
   useEffect(() => {
     const handleImageUpload = () => {
+
       const name = new Date().getTime() + file.name;
+
       const imageRef = ref(store, name);
       const uploadTask = uploadBytesResumable(imageRef, file);
       uploadTask.on(
@@ -121,7 +112,7 @@ const Profile = () => {
             style={{
               display: "flex",
               justifyContent: "space-between",
-              height: "500px",
+              height: "300px",
               width: "100%",
               margin: "5px",
               paddingLeft: "70px",
@@ -209,13 +200,12 @@ const Profile = () => {
                   onChange={handleChange}
                 />
               </section>
-
               <section
                 style={{
                   transform: "translate(-30%, -60%)",
                   position: "absolute",
-                  top: "80%",
-                  left: "45%",
+                  top: "30%",
+                  left: "50%",
                 }}
               >
                 <Avatar
@@ -244,8 +234,9 @@ const Profile = () => {
                   value={formData.url}
                   onChange={handleFileChange}
                 />
-                <br />
-                <br />
+                {progress ? <div>progress: {progress}%</div> : <div />}
+              </section>
+              <section>
                 <Button
                   style={{ display: "flex", color: "green" }}
                   disabled={progress !== null && progress < 100}
@@ -253,7 +244,6 @@ const Profile = () => {
                 >
                   Submit
                 </Button>
-                {progress ? <div>progress: {progress}%</div> : <div />}
               </section>
             </Grid>
           </form>

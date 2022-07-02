@@ -44,7 +44,7 @@ const Market = ({ postedAds, handleClick, loading }) => {
             {postedAds
               .filter((item) => item.uid !== user.uid)
               .map((item) => (
-                <Grid item md={3} key={item.timeStamp}>
+                <Grid item md={3} key={item.uid}>
                   <Paper
                     elevation={10}
                     sx={{ height: "33rem", marginTop: "10px", margin: "10px" }}
