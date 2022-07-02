@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
-import Snackbar from '@mui/material/Snackbar';
-import Slide from '@mui/material/Slide';
 import ChatIcon from "@mui/icons-material/Chat";
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { AuthContext } from "../../auth/AuthProvider";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { addDoc, collection, doc, onSnapshot, query, serverTimestamp, where } from 'firebase/firestore';
+import SendIcon from '@mui/icons-material/Send';
+import { Box } from '@mui/system';
 
 
 // function TransitionUp(props) {
@@ -74,25 +74,22 @@ const ChatBox = ( { setOpen }) =>  {
       console.log(error.message);
     }
   }
-
-
-
-
   return (
-    <div style={{position: "absolute", bottom: "0", right: "0"}}>
+    <Box>
+    <div style={{position: "absolute", bottom: "0", border: "5px solid", height: "40%"}}>
     <Button onClick={() =>setUserToMessage(false)}>Exit</Button>
     {messages.map((message) =>{ 
       if(message.senderuid === user.uid){
         return <div>
-          <p>from Me: {message.newChat}</p>
+          <p style={{color: "purple", marginLeft:"100px"}}> {message.newChat}: Me</p>
         </div>
       } else{
         return <div>
-          <p>From {displayName}: {message.newChat} </p>
+          <p style={{color: "green"}}>From {displayName}: {message.newChat} </p>
         </div>
       }
     })}
-      <form  onSubmit={handleSubmit}>
+      <form  onSubmit={handleSubmit} style={{display: "flex", flexDirection: "row",  marginTop: "10rem"}}>
         <label>
           <AttachFileIcon />
         </label>
@@ -104,15 +101,17 @@ const ChatBox = ( { setOpen }) =>  {
         </input>
         <div style={{borderRadius: "10px solid"}}>
           <input 
+          style={{border: "2px solid"}}
           type="text" 
           placeholder='Enter message'
           value={newChat}
           onChange={(e) => setNewChat(e.target.value)}
           />
         </div>
-        <Button type="submit">Send</Button>
+        <Button type="submit"><SendIcon sx={{color: "green"}} /></Button>
     </form>
     </div>
+    </Box>
   );
 }
 export default ChatBox;
