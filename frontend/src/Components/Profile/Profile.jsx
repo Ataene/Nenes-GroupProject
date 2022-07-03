@@ -196,8 +196,8 @@ const Profile = () => {
                 style={{
                   transform: "translate(-30%, -60%)",
                   position: "absolute",
-                  top: "38%",
-                  left: "60%",
+                  top: "77%",
+                  left: "64%",
                 }}
               >
                 <Avatar
@@ -232,7 +232,7 @@ const Profile = () => {
                   style={{
                     display: "flex",
                     color: "green",
-                    left: "55%",
+                    leftMargin: "50%",
                   }}
                   disabled={progress !== null && progress < 100}
                   type="submit"
