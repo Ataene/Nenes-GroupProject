@@ -4,6 +4,7 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
+  FormControl,
   Grid,
   IconButton,
   ImageList,
@@ -28,7 +29,7 @@ import {
   CardHeader,
   Container,
   Link,
-Rating,
+  Rating,
 } from "@mui/material";
 // import cardImage from "../../images/Alaf.jpg"
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -46,15 +47,16 @@ import {
   collection,
   onSnapshot,
   orderBy,
-    query,
-  getDoc
+  query,
+  getDoc,
 } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { Image } from "@mui/icons-material";
 import { useStateValue } from "../../providers/StateProvider";
-import { actionType } from "./reducer";
 import { doc, setDoc } from "firebase/firestore";
-import { List, ListItem } from "@material-ui/core";
+import { Divider, Input, List, ListItem } from "@material-ui/core";
+import { FaStar } from "react-icons/fa";
+import "./ProductDetail.css"
 
 
 function SlideTransition(props) {
@@ -73,51 +75,47 @@ const ItemDetailInfoWrapper = styled(Box)(() => ({
   lineHeight: 1.5,
 }));
 
-function ItemDetail({ open, onClose, item, handleChange, }) { 
-  const theme = useTheme();
+function ItemDetail({ open, onClose, item}) {
+
 
   const authContext = useContext(AuthContext);
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const { user } = authContext;
-  const [title, setTitle] = useState("");
-  const [postedAds, setPostedAds] = useState([]);
-  
-    const [value, setValue] = useState("");
-    const [loading, setLoading] = useState("");
-    
-    
-    useEffect(() => {
-        async function fetchItem() {
-            try {
-                const docRef = doc(db, 'postedAds', user.uid)
-                const docSnap = await getDoc(docRef)
-                if (docSnap.exists()) {
-                    console.log(docSnap.data())
-                    setPostedAds(Object.keys(docSnap.data()).map(key => ({ name: key, status: docSnap.data()[key] })))
-                }
-            } catch (err) {
-                console.log(err)
-            } finally {
-                setLoading(false)
-            }
-        }
-        fetchItem()
-        
-    })
-    
-  async function handleAdd() {
-    console.log("here");
-     setPostedAds([]);
-    const postedAdsRef = doc(db, "postedAds", user.uid);
-    await updateDoc(
-      postedAdsRef,
-      {
-        ratings: "ratings",
-      },
-    );
-    }    
 
+  const [postedAds, setPostedAds] = useState([]);
+
+  const [loading, setLoading] = useState("");
+
+    const [rating, setRating] = useState(null);
+      const [hover, setHover] = useState(null);
+
+useEffect(() => {
+  if (db && user) {
+    let docRef = doc(db, "postedAds", user.uid);
+    const unsubscribe = onSnapshot(docRef, (querySnap) => {
+      if (querySnap.empty) {
+        setDoc(docRef, { items: [] });
+        setPostedAds([]);
+      } else {
+        let wantData = querySnap.data().items;
+        setPostedAds(wantData);
+      }
+    });
+    return unsubscribe;
+  }
+}, [db, user]);
+
+  async function handleChange(name, currStatus) {
+    setPostedAds([
+      ...postedAds.filter((val) => val.name !== name),
+      { name, status: currStatus },
+    ]);
+    const postedAdsRef = doc(db, "postedAds", user.uid);
+    await updateDoc(postedAdsRef, {
+      rating: currStatus,
+    });
+  }
 
   return (
     <Dialog
@@ -244,32 +242,48 @@ function ItemDetail({ open, onClose, item, handleChange, }) {
                     <IconButton aria-label="share">
                       <ChatIcon sx={{ color: "green" }} />
                     </IconButton>
+
                     <ListItem>
                       <Button fullWidth variant="contained" color="primary">
                         Add to Wishlist
                       </Button>
-                    </ListItem>
+                                      </ListItem>
+                                      
+                                      <IconButton onClick={(e) => handleChange()} aria-label="share">
+                                          {[...Array(5)].map((star, i) => {
+                                              const ratingValue = i + 1;
+                                              return (
+                                                <label>
+                                                  <input
+                                                    type="radio"
+                                                    name="rating"
+                                                    value={ratingValue}
+                                                    onClick={() =>
+                                                      setRating(ratingValue)
+                                                    }
+                                                    onMouseEnter={() =>
+                                                      setHover(ratingValue)
+                                                    }
+                                                    onMouseLeave={() =>
+                                                      setHover(null)
+                                                    }
+                                                  />
+                                                  <FaStar
+                                                    className="star"
+                                                    color={
+                                                      ratingValue <= (hover || rating)
+                                                        ? "#ffc107"
+                                                        : "#e4e5e9"
+                                                    }
+                                                    size={40}
+                                                  />
+                                                </label>
+                                              );
+                    })}
+                                        
+                                      </IconButton>
+                                      <p>The rating is {rating}.</p> 
                     <ListItem>
-                      <Box
-                        sx={{
-                          justifyContent: "center",
-                          alignItems: "center",
-                          display: "flex",
-                          PaddingTop: "row",
-                          flexDirection: "column",
-                        }}
-                      >
-                        <Rating
-                          precision={0.1}
-                          size="large"
-                          value={value}
-                          onClick={handleAdd}
-                          onChange={(e, val) => setValue(val)}
-                        />
-                        <Typography>
-                          Rated {value !== undefined ? value : 0} Stars
-                        </Typography>
-                      </Box>
                     </ListItem>
                   </List>
                 </Card>
@@ -280,7 +294,6 @@ function ItemDetail({ open, onClose, item, handleChange, }) {
       </DialogContent>
     </Dialog>
   );
-
 }
 
 export default ItemDetail;

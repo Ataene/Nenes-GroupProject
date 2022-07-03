@@ -34,7 +34,7 @@ const DropSelections = ({ visible, onCancel }) => {
   const [progress, setProgress] = useState(null);
   const [url, setUrl] = useState("");
   
-  const [ratings, setRatings] = useState("");
+  const [rating, setRating] = useState(null);
   
   
   const [userPicture, setUserPicture ] = useState("");
@@ -103,7 +103,7 @@ const DropSelections = ({ visible, onCancel }) => {
         uid: user.uid,
         userPicture,
         displayName,
-        ratings: Number(""),
+        rating: (null),
         timeStamp: serverTimestamp(),
       });
       setTitle("");
