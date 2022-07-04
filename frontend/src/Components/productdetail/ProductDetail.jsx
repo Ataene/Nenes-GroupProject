@@ -35,11 +35,20 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
 import Avatar from "@mui/material/Avatar";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ShareIcon from "@mui/icons-material/Share";
 import AddIcon from "@mui/icons-material/Add";
-import { addDoc, serverTimestamp, updateDoc } from "firebase/firestore";
+import {
+  addDoc,
+  serverTimestamp,
+  updateDoc,
+  getFirestore,
+  collection,
+  onSnapshot,
+  orderBy,
+    query,
+  getDoc
+} from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { Image } from "@mui/icons-material";
 import { useStateValue } from "../../providers/StateProvider";
@@ -47,7 +56,6 @@ import { actionType } from "./reducer";
 import { doc, setDoc } from "firebase/firestore";
 import { List, ListItem } from "@material-ui/core";
 
-let cartData = [];
 
 function SlideTransition(props) {
   return <Slide direction="down" {...props} />;
@@ -65,7 +73,7 @@ const ItemDetailInfoWrapper = styled(Box)(() => ({
   lineHeight: 1.5,
 }));
 
-function ItemDetail({ open, onClose, item }) {
+function ItemDetail({ open, onClose, item, handleChange, }) { 
   const theme = useTheme();
 
   const authContext = useContext(AuthContext);
@@ -73,35 +81,43 @@ function ItemDetail({ open, onClose, item }) {
   const db = fbContext.db;
   const { user } = authContext;
   const [title, setTitle] = useState("");
-
   const [postedAds, setPostedAds] = useState([]);
-
-  const addToItemDetailList = (newItem) => {
-    let newPost = [...postedAds, newItem];
-    let docRef = doc(db, "postedAds", user.uid);
-    setDoc(docRef, { items: newPost });
-  };
-
-  useEffect(() => {
-    if (db && user) {
-      let docRef = doc(db, "postedAds", user.uid);
-      const unsubscribe = onSnapshot(docRef, (querySnap) => {
-        if (querySnap.empty) {
-          setDoc(docRef, { items: [] });
-          setPostedAds([]);
-        } else {
-          let data = querySnap.data().items;
-          setPostedAds(data);
+  
+    const [value, setValue] = useState("");
+    const [loading, setLoading] = useState("");
+    
+    
+    useEffect(() => {
+        async function fetchItem() {
+            try {
+                const docRef = doc(db, 'postedAds', user.uid)
+                const docSnap = await getDoc(docRef)
+                if (docSnap.exists()) {
+                    console.log(docSnap.data())
+                    setPostedAds(Object.keys(docSnap.data()).map(key => ({ name: key, status: docSnap.data()[key] })))
+                }
+            } catch (err) {
+                console.log(err)
+            } finally {
+                setLoading(false)
+            }
         }
-      });
-      return unsubscribe;
-    }
-  }, [db, user]);
+        fetchItem()
+        
+    })
+    
+  async function handleAdd() {
+    console.log("here");
+     setPostedAds([]);
+    const postedAdsRef = doc(db, "postedAds", user.uid);
+    await updateDoc(
+      postedAdsRef,
+      {
+        ratings: "ratings",
+      },
+    );
+    }    
 
-  const theValues = {
-    addToItemDetailList,
-    };
-      const [value, setValue] = useState();
 
   return (
     <Dialog
@@ -162,7 +178,7 @@ function ItemDetail({ open, onClose, item }) {
                     </Typography>
                   </ListItem>
                   <ListItem>
-                    <Typography>Name: {item.displayName}</Typography>
+                    <Typography>item: {item.displayName}</Typography>
                   </ListItem>
                   <ListItem>
                     <Typography>Category: {item.category}</Typography>
@@ -192,7 +208,6 @@ function ItemDetail({ open, onClose, item }) {
                   sx={{
                     justifyContent: "center",
                     alignItems: "center",
-
                     flexDirection: "column",
                     height: "420px",
                   }}
@@ -203,16 +218,14 @@ function ItemDetail({ open, onClose, item }) {
                         <Grid item xs={6}>
                           <Typography>I Want:</Typography>
                         </Grid>
-                                              <Grid item xs={6}>
-                                                  
-                        <Typography>{item.want}</Typography>
+                        <Grid item xs={6}>
+                          <Typography>{item.want}</Typography>
                         </Grid>
                       </Grid>
                     </ListItem>
                     <ListItem>
                       <Grid container>
-               
-                                              <Grid item xs={6}>
+                        <Grid item xs={6}>
                           <Typography>Status</Typography>
                         </Grid>
                         <Grid item xs={6}>
@@ -250,6 +263,7 @@ function ItemDetail({ open, onClose, item }) {
                           precision={0.1}
                           size="large"
                           value={value}
+                          onClick={handleAdd}
                           onChange={(e, val) => setValue(val)}
                         />
                         <Typography>
@@ -266,6 +280,7 @@ function ItemDetail({ open, onClose, item }) {
       </DialogContent>
     </Dialog>
   );
+
 }
 
 export default ItemDetail;

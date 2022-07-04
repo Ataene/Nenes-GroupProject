@@ -1,4 +1,5 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
+import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import {
@@ -9,34 +10,31 @@ import {
   Container,
   Grid,
   IconButton,
-  Paper,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
 import Avatar from "@mui/material/Avatar";
 import ShareIcon from "@mui/icons-material/Share";
 import ListAltIcon from "@mui/icons-material/ListAlt";
-import useDialogModal from ".././productdetail/useDialogModal";
-import ItemDetail from ".././productdetail/ProductDetail";
+
+import useDialogModal from "../productdetail/useDialogModal";
+import ItemDetail from "../productdetail/ProductDetail";
+
 import { AuthContext } from "../../auth/AuthProvider";
 import CircularProgress from "@mui/material/CircularProgress";
-import { FirebaseContext } from "../../auth/FirebaseProvider";
-import OnlineStatus from "./OnlineStatus";
+import ChatBox from "./ChatBox";
 
-const Market = ({ postedAds, handleClick }) => {
+const Matching = ({ handleClick, loading }) => {
   const authContext = useContext(AuthContext);
-  const { user, setUserToMessage } = authContext;
-  const fbContext = useContext(FirebaseContext);
-  const db = fbContext.db;
+  const { user, setUserToMessage, isOnline } = authContext;
   const [open, setOpen] = useState(false);
- const [ online, setOnline ] = useState('')
 
   const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
     useDialogModal(ItemDetail);
 
-  if (!postedAds) {
-    return <p className="mx-auto">Loading Data...</p>;
-  }
+
+ const ref = firebase.firestore().collection("postedAds");
+
   return (
     <>
       <Container>
@@ -45,9 +43,8 @@ const Market = ({ postedAds, handleClick }) => {
             {postedAds
               .filter((item) => item.uid !== user.uid)
               .map((item) => (
-                <Grid item md={3} key={item.uid}>
-                  <Paper
-                    elevation={10}
+                <Grid item md={3} key={item.timeStamp}>
+                  <Card
                     sx={{ height: "33rem", marginTop: "10px", margin: "10px" }}
                     item={item}
                   >
@@ -62,7 +59,6 @@ const Market = ({ postedAds, handleClick }) => {
                       title={item.displayName}
                       name="title"
                     />
-                    <OnlineStatus />
                     <CardMedia
                       component="img"
                       sx={{ height: "280px" }}
@@ -106,7 +102,7 @@ const Market = ({ postedAds, handleClick }) => {
                         <ProductDetailDialog item={item} />
                       </CardActions>
                     </Box>
-                  </Paper>
+                  </Card>
                 </Grid>
               ))}
           </Grid>
@@ -116,4 +112,4 @@ const Market = ({ postedAds, handleClick }) => {
   );
 };
 
-export default Market;
+export default Matching;
