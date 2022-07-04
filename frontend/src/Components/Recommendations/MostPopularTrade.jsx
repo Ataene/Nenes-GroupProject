@@ -1,17 +1,17 @@
 import React, { useState, useEffect, Fragment, useContext } from "react";
 import firebase from "./firebase";
-import { v4 as uuidv4 } from "uuid";
 import { AuthContext } from "./auth/Auth";
-import { Avatar, Box, CardActions, CardHeader, CardMedia, Container, Grid, IconButton, Paper, Typography } from "@mui/material";
+import { Avatar, Box, CardActions, CardContent, CardHeader, CardMedia, Container, Grid, IconButton, Paper, Typography } from "@mui/material";
 import OnlineStatus from "../Profile/OnlineStatus";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
 import ShareIcon from "@mui/icons-material/Share";
 import ListAltIcon from "@mui/icons-material/ListAlt";
+import ItemDetail from ".././productdetail/ProductDetail";
+import { query, where } from "firebase/firestore";  
 
 function MostPopularTrade() {
-  const { currentUser } = useContext(AuthContext);
-  const currentUserId = currentUser ? currentUser.uid : null;
+  const { user } = useContext(AuthContext);
   const [postedAds, setPostedAds] = useState([]);
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState("");
@@ -27,7 +27,7 @@ function MostPopularTrade() {
       //.where('owner', '==', currentUserId)
       .where('item', '==', 'rating') // 
       .where('rating', '>=', 4)    // 
-      .orderBy('owner', 'dsc')
+      .orderBy('owner', 'desc')
       .limit(4)
       .onSnapshot((querySnapshot) => {
         const items = [];
@@ -43,6 +43,9 @@ function MostPopularTrade() {
      getPostedAds();
     // eslint-disable-next-line
   }, []);
+
+     const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
+       useDialogModal(ItemDetail);
 
   return (
     <>

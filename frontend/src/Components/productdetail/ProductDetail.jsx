@@ -17,6 +17,7 @@ import { Colors } from "../styles/theme";
 import styled from "@emotion/styled";
 import { useTheme } from "@mui/material/styles";
 import { AuthContext } from "../../auth/AuthProvider";
+import Footer from "../../Components/footer/index";
 
 import React, { useContext, useEffect, useState } from "react";
 import Card from "@mui/material/Card";
@@ -51,13 +52,13 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { Image } from "@mui/icons-material";
+import { Image, Rowing } from "@mui/icons-material";
 import { useStateValue } from "../../providers/StateProvider";
 import { doc, setDoc } from "firebase/firestore";
 import { Divider, Input, List, ListItem } from "@material-ui/core";
 import { FaStar } from "react-icons/fa";
-import "./ProductDetail.css"
-
+import "./ProductDetail.css";
+import { useParams } from "react-router-dom";
 
 function SlideTransition(props) {
   return <Slide direction="down" {...props} />;
@@ -75,9 +76,7 @@ const ItemDetailInfoWrapper = styled(Box)(() => ({
   lineHeight: 1.5,
 }));
 
-function ItemDetail({ open, onClose, item}) {
-
-
+function ItemDetail({ open, onClose, item }) {
   const authContext = useContext(AuthContext);
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
@@ -86,36 +85,33 @@ function ItemDetail({ open, onClose, item}) {
   const [postedAds, setPostedAds] = useState([]);
 
   const [loading, setLoading] = useState("");
+   const [selectedItem, setSelectedItem] = useState([]);
 
-    const [rating, setRating] = useState(null);
-      const [hover, setHover] = useState(null);
+  const [rating, setRating] = useState(null);
+  const [hover, setHover] = useState(null);
 
-useEffect(() => {
-  if (db && user) {
-    let docRef = doc(db, "postedAds", user.uid);
-    const unsubscribe = onSnapshot(docRef, (querySnap) => {
-      if (querySnap.empty) {
-        setDoc(docRef, { items: [] });
-        setPostedAds([]);
-      } else {
-        let wantData = querySnap.data().items;
-        setPostedAds(wantData);
-      }
-    });
-    return unsubscribe;
-  }
-}, [db, user]);
+  const nameOfItem = useParams();
 
-  async function handleChange(name, currStatus) {
-    setPostedAds([
-      ...postedAds.filter((val) => val.name !== name),
-      { name, status: currStatus },
-    ]);
-    const postedAdsRef = doc(db, "postedAds", user.uid);
-    await updateDoc(postedAdsRef, {
-      rating: currStatus,
-    });
-  }
+  
+    useEffect(() => {
+      postedAds.forEach((item) => {
+        if (postedAds.item === nameOfItem.name) {
+          setSelectedItem(item);
+        }
+      });
+    }, [postedAds]);
+
+    async function handleChange(name, currStatus) {
+      setPostedAds([
+        ...postedAds.filter((val) => val.name !== name),
+        { name, status: currStatus },
+      ]);
+      const postedAdsRef = doc(db, "postedAds", user.uid);
+      await updateDoc(postedAdsRef, {
+        rating: currStatus,
+      });
+    }
+
 
   return (
     <Dialog
@@ -247,44 +243,39 @@ useEffect(() => {
                       <Button fullWidth variant="contained" color="primary">
                         Add to Wishlist
                       </Button>
-                                      </ListItem>
-                                      
-                                      <IconButton onClick={(e) => handleChange()} aria-label="share">
-                                          {[...Array(5)].map((star, i) => {
-                                              const ratingValue = i + 1;
-                                              return (
-                                                <label>
-                                                  <input
-                                                    type="radio"
-                                                    name="rating"
-                                                    value={ratingValue}
-                                                    onClick={() =>
-                                                      setRating(ratingValue)
-                                                    }
-                                                    onMouseEnter={() =>
-                                                      setHover(ratingValue)
-                                                    }
-                                                    onMouseLeave={() =>
-                                                      setHover(null)
-                                                    }
-                                                  />
-                                                  <FaStar
-                                                    className="star"
-                                                    color={
-                                                      ratingValue <= (hover || rating)
-                                                        ? "#ffc107"
-                                                        : "#e4e5e9"
-                                                    }
-                                                    size={40}
-                                                  />
-                                                </label>
-                                              );
-                    })}
-                                        
-                                      </IconButton>
-                                      <p>The rating is {rating}.</p> 
-                    <ListItem>
                     </ListItem>
+
+                    <IconButton
+                      onClick={(e) => handleChange()}
+                      aria-label="share"
+                    >
+                      {[...Array(5)].map((star, i) => {
+                        const ratingValue = i + 1;
+                        return (
+                          <label>
+                            <input
+                              type="radio"
+                              name="rating"
+                              value={ratingValue}
+                              onClick={() => setRating(ratingValue)}
+                              onMouseEnter={() => setHover(ratingValue)}
+                              onMouseLeave={() => setHover(null)}
+                            />
+                            <FaStar
+                              className="star"
+                              color={
+                                ratingValue <= (hover || rating)
+                                  ? "#ffc107"
+                                  : "#e4e5e9"
+                              }
+                              size={40}
+                            />
+                          </label>
+                        );
+                      })}
+                    </IconButton>
+                    <p>The rating is {rating}.</p>
+                    <ListItem></ListItem>
                   </List>
                 </Card>
               </Grid>
@@ -292,6 +283,7 @@ useEffect(() => {
           </Card>
         </div>
       </DialogContent>
+      <Footer />
     </Dialog>
   );
 }
