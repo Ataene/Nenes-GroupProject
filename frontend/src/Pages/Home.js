@@ -11,8 +11,8 @@ export default function Home() {
       <CssBaseline />
       <Banner />
       <Promotions />
-      <Box display="flex" justifyContent="center" sx={{ p: 4 }}>
-        <Typography variant="h4">Categories of Items You Can Trade</Typography>
+      <Box display="flex" justifyContent="center" sx={{ p: 4 ,fontFamily:"Montserrat"}}>
+        <Typography variant="h4" sx={{ fontFamily:"Montserrat"}}>Categories of Items You Can Trade</Typography>
       </Box>
       <Products />
     </div>
