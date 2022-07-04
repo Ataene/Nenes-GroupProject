@@ -1,22 +1,56 @@
 import React, { useContext, useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
-import { CardMedia,Dialog, DialogContent, DialogTitle, Grid, IconButton, Slide } from "@mui/material";
+import {
+  Avatar,
+  CardMedia,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  FormControl,
+  Grid,
+  IconButton,
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
+  Slide,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import { Colors } from "../styles/theme";
 import styled from "@emotion/styled";
 import { useTheme } from "@mui/material/styles";
 import { AuthContext } from "../../auth/AuthProvider";
+import Footer from "../../Components/footer/index";
+
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
-import { Button, CardHeader, Rating } from "@mui/material";
+  import {Link, CardHeader, Button,
+  Rating,
+} from "@mui/material";
+// import cardImage from "../../images/Alaf.jpg"
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
-import Avatar from "@mui/material/Avatar";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import ShareIcon from "@mui/icons-material/Share";
-import {getDoc } from "firebase/firestore";
-import { doc } from "firebase/firestore";
-import { List, ListItem } from "@material-ui/core";
+import AddIcon from "@mui/icons-material/Add";
+import {
+  addDoc,
+  serverTimestamp,
+  updateDoc,
+  getFirestore,
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  getDoc,
+} from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { Image, Rowing } from "@mui/icons-material";
+import { useStateValue } from "../../providers/StateProvider";
+import { doc, setDoc } from "firebase/firestore";
+import { Divider, Input, List, ListItem } from "@material-ui/core";
+import { FaStar } from "react-icons/fa";
+import "./ProductDetail.css";
+import { useParams } from "react-router-dom";
 
 function SlideTransition(props) {
   return <Slide direction="down" {...props} />;
@@ -32,45 +66,43 @@ const ItemDetailInfoWrapper = styled(Box)(() => ({
   lineHeight: 1.5,
 }));
 
-function ItemDetail({ open, onClose, item }) {   //Starts here
-  const theme = useTheme();
+function ItemDetail({ open, onClose, item }) {
   const authContext = useContext(AuthContext);
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const { user } = authContext;
 
-  const [title, setTitle] = useState("");
-  const [postedAds, setPostedAds] = useState([]);  
-    const [value, setValue] = useState(null);
-    const [loading, setLoading] = useState("");
-    
+  const [postedAds, setPostedAds] = useState([]);
+
+  const [loading, setLoading] = useState("");
+   const [selectedItem, setSelectedItem] = useState([]);
+
+  const [rating, setRating] = useState(null);
+  const [hover, setHover] = useState(null);
+
+  const nameOfItem = useParams();
+
+  
     useEffect(() => {
-        const fetchItem = async () => {
-            try {
-                const docRef = doc(db, 'postedAds', user.uid)
-                const docSnap = await getDoc(docRef)
-                if (docSnap.exists()) {
-                  console.log("9999999999", docSnap.data())
-                  const getKeys = Object.keys(docSnap.data()).map(key => ({ name: key, status: docSnap.data()[key] }))
-                  setPostedAds(getKeys);
-                  console.log("9999999999", postedAds)
-                }
-            } catch (err) {
-                console.log(err)
-            } finally {
-                setLoading(false)
-            }
+      postedAds.forEach((item) => {
+        if (postedAds.item === nameOfItem.name) {
+          setSelectedItem(item);
         }
-        fetchItem()
-    })
-    
-  function handleAdd(rat) {
-    alert(`The rating is ${rat}`)
-    // console.log("here");
-    //  setPostedAds([]);
-    // const postedAdsRef = doc(db, "postedAds", user.uid);
-    // await updateDoc( postedAdsRef, {ratings: Number("") })
-  }    
+      });
+    }, [postedAds]);
+
+    async function handleChange(name, currStatus) {
+      setPostedAds([
+        ...postedAds.filter((val) => val.name !== name),
+        { name, status: currStatus },
+      ]);
+      const postedAdsRef = doc(db, "postedAds", user.uid);
+      await updateDoc(postedAdsRef, {
+        rating: currStatus,
+      });
+    }
+
+
   return (
     <Dialog
       TransitionComponent={SlideTransition}
@@ -196,43 +228,44 @@ function ItemDetail({ open, onClose, item }) {   //Starts here
                     <IconButton aria-label="share">
                       <ChatIcon sx={{ color: "green" }} />
                     </IconButton>
+
                     <ListItem>
                       <Button fullWidth variant="contained" color="primary">
                         Add to Wishlist
                       </Button>
                     </ListItem>
-                    <ListItem>
-                      <Box
-                        sx={{
-                          justifyContent: "center",
-                          alignItems: "center",
-                          display: "flex",
-                          PaddingTop: "row",
-                          flexDirection: "column",
-                        }}
-                      >
-                        {/* <Rating
-                          precision={0.1}
-                          size="large"
-                          // value={ratings}
-                          // onChange={handleAdd}
-                          onClick={handleAdd}
-                          // onChange={(e) => setRatings(e.target.value)}
-                        /> */}
-                        <Rating
-                              name="hover-feedback"
-                              // value={ratings}
-                              precision={0.5}
-                              onChange={handleAdd}
-                              // onChange={(event, newValue) => {
-                              //   setValue(newValue);
-                              // }}
-                          />
-                        <Typography>
-                          Rated {value !== undefined ? value : 0} Stars
-                        </Typography>
-                      </Box>
-                    </ListItem>
+
+                    <IconButton
+                      onClick={(e) => handleChange()}
+                      aria-label="share"
+                    >
+                      {[...Array(5)].map((star, i) => {
+                        const ratingValue = i + 1;
+                        return (
+                          <label>
+                            <input
+                              type="radio"
+                              name="rating"
+                              value={ratingValue}
+                              onClick={() => setRating(ratingValue)}
+                              onMouseEnter={() => setHover(ratingValue)}
+                              onMouseLeave={() => setHover(null)}
+                            />
+                            <FaStar
+                              className="star"
+                              color={
+                                ratingValue <= (hover || rating)
+                                  ? "#ffc107"
+                                  : "#e4e5e9"
+                              }
+                              size={40}
+                            />
+                          </label>
+                        );
+                      })}
+                    </IconButton>
+                    <p>The rating is {rating}.</p>
+                    <ListItem></ListItem>
                   </List>
                 </Card>
               </Grid>
@@ -240,9 +273,9 @@ function ItemDetail({ open, onClose, item }) {   //Starts here
           </Card>
         </div>
       </DialogContent>
+      <Footer />
     </Dialog>
   );
-
 }
 
 export default ItemDetail;
