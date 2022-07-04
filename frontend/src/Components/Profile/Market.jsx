@@ -14,12 +14,13 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import OnlineStatus from "./OnlineStatus";
 
-const Market = ({ postedAds, handleClick, status }) => {
+const Market = ({ postedAds, handleClick, newStatus }) => {
   const authContext = useContext(AuthContext);
   const { user, setUserToMessage } = authContext;
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const [open, setOpen] = useState(false);
+  console.log("+++++++status", newStatus)
 
   const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
     useDialogModal(ItemDetail);
@@ -52,7 +53,17 @@ const Market = ({ postedAds, handleClick, status }) => {
                       title={item.displayName}
                       name="title"
                     />
-                    <OnlineStatus />
+                    
+                    {/* {newOnline.map((item) => {
+                    if(item.isOnline == true){
+                            return  <div className={`user_status ${"online"}`}></div>
+                    } else if(item.isOnline == false) {
+                            return  <div className={`user_status ${"offline"}`}></div>
+                    }
+                    })} */}
+                      
+
+                    <OnlineStatus uid={item.uid} />
                 
                     <CardMedia
                       component="img"
