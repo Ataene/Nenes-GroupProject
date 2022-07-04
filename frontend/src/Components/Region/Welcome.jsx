@@ -108,26 +108,27 @@ const Welcome = () => {
               id="standard-basic"
               label="First 3 characters of your postal code"
               variant="standard"
+              maxLength= "3"
             />
             <TextField
               value={firstItem}
               onChange={(e) => setFirstItem(e.target.value)}
               id="standard-basic"
-              label="First Item"
+              label="First Want Item"
               variant="standard"
             />
             <TextField
               value={secondItem}
               onChange={(e) => setSecondItem(e.target.value)}
               id="standard-basic"
-              label="Second Item"
+              label="Second Want Item"
               variant="standard"
             />
             <TextField
               value={thirdItem}
               onChange={(e) => setThirdItem(e.target.value)}
               id="standard-basic"
-              label="Third Item"
+              label="Third Want Item"
               variant="standard"
             />
             <Button
