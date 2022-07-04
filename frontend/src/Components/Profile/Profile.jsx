@@ -115,8 +115,6 @@ const Profile = () => {
         >
           <Container
             style={{
-              display: "flex",
-              justifyContent: "space-between",
               height: "300px",
               width: "100%",
               margin: "5px",
@@ -124,7 +122,7 @@ const Profile = () => {
             }}
             onSubmit={handleSubmit}
           >
-            <section style={{ borderSpacing: "5px" }}>
+            <section>
               <TextField
                 id="outlined-multiline-flexible"
                 label="First Name"
@@ -209,8 +207,8 @@ const Profile = () => {
               style={{
                 transform: "translate(-30%, -60%)",
                 position: "absolute",
-                top: "38%",
-                left: "63%",
+                top: "44%",
+                left: "62%",
               }}
             >
               <Avatar
@@ -243,9 +241,8 @@ const Profile = () => {
               <br />
               <Button
                 style={{
-                  color: "green",
-                  left: "53%",
                   paddingTop: "20px",
+                  transform: "translate(-280%, 140%)",
                 }}
                 disabled={progress !== null && progress < 100}
                 type="submit"
