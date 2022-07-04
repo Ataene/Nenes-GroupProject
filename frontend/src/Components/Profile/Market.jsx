@@ -14,12 +14,13 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import OnlineStatus from "./OnlineStatus";
 
-const Market = ({ postedAds, handleClick, status }) => {
+const Market = ({ postedAds, handleClick, newStatus }) => {
   const authContext = useContext(AuthContext);
   const { user, setUserToMessage } = authContext;
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const [open, setOpen] = useState(false);
+  console.log("+++++++status", newStatus)
 
   const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
     useDialogModal(ItemDetail);
@@ -41,6 +42,7 @@ const Market = ({ postedAds, handleClick, status }) => {
                     sx={{ height: "33rem", marginTop: "10px", margin: "10px" }}
                     item={item}
                   >
+                  <Box sx={{display: "flex", flexDirection: "row"}}>
                     <CardHeader
                       avatar={
                         <Avatar
@@ -49,14 +51,14 @@ const Market = ({ postedAds, handleClick, status }) => {
                           src={item.userPicture}
                         />
                       }
-                      title={item.displayName}
+                      title={item.displayName} 
                       name="title"
                     />
-                    <OnlineStatus />
-                
+                      <OnlineStatus uid={item.uid} />
+                  </Box>
                     <CardMedia
                       component="img"
-                      sx={{ height: "280px" }}
+                      sx={{ height: "260px" }}
                       image={item.url}
                       title={item.title}
                       onClick={() => showProductDetailDialog()}

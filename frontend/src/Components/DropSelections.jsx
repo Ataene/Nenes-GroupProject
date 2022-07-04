@@ -103,7 +103,6 @@ const DropSelections = ({ visible, onCancel }) => {
         uid: user.uid,
         userPicture,
         displayName,
-        rating: (null),
         timeStamp: serverTimestamp(),
       });
       setTitle("");
