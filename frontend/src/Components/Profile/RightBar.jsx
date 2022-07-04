@@ -4,6 +4,7 @@ import { AuthContext  } from '../../auth/AuthProvider'
 import { useNavigate } from 'react-router-dom';
 import ChatRoom from "./ChatRoom";
 import ChatBox from './ChatBox';
+import ChatHeader from './ChatHeader';
 
 const RightBar = () => {
 
@@ -31,12 +32,7 @@ const RightBar = () => {
      <Container>
      <Box sx={{marginTop: "20px"}}>
      <Card sx={{ maxWidth: 345 }}>
-        <CardMedia
-          component="img"
-          height="50px"
-          image="https://firebasestorage.googleapis.com/v0/b/hundiepay.appspot.com/o/gps.jpeg?alt=media&token=9cb7974d-fdf2-4ede-9fe8-757db7ef6872"
-          alt="green iguana"
-        />
+        <iframe src="https://giphy.com/embed/MA97YuHLr1Xfr0F11Y" width="300" height="300" frameBorder="0" className="giphy-embed" allowFullScreen></iframe>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             Ads Board
@@ -49,7 +45,10 @@ const RightBar = () => {
      </Box>
      </Container>
      <Box>
-     {open && userToMessage && <ChatBox setOpen={setOpen} />}
+     <Container>
+      <ChatHeader />
+        {open && userToMessage && <ChatBox setOpen={setOpen} />}
+     </Container>
      </Box>
     </Box>
   )

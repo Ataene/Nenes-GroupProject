@@ -1,10 +1,10 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { Box } from "@mui/material";
 import ChatHeader from "./ChatHeader";
-import ChatInput from "./ChatInput";
 import { AuthContext } from "../../auth/AuthProvider";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { collection, query, onSnapshot, limit, orderBy, doc} from "firebase/firestore";
+import ChatBox from "./ChatBox";
 
 const ChatRoom = () => {
   const chatroom = {
@@ -74,7 +74,8 @@ const ChatRoom = () => {
     <>
       <Box style={chatroom}>
         <ChatHeader />
-        <div>
+        <ChatBox />
+        {/* <div>
           {messages.map((item) => (
             <div>
               <div key={user.uid}>
@@ -82,9 +83,7 @@ const ChatRoom = () => {
               </div>
             </div>
           ))}
-        </div>
-        <ChatInput scroll={scroll}  />
-        <div ref={scroll}></div>
+        </div> */}
       </Box>
     </>
   );

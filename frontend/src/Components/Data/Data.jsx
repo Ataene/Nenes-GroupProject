@@ -45,8 +45,8 @@ export const LineData = [
 export const TableRows = [
     { id: 1, username: 'Snow Jon', avatar:"https://randomuser.me/api/portraits/men/75.jpg", email: "Jsnow@yahoo.com", status: "active", transaction: "$80.09" },
     { id: 2, username: 'Lannister Cersei', avatar: "https://randomuser.me/api/portraits/women/75.jpg", email: "Lscer@yahoo.com", status: "active", transaction: "$120.99" },
-    { id: 3, username: 'Snow Jaime', avatar: "https://randomuser.me/api/portraits/men/95.jpg", email: "Sarya@yahoo.com", status: "active", transaction: "$16.69" },
-    { id: 4, username: 'Stark Arya', avatar: "https://randomuser.me/api/portraits/men/75.jpg", email: "Tdan@yahoo.com", status: "active", transaction: "$145.99" },
+    { id: 3, username: 'Snow Jaime', avatar: "https://randomuser.me/api/portraits/men/95.jpg", email: "snowjaime@yahoo.com", status: "active", transaction: "$16.69" },
+    { id: 4, username: 'Stark Arya', avatar: "https://randomuser.me/api/portraits/men/75.jpg", email: "Sarya@yahoo.com", status: "active", transaction: "$145.99" },
     { id: 5, username: 'Targaryen Daenerys', avatar: "https://randomuser.me/api/portraits/women/25.jpg", email: "Dmentw@yahoo.com", status: "active", transaction: "$690.99" },
     { id: 6, username: 'Targaryen Daenerys', avatar: "https://randomuser.me/api/portraits/men/75.jpg", email: "Mehey@yahoo.com", status: "active", transaction: "$190.65" },
     { id: 7, username: 'Melisandre Wick', avatar: "https://randomuser.me/api/portraits/women/15.jpg", email: "Onage@yahoo.com", status: "active", transaction: "$60.35" },

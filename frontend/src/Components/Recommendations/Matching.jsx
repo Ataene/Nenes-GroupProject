@@ -1,115 +1,185 @@
-import React, { useContext, useState } from "react";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import {
-  Box,
-  CardActions,
-  CardHeader,
-  CardMedia,
-  Container,
-  Grid,
-  IconButton,
-} from "@mui/material";
+import React, { useState, useContext, useEffect } from "react";
+import { CardActions, IconButton, Typography } from "@mui/material";
+import TinderCard from "react-tinder-card";
+import { Box, Container } from "@mui/system";
+import { AuthContext } from "../../auth/AuthProvider";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
-import Avatar from "@mui/material/Avatar";
+import { FirebaseContext } from "../../auth/FirebaseProvider";
+import {
+  onSnapshot,
+  orderBy,
+  query,
+  doc,
+  getDoc,
+  collection,
+  serverTimestamp,
+  where,
+} from "firebase/firestore";
 import ShareIcon from "@mui/icons-material/Share";
-import ListAltIcon from "@mui/icons-material/ListAlt";
+import PreviewIcon from "@mui/icons-material/Preview";
+import ReplayIcon from "@mui/icons-material/Replay";
+import CloseIcon from "@mui/icons-material/Close";
+import PersonIcon from "@mui/icons-material/Person";
 
-import useDialogModal from "../productdetail/useDialogModal";
-import ItemDetail from "../productdetail/ProductDetail";
 
-import { AuthContext } from "../../auth/AuthProvider";
-import CircularProgress from "@mui/material/CircularProgress";
-import ChatBox from "./ChatBox";
-
-const Matching = ({ handleClick, loading }) => {
+const Match = () => {
   const authContext = useContext(AuthContext);
-  const { user, setUserToMessage, isOnline } = authContext;
-  const [open, setOpen] = useState(false);
+  const fbContext = useContext(FirebaseContext);
+  const db = fbContext.db;
+  const { user } = authContext;
+  const [postedAds, setSetAllPostedAds] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [title, setTitle] = useState("");
+    const [desc, setDesc] = useState("");
 
-  const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
-    useDialogModal(ItemDetail);
+  const ref = firebase.firestore().collection("postedAds");
 
+  //REALTIME GET FUNCTION
+  function getIwant() {
+    setLoading(true);
+    ref
+      .where('uid', '==', user.uid)
+      .where("item", "==", "want") //
+//      .where("rating", ">=", 4) //
+      .orderBy("condition", "desc")
+//      .limit(4)
+      .onSnapshot((querySnapshot) => {
+        const items = [];
+        querySnapshot.forEach((doc) => {
+          items.push(doc.data());
+        });
+        setSetAllPostedAds(items);
+        setLoading(false);
+      });
+  }
 
- const ref = firebase.firestore().collection("postedAds");
+  useEffect(() => {
+    getIwant();
+    // eslint-disable-next-line
+  }, [db, user]);
 
+  const characters = postedAds;
+  const [lastDirection, setLastDirection] = useState();
+
+  const swiped = (direction, url) => {
+    console.log("removing: " + url);
+    setLastDirection(direction);
+  };
+
+  const outOfFrame = (url) => {
+    console.log(url + " left the screen!");
+  };
+
+  const card = {
+    position: "absolute",
+    backgroundColor: " #fff",
+    width: "80vw",
+    maxWidth: "360px",
+    height: "600px",
+    // boxShadow: "0px 0px 60px 0px rgba(0,0,0,0.30)",
+    borderRadius: "20px",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    marginBottom: "20px",
+  };
+  const infoText = {
+    width: "100%",
+    height: "28px",
+    justifyContent: "center",
+    display: "flex",
+    color: "#fff",
+    animationName: "popup",
+    animationDuration: "800ms",
+  };
   return (
     <>
       <Container>
-        <Box>
-          <Grid container spacing={1}>
-            {postedAds
-              .filter((item) => item.uid !== user.uid)
-              .map((item) => (
-                <Grid item md={3} key={item.timeStamp}>
-                  <Card
-                    sx={{ height: "33rem", marginTop: "10px", margin: "10px" }}
-                    item={item}
-                  >
-                    <CardHeader
-                      avatar={
-                        <Avatar
-                          sx={{ bgcolor: "red"[500] }}
-                          aria-label="recipe"
-                          src={item.userPicture}
-                        />
-                      }
-                      title={item.displayName}
-                      name="title"
-                    />
-                    <CardMedia
-                      component="img"
-                      sx={{ height: "280px" }}
-                      image={item.url}
-                      title={item.title}
-                      onClick={() => showProductDetailDialog()}
-                    ></CardMedia>
-                    <CardContent>
-                      <Typography>{item.name}</Typography>
-                    </CardContent>
-                    <Box
-                      sx={{
-                        justifyContent: "center",
-                        alignItems: "center",
-                        display: "flex",
-                        flexDirection: "column",
-                      }}
-                    >
-                      <Typography>{item.description}</Typography>
-                      <Typography>Condition: {item.condition}</Typography>
-                      <Typography>I want : {item.want}</Typography>
-                      <CardActions sx={{ marginBottom: "20px" }}>
-                        <IconButton aria-label="add to favorites">
-                          <FavoriteIcon sx={{ color: "red" }} />
-                        </IconButton>
-                        <IconButton aria-label="share">
-                          <ShareIcon sx={{ color: "#62b4f9" }} />
-                        </IconButton>
-                        <IconButton aria-label="chat">
-                          <ChatIcon
-                            sx={{ color: "green" }}
-                            onClick={() => setUserToMessage(item.uid)}
-                          />
-                        </IconButton>
-                        <IconButton aria-label="share" type="click">
-                          <ListAltIcon
-                            sx={{ color: "purple" }}
-                            onClick={() => handleClick(item)}
-                          />
-                        </IconButton>
-                        <ProductDetailDialog item={item} />
-                      </CardActions>
-                    </Box>
-                  </Card>
-                </Grid>
-              ))}
-          </Grid>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-evenly",
+          }}
+        >
+          <IconButton>
+            <PersonIcon fontSize="large" style={{ color: "#ec5e6f" }} />
+          </IconButton>
+          <Typography variant="h3" style={{ color: "#ec5e6f" }}>
+            Hundie
+          </Typography>
+          <IconButton>
+            <ChatIcon
+              fontSize="large"
+              className="headerIcon"
+              style={{ color: "#ec5e6f" }}
+            />
+          </IconButton>
         </Box>
+        <Box
+          style={{
+            maxWidth: "100px",
+            height: "200px",
+            marginLeft: "400px",
+            marginTop: "20px",
+            marginBottom: "400px",
+          }}
+        >
+          {characters.map((characters) => (
+            <TinderCard
+              style={{ position: "absolute" }}
+              key={characters.timeStamp}
+              onSwipe={(dir) => swiped(dir, characters.timeStamp)}
+              onCardLeftScreen={() => outOfFrame(characters.url)}
+            >
+              <Box
+                sx={{ backgroundImage: "url(" + characters.url + ")" }}
+                style={card}
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    position: "relative",
+                    marginTop: "450px",
+                    flexDirection: "column",
+                  }}
+                >
+                  <Typography sx={{ margin: "10px" }}>
+                    {characters.title}
+                  </Typography>
+                  <CardActions disableSpacing>
+                    <IconButton style={{ color: "#f5b748" }}>
+                      <ReplayIcon fontSize="large" />
+                    </IconButton>
+                    <IconButton style={{ color: "#ec5e6f" }}>
+                      <CloseIcon fontSize="large" />
+                    </IconButton>
+                    <IconButton style={{ color: "#62b4f9" }}>
+                      <ShareIcon fontSize="large" />
+                    </IconButton>
+                    <IconButton style={{ color: "red" }}>
+                      <FavoriteIcon fontSize="large" />
+                    </IconButton>
+                    <IconButton style={{ color: "#915dd1" }}>
+                      <PreviewIcon fontSize="large" />
+                    </IconButton>
+                    <IconButton sx={{ color: "green" }}>
+                      <ChatIcon fontSize="large" />
+                    </IconButton>
+                  </CardActions>
+                </Box>
+              </Box>
+            </TinderCard>
+          ))}
+        </Box>
+        {lastDirection ? (
+          <Typography style={infoText}>{lastDirection}</Typography>
+        ) : (
+          <Typography stylex={infoText} />
+        )}
       </Container>
     </>
   );
 };
 
-export default Matching;
+export default Match;

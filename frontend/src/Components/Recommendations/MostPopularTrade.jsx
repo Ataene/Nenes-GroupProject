@@ -1,32 +1,52 @@
-import React, { useContext, useState, useEffect } from "react";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import { Box, CardActions, CardHeader, CardMedia, Container, Grid, IconButton, Paper } from "@mui/material";
+import React, { useState, useEffect, Fragment, useContext } from "react";
+import firebase from "./firebase";
+import { AuthContext } from "./auth/Auth";
+import { Avatar, Box, CardActions, CardContent, CardHeader, CardMedia, Container, Grid, IconButton, Paper, Typography } from "@mui/material";
+import OnlineStatus from "../Profile/OnlineStatus";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
-import Avatar from "@mui/material/Avatar";
 import ShareIcon from "@mui/icons-material/Share";
 import ListAltIcon from "@mui/icons-material/ListAlt";
-import useDialogModal from ".././productdetail/useDialogModal";
 import ItemDetail from ".././productdetail/ProductDetail";
-import { AuthContext } from "../../auth/AuthProvider";
-import CircularProgress from "@mui/material/CircularProgress";
-import { FirebaseContext } from "../../auth/FirebaseProvider";
-import OnlineStatus from "./OnlineStatus";
+import { query, where } from "firebase/firestore";  
 
-const Market = ({ postedAds, handleClick, status }) => {
-  const authContext = useContext(AuthContext);
-  const { user, setUserToMessage } = authContext;
-  const fbContext = useContext(FirebaseContext);
-  const db = fbContext.db;
-  const [open, setOpen] = useState(false);
+function MostPopularTrade() {
+  const { user } = useContext(AuthContext);
+  const [postedAds, setPostedAds] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [title, setTitle] = useState("");
+  const [desc, setDesc] = useState("");
+  const [rating, setRating] = useState(null);
 
-  const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
-    useDialogModal(ItemDetail);
+  const ref = firebase.firestore().collection("postedAds");
 
-  if (!postedAds) {
-    return <p className="mx-auto">Loading Data...</p>;
+  //REALTIME GET FUNCTION
+  function getPostedAds() {
+    setLoading(true);
+    ref
+      //.where('owner', '==', currentUserId)
+      .where('item', '==', 'rating') // 
+      .where('rating', '>=', 4)    // 
+      .orderBy('owner', 'desc')
+      .limit(4)
+      .onSnapshot((querySnapshot) => {
+        const items = [];
+        querySnapshot.forEach((doc) => {
+          items.push(doc.data());
+        });
+        setPostedAds(items);
+        setLoading(false);
+      });
   }
+
+  useEffect(() => {
+     getPostedAds();
+    // eslint-disable-next-line
+  }, []);
+
+     const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
+       useDialogModal(ItemDetail);
+
   return (
     <>
       <Container>
@@ -53,7 +73,6 @@ const Market = ({ postedAds, handleClick, status }) => {
                       name="title"
                     />
                     <OnlineStatus />
-                
                     <CardMedia
                       component="img"
                       sx={{ height: "280px" }}
@@ -105,6 +124,6 @@ const Market = ({ postedAds, handleClick, status }) => {
       </Container>
     </>
   );
-};
+}
 
-export default Market;
+export default MostPopularTrade;
