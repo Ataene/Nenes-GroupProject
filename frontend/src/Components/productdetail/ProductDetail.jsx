@@ -1,71 +1,30 @@
+import React, { useContext, useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
-import {
-  CardMedia,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  Grid,
-  IconButton,
-  ImageList,
-  ImageListItem,
-  ImageListItemBar,
-  Slide,
-} from "@mui/material";
+import { CardMedia,Dialog, DialogContent, DialogTitle, Grid, IconButton, Slide } from "@mui/material";
 import { Box } from "@mui/system";
 import { Colors } from "../styles/theme";
 import styled from "@emotion/styled";
 import { useTheme } from "@mui/material/styles";
 import { AuthContext } from "../../auth/AuthProvider";
-
-import React, { useContext, useEffect, useState } from "react";
 import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import {
-  Button,
-  CardActionArea,
-  CardActions,
-  CardHeader,
-  Container,
-  Link,
-Rating,
-} from "@mui/material";
-// import cardImage from "../../images/Alaf.jpg"
+import { Button, CardHeader, Rating } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
 import Avatar from "@mui/material/Avatar";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ShareIcon from "@mui/icons-material/Share";
-import AddIcon from "@mui/icons-material/Add";
-import {
-  addDoc,
-  serverTimestamp,
-  updateDoc,
-  getFirestore,
-  collection,
-  onSnapshot,
-  orderBy,
-    query,
-  getDoc
-} from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { Image } from "@mui/icons-material";
-import { useStateValue } from "../../providers/StateProvider";
-import { actionType } from "./reducer";
-import { doc, setDoc } from "firebase/firestore";
+import {getDoc } from "firebase/firestore";
+import { doc } from "firebase/firestore";
 import { List, ListItem } from "@material-ui/core";
-
 
 function SlideTransition(props) {
   return <Slide direction="down" {...props} />;
 }
-
 const ItemDetailWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
   padding: theme.spacing(4),
 }));
-
 const ItemDetailInfoWrapper = styled(Box)(() => ({
   display: "flex",
   flexDirection: "column",
@@ -73,28 +32,28 @@ const ItemDetailInfoWrapper = styled(Box)(() => ({
   lineHeight: 1.5,
 }));
 
-function ItemDetail({ open, onClose, item, handleChange, }) { 
+function ItemDetail({ open, onClose, item }) {   //Starts here
   const theme = useTheme();
-
   const authContext = useContext(AuthContext);
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const { user } = authContext;
+
   const [title, setTitle] = useState("");
-  const [postedAds, setPostedAds] = useState([]);
-  
-    const [value, setValue] = useState("");
+  const [postedAds, setPostedAds] = useState([]);  
+    const [value, setValue] = useState(null);
     const [loading, setLoading] = useState("");
     
-    
     useEffect(() => {
-        async function fetchItem() {
+        const fetchItem = async () => {
             try {
                 const docRef = doc(db, 'postedAds', user.uid)
                 const docSnap = await getDoc(docRef)
                 if (docSnap.exists()) {
-                    console.log(docSnap.data())
-                    setPostedAds(Object.keys(docSnap.data()).map(key => ({ name: key, status: docSnap.data()[key] })))
+                  console.log("9999999999", docSnap.data())
+                  const getKeys = Object.keys(docSnap.data()).map(key => ({ name: key, status: docSnap.data()[key] }))
+                  setPostedAds(getKeys);
+                  console.log("9999999999", postedAds)
                 }
             } catch (err) {
                 console.log(err)
@@ -103,22 +62,15 @@ function ItemDetail({ open, onClose, item, handleChange, }) {
             }
         }
         fetchItem()
-        
     })
     
-  async function handleAdd() {
-    console.log("here");
-     setPostedAds([]);
-    const postedAdsRef = doc(db, "postedAds", user.uid);
-    await updateDoc(
-      postedAdsRef,
-      {
-        ratings: "ratings",
-      },
-    );
-    }    
-
-
+  function handleAdd(rat) {
+    alert(`The rating is ${rat}`)
+    // console.log("here");
+    //  setPostedAds([]);
+    // const postedAdsRef = doc(db, "postedAds", user.uid);
+    // await updateDoc( postedAdsRef, {ratings: Number("") })
+  }    
   return (
     <Dialog
       TransitionComponent={SlideTransition}
@@ -259,13 +211,23 @@ function ItemDetail({ open, onClose, item, handleChange, }) {
                           flexDirection: "column",
                         }}
                       >
-                        <Rating
+                        {/* <Rating
                           precision={0.1}
                           size="large"
-                          value={value}
+                          // value={ratings}
+                          // onChange={handleAdd}
                           onClick={handleAdd}
-                          onChange={(e, val) => setValue(val)}
-                        />
+                          // onChange={(e) => setRatings(e.target.value)}
+                        /> */}
+                        <Rating
+                              name="hover-feedback"
+                              // value={ratings}
+                              precision={0.5}
+                              onChange={handleAdd}
+                              // onChange={(event, newValue) => {
+                              //   setValue(newValue);
+                              // }}
+                          />
                         <Typography>
                           Rated {value !== undefined ? value : 0} Stars
                         </Typography>

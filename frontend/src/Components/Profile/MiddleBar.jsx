@@ -49,6 +49,24 @@ const MiddleBar = () => {
       return unsubscribe;
     }
   }, [db, user]);
+
+  //Users Online Status
+  const [status, setStatus] = useState([]);
+  useEffect(() => {
+    if (db && user) {
+      let collectionRef = collection(db, "users");
+      let queryRef = query(collectionRef, orderBy("uid"));
+      const unsubscribe = onSnapshot(queryRef, (querySnapshot) => {
+        let status =[];
+        querySnapshot.forEach((doc) => {
+          status.push(doc.data());
+        })
+        setStatus(status);
+        console.log("+++++++++", status);
+      });
+      return unsubscribe;
+    }
+  }, [db, user]);
   //Handle add to WantList
   const handleClick = (item) => {
     addToWantList(item)
@@ -125,7 +143,7 @@ const MiddleBar = () => {
         </Box>
         <hr />
         <>
-          {active === "market" && <Market  postedAds ={postedAds}  handleClick={handleClick} loading={loading} Click={showProductDetailDialog} />}
+          {active === "market" && <Market status={status}  postedAds ={postedAds}  handleClick={handleClick} loading={loading} Click={showProductDetailDialog} />}
           {active === "swipe" && <Swipe />}
           {active === "myList" && <MyList />}
           {active === "profile" && <Profile />}

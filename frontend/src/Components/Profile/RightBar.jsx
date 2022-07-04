@@ -32,7 +32,7 @@ const RightBar = () => {
      <Container>
      <Box sx={{marginTop: "20px"}}>
      <Card sx={{ maxWidth: 345 }}>
-        <iframe src="https://giphy.com/embed/MA97YuHLr1Xfr0F11Y" width="300" height="300" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+        <iframe src="https://giphy.com/embed/MA97YuHLr1Xfr0F11Y" width="300" height="300" frameBorder="0" className="giphy-embed" allowFullScreen></iframe>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             Ads Board

@@ -1,16 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import {
-  Box,
-  CardActions,
-  CardHeader,
-  CardMedia,
-  Container,
-  Grid,
-  IconButton,
-  Paper,
-} from "@mui/material";
+import { Box, CardActions, CardHeader, CardMedia, Container, Grid, IconButton, Paper } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
 import Avatar from "@mui/material/Avatar";
@@ -23,13 +14,12 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import OnlineStatus from "./OnlineStatus";
 
-const Market = ({ postedAds, handleClick }) => {
+const Market = ({ postedAds, handleClick, status }) => {
   const authContext = useContext(AuthContext);
   const { user, setUserToMessage } = authContext;
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const [open, setOpen] = useState(false);
- const [ online, setOnline ] = useState('')
 
   const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
     useDialogModal(ItemDetail);
@@ -63,6 +53,7 @@ const Market = ({ postedAds, handleClick }) => {
                       name="title"
                     />
                     <OnlineStatus />
+                
                     <CardMedia
                       component="img"
                       sx={{ height: "280px" }}

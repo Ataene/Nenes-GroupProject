@@ -9,9 +9,6 @@ import SendIcon from '@mui/icons-material/Send';
 import { Box } from '@mui/system';
 
 
-// function TransitionUp(props) {
-//   return <Slide {...props} direction="up" />;
-// }
 const ChatBox = ( { setOpen }) =>  {
 
   const authContext = useContext(AuthContext);
