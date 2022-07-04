@@ -42,6 +42,7 @@ const Market = ({ postedAds, handleClick, newStatus }) => {
                     sx={{ height: "33rem", marginTop: "10px", margin: "10px" }}
                     item={item}
                   >
+                  <Box sx={{display: "flex", flexDirection: "row"}}>
                     <CardHeader
                       avatar={
                         <Avatar
@@ -50,24 +51,14 @@ const Market = ({ postedAds, handleClick, newStatus }) => {
                           src={item.userPicture}
                         />
                       }
-                      title={item.displayName}
+                      title={item.displayName} 
                       name="title"
                     />
-                    
-                    {/* {newOnline.map((item) => {
-                    if(item.isOnline == true){
-                            return  <div className={`user_status ${"online"}`}></div>
-                    } else if(item.isOnline == false) {
-                            return  <div className={`user_status ${"offline"}`}></div>
-                    }
-                    })} */}
-                      
-
-                    <OnlineStatus uid={item.uid} />
-                
+                      <OnlineStatus uid={item.uid} />
+                  </Box>
                     <CardMedia
                       component="img"
-                      sx={{ height: "280px" }}
+                      sx={{ height: "260px" }}
                       image={item.url}
                       title={item.title}
                       onClick={() => showProductDetailDialog()}

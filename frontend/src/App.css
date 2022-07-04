@@ -151,9 +151,10 @@ a {
 .user_status {
   width: 10px;
   height: 10px;
+ margin-top: 30px;
+ margin-bottom: 2px;
   border-radius: 50%;
 }
-
 .online {
   background: #34eb52;
 }
