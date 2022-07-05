@@ -108,11 +108,9 @@ const Welcome = () => {
               id="standard-basic"
               label="First 3 characters of your postal code"
               variant="standard"
-              maxLength= "3"
-            />
+              inputProps={{ maxLength: 3 }}
+/>
             <TextField
-              maxLength= "3"
-              maxLengthEnforced= "true"
               value={firstItem}
               onChange={(e) => setFirstItem(e.target.value)}
               id="standard-basic"
