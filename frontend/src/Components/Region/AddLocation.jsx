@@ -1,14 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Map, { Marker, Popup } from "react-map-gl";
-import { Box, Button, Link  } from "@mui/material";
-// import postalData from "../Data/testData.json";
-import postalData from "../Data/postalCode.json";
+import { Box, Button, Link } from "@mui/material";
 import HandshakeIcon from "@mui/icons-material/Handshake";
 import HomeIcon from "@mui/icons-material/Home";
 import { Container } from "@mui/system";
 import Search from "./seachPostalCode";
-
+import { FirebaseContext } from "../../auth/FirebaseProvider";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 
 const searchStyle = {
   position: "absolute",
@@ -16,9 +15,35 @@ const searchStyle = {
   right: 50,
 };
 
-const MAP_TOKEN ="pk.eyJ1IjoiYXRhZW5lIiwiYSI6ImNsMnRpc3EwcDAxaXMzY3FlOGg4a3A5ZmEifQ.dtj_XStiWa_Uy15mfMAM7Q";
+
+const MAP_TOKEN =
+  "pk.eyJ1IjoiYXRhZW5lIiwiYSI6ImNsMnRpc3EwcDAxaXMzY3FlOGg4a3A5ZmEifQ.dtj_XStiWa_Uy15mfMAM7Q";
 
 const AddLocation = () => {
+
+  const fbContext = useContext(FirebaseContext);
+  const db = fbContext.db;
+  
+  const [postalData, setPostalData] = useState([]);
+  useEffect(() => {
+    if (db) {
+      let collectionRef = collection(db, "areaCodes");
+      let queryRef = query(collectionRef, orderBy("postalCode"));
+      const unsubscribe = onSnapshot(queryRef, (querySnap) => {
+        if (querySnap.empty) {
+          console.log("Ads not found");
+        } else {
+          let usersData = querySnap.docs.map((doc) => {
+            return { ...doc.data(), DOC_ID: doc.id };
+          });
+          setPostalData(usersData);
+        }
+      });
+      return unsubscribe;
+    }
+  }, [db]);
+
+
 
   const [long, setLong] = useState(-114.0719);
   const [lat, setLat] = useState(51.0447);
@@ -28,13 +53,13 @@ const AddLocation = () => {
   const [searchItems, setSearchItems] = useState();
 
   const [viewState, setViewState] = useState({
-        longitude: -114.0719,
-        latitude: 51.0447,
-        center: [-144, 51],
-        zoom: zoom,
-      });
-    
-const mapRef = useRef(null);
+    longitude: -114.0719,
+    latitude: 51.0447,
+    center: [-144, 51],
+    zoom: zoom,
+  });
+
+  const mapRef = useRef(null);
   const initialViewState = {
     longitude: long,
     latitude: lat,
@@ -61,24 +86,23 @@ const mapRef = useRef(null);
     }
   }, [searchItems]);
 
-
   return (
     <>
-    <Container>
-      <Map
-        initialViewState={initialViewState}
-        {...viewState}
-        onMove={(evt) => setViewState(evt.viewState)}
-        mapboxAccessToken={MAP_TOKEN}
-        style={{ width: 1300, height: 660 }}
-        mapStyle="mapbox://styles/ataene/cl4lf3mv9000h14nyykjem276"
-      >
-        {postalData.map((postal) => (
-          <Marker
-            key={postal.postalCode}
-            latitude={postal.latitude}
-            longitude={postal.longitude}
-          >
+      <Container>
+        <Map
+          initialViewState={initialViewState}
+          {...viewState}
+          onMove={(evt) => setViewState(evt.viewState)}
+          mapboxAccessToken={MAP_TOKEN}
+          style={{ width: 1300, height: 660 }}
+          mapStyle="mapbox://styles/ataene/cl4lf3mv9000h14nyykjem276"
+        >
+          {postalData.map((postal) => (
+            <Marker
+              key={postal.postalCode}
+              latitude={postal.latitude}
+              longitude={postal.longitude}
+            >
               <HandshakeIcon
                 color="primary"
                 style={{
@@ -86,58 +110,58 @@ const mapRef = useRef(null);
                   width: "40px",
                 }}
               />
-          </Marker>
-        ))}
+            </Marker>
+          ))}
 
-        {selectedItems ? (
-          <Popup
-            latitude={parseFloat(selectedItems.latitude)}
-            longitude={parseFloat(selectedItems.longitude)}
-            closeButton={true}
-            closeOnClick={false}
-            anchor="left"
-          >
-            <div className="card-container">
-              <label className="popups-label">Place</label>
-              <h5 className="place">{selectedItems.postalCode}</h5>
-              <p className="descInfo">{selectedItems.neighborhood}</p>
-              <label className="popups-label">Review</label>
-              <br />
-              <Link to="http://localhost:3000/">
-                <Button>Review</Button>
-              </Link>
-              <br />
-              <label className="popups-label">Ratings</label>
-              {/* <p className="star">{(selectedPark.Ratings).fill(<MapRatings className="star"/>)}</p> */}
-              <label className="popups-label">Information</label>
-              <p className="descInfo">{selectedItems.neighborhood}</p>
-              <div className="btn">
-                <Button className="btn-button">
-                  <Link to="/blog">Survey</Link>
-                </Button>
+          {selectedItems ? (
+            <Popup
+              latitude={parseFloat(selectedItems.latitude)}
+              longitude={parseFloat(selectedItems.longitude)}
+              closeButton={true}
+              closeOnClick={false}
+              anchor="left"
+            >
+              <div className="card-container">
+                <label className="popups-label">Place</label>
+                <h5 className="place">{selectedItems.postalCode}</h5>
+                <p className="descInfo">{selectedItems.neighborhood}</p>
+                <label className="popups-label">Review</label>
+                <br />
+                <Link to="http://localhost:3000/">
+                  <Button>Review</Button>
+                </Link>
+                <br />
+                <label className="popups-label">Ratings</label>
+                {/* <p className="star">{(selectedPark.Ratings).fill(<MapRatings className="star"/>)}</p> */}
+                <label className="popups-label">Information</label>
+                <p className="descInfo">{selectedItems.neighborhood}</p>
+                <div className="btn">
+                  <Button className="btn-button">
+                    <Link to="/blog">Survey</Link>
+                  </Button>
+                </div>
               </div>
-            </div>
-          </Popup>
-        ) : null}
+            </Popup>
+          ) : null}
 
-        <div className="sidebar">
-          Longitude: {viewState.longitude.toFixed(2)}| Latitude:{" "}
-          {viewState.latitude.toFixed(2)} | Zoom: {viewState.zoom.toFixed(2)}
-          {/* <div ref={mapRef}></div> */}
-        </div>
+          <div className="sidebar">
+            Longitude: {viewState.longitude.toFixed(2)}| Latitude:{" "}
+            {viewState.latitude.toFixed(2)} | Zoom: {viewState.zoom.toFixed(2)}
+            {/* <div ref={mapRef}></div> */}
+          </div>
 
-        <button>
-          <HomeIcon
-            className="home"
-            onClick={(evt) => setViewState(initialViewState)}
-          />
-        </button>
+          <button>
+            <HomeIcon
+              className="home"
+              onClick={(evt) => setViewState(initialViewState)}
+            />
+          </button>
 
-        <div style={searchStyle}>
-          <Search setSearchItems={setSearchItems} />
-        </div>
+          <div style={searchStyle}>
+            <Search setSearchItems={setSearchItems} />
+          </div>
 
-        {/* <div className="nav" style={navStyle}>
+          {/* <div className="nav" style={navStyle}>
           <GeolocateControl />
           <NavigationControl
             showCompass={true}
@@ -145,7 +169,7 @@ const mapRef = useRef(null);
           />
           <ScaleControl />
         </div> */}
-      </Map>
+        </Map>
       </Container>
     </>
   );

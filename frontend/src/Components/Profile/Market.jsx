@@ -20,7 +20,6 @@ const Market = ({ postedAds, handleClick, newStatus }) => {
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const [open, setOpen] = useState(false);
-  console.log("+++++++status", newStatus)
 
   const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
     useDialogModal(ItemDetail);
