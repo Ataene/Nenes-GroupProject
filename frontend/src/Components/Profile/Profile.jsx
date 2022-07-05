@@ -99,7 +99,7 @@ const Profile = () => {
 
   return (
     <>
-      {/* <Paper elevation={10} sx={{ backgroundColor: "#B8F1B0" }}> */}
+      <Paper elevation={10} sx={{ backgroundColor: "#B8F1B0" }}>
         {/* <br />
         <Typography sx={{ display: "flex", justifyContent: "center" }}>
           UPDATE ACCOUNT
@@ -253,7 +253,7 @@ const Profile = () => {
             </section>
           </form>
         {/* </Box> */}
-      {/* </Paper> */}
+      </Paper>
     </>
   );
 };
