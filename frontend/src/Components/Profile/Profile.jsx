@@ -99,8 +99,8 @@ const Profile = () => {
 
   return (
     <>
-      <Paper elevation={10} sx={{ backgroundColor: "#B8F1B0" }}>
-        <br />
+      {/* <Paper elevation={10} sx={{ backgroundColor: "#B8F1B0" }}> */}
+        {/* <br />
         <Typography sx={{ display: "flex", justifyContent: "center" }}>
           UPDATE ACCOUNT
         </Typography>
@@ -112,8 +112,8 @@ const Profile = () => {
           }}
           noValidate
           autoComplete="off"
-        >
-          <Container
+        > */}
+          <form
             style={{
               height: "300px",
               width: "100%",
@@ -196,10 +196,11 @@ const Profile = () => {
                 label="Postal Code"
                 variant="outlined"
                 type="text"
-                name="postalCode"
+                name="First 3 Characters of Postal Code"
                 required={true}
                 value={formData.postalCode}
                 onChange={handleChange}
+                inputProps={{ maxLength: 3 }}
               />
             </section>
 
@@ -251,9 +252,9 @@ const Profile = () => {
               </Button>
               {progress ? <div>progress: {progress}%</div> : <div />}
             </section>
-          </Container>
-        </Box>
-      </Paper>
+          </form>
+        {/* </Box> */}
+      {/* </Paper> */}
     </>
   );
 };

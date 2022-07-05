@@ -1,5 +1,7 @@
+import React, { useContext, useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import {
+  Avatar,
   CardMedia,
   Dialog,
   DialogContent,
@@ -19,25 +21,15 @@ import { useTheme } from "@mui/material/styles";
 import { AuthContext } from "../../auth/AuthProvider";
 import Footer from "../../Components/footer/index";
 
-import React, { useContext, useEffect, useState } from "react";
 import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import {
-  Button,
-  CardActionArea,
-  CardActions,
-  CardHeader,
-  Container,
-  Link,
+  import {Link, CardHeader, Button,
   Rating,
 } from "@mui/material";
 // import cardImage from "../../images/Alaf.jpg"
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
-import Avatar from "@mui/material/Avatar";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ShareIcon from "@mui/icons-material/Share";
 import AddIcon from "@mui/icons-material/Add";
 import {
@@ -64,12 +56,10 @@ import RatingComponent from "../Recommendations/RatingComponent";
 function SlideTransition(props) {
   return <Slide direction="down" {...props} />;
 }
-
 const ItemDetailWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
   padding: theme.spacing(4),
 }));
-
 const ItemDetailInfoWrapper = styled(Box)(() => ({
   display: "flex",
   flexDirection: "column",

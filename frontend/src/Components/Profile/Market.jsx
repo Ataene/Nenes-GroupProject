@@ -1,16 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import {
-  Box,
-  CardActions,
-  CardHeader,
-  CardMedia,
-  Container,
-  Grid,
-  IconButton,
-  Paper,
-} from "@mui/material";
+import { Box, CardActions, CardHeader, CardMedia, Container, Grid, IconButton, Paper } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
 import Avatar from "@mui/material/Avatar";
@@ -23,13 +14,13 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import OnlineStatus from "./OnlineStatus";
 
-const Market = ({ postedAds, handleClick }) => {
+const Market = ({ postedAds, handleClick, newStatus }) => {
   const authContext = useContext(AuthContext);
   const { user, setUserToMessage } = authContext;
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const [open, setOpen] = useState(false);
- const [ online, setOnline ] = useState('')
+  console.log("+++++++status", newStatus)
 
   const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
     useDialogModal(ItemDetail);
@@ -51,6 +42,7 @@ const Market = ({ postedAds, handleClick }) => {
                     sx={{ height: "33rem", marginTop: "10px", margin: "10px" }}
                     item={item}
                   >
+                  <Box sx={{display: "flex", flexDirection: "row"}}>
                     <CardHeader
                       avatar={
                         <Avatar
@@ -59,13 +51,14 @@ const Market = ({ postedAds, handleClick }) => {
                           src={item.userPicture}
                         />
                       }
-                      title={item.displayName}
+                      title={item.displayName} 
                       name="title"
                     />
-                    <OnlineStatus />
+                      <OnlineStatus uid={item.uid} />
+                  </Box>
                     <CardMedia
                       component="img"
-                      sx={{ height: "280px" }}
+                      sx={{ height: "260px" }}
                       image={item.url}
                       title={item.title}
                       onClick={() => showProductDetailDialog()}

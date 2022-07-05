@@ -1,41 +1,29 @@
 import React, { useContext, useEffect, useState } from "react";
-import { collection, doc, onSnapshot, orderBy, query } from "firebase/firestore";
-import { AuthContext } from "../../auth/AuthProvider";
+import { doc, onSnapshot, orderBy, query } from "firebase/firestore";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
+import { Box } from "@mui/system";
 
-const OnlineStatus = () => {
+const OnlineStatus = ({ uid}) => {
   const fbContext = useContext(FirebaseContext);
-  const authContext = useContext(AuthContext);
   const db = fbContext.db;
-  const { user } = authContext;
-
-  const [online, setOnline] = useState([]);
-
-  useEffect(() => {
-    if (db && user) {
-      let collectionRef = collection(db, "users");
-      let queryRef = query(collectionRef, orderBy("timeStamp"));
-      const unsubscribe = onSnapshot(queryRef, (querySnapshot) => {
-        let online =[];
-        querySnapshot.forEach((doc) => {
-                online.push(doc.data());
-        })
-        setOnline(online);
-        console.log("++++++++", online);
-      });
-      return unsubscribe;
-    }
-  }, [db, user]);
-  return (
-    <di>
-    {online.map((item) => {
-        if(item.isOnline == true){
-                return <div className={`user_status ${"online"}`}></div>
-        } else if(item.isOnline == false) {
-                return  <div className={`user_status ${"offline"}`}></div>
+  const [online, setOnline] = useState(false);
+useEffect(() => {
+        if (db) {
+          let docRef = doc(db, "users", uid);
+          const unsubscribe = onSnapshot(docRef, (querySnap) => {
+            if (querySnap.empty) {
+            } else {
+              let usersData = querySnap.data()
+              setOnline(usersData.isOnline);
+            }
+          });
+          return unsubscribe;
         }
-        })}
-    </di>
+      }, [db]);
+  return (
+    <Box>
+        <div className={online ? `user_status online` : `user_status offline`}></div>
+    </Box>
   );
 };
 
