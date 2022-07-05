@@ -55,12 +55,10 @@ const RightBar = () => {
           </Card>
         </Box>
       </Container>
-      <Box>
         <Container>
           <ChatHeader />
-          {open && userToMessage && <ChatBox setOpen={setOpen} />}
         </Container>
-      </Box>
+          {open && userToMessage && <ChatBox setOpen={setOpen} />}
     </Box>
   );
 };

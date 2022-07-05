@@ -1,20 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import Button from "@mui/material/Button";
-import ChatIcon from "@mui/icons-material/Chat";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { AuthContext } from "../../auth/AuthProvider";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
-import {
-  addDoc,
-  collection,
-  doc,
-  onSnapshot,
-  query,
-  serverTimestamp,
-  where,
-} from "firebase/firestore";
+import { addDoc, collection, doc, onSnapshot, orderBy, query, serverTimestamp, where } from "firebase/firestore";
 import SendIcon from "@mui/icons-material/Send";
-import { Box } from "@mui/system";
 import { Paper } from "@mui/material";
 
 const ChatBox = ({ setOpen }) => {
@@ -85,10 +75,12 @@ const ChatBox = ({ setOpen }) => {
     <Paper elevation={6}>
       <div
         style={{
-          // Position
-          position: "fixed",
+          // position: "fixed",
           bottom: "116px",
           right: "24px",
+          position: "absolute", 
+
+          bottom: "0",
           // Size
           width: "290px",
           height: "530px",
@@ -108,7 +100,7 @@ const ChatBox = ({ setOpen }) => {
           if (message.senderuid === user.uid) {
             return (
               <div>
-                <p style={{ color: "purple", marginLeft: "100px" }}>
+                <p style={{ backgroundColor: "blue", marginLeft: "100px" }}>
                   {" "}
                   {message.newChat}: Me
                 </p>
@@ -117,7 +109,7 @@ const ChatBox = ({ setOpen }) => {
           } else {
             return (
               <div>
-                <p style={{ color: "green" }}>
+                <p style={{ backgroundolor: "gray" }}>
                   From {displayName}: {message.newChat}{" "}
                 </p>
               </div>
@@ -125,7 +117,7 @@ const ChatBox = ({ setOpen }) => {
           }
         })}
         <form
-          style={{ display: "flex", flexDirection: "row", marginTop: "10rem" }}
+          style={{ display: "flex", flexDirection: "row", position: "absolute", bottom: "0" }}
           onSubmit={handleSubmit}
         >
           <label>
@@ -135,7 +127,7 @@ const ChatBox = ({ setOpen }) => {
             type="file"
             id="img"
             accept="image/"
-            style={{ display: "none" }}
+            style={{ display: "none", borderRadius: '5px' }}
           ></input>
           <div style={{ borderRadius: "20px solid" }}>
             <input
