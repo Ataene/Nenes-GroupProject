@@ -49,8 +49,9 @@ import { useStateValue } from "../../providers/StateProvider";
 import { doc, setDoc } from "firebase/firestore";
 import { Divider, Input, List, ListItem } from "@material-ui/core";
 import { FaStar } from "react-icons/fa";
-import "./ProductDetail.css";
+
 import { useParams } from "react-router-dom";
+import RatingComponent from "../Recommendations/RatingComponent";
 
 function SlideTransition(props) {
   return <Slide direction="down" {...props} />;
@@ -77,8 +78,7 @@ function ItemDetail({ open, onClose, item }) {
   const [loading, setLoading] = useState("");
    const [selectedItem, setSelectedItem] = useState([]);
 
-  const [rating, setRating] = useState(null);
-  const [hover, setHover] = useState(null);
+
 
   const nameOfItem = useParams();
 
@@ -234,37 +234,7 @@ function ItemDetail({ open, onClose, item }) {
                         Add to Wishlist
                       </Button>
                     </ListItem>
-
-                    <IconButton
-                      onClick={(e) => handleChange()}
-                      aria-label="share"
-                    >
-                      {[...Array(5)].map((star, i) => {
-                        const ratingValue = i + 1;
-                        return (
-                          <label>
-                            <input
-                              type="radio"
-                              name="rating"
-                              value={ratingValue}
-                              onClick={() => setRating(ratingValue)}
-                              onMouseEnter={() => setHover(ratingValue)}
-                              onMouseLeave={() => setHover(null)}
-                            />
-                            <FaStar
-                              className="star"
-                              color={
-                                ratingValue <= (hover || rating)
-                                  ? "#ffc107"
-                                  : "#e4e5e9"
-                              }
-                              size={40}
-                            />
-                          </label>
-                        );
-                      })}
-                    </IconButton>
-                    <p>The rating is {rating}.</p>
+                      <RatingComponent />
                     <ListItem></ListItem>
                   </List>
                 </Card>
