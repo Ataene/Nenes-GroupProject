@@ -111,6 +111,8 @@ const Welcome = () => {
               maxLength= "3"
             />
             <TextField
+              maxLength= "3"
+              maxLengthEnforced= "true"
               value={firstItem}
               onChange={(e) => setFirstItem(e.target.value)}
               id="standard-basic"
