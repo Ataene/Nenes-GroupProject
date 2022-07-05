@@ -96,8 +96,13 @@ const DropSelections = ({ visible, onCancel }) => {
   const postAds = async (e) => {
     e.preventDefault();
     try {
+      let userdoc = doc(db,"users", user.uid)
+      let docSnap = await getDoc(userdoc)
+      let userPostalCode = docSnap.data().postalCode
+      console.log(userPostalCode)
       let collectionRef = collection(db, "postedAds");
       await addDoc(collectionRef, {
+        postalCode: userPostalCode,
         title,
         condition,
         description,
