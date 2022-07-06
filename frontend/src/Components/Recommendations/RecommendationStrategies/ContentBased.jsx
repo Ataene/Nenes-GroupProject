@@ -1,13 +1,21 @@
-import similarity from "compute-cosine-similarity";
+import { getCosineSimilarityRowVector, sortByScore, getItemIndexByTitle } from './common';
 
-export function sortByScore(recommendation) {
-  return recommendation.sort((a, b) => b.score - a.score);
+
+  // Compute similarities based on input movie
+function predictWithContentBased(X, ItemsInList, title) {
+  const { index } = getItemIndexByTitle(ItemsInList, title);
+
+
+ // Enrich the vector to convey all information
+  // Use references from before which we kept track of
+  const contentBasedRecommendation = cosineSimilarityRowVector.map(
+    (value, key) => ({
+      score: value,
+      movieId: ItemsInList[key].id,
+    })
+  );
+
+  return sortByScore(contentBasedRecommendation);
 }
 
-export function getCosineSimilarityRowVector(matrix, index) {
-  return matrix.map((rowRelative, i) => {
-    return similarity(matrix[index], matrix[i]);
-  });
-}
-
-
+export default predictWithContentBased;

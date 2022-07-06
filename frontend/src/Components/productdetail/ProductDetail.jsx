@@ -76,13 +76,13 @@ function ItemDetail({ open, onClose, item }) {
 
   const [postedAds, setPostedAds] = useState([]);
 
+
   const [loading, setLoading] = useState("");
    const [selectedItem, setSelectedItem] = useState([]);
 
 
 
   const nameOfItem = useParams();
-
   
     useEffect(() => {
       postedAds.forEach((item) => {
@@ -91,6 +91,9 @@ function ItemDetail({ open, onClose, item }) {
         }
       });
     }, [postedAds]);
+  
+
+  
 
     async function handleChange(name, currStatus) {
       setPostedAds([
@@ -232,7 +235,7 @@ function ItemDetail({ open, onClose, item }) {
 
                     <ListItem>
                       <Button fullWidth variant="contained" color="primary">
-                        Add to Wishlist
+                        Add to My List
                       </Button>
                     </ListItem>
                       <RatingComponent productDetail={item} />
