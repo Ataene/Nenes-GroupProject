@@ -11,6 +11,7 @@ const Search = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
   const search = () => {
     let selectedItems = postalData.findIndex((items) => {
+      
       return (
         items.postalCode.toLocaleLowerCase().includes(searchTerm.toLowerCase()) ||
         items.neighborhood.toLocaleLowerCase().includes(searchTerm.toLowerCase())
@@ -18,22 +19,43 @@ const Search = (props) => {
     });
     setSearchItems(selectedItems);
   };
+
+//  const SearchAds = (props) => {
+  
+//     const setSearchAds = props.setSearchAds;
+//     const [searchPost, setSearchPost] = useState("");
+//     const searching= () => {
+//     let selectedAd = postedAd.findIndex((items) => {
+    
+//       return (
+//           items.postalCode.toLocaleLowerCase().includes(searchPost.toLowerCase()) ||
+//           items.description.toLocaleLowerCase().includes(searchPost.toLowerCase()) ||
+//           items.condition.toLocaleLowerCase().includes(searchPost.toLowerCase()) ||
+//           items.neighborhood.toLocaleLowerCase().includes(searchPost.toLowerCase()) 
+//         );
+//    });
+//       setSearchAds(selectedAd);
+//     }};
+
   return (
     <div className="search">
       <input
         type="text"
-        placeholder="Search Items..."
+        placeholder="Search Ads..."
         onKeyUp={(evt) => {
           if (evt.key === "Enter") {
             search();
+            // SearchAds();
           }
         }}
         onChange={(evt) => {
           setSearchTerm(evt.target.value);
+          // setSearchPost(evt.target.value);
+
         }}
       />
     </div>
   );
 };
-
-export default Search;
+export default Search; 
+// SearchAds;
