@@ -14,7 +14,7 @@ const Welcome = () => {
   const authContext = useContext(AuthContext);
   const { user } = authContext;
   const navigate = useNavigate();
-  const [postalCode, setPostalCode] = useState("");
+  // const [postalCode, setPostalCode] = useState("");
   const [firstItem, setFirstItem] = useState("");
   const [secondItem, setSecondItem] = useState("");
   const [thirdItem, setThirdItem] = useState("");
@@ -27,7 +27,7 @@ const Welcome = () => {
     try {
       let collectionRef = collection(db, "matchingInfo");
       const response = await addDoc(collectionRef, {
-        postalCode,
+        // postalCode,
         firstItem,
         secondItem,
         thirdItem,
@@ -36,7 +36,7 @@ const Welcome = () => {
       });
       // navigate("/nearme");
       console.log(response);
-      setPostalCode("")
+      // setPostalCode("")
       setFirstItem("")
       setSecondItem("")
       setThirdItem("")
@@ -46,19 +46,19 @@ const Welcome = () => {
     }
   };
 
-  const postalFilter =  (postalCode) => {
-    if (! postalCode) {
-        return null;
-    }
-    postalCode = postalCode.toString().trim();
-    let ca = new RegExp(/([ABCEGHJKLMNPRSTVXY]\d)([ABCEGHJKLMNPRSTVWXYZ]\d){2}/i);
+  // const postalFilter =  (postalCode) => {
+  //   if (! postalCode) {
+  //       return null;
+  //   }
+  //   postalCode = postalCode.toString().trim();
+  //   let ca = new RegExp(/([ABCEGHJKLMNPRSTVXY]\d)([ABCEGHJKLMNPRSTVWXYZ]\d){2}/i);
 
-    if (ca.test(postalCode.toString().replace(/\W+/g, ''))) {
-      setPostalCode()
-        return postalCode;
-    }
-    return null;
-}
+  //   if (ca.test(postalCode.toString().replace(/\W+/g, ''))) {
+  //     setPostalCode()
+  //       return postalCode;
+  //   }
+  //   return null;
+// }
   return (
     <>
       <Box
@@ -102,14 +102,14 @@ const Welcome = () => {
           autoComplete="on"
         >
           <Box  style={{display: "flex", flexDirection: "column", flexWrap: "nowrap"}} >
-            <TextField
+            {/* <TextField
               value={postalCode}
               onChange={(e) => setPostalCode(e.target.value)}
               id="standard-basic"
               label="First 3 characters of your postal code"
               variant="standard"
               inputProps={{ maxLength: 3 }}
-/>
+/> */}
             <TextField
               value={firstItem}
               onChange={(e) => setFirstItem(e.target.value)}
