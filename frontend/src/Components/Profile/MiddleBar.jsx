@@ -62,7 +62,6 @@ const MiddleBar = () => {
           status.push(doc.data());
         })
         setStatus(status);
-        console.log("+++++++++", status);
       });
       return unsubscribe;
     }
