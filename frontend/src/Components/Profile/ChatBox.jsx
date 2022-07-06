@@ -1,13 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import Button from "@mui/material/Button";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { AuthContext } from "../../auth/AuthProvider";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
-import { addDoc, collection, doc, onSnapshot, orderBy, query, serverTimestamp, where } from "firebase/firestore";
+import { addDoc, collection, doc, onSnapshot, orderBy, query, serverTimestamp, setDoc, where } from "firebase/firestore";
 import SendIcon from "@mui/icons-material/Send";
-import { Paper } from "@mui/material";
-
+import { Container, Paper } from "@mui/material";
+import { Box } from "@mui/system";
+import Avatar from "@mui/material/Avatar";
 const ChatBox = ({ setOpen }) => {
+  const scrollRef = useRef()
   const authContext = useContext(AuthContext);
   const { user, userToMessage, setUserToMessage } = authContext;
   const fbContext = useContext(FirebaseContext);
@@ -17,6 +19,10 @@ const ChatBox = ({ setOpen }) => {
   const [newChat, setNewChat] = useState("");
   const [messages, setMessages] = useState([]);
 
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({behavior: "smooth"})
+  }, [messages])
+  
   //Get User to Message
   useEffect(() => {
     if (db && userToMessage) {
@@ -46,7 +52,6 @@ const ChatBox = ({ setOpen }) => {
           setMessages([]);
         } else {
           let messagesData = querySnap.docs.map((message) => message.data());
-          console.log(messagesData);
           setMessages(messagesData);
         }
       });
@@ -65,59 +70,89 @@ const ChatBox = ({ setOpen }) => {
         users: { [user.uid]: true, [userToMessage]: true },
         timeStamp: serverTimestamp(),
       });
+      //Notification setDocs - To setNew Messages as unread until the user reads the message
+      await setDoc(doc(db, "lastMessage", {[user.uid]: true, [userToMessage]: true}, {
+        newChat,
+        senderuid: user.uid,
+        users: { [user.uid]: true, [userToMessage]: true },
+        timeStamp: serverTimestamp(),
+        unread: "true",
+        //End of Unread messages
+      })) 
       setNewChat("");
-      // scroll.current.scrollIntoView({behavior: "smooth"})
     } catch (error) {
       console.log(error.message);
     }
   };
-  return (
-    <Paper elevation={6}>
-      <div
-        style={{
-          // position: "fixed",
-          bottom: "116px",
-          right: "24px",
-          position: "absolute", 
 
-          bottom: "0",
-          // Size
-          width: "290px",
-          height: "530px",
-          maxWidth: "calc(40% - 38px)",
-          maxHeight: "calc(40% - 38px)",
-          backgroundColor: "white",
-          // Border
-          borderRadius: "12px",
-          border: `2px solid #7a39e0`,
-          overflow: "hidden",
-          // Shadow
-          boxShadow: "0px 0px 16px 6px rgba(0, 0, 0, 0.33)",
-        }}
-      >
+// User user Image on the Message Profile
+  const [usePicture, setUsePicture] = useState();
+  useEffect(() => {
+    if (db && user) {
+      let docRef = doc(db, "users", user.uid);
+      const unsubscribe = onSnapshot(docRef, (querySnap) => {
+        if (querySnap.empty) {
+          console.log("Ads not found");
+        } else {
+          let usersData = querySnap.data();
+          setUsePicture(usersData?.Avatar);
+        }
+      });
+      return unsubscribe;
+    }
+  }, [db, user]);
+
+  //Getting Access to the unread Message in the database
+  const [lastMessageData, setLastMessageData ] = useState([])
+  useEffect(() => {
+    if (db && user) {
+      let docRef = doc(db, "users", user.uid);
+      const unsubscribe = onSnapshot(docRef, (querySnap) => {
+        if (querySnap.empty) {
+          console.log("Ads not found");
+        } else {
+          let usersData = querySnap.data();
+          setLastMessageData(usersData);
+        }
+      });
+      return unsubscribe;
+    }
+  }, [db, user]);
+
+
+
+  return (
+    <Paper elevation={10} >
+    <Box sx={{border: "3px solid", height: "800px"}}>
         <Button onClick={() => setUserToMessage(false)}>Exit</Button>
-        {messages.map((message) => {
+        <Box sx={{padding: "5px"}} >
+        {messages.map((message, i) => {
           if (message.senderuid === user.uid) {
             return (
-              <div>
-                <p style={{ backgroundColor: "blue", marginLeft: "100px" }}>
-                  {" "}
-                  {message.newChat}: Me
+              <div key={i}>
+                <p style={{backgroundColor: "#ABC9FF",  display: "flex", flexDirection: "column"}}>
+                  {message.newChat}
+                  <Avatar src={usePicture} 
+                  />
+                <br />
                 </p>
               </div>
             );
           } else {
             return (
               <div>
-                <p style={{ backgroundolor: "gray" }}>
-                  From {displayName}: {message.newChat}{" "}
+                <p style={{ backgroundolor: "#FFF2F2", textAlign: "left" }}>
+                <Avatar src={userPicture} />{message.newChat}{" "}
                 </p>
               </div>
             );
           }
         })}
+        </Box>
+        <div ref={scrollRef}>
+        </div>
         <form
-          style={{ display: "flex", flexDirection: "row", position: "absolute", bottom: "0" }}
+          style={{ display: "flex", flexDirection: "row",marginTop: "500px" }}
           onSubmit={handleSubmit}
         >
           <label>
@@ -142,7 +177,7 @@ const ChatBox = ({ setOpen }) => {
             <SendIcon sx={{ color: "green" }} />
           </Button>
         </form>
-      </div>
+    </Box>
     </Paper>
   );
 };
