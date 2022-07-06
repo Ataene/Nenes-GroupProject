@@ -8,7 +8,8 @@ import {
 } from "@mui/material";
 import { AuthContext } from "../../auth/AuthProvider";
 import { useNavigate } from "react-router-dom";
-import ChatBox from "./ChatBox";
+// import ChatBox from "./ChatBox";
+import Chatings from "./Chatings";
 import ChatHeader from "./ChatHeader";
 
 const RightBar = () => {
@@ -55,7 +56,8 @@ const RightBar = () => {
           </Card>
         </Box>
           <ChatHeader />
-          {open && userToMessage && <ChatBox setOpen={setOpen} />}
+          {/* {open && userToMessage && <ChatBox setOpen={setOpen} />} */}
+          {open && userToMessage && <Chatings setOpen={setOpen} />}
       </Container>
     </Box>
   );
