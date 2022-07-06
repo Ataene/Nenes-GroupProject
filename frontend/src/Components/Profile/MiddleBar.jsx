@@ -34,10 +34,9 @@ const MiddleBar = () => {
   useEffect(() => {
     if (db && user) {
       let collectionRef = collection(db, "postedAds");
-      let queryRef = query(collectionRef, orderBy("timeStamp"));
+      let queryRef = query(collectionRef, orderBy("Calgary"));
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
         if (querySnap.empty) {
-          console.log("Ads not found");
         } else {
           let usersData = querySnap.docs.map((doc) => {
             return { ...doc.data(), DOC_ID: doc.id };
