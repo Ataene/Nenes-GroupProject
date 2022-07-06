@@ -196,7 +196,7 @@ const Profile = () => {
                 label="Postal Code"
                 variant="outlined"
                 type="text"
-                name="First 3 Characters of Postal Code"
+                name="postalCode"
                 required={true}
                 value={formData.postalCode}
                 onChange={handleChange}

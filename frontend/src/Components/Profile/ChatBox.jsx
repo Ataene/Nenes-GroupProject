@@ -6,6 +6,9 @@ import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { addDoc, collection, doc, onSnapshot, orderBy, query, serverTimestamp, where } from "firebase/firestore";
 import SendIcon from "@mui/icons-material/Send";
 import { Paper } from "@mui/material";
+import { Box, Container } from "@mui/system";
+import Avatar from "@mui/material/Avatar";
+
 
 const ChatBox = ({ setOpen }) => {
   const authContext = useContext(AuthContext);
@@ -71,6 +74,27 @@ const ChatBox = ({ setOpen }) => {
       console.log(error.message);
     }
   };
+
+
+  // const [usePicture, setUserPicture] = useState();
+
+  // useEffect(() => {
+  //   if (db && user) {
+  //     let docRef = doc(db, "users", user.uid);
+
+  //     const unsubscribe = onSnapshot(docRef, (querySnap) => {
+  //       if (querySnap.empty) {
+  //         console.log("Ads not found");
+  //       } else {
+  //         let usersData = querySnap.data();
+  //         setUserPicture(usersData?.Avatar);
+  //       }
+  //     });
+  //     return unsubscribe;
+  //   }
+  // }, [db, user]);
+
+
   return (
     <Paper elevation={6}>
       <div
@@ -96,26 +120,33 @@ const ChatBox = ({ setOpen }) => {
         }}
       >
         <Button onClick={() => setUserToMessage(false)}>Exit</Button>
-        {messages.map((message) => {
+        <Box>
+        <Container sx={{padding: "5px"}}>
+        {messages.map((message, i) => {
           if (message.senderuid === user.uid) {
             return (
-              <div>
-                <p style={{ backgroundColor: "blue", marginLeft: "100px" }}>
+              <div style={{ textAlign: "right" }} key={i}>
+                <p style={{backgroundColor: "#ABC9FF", padding: "3px" }}>
                   {" "}
                   {message.newChat}: Me
+                <br />
                 </p>
               </div>
             );
           } else {
             return (
               <div>
-                <p style={{ backgroundolor: "gray" }}>
-                  From {displayName}: {message.newChat}{" "}
+                <p style={{ backgroundolor: "#FFF2F2", textAlign: "left" }}>
+                <div style={{display: "flex", flexDirection: "row"}}>
+                <Avatar src={userPicture} />: {message.newChat}{" "}
+                </div>
                 </p>
               </div>
             );
           }
         })}
+        </Container>
+        </Box>
         <form
           style={{ display: "flex", flexDirection: "row", position: "absolute", bottom: "0" }}
           onSubmit={handleSubmit}
