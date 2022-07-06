@@ -66,10 +66,6 @@ const MiddleBar = () => {
     }
   }, [db, user]);
 
-
-
-
-
   
   //Handle add to WantList
   const handleClick = (item) => {
