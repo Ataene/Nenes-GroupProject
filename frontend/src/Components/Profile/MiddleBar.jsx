@@ -26,7 +26,7 @@ const MiddleBar = () => {
 
   const [active, setActive] = useState("market");
   const [modalVisible, setModalVisible] = useState(false);
-  const [postedAds, setSetAllPostedAds] = useState([]);
+  const [postedAds, setPostedAds] = useState([]);
 
   //useEffect to call db
   const [loading, setLoading] = useState(false);
@@ -34,14 +34,14 @@ const MiddleBar = () => {
   useEffect(() => {
     if (db && user) {
       let collectionRef = collection(db, "postedAds");
-      let queryRef = query(collectionRef, orderBy("Calgary"));
+      let queryRef = query(collectionRef, orderBy("timeStamp"));
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
         if (querySnap.empty) {
         } else {
           let usersData = querySnap.docs.map((doc) => {
             return { ...doc.data(), DOC_ID: doc.id };
           });
-          setSetAllPostedAds(usersData);
+          setPostedAds(usersData);
           setLoading(true)
         }
       });
@@ -90,7 +90,9 @@ const MiddleBar = () => {
     const showProductDetailDialog = (item) => {
       showInDetailedPage(item);
     };
-
+    if (!postedAds) {
+      return <p className="mx-auto">Loading Data...</p>;
+    }
   return (
     <Box sx={{ flex: "8.5", backgroundColor: "#B8F1B0" }}>
       <Container>

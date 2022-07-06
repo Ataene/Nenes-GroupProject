@@ -28,7 +28,7 @@ const Match = () => {
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const { user } = authContext;
-  const [postedAds, setSetAllPostedAds] = useState([]);
+  const [postedAds, setPostedAds] = useState([]);
     const [loading, setLoading] = useState(false);
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
@@ -49,7 +49,7 @@ const Match = () => {
         querySnapshot.forEach((doc) => {
           items.push(doc.data());
         });
-        setSetAllPostedAds(items);
+        setPostedAds(items);
         setLoading(false);
       });
   }

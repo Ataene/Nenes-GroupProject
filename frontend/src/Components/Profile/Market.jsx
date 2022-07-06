@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { Box, CardActions, CardHeader, CardMedia, Container, Grid, IconButton, Paper } from "@mui/material";
+import { Box, Card, CardActions, CardHeader, CardMedia, Container, Grid, IconButton, Paper } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
 import Avatar from "@mui/material/Avatar";
@@ -29,14 +29,13 @@ const Market = ({ postedAds, handleClick, newStatus }) => {
   }
   return (
     <>
-      <Container>
         <Box>
           <Grid container spacing={1}>
-            {postedAds
+          {postedAds
               .filter((item) => item.uid !== user.uid)
               .map((item) => (
-                <Grid item md={3} key={item.uid}>
-                  <Paper
+                <Grid item  xs={6}  md={4} lg={3} key={item.uid} >
+                  <Card
                     elevation={10}
                     sx={{ height: "33rem", marginTop: "10px", margin: "10px" }}
                     item={item}
@@ -76,7 +75,7 @@ const Market = ({ postedAds, handleClick, newStatus }) => {
                       <Typography>{item.description}</Typography>
                       <Typography>Condition: {item.condition}</Typography>
                       <Typography>I want : {item.want}</Typography>
-                      <CardActions sx={{ marginBottom: "20px" }}>
+                      <CardActions xs={6} sx={{ marginBottom: "20px" }}>
                         <IconButton aria-label="add to favorites">
                           <FavoriteIcon sx={{ color: "red" }} />
                         </IconButton>
@@ -98,12 +97,11 @@ const Market = ({ postedAds, handleClick, newStatus }) => {
                         <ProductDetailDialog item={item} />
                       </CardActions>
                     </Box>
-                  </Paper>
+                  </Card>
                 </Grid>
               ))}
           </Grid>
         </Box>
-      </Container>
     </>
   );
 };

@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { AuthContext } from "../../auth/AuthProvider";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
-import { addDoc, collection, doc, onSnapshot, orderBy, query, serverTimestamp, setDoc, where } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, onSnapshot, orderBy, query, serverTimestamp, setDoc, where } from "firebase/firestore";
 import SendIcon from "@mui/icons-material/Send";
 import { Container, Paper } from "@mui/material";
 import { Box } from "@mui/system";
@@ -40,12 +40,12 @@ const ChatBox = ({ setOpen }) => {
   }, [db, userToMessage]);
 
   useEffect(() => {
-    if (db && userToMessage) {
+    if (db) {
       let collectionRef = collection(db, "messages");
       let queryRef = query(
         collectionRef,
-        where("users." + user.uid, "==", true),
-        where("users." + userToMessage, "==", true)
+        where("users." + user.uid, "==", true)
+        // where("users." + userToMessage, "==", true)
       );
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
         if (querySnap.empty) {
@@ -56,8 +56,52 @@ const ChatBox = ({ setOpen }) => {
         }
       });
       return unsubscribe;
+
     }
-  }, [db, userToMessage]);
+  }, [db]);
+
+
+   const [messageThreads, setMessageThreads ] = useState({})
+  useEffect(() => {
+    if (messages) {
+      let newMessageThreads = messages.reduce((object, message) =>{
+        let users = message.users;
+        let otherUser = Object.keys(users).filter((theUser) =>theUser !== user.uid)[0]
+        console.log("999999", otherUser)
+        if(object[otherUser]){
+          object[otherUser].push(message)
+        } else {
+          object[otherUser] = [message]
+        } 
+        return object
+
+      }, {});
+      console.log("+++++", newMessageThreads);
+       let userList =Object.keys(newMessageThreads)
+
+       userList = userList.map((theUser) =>{
+         let docRef = doc(db, "users", theUser);
+        let theUserData;
+          getDoc(docRef).then( (querySnap) => {
+           if (querySnap.empty) {
+           } else {
+             let usersData = querySnap.data();
+             theUserData = {
+                Avatar: usersData.Avatar, 
+                displayName: usersData.firstName}
+           }
+           console.log("222", theUserData)
+         });
+         return theUserData;
+       })
+       console.log("3333", userList)
+
+
+
+    }
+  }, [messages]);
+  
+  console.log("///////", messages)
 
   //Handle Create/Send Message
   const handleSubmit = async (e) => {
@@ -68,17 +112,18 @@ const ChatBox = ({ setOpen }) => {
         newChat,
         senderuid: user.uid,
         users: { [user.uid]: true, [userToMessage]: true },
+        unread: true,
         timeStamp: serverTimestamp(),
       });
       //Notification setDocs - To setNew Messages as unread until the user reads the message
-      await setDoc(doc(db, "lastMessage", {[user.uid]: true, [userToMessage]: true}, {
-        newChat,
-        senderuid: user.uid,
-        users: { [user.uid]: true, [userToMessage]: true },
-        timeStamp: serverTimestamp(),
-        unread: "true",
-        //End of Unread messages
-      })) 
+      // await setDoc(doc(db, "lastMessage", {
+      //   newChat,
+      //   senderuid: user.uid,
+      //   users: { [user.uid]: true, [userToMessage]: true },
+      //   timeStamp: serverTimestamp(),
+      //   //End of Unread messages
+      // })) 
+      // alert(`User ${user.uid} Message ${userToMessage}`)
       setNewChat("");
     } catch (error) {
       console.log(error.message);
@@ -103,29 +148,30 @@ const ChatBox = ({ setOpen }) => {
   }, [db, user]);
 
   //Getting Access to the unread Message in the database
-  const [lastMessageData, setLastMessageData ] = useState([])
-  useEffect(() => {
-    if (db && user) {
-      let docRef = doc(db, "users", user.uid);
-      const unsubscribe = onSnapshot(docRef, (querySnap) => {
-        if (querySnap.empty) {
-          console.log("Ads not found");
-        } else {
-          let usersData = querySnap.data();
-          setLastMessageData(usersData);
-        }
-      });
-      return unsubscribe;
-    }
-  }, [db, user]);
+  // const [lastMessageData, setLastMessageData ] = useState('')
+  // useEffect(() => {
+  //   if (db) {
+  //     // let users =  {[user.uid]: true, [userToMessage]: true}
+  //     let docRef = doc(db, "lastMessage");
+  //     const unsubscribe = onSnapshot(docRef, (querySnap) => {
+  //       if (querySnap.empty) {
+  //         console.log("Ads not found");
+  //       } else {
+  //         let usersData = querySnap.data();
+  //         setLastMessageData(usersData);
+  //         console.log(lastMessageData);
+  //       }
+  //     });
+  //     return unsubscribe;
+  //   }
+  // }, [db]);
 
 
 
   return (
-    <Paper elevation={10} >
-    <Box sx={{border: "3px solid", height: "800px"}}>
+    <Box sx={{border: "3px solid", height: "800px", position: "relative"}} >
         <Button onClick={() => setUserToMessage(false)}>Exit</Button>
-        <Box sx={{padding: "5px"}} >
+        <Box sx={{padding: "5px"}}>
         {messages.map((message, i) => {
           if (message.senderuid === user.uid) {
             return (
@@ -149,10 +195,11 @@ const ChatBox = ({ setOpen }) => {
           }
         })}
         </Box>
-        <div ref={scrollRef}>
-        </div>
+        {/* <div ref={scrollRef}>
+        </div> */}
+        <Box sx={{position: "absolute", bottom: "0px"}} ref={scrollRef}>
         <form
-          style={{ display: "flex", flexDirection: "row",marginTop: "500px" }}
+          style={{ display: "flex", flexDirection: "row"}}
           onSubmit={handleSubmit}
         >
           <label>
@@ -177,8 +224,8 @@ const ChatBox = ({ setOpen }) => {
             <SendIcon sx={{ color: "green" }} />
           </Button>
         </form>
+        </Box>
     </Box>
-    </Paper>
   );
 };
 export default ChatBox;
