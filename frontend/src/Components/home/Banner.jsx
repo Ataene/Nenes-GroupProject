@@ -43,6 +43,7 @@ export default function Banner() {
         >
           Find things you need on Hundie, trade them for items you own and
           would love exchange!
+          
         </BannerDescription>
 
         <BannerShopButton
