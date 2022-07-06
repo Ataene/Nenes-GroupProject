@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Box, makeStyles, Avatar, TextField } from "@material-ui/core";
 import { Link, useNavigate } from "react-router-dom";
 import { Typography, Button } from "@mui/material";
-import { AuthContext  } from '../../auth/AuthProvider'
+import { AuthContext } from "../../auth/AuthProvider";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,15 +23,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignUp = () => {
-  const authContext = useContext(AuthContext)
+  const authContext = useContext(AuthContext);
   const { registerUser } = authContext;
   const classes = useStyles();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [ setIsPending ] = useState(false)
-  const [error, setError ] = useState(null)
+  const [postalCode, setPostalCode] = useState("");
+  const [setIsPending] = useState(false);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const avatarStyle = { backgroundColor: "#E74C3C" };
@@ -39,17 +40,18 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await registerUser(firstName, lastName, email, password)
-      navigate("/welcome")
-      setIsPending(true)
+      await registerUser(firstName, lastName, email, password, postalCode);
+      navigate("/welcome");
+      setIsPending(true);
     } catch (error) {
       setError(`Password must be minimum of 6 characters and number`);
     }
   };
- 
+
   return (
     <form className={classes.root} onSubmit={handleSubmit}>
-      <Typography variant="h5"><br />
+      <Typography variant="h5">
+        <br />
         Sign Up
       </Typography>
       <Avatar style={avatarStyle}></Avatar>
@@ -84,25 +86,32 @@ const SignUp = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
+      <TextField
+        label="Postal Code"
+        variant="filled"
+        type="postalCode"
+        required
+        value={postalCode}
+        onChange={(e) => setPostalCode(e.target.value)}
+      />
       <Typography>
         <br />
         <input type="checkbox" id="regulation"></input>
-        By creating an account, you agree to HundieTrade Conditions of Use. <br />
+        By creating an account, you agree to HundieTrade Conditions of Use.{" "}
+        <br />
         <br />
         <div>
-          <Typography sx={{color: "red"}}>{error}</Typography>
+          <Typography sx={{ color: "red" }}>{error}</Typography>
         </div>
         <div />
-        <Box sx={{alignItems: "center", justifyContent: "center"}}>
-          <Button variant="contained">
-            Cancel
-          </Button>
+        <Box sx={{ alignItems: "center", justifyContent: "center" }}>
+          <Button variant="contained">Cancel</Button>
           <Button type="submit" variant="contained" color="primary">
             Sign Up
           </Button>
         </Box>
       </Typography>
-      <Typography variant="h6" sx={{color: "green"}}>
+      <Typography variant="h6" sx={{ color: "green" }}>
         Already have an account?{" "}
         <Link to="/login" style={{ textDecoration: "none" }}>
           <Button variant="contained">Login</Button>
