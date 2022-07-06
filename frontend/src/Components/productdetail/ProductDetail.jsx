@@ -53,6 +53,7 @@ import { FaStar } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import RatingComponent from "../Recommendations/RatingComponent";
 
+
 function SlideTransition(props) {
   return <Slide direction="down" {...props} />;
 }
@@ -234,7 +235,7 @@ function ItemDetail({ open, onClose, item }) {
                         Add to Wishlist
                       </Button>
                     </ListItem>
-                      <RatingComponent />
+                      <RatingComponent productDetail={item} />
                     <ListItem></ListItem>
                   </List>
                 </Card>

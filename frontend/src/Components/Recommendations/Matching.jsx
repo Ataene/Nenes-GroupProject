@@ -31,7 +31,7 @@ const Match = () => {
   const [postedAds, setSetAllPostedAds] = useState([]);
     const [loading, setLoading] = useState(false);
     const [title, setTitle] = useState("");
-    const [desc, setDesc] = useState("");
+    const [asc, setAsc] = useState("");
 
   const ref = firebase.firestore().collection("postedAds");
 
@@ -42,7 +42,7 @@ const Match = () => {
       .where('uid', '==', user.uid)
       .where("item", "==", "want") //
 //      .where("rating", ">=", 4) //
-      .orderBy("condition", "desc")
+      .orderBy("condition", "asc")
 //      .limit(4)
       .onSnapshot((querySnapshot) => {
         const items = [];
