@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../../App.css";
+import { FirebaseContext } from "../../auth/FirebaseProvider";
+
 import postalData from "../Data/postalCode.json";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 
 const Search = (props) => {
+  
   const setSearchItems = props.setSearchItems;
   const [searchTerm, setSearchTerm] = useState("");
   const search = () => {

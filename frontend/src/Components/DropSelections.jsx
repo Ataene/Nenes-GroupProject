@@ -1,13 +1,19 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Button, Modal, TextField, FormControl, Box,Typography } from "@mui/material";
+import {
+  Button,
+  Modal,
+  TextField,
+  FormControl,
+  Box,
+  Typography,
+} from "@mui/material";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { FirebaseContext } from "../auth/FirebaseProvider";
 import { AuthContext } from "../auth/AuthProvider";
 import ConditionSelect from "./ConditionSelect";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import CategoryOptions from "./CategoryOptions";
-import {  doc, getDoc, onSnapshot, orderBy, query } from "firebase/firestore";
-
+import { doc, getDoc, onSnapshot, orderBy, query } from "firebase/firestore";
 
 const DropSelections = ({ visible, onCancel }) => {
   const ModalStyle = {
@@ -27,18 +33,17 @@ const DropSelections = ({ visible, onCancel }) => {
   const [title, setTitle] = useState("");
   const [condition, setCondition] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState('');
-  const [quantity, setQuantity] = useState('');
-  const [want, setWant] = useState('');
+  const [category, setCategory] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [want, setWant] = useState("");
   const [file, setFile] = useState("");
   const [progress, setProgress] = useState(null);
   const [url, setUrl] = useState("");
-  
+
   const [rating, setRating] = useState(null);
-  
-  
-  const [userPicture, setUserPicture ] = useState("");
-  const [displayName, setDisplayName ] = useState("");
+
+  const [userPicture, setUserPicture] = useState("");
+  const [displayName, setDisplayName] = useState("");
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const store = fbContext.store;
@@ -72,14 +77,14 @@ const DropSelections = ({ visible, onCancel }) => {
 
     file && handleImageUpload();
   }, [file]);
-//Handle User profile on product posted.
+  //Handle User profile on product posted.
   useEffect(() => {
     if (db && user) {
       let docRef = doc(db, "users", user.uid);
       const unsubscribe = onSnapshot(docRef, (querySnap) => {
         if (querySnap.empty) {
         } else {
-          let usersData = querySnap.data()
+          let usersData = querySnap.data();
           setUserPicture(usersData.Avatar);
           setDisplayName(usersData.firstName);
         }
@@ -91,8 +96,13 @@ const DropSelections = ({ visible, onCancel }) => {
   const postAds = async (e) => {
     e.preventDefault();
     try {
+      let userdoc = doc(db,"users", user.uid)
+      let docSnap = await getDoc(userdoc)
+      let userPostalCode = docSnap.data().postalCode
+      console.log(userPostalCode)
       let collectionRef = collection(db, "postedAds");
       await addDoc(collectionRef, {
+        postalCode: userPostalCode,
         title,
         condition,
         description,
@@ -110,13 +120,13 @@ const DropSelections = ({ visible, onCancel }) => {
       setDescription("");
       setCategory("");
       setFile("");
-      setQuantity("")
-      setWant("")
+      setQuantity("");
+      setWant("");
     } catch (error) {
       console.log(error.message);
     }
   };
- 
+
   return (
     <>
       <Modal
@@ -127,14 +137,14 @@ const DropSelections = ({ visible, onCancel }) => {
       >
         <Box style={ModalStyle}>
           <form onSubmit={postAds}>
-           <FormControl sx={{ m: 10, width: 300 }}>
-              <Typography variant="h5" sx={{ color: "green", marginLeft: "100px"}}>
-              Post Your Ads
-            </Typography>
-            <CategoryOptions
-             category={category}
-             setCategory={setCategory}
-            />
+            <FormControl sx={{ m: 10, width: 300 }}>
+              <Typography
+                variant="h5"
+                sx={{ color: "green", marginLeft: "100px" }}
+              >
+                Post Your Ads
+              </Typography>
+              <CategoryOptions category={category} setCategory={setCategory} />
               <ConditionSelect
                 condition={condition}
                 setCondition={setCondition}
@@ -156,6 +166,7 @@ const DropSelections = ({ visible, onCancel }) => {
                 variant="outlined"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
+                inputProps={{ maxLength: 100 }}
               />
               <TextField
                 sx={{ width: "30rem", marginTop: "15px" }}
@@ -176,7 +187,7 @@ const DropSelections = ({ visible, onCancel }) => {
                 onChange={(e) => setWant(e.target.value)}
               />
               <input
-              style={{marginTop: "10px", marginBottom: "10px"}}
+                style={{ marginTop: "10px", marginBottom: "10px" }}
                 type="file"
                 onChange={(e) => {
                   let selectedFile = e.target.files[0];
@@ -202,6 +213,6 @@ const DropSelections = ({ visible, onCancel }) => {
       </Modal>
     </>
   );
-}
+};
 
 export default DropSelections;
