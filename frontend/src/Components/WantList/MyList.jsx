@@ -97,12 +97,8 @@ const MyList = () => {
         </Box>
       </div>
       <div>
-        {active === "WishList" && (
-          <Wishlist title="WishList" handleClick={handleClickTraded} />
-        )}
-        {active === "Traded" && (
-          <Traded title="Traded" handleClick={handleClickTraded} />
-        )}
+        {active === "WishList" && (<Wishlist title="WishList" handleClick={handleClickTraded} />)}
+        {active === "Traded" && (<Traded title="Traded" handleClick={handleClickTraded} />)}
         {active === "Add" && <Add title="Add" handleClick={handleClick} />}
       </div>
     </>

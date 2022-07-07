@@ -3,10 +3,8 @@ import Button from "@mui/material/Button";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { AuthContext } from "../../auth/AuthProvider";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
-import { addDoc, collection, doc, getDoc, onSnapshot, orderBy, query, serverTimestamp, setDoc, where } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, onSnapshot, orderBy, query, serverTimestamp, where } from "firebase/firestore";
 import SendIcon from "@mui/icons-material/Send";
-import { Container, Paper } from "@mui/material";
-import { Box } from "@mui/system";
 import Avatar from "@mui/material/Avatar";
 const ChatBox = ({ setOpen }) => {
   const scrollRef = useRef()
@@ -60,14 +58,12 @@ const ChatBox = ({ setOpen }) => {
     }
   }, [db]);
 
-
    const [messageThreads, setMessageThreads ] = useState({})
   useEffect(() => {
     if (messages) {
       let newMessageThreads = messages.reduce((object, message) =>{
         let users = message.users;
         let otherUser = Object.keys(users).filter((theUser) =>theUser !== user.uid)[0]
-        console.log("999999", otherUser)
         if(object[otherUser]){
           object[otherUser].push(message)
         } else {
@@ -76,7 +72,6 @@ const ChatBox = ({ setOpen }) => {
         return object
 
       }, {});
-      console.log("+++++", newMessageThreads);
        let userList =Object.keys(newMessageThreads)
 
        userList = userList.map((theUser) =>{
@@ -90,19 +85,13 @@ const ChatBox = ({ setOpen }) => {
                 Avatar: usersData.Avatar, 
                 displayName: usersData.firstName}
            }
-           console.log("222", theUserData)
          });
          return theUserData;
        })
-       console.log("3333", userList)
-
-
 
     }
   }, [messages]);
   
-  console.log("///////", messages)
-
   //Handle Create/Send Message
   const handleSubmit = async (e) => {
     e.preventDefault();

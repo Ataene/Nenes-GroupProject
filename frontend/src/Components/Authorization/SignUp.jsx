@@ -48,8 +48,12 @@ const SignUp = () => {
     }
   };
 
+  const back = {
+    backgroundImage: "linear-gradient(60deg, #abecd6 0%, #fbed96 100%)",
+  }
+
   return (
-    <form className={classes.root} onSubmit={handleSubmit}>
+    <form className={classes.root} onSubmit={handleSubmit} style={back}>
       <Typography variant="h5">
         <br />
         Sign Up

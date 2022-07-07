@@ -91,8 +91,12 @@ const Login = () => {
     }
   }
 
+  const back = {
+    backgroundImage: "linear-gradient(60deg, #abecd6 0%, #fbed96 100%)",
+  }
+
   return (
-    <div className={classes.root} style={{backgroundColor: "#fafafa"}}>
+    <div className={classes.root} style={back}>
       <form className={classes.root} onSubmit={handleSubmit}>
         <Typography variant="h4">User Login</Typography> <br />
         <Avatar style={avatarStyle}></Avatar>

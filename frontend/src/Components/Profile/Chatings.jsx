@@ -94,12 +94,13 @@ const Chating = ({ setOpen }) => {
     <Box sx={{border: "3px solid", height: "600px", position: "relative", overflow: "scroll"}}>
         <Button onClick={() => setUserToMessage(false)}>Exit</Button>
         <Box sx={{padding: "5px"}}>
-        {messages.map((message, i) => {
+        {messages.sort(function(a, b){return b-a}).map((message, i) => {
           if (message.senderuid === user.uid) {
             return (
               <div key={i}>
                 <div style={{backgroundColor: "#ABC9FF",  display: "flex", flexDirection: "row", margin: 8, borderRadius: 8, padding: 5, justifyContent: "end"}}>
-                  {message.newChat}:  Me <Avatar src={usePicture} />
+                  {message.newChat} <Avatar src={usePicture} />
+                  {/* {message.timeStamp.toDate()} */}
                 </div>
               </div>
             );

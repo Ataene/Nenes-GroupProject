@@ -1,15 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  Avatar,
-  Box,
-  Button,
-  Paper,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Avatar, Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { AuthContext } from "../../auth/AuthProvider";
-import { Container } from "@mui/system";
-import { doc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
+import { doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 
@@ -99,30 +91,32 @@ const Profile = () => {
 
   return (
     <>
-      {/* <Paper elevation={10} sx={{ backgroundColor: "#B8F1B0" }}> */}
-      {/* <br />
+    <Box sx={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        '& > :not(style)': {
+          m: 1,
+          width: 1200,
+          height: 500,
+        },
+      }}>
+      <Paper elevation={3} sx={{ backgroundColor: "#B8F1B0" }}>
+      <br />
         <Typography sx={{ display: "flex", justifyContent: "center" }}>
           UPDATE ACCOUNT
         </Typography>
         <br />
-        <Box
-          component="form"
-          sx={{
-            "& .MuiTextField-root": { m: 1, width: "25ch" },
-          }}
-          noValidate
-          autoComplete="off"
-        > */}
       <form
         style={{
-          height: "300px",
-          width: "100%",
           margin: "5px",
           paddingLeft: "70px",
+          display: "flex",
+          flexDirection: "row"
         }}
         onSubmit={handleSubmit}
       >
-        <section>
+      
+        <section style={{display: "flex", flexDirection: "column", margin: "10px", padding: "10px"}}>
           <TextField
             id="outlined-multiline-flexible"
             label="First Name"
@@ -144,8 +138,6 @@ const Profile = () => {
             value={formData.lastName}
             onChange={handleChange}
           />
-        </section>
-        <section>
           <TextField
             id="outlined-basic"
             label="Gender"
@@ -156,7 +148,8 @@ const Profile = () => {
             value={formData.gender}
             onChange={handleChange}
           />
-
+        </section>
+        <section  style={{display: "flex", flexDirection: "column", margin: "10px", padding: "10px"}}>
           <TextField
             id="outlined-basic"
             label="Occupation"
@@ -167,8 +160,6 @@ const Profile = () => {
             value={formData.occupation}
             onChange={handleChange}
           />
-        </section>
-        <section>
           <TextField
             iid="outlined-basic"
             label="City"
@@ -191,7 +182,7 @@ const Profile = () => {
             onChange={handleChange}
           />
         </section>
-        <section>
+        <section style={{display: "flex", flexDirection: "column", margin: "10px", padding: "10px"}}>
           <TextField
             id="outlined-basic"
             label="Postal Code"
@@ -203,16 +194,6 @@ const Profile = () => {
             onChange={handleChange}
             inputProps={{ maxLength: 3 }}
           />
-        </section>
-
-        <section
-          style={{
-            transform: "translate(-30%, -60%)",
-            position: "absolute",
-            top: "65%",
-            left: "62%",
-          }}
-        >
           <Avatar
             src={
               file ? (
@@ -223,12 +204,13 @@ const Profile = () => {
             }
             sx={{
               bgcolor: "green"[500],
-              width: 90,
+              width: 150,
               height: 100,
               marginTop: "30px",
             }}
             variant="rounded"
           />
+
           <input
             id="standard-basic"
             label="Profile Photo"
@@ -239,23 +221,18 @@ const Profile = () => {
             value={formData.url}
             onChange={handleFileChange}
           />
-          <br />
-          <br />
+          {progress ? <div>progress: {progress}%</div> : <div />}
+        </section>
           <Button
-            style={{
-              paddingTop: "20px",
-              transform: "translate(-280%, 140%)",
-            }}
+          sx={{position: "absolute", top: "500px", marginLeft: "300px", backgroundColor: "#FAD9A1", width: "350px"}}
             disabled={progress !== null && progress < 100}
             type="submit"
           >
             Submit
           </Button>
-          {progress ? <div>progress: {progress}%</div> : <div />}
-        </section>
       </form>
-      {/* </Box> */}
-      {/* </Paper> */}
+      </Paper>
+    </Box>
     </>
   );
 };
