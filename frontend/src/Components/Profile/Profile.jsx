@@ -101,7 +101,7 @@ const Profile = () => {
     <>
       <Paper
         elevation={10}
-        sx={{ backgroundColor: "#B8F1B0", height: "30rem" }}
+        sx={{ backgroundColor: "#B8F1B0", maxHeight: "50rem" }}
       >
         <br />
         <Typography sx={{ display: "flex", justifyContent: "center" }}>
@@ -111,15 +111,15 @@ const Profile = () => {
         <Box
           component="form"
           sx={{
-            "& .MuiTextField-root": { m: 1, width: "25ch" },
+            "& .MuiTextField-root": { m: 1, maxWidth: "25ch" },
           }}
           noValidate
           autoComplete="off"
         >
           <form
             style={{
-              height: "300px",
-              width: "100%",
+              maxHeight: "300px",
+              maxWidth: "100%",
               margin: "5px",
               paddingLeft: "70px",
             }}
@@ -226,8 +226,8 @@ const Profile = () => {
                 }
                 sx={{
                   bgcolor: "green"[500],
-                  width: 90,
-                  height: 100,
+                  maxWidth: 90,
+                  maxHeight: 100,
                   marginTop: "30px",
                 }}
                 variant="rounded"
