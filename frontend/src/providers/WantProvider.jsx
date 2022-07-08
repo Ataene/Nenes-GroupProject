@@ -47,7 +47,7 @@ useEffect(() => {
               setDoc(docRef, {items: []});
               setWantList([])
             } else {
-              let wantData = querySnap.data().items
+              let wantData = querySnap.data()?.items;
               setWantList(wantData);
             }
           });

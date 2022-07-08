@@ -37,7 +37,7 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
               ): postedAds
               .filter((item) => item.uid !== user.uid)
               .map((item) => (
-                <Grid item  xs={6}  md={4} lg={3} key={item.uid} >
+                <Grid item  xs={6}  md={4} lg={3} key={item.timeStamp} >
                   <Card
                     elevation={10}
                     sx={{ height: "33rem", marginTop: "10px", margin: "10px" }}
@@ -85,16 +85,14 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
                         <IconButton aria-label="share">
                           <ShareIcon sx={{ color: "#62b4f9" }} />
                         </IconButton>
-                        <IconButton aria-label="chat">
+                        <IconButton aria-label="chat"  onClick={() => setUserToMessage(item.uid)}>
                           <ChatIcon
                             sx={{ color: "green" }}
-                            onClick={() => setUserToMessage(item.uid)}
                           />
                         </IconButton>
-                        <IconButton aria-label="share" type="click">
+                        <IconButton aria-label="share" type="click"  onClick={() => handleClick(item)}>
                           <ListAltIcon
                             sx={{ color: "purple" }}
-                            onClick={() => handleClick(item)}
                           />
                         </IconButton>
                         <ProductDetailDialog item={item} />

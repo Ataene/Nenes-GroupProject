@@ -49,16 +49,18 @@ const Matching = () => {
   };
   useEffect(() => {
     const findWantItem = () => {
-        characters.filter((list) =>{
-            if( list.uid === user.uid){
-             let characterItem = list.want
-              setCharacter(characterItem);
-              console.log("3333", character)
-            }
-          })
-    }
+      //character
+        let myAds = characters.filter((postedAd) =>{
+            return postedAd.uid === user.uid;
+        });
+        console.log("333", myAds)
+        let myWantList =  myAds.map((ad) => {
+          return ad.want.replace(/\s/g,"").toLowerCase();
+        })
+          setCharacter(myWantList);
+          }
 findWantItem();
-  }, [])
+  }, [postedAds])
 
   const card = {
     position: "absolute",
@@ -81,6 +83,7 @@ findWantItem();
     animationName: "popup",
     animationDuration: "800ms",
   };
+  console.log("555", character)
   return (
     
     <>
@@ -93,16 +96,16 @@ findWantItem();
             marginBottom: "400px",
           }}
         >
-          {characters.filter((item) => item.uid !==user.uid).filter((item) => item.title.includes(character))
-          .map((characters) => (
+          {characters.filter((item) => item.uid !==user.uid).filter((item) => character.includes(item.title.replace(/\s/g,"").toLowerCase()))
+          .map((characterItem) => (
             <TinderCard
               style={{ position: "absolute" }}
-              key={characters.timeStamp}
-              onSwipe={(dir) => swiped(dir, characters.timeStamp)}
-              onCardLeftScreen={() => outOfFrame(characters.url)}
+              key={characterItem.timeStamp}
+              onSwipe={(dir) => swiped(dir, characterItem.timeStamp)}
+              onCardLeftScreen={() => outOfFrame(characterItem.url)}
             >
               <Box
-                sx={{ backgroundImage: "url(" + characters.url + ")" }}
+                sx={{ backgroundImage: "url(" + characterItem.url + ")" }}
                 style={card}
               >
                 <Box
@@ -114,7 +117,7 @@ findWantItem();
                   }}
                 >
                   <Typography sx={{ margin: "10px" }}>
-                    {characters.title}
+                    {characterItem.title}
                   </Typography>
                   <CardActions disableSpacing>
                     <IconButton style={{ color: "#f5b748" }}>

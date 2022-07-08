@@ -41,7 +41,8 @@ const Chating = ({ setOpen }) => {
       let queryRef = query(
         collectionRef,
         where("users." + user.uid, "==", true),
-        where("users." + userToMessage, "==", true)
+        where("users." + userToMessage, "==", true),
+        orderBy("timeStamp", "asc")
       );
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
         if (querySnap.empty) {
