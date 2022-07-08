@@ -34,7 +34,7 @@ const MiddleBar = () => {
   useEffect(() => {
     if (db && user) {
       let collectionRef = collection(db, "postedAds");
-      let queryRef = query(collectionRef, orderBy("Calgary"));
+      let queryRef = query(collectionRef, orderBy("timeStamp"));
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
         if (querySnap.empty) {
         } else {
@@ -65,9 +65,6 @@ const MiddleBar = () => {
       return unsubscribe;
     }
   }, [db, user]);
-
-
-
 
 
   

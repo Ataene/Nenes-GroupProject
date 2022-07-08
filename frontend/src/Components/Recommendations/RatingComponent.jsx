@@ -23,11 +23,11 @@ const RatingComponent = (props) => {
   useEffect(() => {
     if (rating) {
       const SaveRating = async () => {
-        const collectionRef = collection(db, "rating");
+        const collectionRef = collection(db, `postedAds/${productDetail.uid}/rating`);
         await addDoc(collectionRef, {
           rating,
           user: user.uid,
-          itemOwner: productDetail.itemOwner || "",
+          itemOwner: productDetail.owner || "",
           postedAd: productDetail.uid,
           timeStamp: serverTimestamp(),
         });

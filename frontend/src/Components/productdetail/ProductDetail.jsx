@@ -52,15 +52,18 @@ import { FaStar } from "react-icons/fa";
 
 import { useParams } from "react-router-dom";
 import RatingComponent from "../Recommendations/RatingComponent";
+import useDialogModal from "./useDialogModal";
 
 
-function SlideTransition(props) {
-  return <Slide direction="down" {...props} />;
-}
+// function SlideTransition(props) {
+//   return <Slide direction="down" {...props} />;
+// }
+
 const ItemDetailWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
   padding: theme.spacing(4),
 }));
+
 const ItemDetailInfoWrapper = styled(Box)(() => ({
   display: "flex",
   flexDirection: "column",
@@ -68,7 +71,8 @@ const ItemDetailInfoWrapper = styled(Box)(() => ({
   lineHeight: 1.5,
 }));
 
-function ItemDetail({ open, onClose, item }) {
+function ItemDetail({ open, options, onClose, item }) {
+  console.log("options", options)
   const authContext = useContext(AuthContext);
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
@@ -78,38 +82,39 @@ function ItemDetail({ open, onClose, item }) {
 
 
   const [loading, setLoading] = useState("");
-   const [selectedItem, setSelectedItem] = useState([]);
+  const [selectedItem, setSelectedItem] = useState(options);
 
 
 
-  const nameOfItem = useParams();
+  // const nameOfItem = useParams();
   
-    useEffect(() => {
-      postedAds.forEach((item) => {
-        if (postedAds.item === nameOfItem.name) {
-          setSelectedItem(item);
-        }
-      });
-    }, [postedAds]);
-  
-
+  //   useEffect(() => {
+  //     postedAds.forEach((item) => {
+  //       if (postedAds.item === nameOfItem.name) {
+  //         setSelectedItem(item);
+  //       }
+  //     });
+  //   }, [postedAds]);
   
 
-    async function handleChange(name, currStatus) {
-      setPostedAds([
-        ...postedAds.filter((val) => val.name !== name),
-        { name, status: currStatus },
-      ]);
-      const postedAdsRef = doc(db, "postedAds", user.uid);
-      await updateDoc(postedAdsRef, {
-        rating: currStatus,
-      });
-    }
+  
 
+  //   async function handleChange(name, currStatus) {
+  //     setPostedAds([
+  //       ...postedAds.filter((val) => val.name !== name),
+  //       { name, status: currStatus },
+  //     ]);
+  //     const postedAdsRef = doc(db, "postedAds", user.uid);
+  //     await updateDoc(postedAdsRef, {
+  //       rating: currStatus,
+  //     });
+  // }
+
+ console.log("postedAds", postedAds);
 
   return (
     <Dialog
-      TransitionComponent={SlideTransition}
+      //TransitionComponent={SlideTransition}
       variant="permanent"
       open={open}
       fullScreen
@@ -127,7 +132,7 @@ function ItemDetail({ open, onClose, item }) {
         </Box>
       </DialogTitle>
       <DialogContent>
-        <div
+        <Box
           sx={{
             justifyContent: "center",
             alignItems: "center",
@@ -135,13 +140,17 @@ function ItemDetail({ open, onClose, item }) {
             flexDirection: "column",
           }}
         >
-          <Card sx={{ maxWidth: 800, height: 500 }}>
+          <Card
+            sx={{ maxWidth: 800, height: 500 }}
+            onClick={() => console.log(item)}
+          >
             <Grid className="details" container spacing={1}>
               <Grid
                 item
                 md={4}
                 key={item.uid}
-                onClick={(e) => setPostedAds(item)}
+                //onClick={(e) => setPostedAds(item)}
+                onClick={(e) => console.log(item)}
               >
                 <CardHeader
                   avatar={
@@ -155,7 +164,8 @@ function ItemDetail({ open, onClose, item }) {
                   sx={{ height: "350px" }}
                   image={item.url}
                   title={item.title}
-                  onClick={() => setPostedAds(item)}
+                  //onClick={() => setPostedAds(item)}
+                  onClick={() => console.log(item)}
                 ></CardMedia>
               </Grid>
               <Grid item md={4} xs={6}>
@@ -238,14 +248,14 @@ function ItemDetail({ open, onClose, item }) {
                         Add to My List
                       </Button>
                     </ListItem>
-                      <RatingComponent productDetail={item} />
+                    <RatingComponent productDetail={item} />
                     <ListItem></ListItem>
                   </List>
                 </Card>
               </Grid>
             </Grid>
           </Card>
-        </div>
+        </Box>
       </DialogContent>
       <Footer />
     </Dialog>

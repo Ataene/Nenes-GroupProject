@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { Box, CardActions, CardHeader, CardMedia, Container, Grid, IconButton, Paper } from "@mui/material";
+import { Box, CardActions, CardHeader, CardMedia, Container, Grid, IconButton, ListItemButton, Paper, Tooltip } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
 import Avatar from "@mui/material/Avatar";
@@ -23,17 +23,29 @@ const Market = ({ postedAds, handleClick, newStatus }) => {
 
   const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
     useDialogModal(ItemDetail);
+  
+    const [showOptions, setShowOptions] = useState(false);
+
+    const handleMouseEnter = () => {
+      setShowOptions(true);
+    };
+    const handleMouseLeave = () => {
+      setShowOptions(false);
+    };
 
   if (!postedAds) {
     return <p className="mx-auto">Loading Data...</p>;
   }
   return (
     <>
-      <Container>
+      <Container
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         <Box>
           <Grid container spacing={1}>
             {postedAds
-              .filter((item) => item.uid !== user.uid)
+              .filter((item) => item.owner !== user.uid)
               .map((item) => (
                 <Grid item md={3} key={item.uid}>
                   <Paper
@@ -41,26 +53,29 @@ const Market = ({ postedAds, handleClick, newStatus }) => {
                     sx={{ height: "33rem", marginTop: "10px", margin: "10px" }}
                     item={item}
                   >
-                  <Box sx={{display: "flex", flexDirection: "row"}}>
-                    <CardHeader
-                      avatar={
-                        <Avatar
-                          sx={{ bgcolor: "red"[500] }}
-                          aria-label="recipe"
-                          src={item.userPicture}
-                        />
-                      }
-                      title={item.displayName} 
-                      name="title"
-                    />
+                    <Box sx={{ display: "flex", flexDirection: "row" }}>
+                      <CardHeader
+                        avatar={
+                          <Avatar
+                            sx={{ bgcolor: "red"[500] }}
+                            aria-label="recipe"
+                            src={item.userPicture}
+                          />
+                        }
+                        title={item.displayName}
+                        name="title"
+                      />
                       <OnlineStatus uid={item.uid} />
-                  </Box>
+                    </Box>
                     <CardMedia
                       component="img"
                       sx={{ height: "260px" }}
                       image={item.url}
                       title={item.title}
-                      onClick={() => showProductDetailDialog()}
+                      onClick={() => {
+                        console.log(item)
+                        showProductDetailDialog(item)
+                      }}
                     ></CardMedia>
                     <CardContent>
                       <Typography>{item.name}</Typography>
