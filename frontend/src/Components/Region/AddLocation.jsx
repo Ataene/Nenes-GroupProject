@@ -8,6 +8,7 @@ import { Container } from "@mui/system";
 import Search from "./seachPostalCode";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import postalCode from ".././Data/postalCode.json"
 
 
 const searchStyle = {
@@ -116,7 +117,7 @@ console.log(postalData)
           style={{ width: 1300, height: 660 }}
           mapStyle="mapbox://styles/ataene/cl4lf3mv9000h14nyykjem276"
         >
-          {postalData.map((postal) => (
+          {postalCode.map((postal) => (
             <Marker
               key={postal.postalCode}
               latitude={postal.latitude}
