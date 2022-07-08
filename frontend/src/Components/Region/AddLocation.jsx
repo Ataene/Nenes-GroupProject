@@ -8,7 +8,7 @@ import { Container } from "@mui/system";
 import Search from "./seachPostalCode";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import postalCode from ".././Data/postalCode.json"
+import postalCode from "../Data/postalCode.json";
 
 
 const searchStyle = {
