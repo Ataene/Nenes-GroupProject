@@ -1,59 +1,90 @@
-import React, { useState, useEffect, Fragment, useContext } from "react";
-import firebase from "./firebase";
-import { AuthContext } from "./auth/Auth";
-import { Avatar, Box, CardActions, CardContent, CardHeader, CardMedia, Container, Grid, IconButton, Paper, Typography } from "@mui/material";
-import OnlineStatus from "../Profile/OnlineStatus";
+import React, { useContext, useState, useEffect } from "react";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import {
+  Box,
+  CardActions,
+  CardHeader,
+  CardMedia,
+  Container,
+  Grid,
+  IconButton,
+  ListItemButton,
+  Paper,
+  Tooltip,
+} from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
+import Avatar from "@mui/material/Avatar";
 import ShareIcon from "@mui/icons-material/Share";
 import ListAltIcon from "@mui/icons-material/ListAlt";
+import useDialogModal from ".././productdetail/useDialogModal";
 import ItemDetail from ".././productdetail/ProductDetail";
-import { query, where } from "firebase/firestore";  
+import { AuthContext } from "../../auth/AuthProvider";
+import CircularProgress from "@mui/material/CircularProgress";
+import { FirebaseContext } from "../../auth/FirebaseProvider";
+import OnlineStatus from "../Profile/OnlineStatus";
 
-function MostPopularTrade() {
-  const { user } = useContext(AuthContext);
-  const [postedAds, setPostedAds] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
-  const [rating, setRating] = useState(null);
+import { collection, onSnapshot, orderBy, query, limit } from "firebase/firestore";
 
-  const ref = firebase.firestore().collection("postedAds");
 
-  //REALTIME GET FUNCTION
-  function getPostedAds() {
-    setLoading(true);
-    ref
-      //.where('owner', '==', currentUserId)
-      .where('item', '==', 'rating') // 
-      .where('rating', '>=', 4)    // 
-      .orderBy('owner', 'desc')
-      .limit(4)
-      .onSnapshot((querySnapshot) => {
-        const items = [];
-        querySnapshot.forEach((doc) => {
-          items.push(doc.data());
-        });
-        setPostedAds(items);
-        setLoading(false);
-      });
+const MostPopularTrade = ({ handleClick }) => {
+  const authContext = useContext(AuthContext);
+  const { user, setUserToMessage } = authContext;
+  const fbContext = useContext(FirebaseContext);
+  const db = fbContext.db;
+  const [open, setOpen] = useState(false);
+
+
+   const [postedAds, setSetAllPostedAds] = useState([]);
+
+   //useEffect to call db
+   const [loading, setLoading] = useState(false);
+   //useEffect to call db
+   useEffect(() => {
+     if (db && user) {
+       let collectionRef = collection(db, "postedAds");
+       let queryRef = query(collectionRef, orderBy("timeStamp"), limit(5));
+       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
+         if (querySnap.empty) {
+         } else {
+           let usersData = querySnap.docs.map((doc) => {
+             return { ...doc.data(), DOC_ID: doc.id };
+           });
+           setSetAllPostedAds(usersData);
+           setLoading(true);
+         }
+       });
+       return unsubscribe;
+     }
+   }, [db, user]);
+  
+
+  const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
+    useDialogModal(ItemDetail);
+
+  const [showOptions, setShowOptions] = useState(false);
+
+  const handleMouseEnter = () => {
+    setShowOptions(true);
+  };
+  const handleMouseLeave = () => {
+    setShowOptions(false);
+  };
+
+  if (!postedAds) {
+    return <p className="mx-auto">Loading Data...</p>;
   }
-
-  useEffect(() => {
-     getPostedAds();
-    // eslint-disable-next-line
-  }, []);
-
-     const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
-       useDialogModal(ItemDetail);
-
   return (
     <>
-      <Container>
+      <Container
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         <Box>
           <Grid container spacing={1}>
             {postedAds
-              .filter((item) => item.uid !== user.uid)
+              .filter((item) => item.owner !== user.uid)
               .map((item) => (
                 <Grid item md={3} key={item.uid}>
                   <Paper
@@ -61,24 +92,29 @@ function MostPopularTrade() {
                     sx={{ height: "33rem", marginTop: "10px", margin: "10px" }}
                     item={item}
                   >
-                    <CardHeader
-                      avatar={
-                        <Avatar
-                          sx={{ bgcolor: "red"[500] }}
-                          aria-label="recipe"
-                          src={item.userPicture}
-                        />
-                      }
-                      title={item.displayName}
-                      name="title"
-                    />
-                    <OnlineStatus />
+                    <Box sx={{ display: "flex", flexDirection: "row" }}>
+                      <CardHeader
+                        avatar={
+                          <Avatar
+                            sx={{ bgcolor: "red"[500] }}
+                            aria-label="recipe"
+                            src={item.userPicture}
+                          />
+                        }
+                        title={item.displayName}
+                        name="title"
+                      />
+                      <OnlineStatus uid={item.uid} />
+                    </Box>
                     <CardMedia
                       component="img"
-                      sx={{ height: "280px" }}
+                      sx={{ height: "260px" }}
                       image={item.url}
                       title={item.title}
-                      onClick={() => showProductDetailDialog()}
+                      onClick={() => {
+                        console.log(item);
+                        showProductDetailDialog(item);
+                      }}
                     ></CardMedia>
                     <CardContent>
                       <Typography>{item.name}</Typography>
@@ -124,6 +160,6 @@ function MostPopularTrade() {
       </Container>
     </>
   );
-}
+};
 
 export default MostPopularTrade;

@@ -72,7 +72,7 @@ export default function Footer() {
                 variant="caption2"
                 sx={{ fontFamily: "Montserrat" }}
               >
-                Order Tracking
+                Item Tracking
               </Typography>
             </ListItemText>
             <ListItemText>
@@ -115,7 +115,7 @@ export default function Footer() {
                 variant="caption2"
                 sx={{ fontFamily: "Montserrat" }}
               >
-                My Cart
+                My Match
               </Typography>
             </ListItemText>
             <ListItemText>
@@ -133,7 +133,7 @@ export default function Footer() {
                 variant="caption2"
                 sx={{ fontFamily: "Montserrat" }}
               >
-                Wishlist
+                My list
               </Typography>
             </ListItemText>
           </List>

@@ -2,8 +2,12 @@ import React, { useCallback, useState } from "react";
 
 export default function useDialogModal(Component) {
   const [open, setOpen] = useState(false);
+  const [item, setItem] = useState("");
 
-  const openDialog = useCallback(() => {
+
+  const openDialog = useCallback((props) => {
+    console.log(props);
+    setItem(props);
     setOpen(true);
   }, []);
 
@@ -13,7 +17,7 @@ export default function useDialogModal(Component) {
 
       if (Component) {
         return (
-          <Component open={open} onClose={() => setOpen(false)} {...props} />
+          <Component open={open} onClose={() => setOpen(false)} {...props} item={item} />
         );
       }
     },
