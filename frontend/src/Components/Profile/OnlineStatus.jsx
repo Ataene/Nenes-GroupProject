@@ -14,7 +14,7 @@ useEffect(() => {
             if (querySnap.empty) {
             } else {
               let usersData = querySnap.data()
-              setOnline(usersData.isOnline);
+              setOnline(usersData?.isOnline);
             }
           });
           return unsubscribe;

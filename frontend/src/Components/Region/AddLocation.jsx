@@ -8,6 +8,7 @@ import { Container } from "@mui/system";
 import Search from "./seachPostalCode";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import postalCode from "../Data/postalCode.json";
 
 
 const searchStyle = {
@@ -26,29 +27,9 @@ const AddLocation = () => {
   const db = fbContext.db;
   
   const [postalData, setPostalData] = useState([]);
-  const [postedAds, setSetAllPostedAds] = useState([]);
+  const [postedAds, setAllPostedAds] = useState([]);
 
-  //useEffect to call db
-  const [loading, setLoading] = useState(false);
-//useEffect to call db
-  useEffect(() => {
-    if (db) {
-      let collectionRef = collection(db, "postedAds");
-      let queryRef = query(collectionRef);
-      const unsubscribe = onSnapshot(queryRef, (querySnap) => {
-        if (querySnap.empty) {
-        } else {
-          let usersData = querySnap.docs.map((doc) => {
-            return { ...doc.data(), DOC_ID: doc.id };
-          });
-          setSetAllPostedAds(usersData);
-          setLoading(true)
-        }
-      });
-      return unsubscribe;
-    }
-  }, [db]);
-
+ 
   useEffect(() => {
     let adsByPostalCode = postedAds.reduce((object, ad)=> {
       let postalCode = ad.postalCode
@@ -62,9 +43,11 @@ const AddLocation = () => {
   }, [postedAds]);
 
 console.log(postedAds)
+
+
   useEffect(() => {
     if (db) {
-      let collectionRef = collection(db, "areaCodes");
+      let collectionRef = collection(db, "postedAds");
       let queryRef = query(collectionRef, orderBy("postalCode"));
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
         if (querySnap.empty) {
@@ -134,7 +117,7 @@ console.log(postalData)
           style={{ width: 1300, height: 660 }}
           mapStyle="mapbox://styles/ataene/cl4lf3mv9000h14nyykjem276"
         >
-          {postalData.map((postal) => (
+          {postedAds.map((postal) => (
             <Marker
               key={postal.postalCode}
               latitude={postal.latitude}
@@ -162,6 +145,9 @@ console.log(postalData)
                 <label className="popups-label">Place</label>
                 <h5 className="place">{selectedItems.postalCode}</h5>
                 <p className="descInfo">{selectedItems.neighborhood}</p>
+                <p className="descInfo">{selectedItems.title}</p>
+                <p className="descInfo">{selectedItems.displayName}</p>
+
                 <label className="popups-label">Review</label>
                 <br />
                 <Link to="http://localhost:3000/">
@@ -257,3 +243,24 @@ export default AddLocation;
 //         <Box sx={{height: 400,  position: "relative"}}  ref={mapContainer}/>
 //     </Box>
 //   )
+ //useEffect to call db
+//  const [loading, setLoading] = useState(false);
+//  //useEffect to call db
+//    useEffect(() => {
+//      if (db) {
+//        let collectionRef = collection(db, "postedAds");
+//        let queryRef = query(collectionRef);
+//        const unsubscribe = onSnapshot(queryRef, (querySnap) => {
+//          if (querySnap.empty) {
+//          } else {
+//            let usersData = querySnap.docs.map((doc) => {
+//              return { ...doc.data(), DOC_ID: doc.id };
+//            });
+//            setSetAllPostedAds(usersData);
+//            setLoading(true)
+//          }
+//        });
+//        return unsubscribe;
+//      }
+//    }, [db]);
+ 

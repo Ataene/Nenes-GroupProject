@@ -1,12 +1,5 @@
-import {
-  Toolbar,
-  Typography,
-  Container,
-  Button,
-} from "@mui/material";
-import {
-  AppbarContainer,
-} from "../styles/appbar";
+import { Toolbar, Typography, Container, Button } from "@mui/material";
+import { AppbarContainer } from "../styles/appbar";
 //import Actions from "./actions";
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -16,15 +9,18 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import Avatar from "@mui/material/Avatar";
 import PostAd from "../PostAdButton";
 import SearchBar from "../SearchBar";
-import {products} from "../../Components/Data/index";
+import { products } from "../../Components/Data/index";
 
-import { AuthContext  } from '../../auth/AuthProvider'
+import { AuthContext } from "../../auth/AuthProvider";
 
 const Appbar = () => {
-  const authContext = useContext(AuthContext)
+  const authContext = useContext(AuthContext);
   const { user, LogoutUser } = authContext;
   const navigate = useNavigate();
-  
+  const [menuOpen, setMenuOpen] = useState(false);
+  function openHamburger() {
+    setMenuOpen((curr) => !curr);
+  }
   const logoutUser = async () => {
     await LogoutUser();
     navigate("/login");
@@ -33,7 +29,7 @@ const Appbar = () => {
     <div>
       <AppbarContainer>
         <Container maxWidth="xxl">
-          <Toolbar disableGutters>
+          <Toolbar disableGutters menuOpen={menuOpen}>
             <Box>
               <Typography
                 variant="h2"
@@ -56,34 +52,100 @@ const Appbar = () => {
               style={{ textDecoration: "none", marginLeft: "20rem" }}
               sx={{ flexGrow: 2, display: { xs: "none", md: "flex" } }}
             >
-              <Link style={{ textDecoration: "none" }} to="/">
-                <Button sx={{ my: 2, color: "green", display: "block",fontFamily:"Montserrat" }}>
+              <Bars
+                sx={{
+                  display: "block",
+                  position: "absolute",
+                  top: "0",
+                  right: "0",
+                  transform: "translate(-100%, 75%)",
+                  fontSize: "1.8rem",
+                  cursor: "pointer",
+                }}
+                onClick={openHamburger}
+              />
+
+              <Link
+                style={{ textDecoration: "none" }}
+                to="/"
+                onClick={openHamburger}
+              >
+                <Button
+                  sx={{
+                    my: 2,
+                    color: "green",
+                    display: "block",
+                    fontFamily: "Montserrat",
+                  }}
+                >
                   Home
                 </Button>
               </Link>
-              <Link style={{ textDecoration: "none" }} to="/products">
-                <Button sx={{ my: 2, color: "green", display: "block",fontFamily:"Montserrat" }}>
+              <Link
+                style={{ textDecoration: "none" }}
+                to="/products"
+                onClick={openHamburger}
+              >
+                <Button
+                  sx={{
+                    my: 2,
+                    color: "green",
+                    display: "block",
+                    fontFamily: "Montserrat",
+                  }}
+                >
                   Products
                 </Button>
               </Link>
-              <Link style={{ textDecoration: "none" }} to="/pricing">
-                <Button sx={{ my: 2, color: "green", display: "block",fontFamily:"Montserrat" }}>
+              <Link
+                style={{ textDecoration: "none" }}
+                to="/pricing"
+                onClick={openHamburger}
+              >
+                <Button
+                  sx={{
+                    my: 2,
+                    color: "green",
+                    display: "block",
+                    fontFamily: "Montserrat",
+                  }}
+                >
                   Pricing
                 </Button>
               </Link>
-              <Link style={{ textDecoration: "none" }} to="/blog">
-                <Button sx={{ my: 2, color: "green", display: "block",fontFamily:"Montserrat" }}>
+              <Link
+                style={{ textDecoration: "none" }}
+                to="/blog"
+                onClick={openHamburger}
+              >
+                <Button
+                  sx={{
+                    my: 2,
+                    color: "green",
+                    display: "block",
+                    fontFamily: "Montserrat",
+                  }}
+                >
                   Blog
                 </Button>
               </Link>
-              <Link style={{ textDecoration: "none" }} to="/about">
-                <Button sx={{ my: 2, color: "green", display: "block",fontFamily:"Montserrat" }}>
+              <Link
+                style={{ textDecoration: "none" }}
+                to="/about"
+                onClick={openHamburger}
+              >
+                <Button
+                  sx={{
+                    my: 2,
+                    color: "green",
+                    display: "block",
+                    fontFamily: "Montserrat",
+                  }}
+                >
                   About
                 </Button>
               </Link>
             </Box>
-
-
 
             {!user && (
               <Box
@@ -107,7 +169,14 @@ const Appbar = () => {
                 </Link>
 
                 <Link style={{ textDecoration: "none" }} to="/login">
-                  <Button sx={{ my: 2, color: "green", alignItem: "center",fontFamily:"Montserrat" }}>
+                  <Button
+                    sx={{
+                      my: 2,
+                      color: "green",
+                      alignItem: "center",
+                      fontFamily: "Montserrat",
+                    }}
+                  >
                     <LoginIcon />
                     Login
                   </Button>
@@ -116,7 +185,13 @@ const Appbar = () => {
             )}
             {!!user && (
               <Box sx={{ color: "green", display: "flex" }}>
-                <Typography sx={{ marginTop: "10px", paddingRight: "10px",fontFamily:"Montserrat" }}>
+                <Typography
+                  sx={{
+                    marginTop: "10px",
+                    paddingRight: "10px",
+                    fontFamily: "Montserrat",
+                  }}
+                >
                   Hello, {user.displayName}
                 </Typography>
                 <Avatar alt="User" src="/static/images/avatar/1.jpg" />
@@ -128,7 +203,12 @@ const Appbar = () => {
                 sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}
               >
                 <Button
-                  sx={{ my: 2, color: "green", alignItem: "center",fontFamily:"Montserrat" }}
+                  sx={{
+                    my: 2,
+                    color: "green",
+                    alignItem: "center",
+                    fontFamily: "Montserrat",
+                  }}
                   onClick={logoutUser}
                 >
                   <ExitToAppIcon />
@@ -136,8 +216,6 @@ const Appbar = () => {
                 </Button>
               </Box>
             )}
-
-
           </Toolbar>
         </Container>
       </AppbarContainer>

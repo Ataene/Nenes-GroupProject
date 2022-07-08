@@ -10,6 +10,8 @@ import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { AuthContext } from "../../auth/AuthProvider";
 import { WantContext } from "../../providers/WantProvider";
 import { ItemContext } from "../../providers/ItemDetailProvider";
+import ProductDetails from "../productdetail/ProductDetail";
+import Matching from "../Recommendations/Matching"
 
 const MiddleBar = () => {
 
@@ -26,13 +28,14 @@ const MiddleBar = () => {
 
   const [active, setActive] = useState("market");
   const [modalVisible, setModalVisible] = useState(false);
-  const [postedAds, setSetAllPostedAds] = useState([]);
+  const [postedAds, setPostedAds] = useState([]);
 
   //useEffect to call db
   const [loading, setLoading] = useState(false);
 //useEffect to call db
   useEffect(() => {
     if (db && user) {
+      setLoading(true)
       let collectionRef = collection(db, "postedAds");
       let queryRef = query(collectionRef, orderBy("timeStamp"));
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
@@ -41,8 +44,8 @@ const MiddleBar = () => {
           let usersData = querySnap.docs.map((doc) => {
             return { ...doc.data(), DOC_ID: doc.id };
           });
-          setSetAllPostedAds(usersData);
-          setLoading(true)
+          setPostedAds(usersData);
+          setLoading(false)
         }
       });
       return unsubscribe;
@@ -66,7 +69,6 @@ const MiddleBar = () => {
     }
   }, [db, user]);
 
-
   
   //Handle add to WantList
   const handleClick = (item) => {
@@ -87,7 +89,6 @@ const MiddleBar = () => {
     const showProductDetailDialog = (item) => {
       showInDetailedPage(item);
     };
-
   return (
     <Box sx={{ flex: "8.5", backgroundColor: "#B8F1B0" }}>
       <Container>
@@ -108,6 +109,16 @@ const MiddleBar = () => {
           >
             Swipe
           </Button>
+
+          <Button
+            onClick={() => setActive("matching")}
+            sx={{ margin: "5px" }}
+            variant="outlined"
+            size="large"
+          >
+            Matching
+          </Button>
+
           <Button
             onClick={() => setActive("profile")}
             sx={{ margin: "5px" }}
@@ -148,6 +159,8 @@ const MiddleBar = () => {
           {active === "swipe" && <Swipe />}
           {active === "myList" && <MyList />}
           {active === "profile" && <Profile />}
+          {active === "productdetail" && <ProductDetails />}
+          {active === "matching" && <Matching />}
         </>
       </Container>
     </Box>

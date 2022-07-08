@@ -1,7 +1,11 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+<<<<<<< HEAD
 import { Box, CardActions, CardHeader, CardMedia, Container, Grid, IconButton, ListItemButton, Paper, Tooltip } from "@mui/material";
+=======
+import { Box, Card, CardActions, CardHeader, CardMedia, Grid, IconButton } from "@mui/material";
+>>>>>>> dec5fb03b16c8b8ed4b2e6be37b99d1098fb9d92
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
 import Avatar from "@mui/material/Avatar";
@@ -10,11 +14,11 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import useDialogModal from ".././productdetail/useDialogModal";
 import ItemDetail from ".././productdetail/ProductDetail";
 import { AuthContext } from "../../auth/AuthProvider";
-import CircularProgress from "@mui/material/CircularProgress";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import OnlineStatus from "./OnlineStatus";
+import CircleLoader from "react-spinners/CircleLoader";
 
-const Market = ({ postedAds, handleClick, newStatus }) => {
+const Market = ({ postedAds, handleClick, newStatus, loading }) => {
   const authContext = useContext(AuthContext);
   const { user, setUserToMessage } = authContext;
   const fbContext = useContext(FirebaseContext);
@@ -47,8 +51,8 @@ const Market = ({ postedAds, handleClick, newStatus }) => {
             {postedAds
               .filter((item) => item.owner !== user.uid)
               .map((item) => (
-                <Grid item md={3} key={item.uid}>
-                  <Paper
+                <Grid item  xs={6}  md={4} lg={3} key={item.timeStamp} >
+                  <Card
                     elevation={10}
                     sx={{ height: "33rem", marginTop: "10px", margin: "10px" }}
                     item={item}
@@ -91,34 +95,31 @@ const Market = ({ postedAds, handleClick, newStatus }) => {
                       <Typography>{item.description}</Typography>
                       <Typography>Condition: {item.condition}</Typography>
                       <Typography>I want : {item.want}</Typography>
-                      <CardActions sx={{ marginBottom: "20px" }}>
+                      <CardActions xs={6} sx={{ marginBottom: "20px" }}>
                         <IconButton aria-label="add to favorites">
                           <FavoriteIcon sx={{ color: "red" }} />
                         </IconButton>
                         <IconButton aria-label="share">
                           <ShareIcon sx={{ color: "#62b4f9" }} />
                         </IconButton>
-                        <IconButton aria-label="chat">
+                        <IconButton aria-label="chat"  onClick={() => setUserToMessage(item.uid)}>
                           <ChatIcon
                             sx={{ color: "green" }}
-                            onClick={() => setUserToMessage(item.uid)}
                           />
                         </IconButton>
-                        <IconButton aria-label="share" type="click">
+                        <IconButton aria-label="share" type="click"  onClick={() => handleClick(item)}>
                           <ListAltIcon
                             sx={{ color: "purple" }}
-                            onClick={() => handleClick(item)}
                           />
                         </IconButton>
                         <ProductDetailDialog item={item} />
                       </CardActions>
                     </Box>
-                  </Paper>
+                  </Card>
                 </Grid>
               ))}
           </Grid>
         </Box>
-      </Container>
     </>
   );
 };

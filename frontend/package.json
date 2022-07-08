@@ -31,6 +31,7 @@
     "react-map-gl-geocoder": "^2.2.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
+    "react-spinners": "^0.13.3",
     "react-tinder-card": "^1.4.5",
     "recharts": "^2.1.10",
     "socket.io-client": "^4.5.1",

@@ -41,8 +41,9 @@ export default function Banner() {
           variant="subtitle"
           sx={{ fontFamily: "Montserrat", fontSize: "19px" }}
         >
-          Find things you need on Hundie, trade them for items you own and
-          would love exchange!
+         Find things you need on Hundie, trade them for items you own and
+         would love exchange!
+
         </BannerDescription>
 
         <BannerShopButton

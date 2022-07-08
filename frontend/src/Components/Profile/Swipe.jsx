@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { CardActions, IconButton, Typography } from "@mui/material";
+import { CardActions, Grid, IconButton, Typography } from "@mui/material";
 import TinderCard from "react-tinder-card";
 import { Box, Container } from "@mui/system";
 import { AuthContext } from "../../auth/AuthProvider";
@@ -57,6 +57,7 @@ const Swipe = () => {
     width: "80vw",
     maxWidth: "360px",
     height: "600px",
+    marginLeft: "auto",
     // boxShadow: "0px 0px 60px 0px rgba(0,0,0,0.30)",
     borderRadius: "20px",
     backgroundSize: "cover",
@@ -75,7 +76,7 @@ const Swipe = () => {
   return (
     <>
       <Container>
-        <Box sx={{display: "flex", flexDirection: "row", justifyContent: "space-evenly"}}>
+        <Grid item xs={4} sx={{display: "flex", flexDirection: "row", justifyContent: "space-evenly"}}>
         <IconButton>
           <PersonIcon fontSize="large" style={{ color: "#ec5e6f" }} />
         </IconButton>
@@ -83,12 +84,13 @@ const Swipe = () => {
         <IconButton>
           <ChatIcon fontSize="large" className="headerIcon" style={{ color: "#ec5e6f" }} />
         </IconButton>
-        </Box>
-        <Box
+        </Grid>
+        <Grid
+
           style={{
             maxWidth: "100px",
             height: "200px",
-            marginLeft: "400px",
+            marginLeft: "10%",
             marginTop: "20px",
             marginBottom: "400px",
           }}
@@ -141,7 +143,7 @@ const Swipe = () => {
               </Box>
             </TinderCard>
           ))}
-        </Box>
+        </Grid>
         {lastDirection ? (
           <Typography style={infoText}>{lastDirection}</Typography>
         ) : (
