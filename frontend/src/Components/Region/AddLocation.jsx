@@ -27,7 +27,7 @@ const AddLocation = () => {
   const db = fbContext.db;
   
   const [postalData, setPostalData] = useState([]);
-  const [postedAds, setSetAllPostedAds] = useState([]);
+  const [postedAds, setAllPostedAds] = useState([]);
 
  
   useEffect(() => {
@@ -47,7 +47,7 @@ console.log(postedAds)
 
   useEffect(() => {
     if (db) {
-      let collectionRef = collection(db, "areaCodes");
+      let collectionRef = collection(db, "postedAds");
       let queryRef = query(collectionRef, orderBy("postalCode"));
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
         if (querySnap.empty) {
@@ -117,7 +117,7 @@ console.log(postalData)
           style={{ width: 1300, height: 660 }}
           mapStyle="mapbox://styles/ataene/cl4lf3mv9000h14nyykjem276"
         >
-          {postalCode.map((postal) => (
+          {postedAds.map((postal) => (
             <Marker
               key={postal.postalCode}
               latitude={postal.latitude}
@@ -145,6 +145,9 @@ console.log(postalData)
                 <label className="popups-label">Place</label>
                 <h5 className="place">{selectedItems.postalCode}</h5>
                 <p className="descInfo">{selectedItems.neighborhood}</p>
+                <p className="descInfo">{selectedItems.title}</p>
+                <p className="descInfo">{selectedItems.displayName}</p>
+
                 <label className="popups-label">Review</label>
                 <br />
                 <Link to="http://localhost:3000/">
