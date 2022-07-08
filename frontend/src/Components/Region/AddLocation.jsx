@@ -28,27 +28,7 @@ const AddLocation = () => {
   const [postalData, setPostalData] = useState([]);
   const [postedAds, setSetAllPostedAds] = useState([]);
 
-  //useEffect to call db
-  const [loading, setLoading] = useState(false);
-//useEffect to call db
-  useEffect(() => {
-    if (db) {
-      let collectionRef = collection(db, "postedAds");
-      let queryRef = query(collectionRef);
-      const unsubscribe = onSnapshot(queryRef, (querySnap) => {
-        if (querySnap.empty) {
-        } else {
-          let usersData = querySnap.docs.map((doc) => {
-            return { ...doc.data(), DOC_ID: doc.id };
-          });
-          setSetAllPostedAds(usersData);
-          setLoading(true)
-        }
-      });
-      return unsubscribe;
-    }
-  }, [db]);
-
+ 
   useEffect(() => {
     let adsByPostalCode = postedAds.reduce((object, ad)=> {
       let postalCode = ad.postalCode
@@ -62,6 +42,8 @@ const AddLocation = () => {
   }, [postedAds]);
 
 console.log(postedAds)
+
+
   useEffect(() => {
     if (db) {
       let collectionRef = collection(db, "areaCodes");
@@ -257,3 +239,24 @@ export default AddLocation;
 //         <Box sx={{height: 400,  position: "relative"}}  ref={mapContainer}/>
 //     </Box>
 //   )
+ //useEffect to call db
+//  const [loading, setLoading] = useState(false);
+//  //useEffect to call db
+//    useEffect(() => {
+//      if (db) {
+//        let collectionRef = collection(db, "postedAds");
+//        let queryRef = query(collectionRef);
+//        const unsubscribe = onSnapshot(queryRef, (querySnap) => {
+//          if (querySnap.empty) {
+//          } else {
+//            let usersData = querySnap.docs.map((doc) => {
+//              return { ...doc.data(), DOC_ID: doc.id };
+//            });
+//            setSetAllPostedAds(usersData);
+//            setLoading(true)
+//          }
+//        });
+//        return unsubscribe;
+//      }
+//    }, [db]);
+ 
