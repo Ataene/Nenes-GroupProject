@@ -10,6 +10,8 @@ import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { AuthContext } from "../../auth/AuthProvider";
 import { WantContext } from "../../providers/WantProvider";
 import { ItemContext } from "../../providers/ItemDetailProvider";
+import ProductDetails from "../productdetail/ProductDetail";
+import Matching from "../Recommendations/Matching"
 
 const MiddleBar = () => {
 
@@ -109,6 +111,16 @@ const MiddleBar = () => {
           >
             Swipe
           </Button>
+
+          <Button
+            onClick={() => setActive("matching")}
+            sx={{ margin: "5px" }}
+            variant="outlined"
+            size="large"
+          >
+            Matching
+          </Button>
+
           <Button
             onClick={() => setActive("profile")}
             sx={{ margin: "5px" }}
@@ -149,6 +161,8 @@ const MiddleBar = () => {
           {active === "swipe" && <Swipe />}
           {active === "myList" && <MyList />}
           {active === "profile" && <Profile />}
+          {active === "productdetail" && <ProductDetails />}
+          {active === "matching" && <Matching />}
         </>
       </Container>
     </Box>

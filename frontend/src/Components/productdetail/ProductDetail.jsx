@@ -78,8 +78,6 @@ function ItemDetail({ open, onClose, item }) {
   const [loading, setLoading] = useState("");
    const [selectedItem, setSelectedItem] = useState([]);
 
-
-
   const nameOfItem = useParams();
 
   

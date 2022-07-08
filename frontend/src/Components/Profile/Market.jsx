@@ -1,7 +1,7 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { Box, Card, CardActions, CardHeader, CardMedia, Container, Grid, IconButton, Paper } from "@mui/material";
+import { Box, Card, CardActions, CardHeader, CardMedia, Grid, IconButton } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
 import Avatar from "@mui/material/Avatar";
@@ -23,10 +23,6 @@ const Market = ({ postedAds, handleClick, newStatus }) => {
 
   const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
     useDialogModal(ItemDetail);
-
-  if (!postedAds) {
-    return <p className="mx-auto">Loading Data...</p>;
-  }
   return (
     <>
         <Box>

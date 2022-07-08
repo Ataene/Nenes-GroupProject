@@ -105,34 +105,37 @@ const Login = () => {
     }
   };
 
+  const back = {
+    backgroundImage: "linear-gradient(60deg, #abecd6 0%, #fbed96 100%)",
+  }
+
   return (
-    <div className={classes.root} style={{ backgroundColor: "#fafafa" }}>
-      <Paper>
-        <form className={classes.root} onSubmit={handleSubmit}>
-          <Typography variant="h4">User Login</Typography> <br />
-          <Avatar style={avatarStyle}></Avatar>
-          <TextField
-            label="Email"
-            variant="filled"
-            type="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <br />
-          <TextField
-            label="Password"
-            variant="filled"
-            type="password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          {authError && (
-            <Typography variant="h6" style={{ color: "red" }}>
-              {authError}
-            </Typography>
-          )}
+    <div className={classes.root} style={back}>
+      <form className={classes.root} onSubmit={handleSubmit}>
+        <Typography variant="h4">User Login</Typography> <br />
+        <Avatar style={avatarStyle}></Avatar>
+        <TextField
+          label="Email"
+          variant="filled"
+          type="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <br />
+        <TextField
+          label="Password"
+          variant="filled"
+          type="password"
+          required
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        {authError && (
+          <Typography variant="h6" style={{ color: "red" }}>
+            {authError}
+          </Typography>
+        )}
           <Box>
             <Button variant="contained">Cancel</Button>
             {loading && (
@@ -208,7 +211,7 @@ const Login = () => {
             <Button variant="contained">Create your HundieTrade Account</Button>
           </Link>
         </Box>
-      </Paper>
+      {/* </Paper> */}
       <Box>
         <br />
         <Typography variant="h5">

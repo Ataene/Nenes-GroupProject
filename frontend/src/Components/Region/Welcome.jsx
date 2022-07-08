@@ -14,11 +14,7 @@ const Welcome = () => {
   const authContext = useContext(AuthContext);
   const { user } = authContext;
   const navigate = useNavigate();
-  // const [postalCode, setPostalCode] = useState("");
   const [firstItem, setFirstItem] = useState("");
-  const [secondItem, setSecondItem] = useState("");
-  const [thirdItem, setThirdItem] = useState("");
-
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
 
@@ -27,20 +23,12 @@ const Welcome = () => {
     try {
       let collectionRef = collection(db, "matchingInfo");
       const response = await addDoc(collectionRef, {
-        // postalCode,
         firstItem,
-        secondItem,
-        thirdItem,
         uid: user.uid,
         timeStamp: serverTimestamp(),
       });
-      // navigate("/nearme");
-      console.log(response);
-      // setPostalCode("")
       setFirstItem("")
-      setSecondItem("")
-      setThirdItem("")
-
+      navigate("/dashboard")
     } catch (error) {
       console.log(error.message);
     }
@@ -87,7 +75,7 @@ const Welcome = () => {
             variant="h4"
             style={{ color: "green", marginTop: "8rem" }}
           >
-            We just need some info first...
+            To get started, what are you looing to trade?
           </Typography>
         </Container>
         <Container
@@ -102,33 +90,11 @@ const Welcome = () => {
           autoComplete="on"
         >
           <Box  style={{display: "flex", flexDirection: "column", flexWrap: "nowrap"}} >
-            {/* <TextField
-              value={postalCode}
-              onChange={(e) => setPostalCode(e.target.value)}
-              id="standard-basic"
-              label="First 3 characters of your postal code"
-              variant="standard"
-              inputProps={{ maxLength: 3 }}
-/> */}
             <TextField
               value={firstItem}
               onChange={(e) => setFirstItem(e.target.value)}
               id="standard-basic"
-              label="First Want Item"
-              variant="standard"
-            />
-            <TextField
-              value={secondItem}
-              onChange={(e) => setSecondItem(e.target.value)}
-              id="standard-basic"
-              label="Second Want Item"
-              variant="standard"
-            />
-            <TextField
-              value={thirdItem}
-              onChange={(e) => setThirdItem(e.target.value)}
-              id="standard-basic"
-              label="Third Want Item"
+              label="Items I want"
               variant="standard"
             />
             <Button

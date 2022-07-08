@@ -1,75 +1,64 @@
 import React, { useState, useContext, useEffect } from "react";
 import { CardActions, IconButton, Typography } from "@mui/material";
 import TinderCard from "react-tinder-card";
-import { Box, Container } from "@mui/system";
+import { Box } from "@mui/system";
 import { AuthContext } from "../../auth/AuthProvider";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
-import {
-  onSnapshot,
-  orderBy,
-  query,
-  doc,
-  getDoc,
-  collection,
-  serverTimestamp,
-  where,
-} from "firebase/firestore";
+import { onSnapshot, orderBy, query, collection, where } from "firebase/firestore";
 import ShareIcon from "@mui/icons-material/Share";
 import PreviewIcon from "@mui/icons-material/Preview";
 import ReplayIcon from "@mui/icons-material/Replay";
 import CloseIcon from "@mui/icons-material/Close";
 import PersonIcon from "@mui/icons-material/Person";
 
-
-const Match = () => {
+const Matching = () => {
   const authContext = useContext(AuthContext);
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const { user } = authContext;
+  // console.log("888888", user)
   const [postedAds, setPostedAds] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [title, setTitle] = useState("");
-    const [desc, setDesc] = useState("");
+  const [character, setCharacter] = useState([]);
 
-  const ref = firebase.firestore().collection("postedAds");
-
-  //REALTIME GET FUNCTION
-  function getIwant() {
-    setLoading(true);
-    ref
-      .where('uid', '==', user.uid)
-      .where("item", "==", "want") //
-//      .where("rating", ">=", 4) //
-      .orderBy("condition", "desc")
-//      .limit(4)
-      .onSnapshot((querySnapshot) => {
-        const items = [];
+  useEffect(() => {
+    if(db){
+      let collectionRef = collection(db, "postedAds");
+      let queryRef = query(collectionRef, orderBy("condition", "desc"))
+      const unsubscribe = onSnapshot(queryRef, (querySnapshot) => {
+        let items = [];
         querySnapshot.forEach((doc) => {
           items.push(doc.data());
         });
         setPostedAds(items);
-        setLoading(false);
       });
-  }
-
-  useEffect(() => {
-    getIwant();
-    // eslint-disable-next-line
-  }, [db, user]);
-
-  const characters = postedAds;
+      return unsubscribe;
+    }
+  }, [db])
+  
+  let characters = postedAds;
   const [lastDirection, setLastDirection] = useState();
 
   const swiped = (direction, url) => {
     console.log("removing: " + url);
     setLastDirection(direction);
   };
-
   const outOfFrame = (url) => {
     console.log(url + " left the screen!");
   };
+  useEffect(() => {
+    const findWantItem = () => {
+        characters.filter((list) =>{
+            if( list.uid === user.uid){
+             let characterItem = list.want
+              setCharacter(characterItem);
+              console.log("3333", character)
+            }
+          })
+    }
+findWantItem();
+  }, [])
 
   const card = {
     position: "absolute",
@@ -93,29 +82,8 @@ const Match = () => {
     animationDuration: "800ms",
   };
   return (
+    
     <>
-      <Container>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-evenly",
-          }}
-        >
-          <IconButton>
-            <PersonIcon fontSize="large" style={{ color: "#ec5e6f" }} />
-          </IconButton>
-          <Typography variant="h3" style={{ color: "#ec5e6f" }}>
-            Hundie
-          </Typography>
-          <IconButton>
-            <ChatIcon
-              fontSize="large"
-              className="headerIcon"
-              style={{ color: "#ec5e6f" }}
-            />
-          </IconButton>
-        </Box>
         <Box
           style={{
             maxWidth: "100px",
@@ -125,7 +93,8 @@ const Match = () => {
             marginBottom: "400px",
           }}
         >
-          {characters.map((characters) => (
+          {characters.filter((item) => item.uid !==user.uid).filter((item) => item.title.includes(character))
+          .map((characters) => (
             <TinderCard
               style={{ position: "absolute" }}
               key={characters.timeStamp}
@@ -177,9 +146,8 @@ const Match = () => {
         ) : (
           <Typography stylex={infoText} />
         )}
-      </Container>
     </>
   );
 };
 
-export default Match;
+export default Matching;

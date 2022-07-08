@@ -2,35 +2,23 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import { Toolbar, Typography, Container, Button, Grid } from "@mui/material";
-import LoginIcon from "@mui/icons-material/Login";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import Avatar from "@mui/material/Avatar";
-import { products } from "../Components/Data/index";
-import { AuthContext } from "../auth/AuthProvider";
+import LoginIcon from '@mui/icons-material/Login';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import Avatar from '@mui/material/Avatar';
+import {products} from "../Components/Data/index";
+import { AuthContext  } from '../auth/AuthProvider'
 import SearchBar from "./SearchBar";
 import { AppbarContainer } from "./styles/appbar";
-import { Menu } from "@mui/icons-material";
-import {
-  collection,
-  doc,
-  getDoc,
-  onSnapshot,
-  orderBy,
-  query,
-} from "firebase/firestore";
+import { collection, doc, getDoc, onSnapshot, orderBy, query } from "firebase/firestore";
 import { FirebaseContext } from "../auth/FirebaseProvider";
 
-const Navigation = (props) => {
-  const authContext = useContext(AuthContext);
+const Navigation = () => {
+  const authContext = useContext(AuthContext)
   const { user, LogoutUser } = authContext;
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
-  const [usePicture, setUserPicture] = useState();
-  const [displayName, setDisplayName] = useState("");
-  const [menuOpen, setMenuOpen] = useState("false");
-  function openHamburger() {
-    setMenuOpen((curr) => !curr);
-  }
+  const [ usePicture, setUserPicture ] = useState();
+  const [ displayName, setDisplayName ] = useState('');
 
   // useEffect(() => {
   //   if (db && user) {
@@ -57,9 +45,9 @@ const Navigation = (props) => {
       const unsubscribe = onSnapshot(docRef, (querySnap) => {
         if (querySnap.empty) {
         } else {
-          let usersData = querySnap.data();
+          let usersData = querySnap.data()
           setUserPicture(usersData?.Avatar);
-          setDisplayName(usersData?.firstName);
+          setDisplayName(usersData?.firstName)
         }
       });
       return unsubscribe;
@@ -70,22 +58,7 @@ const Navigation = (props) => {
     await LogoutUser();
     navigate("/login");
   };
-  // const NavMenu = styled.div`
-  //   display: flex;
-  //   align-items: center;
-  //   z-index: 200;
-  //   width: 100%;
 
-  //   @media screen and (max-width: 768px) {
-  //     display: ${(props) => (props.menuOpen ? "flex" : "none")};
-  //     flex-direction: ${(props) => (props.menuOpen ? "column" : "row")};
-  //     position: ${(props) => (props.menuOpen ? "absolute" : "unset")};
-  //     ${(props) =>
-  //       props.menuOpen
-  //         ? "width: max-content;right: 0; height: 50%;background-color: black;top: 50px;"
-  //         : ""}
-  //   }
-  // `;
   return (
     <AppbarContainer
       sx={{
@@ -113,91 +86,48 @@ const Navigation = (props) => {
             Hundie
           </Typography>
           <Box
-            style={{
-              textDecoration: "none",
-              marginLeft: "auto",
-              display: { xs: "none", md: "flex" },
-            }}
-            menuOpen={menuOpen}
+            style={{ textDecoration: "none", marginLeft: "auto" }}
+            sx={{ display: { xs: "none", md: "flex" } }}
           >
-            <Menu className="NavMenu" style={{}} onClick={openHamburger} />
-            <div
-              style={{
-                display: menuOpen ? "inline" : "none",
-                position: "absolute",
-                backgroundColor: "green",
-                right: "0",
-                top: "50px",
-              }}
-            >
-              <Link
-                style={{ textDecoration: "none" }}
-                to="/"
-                onClick={openHamburger}
-              >
-                <Button sx={{ my: 2, color: "white", display: "block" }}>
-                  Home
-                </Button>
-              </Link>
-              <Link
-                style={{ textDecoration: "none" }}
-                to="/products"
-                onClick={openHamburger}
-              >
-                <Button sx={{ my: 2, color: "white", display: "block" }}>
-                  Products
-                </Button>
-              </Link>
-              <Link
-                style={{ textDecoration: "none" }}
-                to="/blog"
-                onClick={openHamburger}
-              >
-                <Button sx={{ my: 2, color: "white", display: "block" }}>
-                  Blog
-                </Button>
-              </Link>
-              <Link
-                style={{ textDecoration: "none" }}
-                to="/maps"
-                onClick={openHamburger}
-              >
-                <Button sx={{ my: 2, color: "white", display: "block" }}>
-                  Map
-                </Button>
-              </Link>
-              <Link
-                style={{ textDecoration: "none" }}
-                to="/about"
-                onClick={openHamburger}
-              >
-                <Button sx={{ my: 2, color: "white", display: "block" }}>
-                  About
-                </Button>
-              </Link>
-              {user && (
-                <>
-                  <Link
-                    style={{ textDecoration: "none" }}
-                    to="/dashboard"
-                    onClick={openHamburger}
-                  >
-                    <Button sx={{ my: 2, color: "white", alignItem: "block" }}>
-                      Dashboard
-                    </Button>
-                  </Link>
-                </>
-              )}
-            </div>
+            <Link style={{ textDecoration: "none" }} to="/">
+              <Button sx={{ my: 2, color: "white", display: "block" }}>
+                Home
+              </Button>
+            </Link>
+            <Link style={{ textDecoration: "none" }} to="/products">
+              <Button sx={{ my: 2, color: "white", display: "block" }}>
+                Products
+              </Button>
+            </Link>
+            <Link style={{ textDecoration: "none" }} to="/blog">
+              <Button sx={{ my: 2, color: "white", display: "block" }}>
+                Blog
+              </Button>
+            </Link>
+            <Link style={{ textDecoration: "none" }} to="/maps">
+              <Button sx={{ my: 2, color: "white", display: "block" }}>
+                Map
+              </Button>
+            </Link>
+            <Link style={{ textDecoration: "none" }} to="/about">
+              <Button sx={{ my: 2, color: "white", display: "block" }}>
+                About
+              </Button>
+            </Link>
+            {user && (
+              <>
+                <Link style={{ textDecoration: "none" }} to="/dashboard">
+                  <Button sx={{ my: 2, color: "white", alignItem: "block" }}>
+                    Dashboard
+                  </Button>
+                </Link>
+              </>
+            )}
           </Box>
           <Box sx={{ display: { xs: "none", md: "flex" }, marginLeft: "auto" }}>
             {!user && (
               <>
-                <Link
-                  style={{ textDecoration: "none" }}
-                  to="/login"
-                  onClick={openHamburger}
-                >
+                <Link style={{ textDecoration: "none" }} to="/login">
                   <Button sx={{ my: 2, color: "white", alignItem: "center" }}>
                     <LoginIcon />
                     Login
@@ -212,13 +142,7 @@ const Navigation = (props) => {
                   data={products}
                   style={{ marginRight: "auto" }}
                 />
-                <Typography
-                  style={{
-                    marginTop: "22px",
-                    marginRight: "10px",
-                    color: "white",
-                  }}
-                >
+                <Typography style={{ marginTop: "22px", marginRight: "10px", color: "white" }}>
                   Hi, {displayName}
                 </Typography>
                 <Avatar
