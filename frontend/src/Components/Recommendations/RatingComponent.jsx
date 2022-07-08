@@ -23,17 +23,36 @@ const RatingComponent = (props) => {
   useEffect(() => {
     if (rating) {
       const SaveRating = async () => {
-        const collectionRef = collection(db, `postedAds/${productDetail.uid}/rating`);
-        await addDoc(collectionRef, {
+        const collectionRef = collection(
+          db,
+          `postedAds/${productDetail.DOC_ID}/rating`
+        );
+        let newDoc = {
           rating,
           user: user.uid,
           itemOwner: productDetail.owner || "",
-          postedAd: productDetail.uid,
           timeStamp: serverTimestamp(),
-        });
-      };
+        };
+        console.log(productDetail);
+
+        await addDoc(collectionRef, newDoc);
+        const userRef = collection(
+          db,
+          `users/${productDetail.owner}/rating`
+        );
+          newDoc = {
+          rating,
+          user: user.uid,
+          itemOwner: productDetail.owner || "",
+          timeStamp: serverTimestamp(),
+        };
+        console.log(productDetail);
+
+        await addDoc(userRef, newDoc);
+      };;
       SaveRating();
     }
+    
   }, [rating]);
 
   return (

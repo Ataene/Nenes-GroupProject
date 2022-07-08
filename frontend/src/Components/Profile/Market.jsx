@@ -1,11 +1,7 @@
 import React, { useContext, useState } from "react";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-<<<<<<< HEAD
-import { Box, CardActions, CardHeader, CardMedia, Container, Grid, IconButton, ListItemButton, Paper, Tooltip } from "@mui/material";
-=======
-import { Box, Card, CardActions, CardHeader, CardMedia, Grid, IconButton } from "@mui/material";
->>>>>>> dec5fb03b16c8b8ed4b2e6be37b99d1098fb9d92
+import { Box, Card, CardActions, CardHeader, CardMedia, Grid, IconButton, Container } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
 import Avatar from "@mui/material/Avatar";
@@ -69,7 +65,7 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
                         title={item.displayName}
                         name="title"
                       />
-                      <OnlineStatus uid={item.uid} />
+                      <OnlineStatus uid={item.owner} />
                     </Box>
                     <CardMedia
                       component="img"
@@ -120,6 +116,7 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
               ))}
           </Grid>
         </Box>
+        </Container>
     </>
   );
 };
