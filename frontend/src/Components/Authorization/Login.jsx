@@ -136,15 +136,6 @@ const Login = () => {
             {authError}
           </Typography>
         )}
-        {/* <Box> */}
-          <Button variant="contained">
-            Cancel
-          </Button>
-          {loading && (
-            <Button type="submit" variant="contained" color="primary">
-              Login
-            </Button>
-          )}
           <Box>
             <Button variant="contained">Cancel</Button>
             {loading && (
