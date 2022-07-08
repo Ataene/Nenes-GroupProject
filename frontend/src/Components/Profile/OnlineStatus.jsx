@@ -8,7 +8,7 @@ const OnlineStatus = ({ uid}) => {
   const db = fbContext.db;
   const [online, setOnline] = useState(false);
 useEffect(() => {
-        if (db) {
+        if (db && uid) {
           let docRef = doc(db, "users", uid);
           const unsubscribe = onSnapshot(docRef, (querySnap) => {
             if (querySnap.empty) {
