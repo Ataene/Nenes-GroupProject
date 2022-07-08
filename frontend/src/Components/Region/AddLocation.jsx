@@ -8,7 +8,7 @@ import { Container } from "@mui/system";
 import Search from "./seachPostalCode";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import postalCode from "../Data/postalCode.json";
+// import postalCode from "../Data/postalCode.json";
 
 
 const searchStyle = {
@@ -27,7 +27,7 @@ const AddLocation = () => {
   const db = fbContext.db;
   
   const [postalData, setPostalData] = useState([]);
-  const [postedAds, setAllPostedAds] = useState([]);
+  const [postedAds, setPostedAds] = useState([]);
 
  
   useEffect(() => {
@@ -39,15 +39,15 @@ const AddLocation = () => {
       else {object[postalCode]=[ad]}
       return object
     }, {})
-    console.log(adsByPostalCode)
+    // console.log(adsByPostalCode)
   }, [postedAds]);
 
-console.log(postedAds)
+// console.log(postedAds)
 
 
   useEffect(() => {
     if (db) {
-      let collectionRef = collection(db, "postedAds");
+      let collectionRef = collection(db, "areaCodes");
       let queryRef = query(collectionRef, orderBy("postalCode"));
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
         if (querySnap.empty) {
@@ -59,6 +59,7 @@ console.log(postedAds)
           setPostalData(usersData);
         }
       });
+      
       return unsubscribe;
     }
   }, [db]);
@@ -106,83 +107,86 @@ console.log(postedAds)
     }
   }, [searchItems]);
 console.log(postalData)
-  return (
-    <>
-      <Container>
-        <Map
-          initialViewState={initialViewState}
-          {...viewState}
-          onMove={(evt) => setViewState(evt.viewState)}
-          mapboxAccessToken={MAP_TOKEN}
-          style={{ width: 1300, height: 660 }}
-          mapStyle="mapbox://styles/ataene/cl4lf3mv9000h14nyykjem276"
-        >
-          {postedAds.map((postal) => (
-            <Marker
-              key={postal.postalCode}
-              latitude={postal.latitude}
-              longitude={postal.longitude}
-            >
-              <HandshakeIcon
-                color="primary"
-                style={{
-                  height: "30px",
-                  width: "40px",
-                }}
-              />
-            </Marker>
-          ))}
+return (
+  {postalData.map((postal) => postal.longitude)}
+)
+  // return (
+  //   <>
+  //     <Container>
+  //       <Map
+  //         initialViewState={initialViewState}
+  //         {...viewState}
+  //         onMove={(evt) => setViewState(evt.viewState)}
+  //         mapboxAccessToken={MAP_TOKEN}
+  //         style={{ width: 1300, height: 660 }}
+  //         mapStyle="mapbox://styles/ataene/cl4lf3mv9000h14nyykjem276"
+  //       >
+  //         {postalData.map((postal) => (
+  //           <Marker
+  //             key={postal.postalCode}
+  //             latitude={postal.latitude}
+  //             longitude={postal.longitude}
+  //           >
+  //             <HandshakeIcon
+  //               color="primary"
+  //               style={{
+  //                 height: "30px",
+  //                 width: "40px",
+  //               }}
+  //             />
+  //           </Marker>
+  //         ))}
 
-          {selectedItems ? (
-            <Popup
-              latitude={parseFloat(selectedItems.latitude)}
-              longitude={parseFloat(selectedItems.longitude)}
-              closeButton={true}
-              closeOnClick={false}
-              anchor="left"
-            >
-              <div className="card-container">
-                <label className="popups-label">Place</label>
-                <h5 className="place">{selectedItems.postalCode}</h5>
-                <p className="descInfo">{selectedItems.neighborhood}</p>
-                <p className="descInfo">{selectedItems.title}</p>
-                <p className="descInfo">{selectedItems.displayName}</p>
+  //         {selectedItems ? (
+  //           <Popup
+  //             latitude={parseFloat(selectedItems.latitude)}
+  //             longitude={parseFloat(selectedItems.longitude)}
+  //             closeButton={true}
+  //             closeOnClick={false}
+  //             anchor="left"
+  //           >
+  //             <div className="card-container">
+  //               <label className="popups-label">Place</label>
+  //               <h5 className="place">{selectedItems.postalCode}</h5>
+  //               <p className="descInfo">{selectedItems.neighborhood}</p>
+  //               <p className="descInfo">{selectedItems.title}</p>
+  //               <p className="descInfo">{selectedItems.displayName}</p>
 
-                <label className="popups-label">Review</label>
-                <br />
-                <Link to="http://localhost:3000/">
-                  <Button>Review</Button>
-                </Link>
-                <br />
-                <label className="popups-label">Ratings</label>
-                {/* <p className="star">{(selectedPark.Ratings).fill(<MapRatings className="star"/>)}</p> */}
-                <label className="popups-label">Information</label>
-                <p className="descInfo">{selectedItems.neighborhood}</p>
-                <div className="btn">
-                  <Button className="btn-button">
-                    <Link to="/blog">Survey</Link>
-                  </Button>
-                </div>
-              </div>
-            </Popup>
-          ) : null}
+  //               <label className="popups-label">Review</label>
+  //               <br />
+  //               <Link to="http://localhost:3000/">
+  //                 <Button>Review</Button>
+  //               </Link>
+  //               <br />
+  //               <label className="popups-label">Ratings</label>
+  //               {/* <p className="star">{(selectedPark.Ratings).fill(<MapRatings className="star"/>)}</p> */}
+  //               <label className="popups-label">Information</label>
+  //               <p className="descInfo">{selectedItems.neighborhood}</p>
+  //               <div className="btn">
+  //                 <Button className="btn-button">
+  //                   <Link to="/blog">Survey</Link>
+  //                 </Button>
+  //               </div>
+  //             </div>
+  //           </Popup>
+  //         ) : null}
 
-          <div className="sidebar">
-            Longitude: {viewState.longitude.toFixed(2)}| Latitude:{" "}
-            {viewState.latitude.toFixed(2)} | Zoom: {viewState.zoom.toFixed(2)}
+  //         <div className="sidebar">
+  //           Longitude: {viewState.longitude.toFixed(2)}| Latitude:{" "}
+  //           {viewState.latitude.toFixed(2)} | Zoom: {viewState.zoom.toFixed(2)}
             {/* <div ref={mapRef}></div> */}
-          </div>
+          // </div>
 
-          <button>
-            <HomeIcon
-              className="home"
-              onClick={(evt) => setViewState(initialViewState)}
-            />
-          </button>
+          // <button>
+          //   <HomeIcon
+          //     className="home"
+          //     onClick={(evt) => setViewState(initialViewState)}
+          //   />
+          // </button>
 
-          <div style={searchStyle}>
-            <Search setSearchItems={setSearchItems} />
-          </div>
+          // <div style={searchStyle}>
+          //   <Search setSearchItems={setSearchItems} />
+          // </div>
 
           {/* <div className="nav" style={navStyle}>
           <GeolocateControl />
@@ -192,10 +196,10 @@ console.log(postalData)
           />
           <ScaleControl />
         </div> */}
-        </Map>
-      </Container>
-    </>
-  );
+  //       </Map>
+  //     </Container>
+  //   </>
+  // );
 };
 export default AddLocation;
 
