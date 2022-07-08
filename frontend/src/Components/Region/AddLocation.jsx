@@ -10,40 +10,44 @@ import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 // import postalCode from "../Data/postalCode.json";
 
-
 const searchStyle = {
   position: "absolute",
   top: 0,
   right: 50,
 };
 
-
 const MAP_TOKEN =
   "pk.eyJ1IjoiYXRhZW5lIiwiYSI6ImNsMnRpc3EwcDAxaXMzY3FlOGg4a3A5ZmEifQ.dtj_XStiWa_Uy15mfMAM7Q";
 
 const AddLocation = () => {
-
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
-  
-  const [postalData, setPostalData] = useState([]);
-  const [postedAds, setPostedAds] = useState([]);
 
- 
+  const [postalData, setPostalData] = useState();
+  const [adsByPostalCode, setadsByPostalCode] = useState([]);
+  const [postedAds, setPostedAds] = useState([]);
+  const handleClick =(item) => {
+    console.log(item)
+    setSelectedItems(item)
+  }
+
   useEffect(() => {
-    let adsByPostalCode = postedAds.reduce((object, ad)=> {
-      let postalCode = ad.postalCode
+    let data = postedAds.reduce((object, ad) => {
+      let postalCode = ad.postalCode;
+
       if (object[postalCode]) {
-        object[postalCode].push(ad)
+        object[postalCode].push(ad);
+      } else {
+        object[postalCode] = [ad];
       }
-      else {object[postalCode]=[ad]}
-      return object
-    }, {})
+      return object;
+    }, {});
+    setadsByPostalCode(data);
     // console.log(adsByPostalCode)
   }, [postedAds]);
+  console.log(adsByPostalCode);
 
-// console.log(postedAds)
-
+  // console.log(postedAds)
 
   useEffect(() => {
     if (db) {
@@ -56,15 +60,33 @@ const AddLocation = () => {
           let usersData = querySnap.docs.map((doc) => {
             return { ...doc.data(), DOC_ID: doc.id };
           });
-          setPostalData(usersData);
+          let postalObject = usersData.reduce((object, item) => {
+            object[item.postalCode] = item;
+            return object;
+          }, {});
+          setPostalData(postalObject);
         }
       });
-      
       return unsubscribe;
     }
   }, [db]);
 
-
+  useEffect(() => {
+    if (db) {
+      let collectionRef = collection(db, "postedAds");
+      let queryRef = query(collectionRef);
+      const unsubscribe = onSnapshot(queryRef, (querySnap) => {
+        if (querySnap.empty) {
+        } else {
+          let usersData = querySnap.docs.map((doc) => {
+            return { ...doc.data(), DOC_ID: doc.id };
+          });
+          setPostedAds(usersData);
+        }
+      });
+      return unsubscribe;
+    }
+  }, [db]);
 
   const [long, setLong] = useState(-114.0719);
   const [lat, setLat] = useState(51.0447);
@@ -106,87 +128,70 @@ const AddLocation = () => {
       });
     }
   }, [searchItems]);
-console.log(postalData)
-return (
-  {postalData.map((postal) => postal.longitude)}
-)
-  // return (
-  //   <>
-  //     <Container>
-  //       <Map
-  //         initialViewState={initialViewState}
-  //         {...viewState}
-  //         onMove={(evt) => setViewState(evt.viewState)}
-  //         mapboxAccessToken={MAP_TOKEN}
-  //         style={{ width: 1300, height: 660 }}
-  //         mapStyle="mapbox://styles/ataene/cl4lf3mv9000h14nyykjem276"
-  //       >
-  //         {postalData.map((postal) => (
-  //           <Marker
-  //             key={postal.postalCode}
-  //             latitude={postal.latitude}
-  //             longitude={postal.longitude}
-  //           >
-  //             <HandshakeIcon
-  //               color="primary"
-  //               style={{
-  //                 height: "30px",
-  //                 width: "40px",
-  //               }}
-  //             />
-  //           </Marker>
-  //         ))}
+  console.log(postalData);
+  return postalData && ( 
+    <>
+      <Container>
+        <Map
+          initialViewState={initialViewState}
+          {...viewState}
+          onMove={(evt) => setViewState(evt.viewState)}
+          mapboxAccessToken={MAP_TOKEN}
+          style={{ width: 1300, height: 660 }}
+          mapStyle="mapbox://styles/ataene/cl4lf3mv9000h14nyykjem276"
+        >
+          {Object.keys(adsByPostalCode).map((postal) => {
+           console.log(postal, postalData[postal])
+           return (
+              <Marker
+                key={postal}
+                latitude={postalData[postal].latitude}
+                longitude={postalData[postal].longitude}
+                onClick= {()=> {
+                  handleClick(postalData[postal])
+                }}
+              >
+                <HandshakeIcon
+                  color="primary"
+                  style={{
+                    height: "30px",
+                    width: "40px",
+                  }}
+                />
+              </Marker>
+            );
+          })}
 
-  //         {selectedItems ? (
-  //           <Popup
-  //             latitude={parseFloat(selectedItems.latitude)}
-  //             longitude={parseFloat(selectedItems.longitude)}
-  //             closeButton={true}
-  //             closeOnClick={false}
-  //             anchor="left"
-  //           >
-  //             <div className="card-container">
-  //               <label className="popups-label">Place</label>
-  //               <h5 className="place">{selectedItems.postalCode}</h5>
-  //               <p className="descInfo">{selectedItems.neighborhood}</p>
-  //               <p className="descInfo">{selectedItems.title}</p>
-  //               <p className="descInfo">{selectedItems.displayName}</p>
+          {selectedItems ? (
+            <Popup
+              latitude= {selectedItems.latitude}
+              longitude={selectedItems.longitude}
+              closeButton={true}
+              closeOnClick={false}
+              anchor="left"
+            >
+              <div className="card-container">
+                {JSON.stringify(adsByPostalCode[selectedItems.postalCode])}
+              </div>
+            </Popup>
+          ) : null}
 
-  //               <label className="popups-label">Review</label>
-  //               <br />
-  //               <Link to="http://localhost:3000/">
-  //                 <Button>Review</Button>
-  //               </Link>
-  //               <br />
-  //               <label className="popups-label">Ratings</label>
-  //               {/* <p className="star">{(selectedPark.Ratings).fill(<MapRatings className="star"/>)}</p> */}
-  //               <label className="popups-label">Information</label>
-  //               <p className="descInfo">{selectedItems.neighborhood}</p>
-  //               <div className="btn">
-  //                 <Button className="btn-button">
-  //                   <Link to="/blog">Survey</Link>
-  //                 </Button>
-  //               </div>
-  //             </div>
-  //           </Popup>
-  //         ) : null}
-
-  //         <div className="sidebar">
-  //           Longitude: {viewState.longitude.toFixed(2)}| Latitude:{" "}
-  //           {viewState.latitude.toFixed(2)} | Zoom: {viewState.zoom.toFixed(2)}
+          <div className="sidebar">
+            Longitude: {viewState.longitude.toFixed(2)}| Latitude:{" "}
+            {viewState.latitude.toFixed(2)} | Zoom: {viewState.zoom.toFixed(2)}
             {/* <div ref={mapRef}></div> */}
-          // </div>
+          </div>
 
-          // <button>
-          //   <HomeIcon
-          //     className="home"
-          //     onClick={(evt) => setViewState(initialViewState)}
-          //   />
-          // </button>
+          <button>
+            <HomeIcon
+              className="home"
+              onClick={(evt) => setViewState(initialViewState)}
+            />
+          </button>
 
-          // <div style={searchStyle}>
-          //   <Search setSearchItems={setSearchItems} />
-          // </div>
+          <div style={searchStyle}>
+            <Search setSearchItems={setSearchItems} />
+          </div>
 
           {/* <div className="nav" style={navStyle}>
           <GeolocateControl />
@@ -196,10 +201,10 @@ return (
           />
           <ScaleControl />
         </div> */}
-  //       </Map>
-  //     </Container>
-  //   </>
-  // );
+        </Map>
+      </Container>
+    </>
+  );
 };
 export default AddLocation;
 
@@ -247,7 +252,7 @@ export default AddLocation;
 //         <Box sx={{height: 400,  position: "relative"}}  ref={mapContainer}/>
 //     </Box>
 //   )
- //useEffect to call db
+//useEffect to call db
 //  const [loading, setLoading] = useState(false);
 //  //useEffect to call db
 //    useEffect(() => {
@@ -267,4 +272,3 @@ export default AddLocation;
 //        return unsubscribe;
 //      }
 //    }, [db]);
- 
