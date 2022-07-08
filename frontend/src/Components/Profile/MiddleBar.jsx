@@ -35,6 +35,7 @@ const MiddleBar = () => {
 //useEffect to call db
   useEffect(() => {
     if (db && user) {
+      setLoading(true)
       let collectionRef = collection(db, "postedAds");
       let queryRef = query(collectionRef, orderBy("timeStamp"));
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
@@ -44,7 +45,7 @@ const MiddleBar = () => {
             return { ...doc.data(), DOC_ID: doc.id };
           });
           setPostedAds(usersData);
-          setLoading(true)
+          setLoading(false)
         }
       });
       return unsubscribe;
@@ -88,9 +89,6 @@ const MiddleBar = () => {
     const showProductDetailDialog = (item) => {
       showInDetailedPage(item);
     };
-    if (!postedAds) {
-      return <p className="mx-auto">Loading Data...</p>;
-    }
   return (
     <Box sx={{ flex: "8.5", backgroundColor: "#B8F1B0" }}>
       <Container>

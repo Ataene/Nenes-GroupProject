@@ -10,11 +10,11 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import useDialogModal from ".././productdetail/useDialogModal";
 import ItemDetail from ".././productdetail/ProductDetail";
 import { AuthContext } from "../../auth/AuthProvider";
-import CircularProgress from "@mui/material/CircularProgress";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import OnlineStatus from "./OnlineStatus";
+import CircleLoader from "react-spinners/CircleLoader";
 
-const Market = ({ postedAds, handleClick, newStatus }) => {
+const Market = ({ postedAds, handleClick, newStatus, loading }) => {
   const authContext = useContext(AuthContext);
   const { user, setUserToMessage } = authContext;
   const fbContext = useContext(FirebaseContext);
@@ -23,11 +23,18 @@ const Market = ({ postedAds, handleClick, newStatus }) => {
 
   const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
     useDialogModal(ItemDetail);
+    console.log("666", loading)
   return (
     <>
         <Box>
           <Grid container spacing={1}>
-          {postedAds
+          
+          { loading ? 
+            (
+              <div style={{display: "flex", marginLeft: "500px", marginTop: 150}}>
+              <CircleLoader  color={"#FBB454"} loading={loading}  size={100} />
+              </div>
+              ): postedAds
               .filter((item) => item.uid !== user.uid)
               .map((item) => (
                 <Grid item  xs={6}  md={4} lg={3} key={item.uid} >

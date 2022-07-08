@@ -55,7 +55,7 @@ const Login = () => {
     e.preventDefault();
     try {
       await signInUser(email, password);
-      navigate("/profile");
+      navigate("/dashboard");
     } catch (error) {
       console.log(error.message);
     }
@@ -65,7 +65,7 @@ const Login = () => {
     try {
       const gitHubUser = await gitHub();
       if (gitHubUser) {
-        navigate("/profile");
+        navigate("/dashboard");
       }
     } catch (error) {
       console.log("GitHub Auth Failed");
@@ -76,7 +76,7 @@ const Login = () => {
     try {
       const facebookUser = await facebook();
       if (facebookUser) {
-        navigate("/profile");
+        navigate("/dashboard");
       }
     } catch (error) {
       console.log("Failed");
@@ -87,7 +87,7 @@ const Login = () => {
     try {
       const twitterUser = await twitter();
       if (twitterUser) {
-        navigate("/profile");
+        navigate("/dashboard");
       }
     } catch (error) {
       console.log("Twitter Auth Failed");
@@ -98,7 +98,7 @@ const Login = () => {
     try {
       const googleUser = await google();
       if (googleUser) {
-        navigate("/profile");
+        navigate("/dashboard");
       }
     } catch (error) {
       console.log("Google Auth Failed");
