@@ -16,55 +16,54 @@ const RatingComponent = (props) => {
   const db = fbContext.db;
   const authContext = useContext(AuthContext);
   const { user, LogoutUser } = authContext;
-  const [postedAds, setSetAllPostedAds] = useState("");
-  const [ratingValue, setRatingValue] = useState(null);
+ 
 
-  const [hover, setHover] = useState(null);
+
 
   useEffect(() => {
     if (rating) {
       const SaveRating = async () => {
-        const collectionRef = collection(db, "rating");
-        await addDoc(collectionRef, {
+        const collectionRef = collection(
+          db,
+          `postedAds/${productDetail.DOC_ID}/rating`
+        );
+        let newDoc = {
           rating,
           user: user.uid,
-          itemOwner: productDetail.itemOwner,
-          postedAd: productDetail.uid,
+          itemOwner: productDetail.owner || "",
           timeStamp: serverTimestamp(),
-        });
-      };
+        };
+        console.log(productDetail);
+
+        await addDoc(collectionRef, newDoc);
+        const userRef = collection(
+          db,
+          `users/${productDetail.owner}/rating`
+        );
+          newDoc = {
+          rating,
+          user: user.uid,
+          itemOwner: productDetail.owner || "",
+          timeStamp: serverTimestamp(),
+        };
+        console.log(productDetail);
+
+        await addDoc(userRef, newDoc);
+      };;
       SaveRating();
     }
+    
   }, [rating]);
 
   return (
     <Box>
-      <IconButton aria-label="share">
-        {[...Array(5)].map((star, i) => {
-          const ratingValue = i + 1;
-          return (
-            <label>
-              <input
-                type="radio"
-                name="rating"
-                value={rating}
-                precision={0.1}
-                onClick={(e) => setRating(e.target.value)}
-                onMouseEnter={() => setHover(ratingValue)}
-                onMouseLeave={() => setHover(null)}
-              />
-              <FaStar
-                className="star"
-                color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
-                size={40}
-              />
-            </label>
-          );
-        })}
-      </IconButton>
-      <Typography sx={{ display: "flex"}}>
-        The rating is {rating}.
-      </Typography>
+      <Rating
+        precision={0.1}
+        size="large"
+        value={rating}
+        onChange={(e, val) => setRating(val)}
+      />
+      <Typography>Rated {rating !== undefined ? rating : 0} Stars</Typography>
     </Box>
   );
 };

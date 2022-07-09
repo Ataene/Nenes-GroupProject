@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { Box, Card, CardActions, CardHeader, CardMedia, Grid, IconButton } from "@mui/material";
+import { Box, CardActions, Card, CardHeader, CardMedia, Container, Grid, IconButton, ListItemButton, Paper, Tooltip } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
 import Avatar from "@mui/material/Avatar";
@@ -23,19 +23,29 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
 
   const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
     useDialogModal(ItemDetail);
-    console.log("666", loading)
+  
+    const [showOptions, setShowOptions] = useState(false);
+
+    const handleMouseEnter = () => {
+      setShowOptions(true);
+    };
+    const handleMouseLeave = () => {
+      setShowOptions(false);
+    };
+
+  if (!postedAds) {
+    return <p className="mx-auto">Loading Data...</p>;
+  }
   return (
     <>
+      <Container
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         <Box>
           <Grid container spacing={1}>
-          
-          { loading ? 
-            (
-              <div style={{display: "flex", marginLeft: "500px", marginTop: 150}}>
-              <CircleLoader  color={"#FBB454"} loading={loading}  size={100} />
-              </div>
-              ): postedAds
-              .filter((item) => item.uid !== user.uid)
+            {postedAds
+              .filter((item) => item.owner !== user.uid)
               .map((item) => (
                 <Grid item  xs={6}  md={4} lg={3} key={item.timeStamp} >
                   <Card
@@ -43,26 +53,29 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
                     sx={{ height: "33rem", marginTop: "10px", margin: "10px" }}
                     item={item}
                   >
-                  <Box sx={{display: "flex", flexDirection: "row"}}>
-                    <CardHeader
-                      avatar={
-                        <Avatar
-                          sx={{ bgcolor: "red"[500] }}
-                          aria-label="recipe"
-                          src={item.userPicture}
-                        />
-                      }
-                      title={item.displayName} 
-                      name="title"
-                    />
-                      <OnlineStatus owner={item.owner} />
-                  </Box>
+                    <Box sx={{ display: "flex", flexDirection: "row" }}>
+                      <CardHeader
+                        avatar={
+                          <Avatar
+                            sx={{ bgcolor: "red"[500] }}
+                            aria-label="recipe"
+                            src={item.userPicture}
+                          />
+                        }
+                        title={item.displayName}
+                        name="title"
+                      />
+                      <OnlineStatus uid={item.owner} />
+                    </Box>
                     <CardMedia
                       component="img"
                       sx={{ height: "260px" }}
                       image={item.url}
                       title={item.title}
-                      onClick={() => showProductDetailDialog()}
+                      onClick={() => {
+                        console.log(item)
+                        showProductDetailDialog(item)
+                      }}
                     ></CardMedia>
                     <CardContent>
                       <Typography>{item.name}</Typography>
@@ -103,6 +116,7 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
               ))}
           </Grid>
         </Box>
+        </Container>
     </>
   );
 };

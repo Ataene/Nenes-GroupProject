@@ -16,7 +16,7 @@ export default function Banner() {
       <video
         src={MainVideo}
         type="video/mp4"
-        width="600px"
+        width="500px"
         autoPlay
         muted
         loop

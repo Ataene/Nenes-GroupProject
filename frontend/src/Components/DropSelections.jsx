@@ -110,7 +110,7 @@ const DropSelections = ({ visible, onCancel }) => {
         quantity,
         want,
         url,
-        uid: user.uid,
+        owner: user.uid,
         userPicture,
         displayName,
         timeStamp: serverTimestamp(),
