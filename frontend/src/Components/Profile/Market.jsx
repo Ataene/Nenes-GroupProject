@@ -33,9 +33,6 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
       setShowOptions(false);
     };
 
-  if (!postedAds) {
-    return <p className="mx-auto">Loading Data...</p>;
-  }
   return (
     <>
       <Container
@@ -44,7 +41,12 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
       >
         <Box>
           <Grid container spacing={1}>
-            {postedAds
+            {  loading ? 
+            (
+              <div style={{display: "flex", marginLeft: "500px", marginTop: 150}}>
+              <CircleLoader  color={"#FBB454"} loading={loading}  size={100} />
+              </div>
+              ):postedAds
               .filter((item) => item.owner !== user.uid)
               .map((item) => (
                 <Grid item  xs={6}  md={4} lg={3} key={item.timeStamp} >
