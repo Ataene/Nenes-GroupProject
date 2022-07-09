@@ -3,13 +3,13 @@ import { doc, onSnapshot, orderBy, query } from "firebase/firestore";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { Box } from "@mui/system";
 
-const OnlineStatus = ({ uid}) => {
+const OnlineStatus = ({ onwer}) => {
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const [online, setOnline] = useState(false);
 useEffect(() => {
         if (db) {
-          let docRef = doc(db, "users", uid);
+          let docRef = doc(db, "users", onwer);
           const unsubscribe = onSnapshot(docRef, (querySnap) => {
             if (querySnap.empty) {
             } else {

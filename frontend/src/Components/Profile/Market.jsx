@@ -55,7 +55,7 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
                       title={item.displayName} 
                       name="title"
                     />
-                      <OnlineStatus uid={item.uid} />
+                      <OnlineStatus owner={item.owner} />
                   </Box>
                     <CardMedia
                       component="img"
