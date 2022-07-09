@@ -30,8 +30,6 @@ const Wishlist = ({ handleClickTraded }) => {
 
      const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
        useDialogModal(ItemDetail);
-
-
   const [search, setSearch] = useState("");
   return (
     <>

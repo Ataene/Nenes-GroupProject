@@ -12,6 +12,7 @@ import { WantContext } from "../../providers/WantProvider";
 import { ItemContext } from "../../providers/ItemDetailProvider";
 import ProductDetails from "../productdetail/ProductDetail";
 import Matching from "../Recommendations/Matching"
+import CountingEffect from "./CountingEffect";
 
 const MiddleBar = () => {
 
@@ -94,6 +95,8 @@ const MiddleBar = () => {
       <Container>
         <Box sx={{ justifyContent: "center", display: "flex" }}>
           <Button
+            // className={ative ? `button_Style online` : `button_Style offline`}
+
             onClick={() => setActive("market")}
             sx={{ margin: "5px" }}
             variant="outlined"
@@ -154,6 +157,7 @@ const MiddleBar = () => {
           )}
         </Box>
         <hr />
+        <CountingEffect />
         <>
           {active === "market" && <Market  postedAds ={postedAds}  handleClick={handleClick} loading={loading} Click={showProductDetailDialog} />}
           {active === "swipe" && <Swipe />}

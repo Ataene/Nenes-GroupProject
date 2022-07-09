@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 import {
-  Box,
-  Container,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Card,
-} from "@mui/material";
+  Box, List, ListItemButton, ListItemIcon, ListItemText, Card} from "@mui/material";
 import RssFeedIcon from "@mui/icons-material/RssFeed";
 import ChatIcon from "@mui/icons-material/Chat";
 import InventoryIcon from "@mui/icons-material/Inventory";
@@ -18,6 +11,7 @@ import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
 import WorkIcon from "@mui/icons-material/Work";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import GroupsIcon from "@mui/icons-material/Groups";
+import CountingEffect from "./CountingEffect";
 
 const LeftBar = () => {
   const [active, setActive] = useState("");

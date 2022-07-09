@@ -1,14 +1,21 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Map, { Marker, Popup } from "react-map-gl";
-import { Box, Button, Link } from "@mui/material";
 import HandshakeIcon from "@mui/icons-material/Handshake";
 import HomeIcon from "@mui/icons-material/Home";
-import { Container } from "@mui/system";
 import Search from "./seachPostalCode";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-// import postalCode from "../Data/postalCode.json";
+import { Box, CardActions, Card, CardHeader, CardMedia, Container, Grid, IconButton, Typography, CardContent} from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+import OnlineStatus from "../../Components/Profile/OnlineStatus";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ChatIcon from "@mui/icons-material/Chat";
+import ShareIcon from "@mui/icons-material/Share";
+import ListAltIcon from "@mui/icons-material/ListAlt";
+import useDialogModal from ".././productdetail/useDialogModal";
+import ItemDetail from ".././productdetail/ProductDetail";
+import { AuthContext } from "../../auth/AuthProvider";
 
 const searchStyle = {
   position: "absolute",
@@ -20,9 +27,22 @@ const MAP_TOKEN =
   "pk.eyJ1IjoiYXRhZW5lIiwiYSI6ImNsMnRpc3EwcDAxaXMzY3FlOGg4a3A5ZmEifQ.dtj_XStiWa_Uy15mfMAM7Q";
 
 const AddLocation = () => {
+
+  const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
+    useDialogModal(ItemDetail);
+  
+    const [showOptions, setShowOptions] = useState(false);
+
+    const handleMouseEnter = () => {
+      setShowOptions(true);
+    };
+    const handleMouseLeave = () => {
+      setShowOptions(false);
+    };
+    const authContext = useContext(AuthContext);
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
-
+  const { user, setUserToMessage } = authContext;
   const [postalData, setPostalData] = useState();
   const [adsByPostalCode, setadsByPostalCode] = useState([]);
   const [postedAds, setPostedAds] = useState([]);
@@ -43,11 +63,8 @@ const AddLocation = () => {
       return object;
     }, {});
     setadsByPostalCode(data);
-    // console.log(adsByPostalCode)
   }, [postedAds]);
   console.log(adsByPostalCode);
-
-  // console.log(postedAds)
 
   useEffect(() => {
     if (db) {
@@ -171,7 +188,74 @@ const AddLocation = () => {
               anchor="left"
             >
               <div className="card-container">
-                {JSON.stringify(adsByPostalCode[selectedItems.postalCode])}
+                {(adsByPostalCode[selectedItems.postalCode]).map((item) => (
+                  <Grid item  xs={6}  md={4} lg={3} key={item.timeStamp} >
+                  <Card
+                    elevation={3}
+                    sx={{ height: "33rem", marginTop: "10px", margin: "10px"}}
+                    item={item}
+                  >
+                    <Box sx={{ display: "flex", flexDirection: "row" }}>
+                      <CardHeader
+                        avatar={
+                          <Avatar
+                            sx={{ bgcolor: "red"[500] }}
+                            aria-label="recipe"
+                            src={item.userPicture}
+                          />
+                        }
+                        title={item.displayName}
+                        name="title"
+                      />
+                      <OnlineStatus uid={item.owner} />
+                    </Box>
+                    <CardMedia
+                      component="img"
+                      sx={{ height: "180px" }}
+                      image={item.url}
+                      title={item.title}
+                      onClick={() => {
+                        console.log(item)
+                        showProductDetailDialog(item)
+                      }}
+                    ></CardMedia>
+                    <CardContent>
+                      <Typography>{item.name}</Typography>
+                    </CardContent>
+                    <Box
+                      sx={{
+                        justifyContent: "center",
+                        alignItems: "center",
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                    >
+                      <Typography>{item.description}</Typography>
+                      <Typography>Condition: {item.condition}</Typography>
+                      <Typography>I want : {item.want}</Typography>
+                      <CardActions xs={6} sx={{ marginBottom: "20px" }}>
+                        <IconButton aria-label="add to favorites">
+                          <FavoriteIcon sx={{ color: "red" }} />
+                        </IconButton>
+                        <IconButton aria-label="share">
+                          <ShareIcon sx={{ color: "#62b4f9" }} />
+                        </IconButton>
+                        <IconButton aria-label="chat"  onClick={() => setUserToMessage(item.uid)}>
+                          <ChatIcon
+                            sx={{ color: "green" }}
+                          />
+                        </IconButton>
+                        <IconButton aria-label="share" type="click"  onClick={() => handleClick(item)}>
+                          <ListAltIcon
+                            sx={{ color: "purple" }}
+                          />
+                        </IconButton>
+                        <ProductDetailDialog item={item} />
+                      </CardActions>
+                    </Box>
+                  </Card>
+                </Grid>
+                ))}
               </div>
             </Popup>
           ) : null}
@@ -207,68 +291,3 @@ const AddLocation = () => {
   );
 };
 export default AddLocation;
-
-// import { geocodeByAddress, getLatLng, geocodeByPlaceId } from 'react-places-autocomplete';
-
-//   const handleSelect = async (address, placeId) => {
-//     const results = await geocodeByAddress(address);
-//     const latLng = await getLatLng(results[0]);
-//     const [place] = await geocodeByPlaceId(placeId);
-//     const { long_name: postalCode = '' } =
-//       place.address_components.find(c => c.types.includes('postal_code')) || {};
-//     console.log("postalCode",postalCode);
-//   };
-
-// const mapContainer = useRef(null)
-//         const map = useRef(null)
-//         const [ lng, setLng   ] = useState(-114.067)
-//         const [ lat, setLat   ] = useState(51.049)
-//         const [ zoom, setZoom   ] = useState(12)
-//         const [ pointer, setPointer   ] = useState()
-
-//         useEffect(() => {
-//                 if(map.current) return;
-//                 map.current = new mapboxgl.Map({
-//                         container: mapContainer.current,
-//                         style: "mapbox://styles/ataene/cl4lf3mv9000h14nyykjem276",
-//                         center: [lng, lat],
-//                         zoom: zoom,
-//                 })
-// }, []);
-
-//         useEffect(() => {
-//                 if(!map.current) return;
-//                 map.current.on("move", () => {
-//                         setLng(map.current.getCenter().lng.toFixed(4))
-//                         setLat(map.current.getCenter().lat.toFixed(4))
-//                         setZoom(map.current.getZoom().toFixed(4))
-//                 })
-//         }, [])
-//   return (
-//     <Box>
-//         <Box sx={{height: 20}}>
-//                 Longitude: {lng} || Latitude: {lat} || Zoom: {zoom}
-//         </Box>
-//         <Box sx={{height: 400,  position: "relative"}}  ref={mapContainer}/>
-//     </Box>
-//   )
-//useEffect to call db
-//  const [loading, setLoading] = useState(false);
-//  //useEffect to call db
-//    useEffect(() => {
-//      if (db) {
-//        let collectionRef = collection(db, "postedAds");
-//        let queryRef = query(collectionRef);
-//        const unsubscribe = onSnapshot(queryRef, (querySnap) => {
-//          if (querySnap.empty) {
-//          } else {
-//            let usersData = querySnap.docs.map((doc) => {
-//              return { ...doc.data(), DOC_ID: doc.id };
-//            });
-//            setSetAllPostedAds(usersData);
-//            setLoading(true)
-//          }
-//        });
-//        return unsubscribe;
-//      }
-//    }, [db]);

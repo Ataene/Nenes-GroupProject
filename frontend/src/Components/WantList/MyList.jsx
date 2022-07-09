@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Container, Grid, Typography } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import Wishlist from "./Wishlist";
 import Traded from "./Traded";
 import Add from "./Add";
@@ -69,15 +69,16 @@ const MyList = () => {
         <Box>
           <Container sx={{display: "flex", justifyContent: "center"}}>
           <Button
-            sx={{ margin: 3 }}
+            sx={{ margin: 1 }}
             color="success"
             variant="contained"
+            // className={ative ? `button_Style online` : `button_Style offline`}
             onClick={() => setActive("WishList")}
           >
             Wishlist
           </Button>
           <Button
-            sx={{ margin: 3 }}
+            sx={{ margin: 1 }}
             color="success"
             variant="contained"
             onClick={() => setActive("Traded")}
@@ -85,13 +86,12 @@ const MyList = () => {
             Traded
           </Button>
           <Button
-            sx={{ margin: 3 }}
+            sx={{ margin: 1 }}
             color="success"
             variant="contained"
             onClick={() => setActive("Add")}
           >
-            {" "}
-            + Add
+          Add
           </Button>
           </Container>
         </Box>

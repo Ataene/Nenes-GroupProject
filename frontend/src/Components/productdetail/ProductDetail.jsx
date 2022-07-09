@@ -131,7 +131,7 @@ function ItemDetail({ open, options, onClose, item }) {
           </IconButton>
         </Box>
       </DialogTitle>
-      <DialogContent>
+      <DialogContent sx={{marginTop: "20px"}}>
         <Box
           sx={{
             justifyContent: "center",
@@ -153,15 +153,17 @@ function ItemDetail({ open, options, onClose, item }) {
                 onClick={(e) => console.log(item)}
               >
                 <CardHeader
-                  avatar={
-                    <Avatar sx={{ bgcolor: "red"[500] }} aria-label="recipe">
-                      R
-                    </Avatar>
+                 avatar={
+                    <Avatar
+                      sx={{ bgcolor: "red"[500] }}
+                      aria-label="recipe"
+                      src={item.userPicture}
+                    />
                   }
                 />
                 <CardMedia
                   component="img"
-                  sx={{ height: "350px" }}
+                  sx={{ height: "350px", margin: "10px" }}
                   image={item.url}
                   title={item.title}
                   //onClick={() => setPostedAds(item)}
