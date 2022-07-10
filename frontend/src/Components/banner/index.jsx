@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Typography } from "@mui/material";
+import { Container, Link, Typography } from "@mui/material";
 import {
   BannerContainer,
   BannerContent,
@@ -54,6 +54,12 @@ export default function Banner() {
         >
           Click to find an item
         </BannerShopButton>
+        <>
+          <h2>
+            Don't have an account? <Link to="/SignUp">Signup</Link>
+          </h2>
+         
+        </>
       </BannerContent>
     </BannerContainer>
   );

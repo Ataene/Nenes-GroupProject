@@ -44,7 +44,7 @@ const MostPopularTrade = ({ handleClick }) => {
    useEffect(() => {
      if (db && user) {
        let collectionRef = collection(db, "postedAds");
-       let queryRef = query(collectionRef, orderBy("timeStamp"), limit(5));
+       let queryRef = query(collectionRef, orderBy("timeStamp"), limit(4));
        const unsubscribe = onSnapshot(queryRef, (querySnap) => {
          if (querySnap.empty) {
          } else {

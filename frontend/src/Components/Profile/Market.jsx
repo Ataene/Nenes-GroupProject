@@ -21,6 +21,8 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
   const db = fbContext.db;
   const [open, setOpen] = useState(false);
 
+  const [likes, setLikes] = useState(false);
+
   const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
     useDialogModal(ItemDetail);
   
@@ -31,7 +33,30 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
     };
     const handleMouseLeave = () => {
       setShowOptions(false);
-    };
+  };
+  
+
+
+  // useEffect(() => {
+  //   if (rating) {
+  //     const SaveRating = async () => {
+  //       const collectionRef = collection(
+  //         db,
+  //         `postedAds/${productDetail.DOC_ID}/rating`
+  //       );
+  //       let newDoc = {
+  //         rating,
+  //         user: user.uid,
+  //         itemOwner: productDetail.owner || "",
+  //         timeStamp: serverTimestamp(),
+  //       };
+  //       console.log(productDetail);
+
+  //       await addDoc(collectionRef, newDoc);
+  //     };
+  //     SaveRating();
+  //   }
+  // }, [rating]);
 
   if (!postedAds) {
     return <p className="mx-auto">Loading Data...</p>;
@@ -93,7 +118,7 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
                       <Typography>I want : {item.want}</Typography>
                       <CardActions xs={6} sx={{ marginBottom: "20px" }}>
                         <IconButton aria-label="add to favorites">
-                          <FavoriteIcon sx={{ color: "red" }} />
+                          {user && <FavoriteIcon sx={{ color: "red" }} user={user} likes={likes} />}
                         </IconButton>
                         <IconButton aria-label="share">
                           <ShareIcon sx={{ color: "#62b4f9" }} />

@@ -27,11 +27,13 @@ const Wishlist = ({ handleClickTraded }) => {
   const wantContext = useContext(WantContext);
   const tradedContext = useContext(TradeContext);
   const { wantList, removeFromWantList } = wantContext;
-
+  
      const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
        useDialogModal(ItemDetail);
 
-
+  console.log("title", wantList)
+  
+  
   const [search, setSearch] = useState("");
   return (
     <>
