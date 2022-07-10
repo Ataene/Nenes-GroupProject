@@ -27,7 +27,7 @@ const MyList = () => {
   const { addToWantList, removeFromWantList } = wantContext;
   const { addToTraded, removeFromTraded } = tradeContext;
 
-  const [postedAds, setSetAllPostedAds] = useState([]);
+  const [postedAds, setPostedAds] = useState([]);
 
   //useEffect to call db
   useEffect(() => {
@@ -41,7 +41,7 @@ const MyList = () => {
           let usersData = querySnap.docs.map((doc) => {
             return { ...doc.data(), DOC_ID: doc.id };
           });
-          setSetAllPostedAds(usersData);
+          setPostedAds(usersData);
         }
       });
       return unsubscribe;
