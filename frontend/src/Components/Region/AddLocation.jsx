@@ -6,7 +6,19 @@ import HomeIcon from "@mui/icons-material/Home";
 import Search from "./seachPostalCode";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import { Box, CardActions, Card, CardHeader, CardMedia, Container, Grid, IconButton, Typography, CardContent} from "@mui/material";
+import {
+  Box,
+  CardActions,
+  Card,
+  CardHeader,
+  CardMedia,
+  Container,
+  Grid,
+  IconButton,
+  Typography,
+  CardContent,
+  Paper,
+} from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import OnlineStatus from "../../Components/Profile/OnlineStatus";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -27,29 +39,28 @@ const MAP_TOKEN =
   "pk.eyJ1IjoiYXRhZW5lIiwiYSI6ImNsMnRpc3EwcDAxaXMzY3FlOGg4a3A5ZmEifQ.dtj_XStiWa_Uy15mfMAM7Q";
 
 const AddLocation = () => {
-
   const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
     useDialogModal(ItemDetail);
-  
-    const [showOptions, setShowOptions] = useState(false);
 
-    const handleMouseEnter = () => {
-      setShowOptions(true);
-    };
-    const handleMouseLeave = () => {
-      setShowOptions(false);
-    };
-    const authContext = useContext(AuthContext);
+  const [showOptions, setShowOptions] = useState(false);
+
+  const handleMouseEnter = () => {
+    setShowOptions(true);
+  };
+  const handleMouseLeave = () => {
+    setShowOptions(false);
+  };
+  const authContext = useContext(AuthContext);
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const { user, setUserToMessage } = authContext;
   const [postalData, setPostalData] = useState();
   const [adsByPostalCode, setadsByPostalCode] = useState([]);
   const [postedAds, setPostedAds] = useState([]);
-  const handleClick =(item) => {
-    console.log(item)
-    setSelectedItems(item)
-  }
+  const handleClick = (item) => {
+    console.log(item);
+    setSelectedItems(item);
+  };
 
   useEffect(() => {
     let data = postedAds.reduce((object, ad) => {
@@ -146,139 +157,189 @@ const AddLocation = () => {
     }
   }, [searchItems]);
   console.log(postalData);
-  return postalData && ( 
-    <>
-      <Container>
-        <Map
-          initialViewState={initialViewState}
-          {...viewState}
-          onMove={(evt) => setViewState(evt.viewState)}
-          mapboxAccessToken={MAP_TOKEN}
-          style={{ width: 1300, height: 660 }}
-          mapStyle="mapbox://styles/ataene/cl4lf3mv9000h14nyykjem276"
-        >
-          {Object.keys(adsByPostalCode).map((postal) => {
-           console.log(postal, postalData[postal])
-           return (
-              <Marker
-                key={postal}
-                latitude={postalData[postal].latitude}
-                longitude={postalData[postal].longitude}
-                onClick= {()=> {
-                  handleClick(postalData[postal])
+  return (
+    postalData && (
+      <>
+        <Container>
+          <Map
+            initialViewState={initialViewState}
+            {...viewState}
+            onMove={(evt) => setViewState(evt.viewState)}
+            mapboxAccessToken={MAP_TOKEN}
+            style={{ width: 1300, height: 660 }}
+            mapStyle="mapbox://styles/ataene/cl4lf3mv9000h14nyykjem276"
+          >
+            {Object.keys(adsByPostalCode).map((postal) => {
+              console.log(postal, postalData[postal]);
+              return (
+                <Marker
+                  key={postal}
+                  latitude={postalData[postal].latitude}
+                  longitude={postalData[postal].longitude}
+                  onClick={() => {
+                    handleClick(postalData[postal]);
+                  }}
+                >
+                  <HandshakeIcon
+                    color="primary"
+                    style={{
+                      height: "30px",
+                      width: "40px",
+                    }}
+                  />
+                </Marker>
+              );
+            })}
+
+            {selectedItems ? (
+              <Popup
+                latitude={selectedItems.latitude}
+                longitude={selectedItems.longitude}
+                closeButton={true}
+                closeOnClick={false}
+                anchor="left"
+                sx={{
+                  border: "4px solid rgba(0,0,0,0.2)",
+                  padding: 1,
+                  width: 300,
+                  height: 150,
+                  "&::-webkit-scrollbar": {
+                    width: 20,
+                  },
+                  "&::-webkit-scrollbar-track": {
+                    backgroundColor: "lightgreen",
+                  },
+                  "&::-webkit-scrollbar-thumb": {
+                    backgroundColor: "green",
+                    borderRadius: 2,
+                  },
+                  overflowX: "hidden",
+                  overFlowY: "auto"
                 }}
               >
-                <HandshakeIcon
-                  color="primary"
-                  style={{
-                    height: "30px",
-                    width: "40px",
-                  }}
-                />
-              </Marker>
-            );
-          })}
-
-          {selectedItems ? (
-            <Popup
-              latitude= {selectedItems.latitude}
-              longitude={selectedItems.longitude}
-              closeButton={true}
-              closeOnClick={false}
-              anchor="left"
-            >
-              <div className="card-container">
-                {(adsByPostalCode[selectedItems.postalCode]).map((item) => (
-                  <Grid item  xs={6}  md={4} lg={3} key={item.timeStamp} >
-                  <Card
-                    elevation={3}
-                    sx={{ height: "33rem", marginTop: "10px", margin: "10px"}}
-                    item={item}
-                  >
-                    <Box sx={{ display: "flex", flexDirection: "row" }}>
-                      <CardHeader
-                        avatar={
-                          <Avatar
-                            sx={{ bgcolor: "red"[500] }}
-                            aria-label="recipe"
-                            src={item.userPicture}
-                          />
-                        }
-                        title={item.displayName}
-                        name="title"
-                      />
-                      <OnlineStatus uid={item.owner} />
-                    </Box>
-                    <CardMedia
-                      component="img"
-                      sx={{ height: "180px" }}
-                      image={item.url}
-                      title={item.title}
-                      onClick={() => {
-                        console.log(item)
-                        showProductDetailDialog(item)
-                      }}
-                      
-                    ></CardMedia>
-                    <CardContent>
-                      <Typography>{item.name}</Typography>
-                    </CardContent>
-                    <Box
+                <div className="card-container" height="max-content" >
+                  {adsByPostalCode[selectedItems.postalCode].map((item) => (
+                    <Grid
+                      component={Paper}
                       sx={{
-                        justifyContent: "center",
-                        alignItems: "center",
-                        display: "flex",
-                        flexDirection: "column",
+                        border: "4px solid rgba(0,0,0,0.2)",
+                        padding: 1,
+                        width: 300,
+                        height: 150,
+                        "&::-webkit-scrollbar": {
+                          width: 20,
+                        },
+                        "&::-webkit-scrollbar-track": {
+                          backgroundColor: "lightgreen",
+                        },
+                        "&::-webkit-scrollbar-thumb": {
+                          backgroundColor: "green",
+                          borderRadius: 2,
+                        },
+                        overflowX: "auto",
                       }}
+                      item
+                      xs={5}
+                      md={3}
+                      lg={3}
+                      key={item.timeStamp}
                     >
-                      <Typography>{item.description}</Typography>
-                      <Typography>Condition: {item.condition}</Typography>
-                      <Typography>I want : {item.want}</Typography>
-                      <CardActions xs={6} sx={{ marginBottom: "20px" }}>
-                        <IconButton aria-label="add to favorites">
-                          <FavoriteIcon sx={{ color: "red" }} />
-                        </IconButton>
-                        <IconButton aria-label="share">
-                          <ShareIcon sx={{ color: "#62b4f9" }} />
-                        </IconButton>
-                        <IconButton aria-label="chat"  onClick={() => setUserToMessage(item.uid)}>
-                          <ChatIcon
-                            sx={{ color: "green" }}
+                      <Card
+                        elevation={3}
+                        sx={{
+                          height: "33rem",
+                          marginTop: "10px",
+                          margin: "10px",
+                        }}
+                        item={item}
+                      >
+                        <Box sx={{ display: "flex", flexDirection: "row" }}>
+                          <CardHeader
+                            avatar={
+                              <Avatar
+                                sx={{ bgcolor: "red"[500] }}
+                                aria-label="recipe"
+                                src={item.userPicture}
+                              />
+                            }
+                            title={item.displayName}
+                            name="title"
                           />
-                        </IconButton>
-                        <IconButton aria-label="share" type="click"  onClick={() => handleClick(item)}>
-                          <ListAltIcon
-                            sx={{ color: "purple" }}
-                          />
-                        </IconButton>
-                        <ProductDetailDialog item={item} />
-                      </CardActions>
-                    </Box>
-                  </Card>
-                </Grid>
-                ))}
-              </div>
-            </Popup>
-          ) : null}
+                          <OnlineStatus uid={item.owner} />
+                        </Box>
+                        <CardMedia
+                          component="img"
+                          sx={{ height: "180px" }}
+                          image={item.url}
+                          title={item.title}
+                          onClick={() => {
+                            console.log(item);
+                            showProductDetailDialog(item);
+                          }}
+                        ></CardMedia>
+                        <CardContent>
+                          <Typography>{item.name}</Typography>
+                        </CardContent>
+                        <Box
+                          sx={{
+                            justifyContent: "center",
+                            alignItems: "center",
+                            display: "flex",
+                            flexDirection: "column",
+                          }}
+                        >
+                          <Typography>{item.description}</Typography>
+                          <Typography>Condition: {item.condition}</Typography>
+                          <Typography>I want : {item.want}</Typography>
+                          <CardActions xs={6} sx={{ marginBottom: "20px" }}>
+                            <IconButton aria-label="add to favorites">
+                              <FavoriteIcon sx={{ color: "red" }} />
+                            </IconButton>
+                            <IconButton aria-label="share">
+                              <ShareIcon sx={{ color: "#62b4f9" }} />
+                            </IconButton>
+                            <IconButton
+                              aria-label="chat"
+                              onClick={() => setUserToMessage(item.uid)}
+                            >
+                              <ChatIcon sx={{ color: "green" }} />
+                            </IconButton>
+                            <IconButton
+                              aria-label="share"
+                              type="click"
+                              onClick={() => handleClick(item)}
+                            >
+                              <ListAltIcon sx={{ color: "purple" }} />
+                            </IconButton>
+                            <ProductDetailDialog item={item} />
+                          </CardActions>
+                        </Box>
+                      </Card>
+                    </Grid>
+                  ))}
+                </div>
+              </Popup>
+            ) : null}
 
-          <div className="sidebar">
-            Longitude: {viewState.longitude.toFixed(2)}| Latitude:{" "}
-            {viewState.latitude.toFixed(2)} | Zoom: {viewState.zoom.toFixed(2)}
-            {/* <div ref={mapRef}></div> */}
-          </div>
+            <div className="sidebar">
+              Longitude: {viewState.longitude.toFixed(2)}| Latitude:{" "}
+              {viewState.latitude.toFixed(2)} | Zoom:{" "}
+              {viewState.zoom.toFixed(2)}
+              {/* <div ref={mapRef}></div> */}
+            </div>
 
-          <button>
-            <HomeIcon
-              className="home"
-              onClick={(evt) => setViewState(initialViewState)}
-            />
-          </button>
+            <button>
+              <HomeIcon
+                className="home"
+                onClick={(evt) => setViewState(initialViewState)}
+              />
+            </button>
 
-          <div style={searchStyle}>
-            <Search setSearchItems={setSearchItems} />
-          </div>
+            <div style={searchStyle}>
+              <Search setSearchItems={setSearchItems} />
+            </div>
 
-          {/* <div className="nav" style={navStyle}>
+            {/* <div className="nav" style={navStyle}>
           <GeolocateControl />
           <NavigationControl
             showCompass={true}
@@ -286,9 +347,10 @@ const AddLocation = () => {
           />
           <ScaleControl />
         </div> */}
-        </Map>
-      </Container>
-    </>
+          </Map>
+        </Container>
+      </>
+    )
   );
 };
 export default AddLocation;
