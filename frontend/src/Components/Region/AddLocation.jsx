@@ -218,6 +218,7 @@ const AddLocation = () => {
                         console.log(item)
                         showProductDetailDialog(item)
                       }}
+                      
                     ></CardMedia>
                     <CardContent>
                       <Typography>{item.name}</Typography>
