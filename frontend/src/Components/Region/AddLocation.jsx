@@ -28,6 +28,7 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import useDialogModal from ".././productdetail/useDialogModal";
 import ItemDetail from ".././productdetail/ProductDetail";
 import { AuthContext } from "../../auth/AuthProvider";
+import { ClickAwayListener } from "@material-ui/core";
 
 const searchStyle = {
   position: "absolute",
@@ -122,8 +123,9 @@ const AddLocation = () => {
   const [selectedItems, setSelectedItems] = useState(null);
   const [viewport, setViewport] = useState();
   const [searchItems, setSearchItems] = useState();
-
+  const [popup, setPopup] = useState(false);
   const [viewState, setViewState] = useState({
+
     longitude: -114.0719,
     latitude: 51.0447,
     center: [-144, 51],
@@ -149,7 +151,7 @@ const AddLocation = () => {
       setViewState((cur) => {
         return {
           ...cur,
-          zoom: 13,
+          zoom: 15,
           latitude: itemsLat,
           longitude: itemsLong,
         };
@@ -193,6 +195,8 @@ const AddLocation = () => {
 
             {selectedItems ? (
               <Popup
+              // {...ClickAwayListener} onClickAway={() => setPopup(false)}>
+              //   )};
                 latitude={selectedItems.latitude}
                 longitude={selectedItems.longitude}
                 closeButton={true}
@@ -227,7 +231,7 @@ const AddLocation = () => {
                         width: 300,
                         height: 150,
                         "&::-webkit-scrollbar": {
-                          width: 20,
+                          width: 17,
                         },
                         "&::-webkit-scrollbar-track": {
                           backgroundColor: "lightgreen",
@@ -247,7 +251,7 @@ const AddLocation = () => {
                       <Card
                         elevation={3}
                         sx={{
-                          height: "33rem",
+                          height: "30rem",
                           marginTop: "10px",
                           margin: "10px",
                         }}
