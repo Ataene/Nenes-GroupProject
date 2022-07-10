@@ -18,7 +18,7 @@ const CountingEffect = () => {
           options={{
             strings: [
               "Welcome to Hundie",
-              "The social marketplace to trade items under hundred.",
+              "The social marketplace to trade items under a hundred.",
               "World's first product dating app",
               "A big thanks to the facilitating team @INCEPTIONU"
             ],
