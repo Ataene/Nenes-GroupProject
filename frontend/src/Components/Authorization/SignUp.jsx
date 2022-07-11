@@ -97,7 +97,6 @@ const SignUp = () => {
         required
         value={postalCode}
         onChange={(e) => setPostalCode(e.target.value)}
-        helperText="Capitalize all letters"
       />
       <Typography>
         <br />
