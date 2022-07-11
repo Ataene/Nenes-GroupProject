@@ -1,7 +1,5 @@
 import React, { useContext, useState } from "react";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import { Box, CardActions, Card, CardHeader, CardMedia, Container, Grid, IconButton, ListItemButton, Paper, Tooltip } from "@mui/material";
+import { Box, CardActions, Card, CardHeader, CardMedia, Container, Grid, IconButton, Typography, CardContent  } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
 import Avatar from "@mui/material/Avatar";

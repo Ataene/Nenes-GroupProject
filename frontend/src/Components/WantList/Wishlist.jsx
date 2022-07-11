@@ -13,10 +13,10 @@ import useDialogModal from ".././productdetail/useDialogModal";
 import ItemDetail from ".././productdetail/ProductDetail";
 
 const Wishlist = ({ handleClickTraded }) => {
+
   const wantContext = useContext(WantContext);
   const tradedContext = useContext(TradeContext);
   const { wantList, removeFromWantList } = wantContext;
-  console.log("888", wantList)
      const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
        useDialogModal(ItemDetail);
   const [search, setSearch] = useState("");

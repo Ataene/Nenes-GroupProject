@@ -1,11 +1,13 @@
 import React from 'react';
 import ProductList from "../Components/ProductDisplay/ProductList"
+import ProductDesign from '../Components/Recommendations/ProductDesign';
 
 const ProductPage = () => {
 
   return (
     <div>
-      <ProductList />
+      {/* <ProductList /> */}
+      <ProductDesign />
     </div>
   )
 }

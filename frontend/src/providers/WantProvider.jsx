@@ -16,7 +16,7 @@ const WantProvider = (props) => {
     const authContext = useContext(AuthContext);
     const { user } = authContext; 
 
-  const [wantList, setWantList] = useState([])
+  const [wantList, setWantList] = useState([]);
   const [traded, setTraded] = useState([]);
 
     const addToWantList = (newItem) =>{
@@ -52,7 +52,6 @@ useEffect(() => {
           return unsubscribe;
         }
       }, [db, user]);
-
     const theValues = {
        wantList,
       addToWantList,

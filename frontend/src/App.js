@@ -24,6 +24,8 @@ import Add from "./Components/WantList/Add";
 import WantProvider from "./providers/WantProvider";
 import TradedProvider from "./providers/TradedProvider";
 import DetailPageProvider from "./providers/ItemDetailProvider";
+import ProductPage from "./Pages/ProductPage";
+import MyPostProvider from "./providers/MyPostProvider";
 
 // import AddLocation from "./Components/Region/AddLocation";
 
@@ -35,10 +37,11 @@ function App() {
           <DetailPageProvider>
             <WantProvider>
               <TradedProvider>
+              <MyPostProvider>
                 <Navigation />
                 <Routes>
                   <Route path="/" element={<Home />} />
-                  {/* <Route path="/products" element={<ProductPage />} /> */}
+                  <Route path="/products" element={<ProductPage />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/product/:id" element={<ProductDetail />} />
                   <Route path="/welcome" element={<Welcome />} />
@@ -65,6 +68,7 @@ function App() {
                   <Route exact path="/signup" element={<SignUp />} />
                 </Routes>
                 <Footer />
+              </MyPostProvider>
               </TradedProvider>
             </WantProvider>
           </DetailPageProvider>

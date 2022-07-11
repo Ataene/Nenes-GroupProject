@@ -95,7 +95,7 @@ const MiddleBar = () => {
       <Container>
         <Box sx={{ justifyContent: "center", display: "flex" }}>
           <Button
-            className={active ? `user_status online` : `user_status offline`}
+            // className={active ? `user_status online` : `user_status offline`}
             onClick={() => setActive("market")}
             sx={{ margin: "5px" }}
             variant="outlined"
