@@ -70,22 +70,22 @@ const NavBar = (props) => {
     await LogoutUser();
     navigate("/login");
   };
-  const NavMenu = styled.div`
-    display: flex;
-    align-items: center;
-    z-index: 200;
-    width: 100%;
+  // const NavMenu = styled.div`
+  //   display: flex;
+  //   align-items: center;
+  //   z-index: 200;
+  //   width: 100%;
 
-    @media screen and (max-width: 768px) {
-      display: ${(props) => (props.menuOpen ? "flex" : "none")};
-      flex-direction: ${(props) => (props.menuOpen ? "column" : "row")};
-      position: ${(props) => (props.menuOpen ? "absolute" : "unset")};
-      ${(props) =>
-        props.menuOpen
-          ? "width: max-content;right: 0; height: 50%;background-color: black;top: 50px;"
-          : ""}
-    }
-  `;
+  //   @media screen and (max-width: 768px) {
+  //     display: ${(props) => (props.menuOpen ? "flex" : "none")};
+  //     flex-direction: ${(props) => (props.menuOpen ? "column" : "row")};
+  //     position: ${(props) => (props.menuOpen ? "absolute" : "unset")};
+  //     ${(props) =>
+  //       props.menuOpen
+  //         ? "width: max-content;right: 0; height: 50%;background-color: black;top: 50px;"
+  //         : ""}
+  //   }
+  // `;
   return (
     <AppbarContainer
       sx={{
@@ -120,7 +120,7 @@ const NavBar = (props) => {
             }}
             menuOpen={menuOpen}
           >
-            <Menu className="NavMenu" style={{}} onClick={openHamburger} />
+            <Menu className="NavMenu" onClick={openHamburger} />
             <div
               style={{
                 display: menuOpen ? "inline" : "none",
@@ -137,6 +137,15 @@ const NavBar = (props) => {
               >
                 <Button sx={{ my: 2, color: "white", display: "block" }}>
                   Home
+                </Button>
+              </Link>
+              <Link
+                style={{ textDecoration: "none" }}
+                to="/howitworks"
+                onClick={openHamburger}
+              >
+                <Button sx={{ my: 2, color: "white", display: "block" }}>
+                  How it Works
                 </Button>
               </Link>
               <Link

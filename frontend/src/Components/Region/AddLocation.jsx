@@ -125,7 +125,6 @@ const AddLocation = () => {
   const [searchItems, setSearchItems] = useState();
   const [popup, setPopup] = useState(false);
   const [viewState, setViewState] = useState({
-
     longitude: -114.0719,
     latitude: 51.0447,
     center: [-144, 51],
@@ -176,8 +175,8 @@ const AddLocation = () => {
               return (
                 <Marker
                   key={postal}
-                  latitude={postalData[postal].latitude}
-                  longitude={postalData[postal].longitude}
+                  latitude={postalData[postal]?.latitude}
+                  longitude={postalData[postal]?.longitude}
                   onClick={() => {
                     handleClick(postalData[postal]);
                   }}
@@ -195,8 +194,8 @@ const AddLocation = () => {
 
             {selectedItems ? (
               <Popup
-              // {...ClickAwayListener} onClickAway={() => setPopup(false)}>
-              //   )};
+                // {...ClickAwayListener} onClickAway={() => setPopup(false)}>
+                //   )};
                 latitude={selectedItems.latitude}
                 longitude={selectedItems.longitude}
                 closeButton={true}
@@ -218,10 +217,10 @@ const AddLocation = () => {
                     borderRadius: 2,
                   },
                   overflowX: "hidden",
-                  overFlowY: "auto"
+                  overFlowY: "auto",
                 }}
               >
-                <div className="card-container" height="max-content" >
+                <div className="card-container" height="max-content">
                   {adsByPostalCode[selectedItems.postalCode].map((item) => (
                     <Grid
                       component={Paper}

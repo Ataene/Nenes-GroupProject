@@ -25,6 +25,8 @@ import WantProvider from "./providers/WantProvider";
 import TradedProvider from "./providers/TradedProvider";
 import DetailPageProvider from "./providers/ItemDetailProvider";
 import HowItWorks from "./Pages/HowItWorks";
+import NBar from "./Components/NBar";
+import NavBar from "./Components/NavBar";
 
 // import AddLocation from "./Components/Region/AddLocation";
 
@@ -36,7 +38,7 @@ function App() {
           <DetailPageProvider>
             <WantProvider>
               <TradedProvider>
-                <Navigation />
+                <NavBar />
                 <Routes>
                   <Route path="/" element={<Home />} />
                   {/* <Route path="/products" element={<ProductPage />} /> */}
