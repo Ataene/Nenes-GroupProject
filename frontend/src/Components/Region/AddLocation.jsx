@@ -122,7 +122,6 @@ const AddLocation = () => {
   const [selectedItems, setSelectedItems] = useState(null);
   const [viewport, setViewport] = useState();
   const [searchItems, setSearchItems] = useState();
-
   const [viewState, setViewState] = useState({
     longitude: -114.0719,
     latitude: 51.0447,
@@ -174,8 +173,8 @@ const AddLocation = () => {
               return (
                 <Marker
                   key={postal}
-                  latitude={postalData[postal].latitude}
-                  longitude={postalData[postal].longitude}
+                  latitude={postalData[postal]?.latitude}
+                  longitude={postalData[postal]?.longitude}
                   onClick={() => {
                     handleClick(postalData[postal]);
                   }}

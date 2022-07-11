@@ -24,9 +24,10 @@ import Add from "./Components/WantList/Add";
 import WantProvider from "./providers/WantProvider";
 import TradedProvider from "./providers/TradedProvider";
 import DetailPageProvider from "./providers/ItemDetailProvider";
-import ProductPage from "./Pages/ProductPage";
+import HowItWorks from "./Pages/HowItWorks";
+import NBar from "./Components/NBar";
+import NavBar from "./Components/NavBar";
 import MyPostProvider from "./providers/MyPostProvider";
-import HowItWorks from "./Components/Recommendations/HowItWorks";
 
 // import AddLocation from "./Components/Region/AddLocation";
 
@@ -42,7 +43,7 @@ function App() {
                 <Navigation />
                 <Routes>
                   <Route path="/" element={<Home />} />
-                  <Route path="/products" element={<ProductPage />} />
+                  {/* <Route path="/products" element={<ProductPage />} /> */}
                   <Route path="/about" element={<About />} />
                   <Route path="/howitworks" element={<HowItWorks />} />
                   <Route path="/product/:id" element={<ProductDetail />} />
