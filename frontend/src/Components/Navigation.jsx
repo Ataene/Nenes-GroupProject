@@ -94,19 +94,9 @@ const Navigation = () => {
                 Home
               </Button>
             </Link>
-            <Link style={{ textDecoration: "none" }} to="/howitworks">
-              <Button sx={{ my: 2, color: "white", display: "block" }}>
-                How it Works
-              </Button>
-            </Link>
             <Link style={{ textDecoration: "none" }} to="/products">
               <Button sx={{ my: 2, color: "white", display: "block" }}>
                 Products
-              </Button>
-            </Link>
-            <Link style={{ textDecoration: "none" }} to="/blog">
-              <Button sx={{ my: 2, color: "white", display: "block" }}>
-                Blog
               </Button>
             </Link>
             <Link style={{ textDecoration: "none" }} to="/maps">
