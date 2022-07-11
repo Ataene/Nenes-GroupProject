@@ -211,8 +211,8 @@ const AddLocation = () => {
                       sx={{
                         border: "4px solid rgba(0,0,0,0.2)",
                         padding: 1,
-                        width: 400,
-                        height: 200,
+                        width: 275,
+                        height: 125,
                         "&::-webkit-scrollbar": {
                           width: 17,
                         },
@@ -231,7 +231,7 @@ const AddLocation = () => {
                       <Card
                         elevation={3}
                         sx={{
-                          height: "33rem",
+                          height: "30rem",
                           marginTop: "10px",
                           margin: "10px",
                         }}
