@@ -26,6 +26,7 @@ import TradedProvider from "./providers/TradedProvider";
 import DetailPageProvider from "./providers/ItemDetailProvider";
 import ProductPage from "./Pages/ProductPage";
 import MyPostProvider from "./providers/MyPostProvider";
+import HowItWorks from "./Components/Recommendations/HowItWorks";
 
 // import AddLocation from "./Components/Region/AddLocation";
 
@@ -43,6 +44,7 @@ function App() {
                   <Route path="/" element={<Home />} />
                   <Route path="/products" element={<ProductPage />} />
                   <Route path="/about" element={<About />} />
+                  <Route path="/howitworks" element={<HowItWorks />} />
                   <Route path="/product/:id" element={<ProductDetail />} />
                   <Route path="/welcome" element={<Welcome />} />
                   <Route path="/nearme" element={<NearMe />} />

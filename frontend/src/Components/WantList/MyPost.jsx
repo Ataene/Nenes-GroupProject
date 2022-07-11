@@ -60,30 +60,6 @@ const MyPost = () => {
   //         addToTraded(item);
   //       };
 
-  //Handle Remove from wantList
-//   const removeItem = (removedItem) => {
-//         removeFromMyPostList(removedItem);
-//   };
-
-
-//From Content
-//   const removeFromMyPostList = (itemToRemove) => {
-//         let newMyPostList = myPostedAds.filter((item) => item !== itemToRemove);
-//         let docRef = doc(db, "postedAds", user.uid);
-//         setDoc(docRef, { items: newMyPostList });
-// };
-
-//Delete Function
-const removeFromMyPostList = async (itemToRemove) => {
-        let newMyPostList = myPostedAds.filter((item) => item !== itemToRemove);
-        let docRef = doc(db, "postedAds", itemToRemove);
-        // setDoc(docRef, { items: newMyPostList });
-        // const deletePostedAds = doc(db, "postedAds", item);
-        await deleteDoc(docRef);
-
-        console.log("888", itemToRemove)
-}
-
   useEffect(() => {
     if (db && user) {
       setLoading(true);
@@ -97,11 +73,24 @@ const removeFromMyPostList = async (itemToRemove) => {
                 });
           setMyPostedAds(usersData);
           setLoading(false);
+          console.log("333", myPostedAds)
         }
       });
       return unsubscribe;
     }
   }, [db, user]);
+
+  const removeFromMyPostList = async (DOC_ID) => {
+        try {
+                let docRef = doc(db, "postedAds", DOC_ID);
+                await deleteDoc(docRef);
+                // setMyPostedAds(myPostedAds.filter((item) => item !== itemToRemove));
+        } catch (error) {
+                console.log(error )
+        }
+}
+
+
   return (
     <>
       <Box>
@@ -184,7 +173,7 @@ const removeFromMyPostList = async (itemToRemove) => {
                           onClick={() => handleClickTraded(item)}
                         />
                       </IconButton> */}
-                        <IconButton aria-label="share" onClick={() => removeFromMyPostList(myPostedAds.DOC_ID)}>
+                        <IconButton aria-label="share" onClick={() => removeFromMyPostList(item.DOC_ID)}>
                           <CancelPresentationIcon
                             sx={{ color: "green" }}
                           />
