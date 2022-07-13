@@ -81,13 +81,13 @@ const Test = ({ handleClick, options, item }) => {
           return postedAd.uid === user.uid;
         });
         console.log("333", mySearch);
-        let myWantList = mySearch.map((ad) => {
+        let similarItems = mySearch.map((ad) => {
           if (item === options) {
             return ad.title.replace(/\s/g, "").toLowerCase();
           }
           
         });
-        setCharacter(myWantList);
+        setCharacter(similarItems);
       };
       findSimilarItem();
     }, [postedAds]);

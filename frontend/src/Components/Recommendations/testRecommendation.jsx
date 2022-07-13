@@ -3,6 +3,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import {
   Box,
+  Card,
   CardActions,
   CardHeader,
   CardMedia,
@@ -24,6 +25,7 @@ import { AuthContext } from "../../auth/AuthProvider";
 import CircularProgress from "@mui/material/CircularProgress";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import OnlineStatus from "../Profile/OnlineStatus";
+import CircleLoader from "react-spinners/CircleLoader";
 
 import {
   collection,
@@ -36,7 +38,7 @@ import {
   collectionGroup,
 } from "firebase/firestore";
 
-const Test = ({ handleClick, options }) => {
+const TestRecommendation = ({ handleClick, options, item }) => {
   const authContext = useContext(AuthContext);
   const { user, setUserToMessage } = authContext;
   const fbContext = useContext(FirebaseContext);
@@ -44,57 +46,51 @@ const Test = ({ handleClick, options }) => {
   const [open, setOpen] = useState(false);
 
   const [postedAds, setPostedAds] = useState([]);
+  const [character, setCharacter] = useState([]);
   const [rating, setRating] = useState([]);
+  const [ratingData, setRatingData] = useState([]);
 
-  //useEffect to call db
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState();
 
   const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
-        useDialogModal(ItemDetail);
-    
-    const SelectPostedAds = (items) => {
-      setPostedAds(items);
-      db
-        .collection("cinemas")
-        .doc(user.uid)
-        .collection("rating")
-        .get()
-        .then((response) => {
-          const fetchedRating = [];
-          response.forEach((document) => {
-            const fetchedRating = {
-              id: document.id,
-              ...document.data(),
-            };
-              fetchedRating.push(fetchedRating);
-              console.log("rating", fetchedRating);
-          });
-          setRating(fetchedRating);
-        })
-        .catch((error) => {
-          setError(error);
-        });
-    };  
+    useDialogModal(ItemDetail);
 
-   useEffect(() => {
-     if (db && user) {
-       let collectionRef = collection(db, "postedAds");
-       let queryRef = query(collectionRef, orderBy("rating"), limit(4));
-       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
-         if (querySnap.empty) {
-         } else {
-           let usersData = querySnap.docs.map((doc) => {
-             return { ...doc.data(), DOC_ID: doc.id };
-           });
-           setPostedAds(usersData);
-           setLoading(true);
-         }
-       });
-       return unsubscribe;
-     }
-   }, [db, user]);   
-     
+  useEffect(() => {
+    if (!db) {
+      console.log("No dabase found");
+    } else {
+      const getData = async () => {
+        const collectionRef = query(collection(db, "postedAds"));
+        const snapshot = await getDocs(collectionRef);
+        const data = snapshot.docs.map((doc) => ({
+          ...doc.data(),
+          DOC_ID: doc.id,
+        }));
+        console.log("data", data)
+        for (let i = 0; i < data.length; i++) {
+          const ratingQ = query(
+            collection(db, `postedAds/${data[i].DOC_ID}/rating`)
+          );
+          const ratingDetails = await getDocs(ratingQ);
+          const rating = ratingDetails.docs.map((doc) => {
+            return doc.data()
+            
+          }).reduce((acc, doc) => {
+          return acc+=doc.rating
+          }, 0) / ratingDetails.docs.length
+          console.log("rating", rating)
+          data[i].rating=(isNaN(rating)?0:rating)
+        }
+        setPostedAds(data.sort((a, b) => {
+          return  b.rating - a.rating
+        }))
+      };
+      getData();
+    }
+  }, [db]);
+
+  console.log("my rating", postedAds);
 
   const [showOptions, setShowOptions] = useState(false);
 
@@ -110,19 +106,26 @@ const Test = ({ handleClick, options }) => {
   }
   return (
     <>
-      <Container
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
-        <Box>
-          <Grid container spacing={1}>
-            {postedAds
-              .filter((item) => item.owner !== user.uid)
+      <Box>
+        <Grid container spacing={1}>
+          {loading ? (
+            <div
+              style={{ display: "flex", marginLeft: "500px", marginTop: 150 }}
+            >
+              <CircleLoader color={"#FBB454"} loading={loading} size={100} />
+            </div>
+          ) : (
+            postedAds
+              .filter((item) => item.rating)
               .map((item) => (
-                <Grid item md={3} key={item.uid}>
-                  <Paper
+                <Grid item xs={6} md={4} lg={3} key={item.timeStamp}>
+                  <Card
                     elevation={10}
-                    sx={{ height: "33rem", marginTop: "10px", margin: "10px" }}
+                    sx={{
+                      height: "33rem",
+                      marginTop: "10px",
+                      margin: "10px",
+                    }}
                     item={item}
                   >
                     <Box sx={{ display: "flex", flexDirection: "row" }}>
@@ -137,7 +140,7 @@ const Test = ({ handleClick, options }) => {
                         title={item.displayName}
                         name="title"
                       />
-                      <OnlineStatus uid={item.uid} />
+                      <OnlineStatus uid={item.owner} />
                     </Box>
                     <CardMedia
                       component="img"
@@ -161,39 +164,39 @@ const Test = ({ handleClick, options }) => {
                       }}
                     >
                       <Typography>{item.description}</Typography>
-
                       <Typography>Condition: {item.condition}</Typography>
                       <Typography>I want : {item.want}</Typography>
-                      <CardActions sx={{ marginBottom: "20px" }}>
+                      <CardActions xs={6} sx={{ marginBottom: "20px" }}>
                         <IconButton aria-label="add to favorites">
                           <FavoriteIcon sx={{ color: "red" }} />
                         </IconButton>
                         <IconButton aria-label="share">
                           <ShareIcon sx={{ color: "#62b4f9" }} />
                         </IconButton>
-                        <IconButton aria-label="chat">
-                          <ChatIcon
-                            sx={{ color: "green" }}
-                            onClick={() => setUserToMessage(item.uid)}
-                          />
+                        <IconButton
+                          aria-label="chat"
+                          onClick={() => setUserToMessage(item.uid)}
+                        >
+                          <ChatIcon sx={{ color: "green" }} />
                         </IconButton>
-                        <IconButton aria-label="share" type="click">
-                          <ListAltIcon
-                            sx={{ color: "purple" }}
-                            onClick={() => handleClick(item)}
-                          />
+                        <IconButton
+                          aria-label="share"
+                          type="click"
+                          onClick={() => handleClick(item)}
+                        >
+                          <ListAltIcon sx={{ color: "purple" }} />
                         </IconButton>
                         <ProductDetailDialog item={item} />
                       </CardActions>
                     </Box>
-                  </Paper>
+                  </Card>
                 </Grid>
-              ))}
-          </Grid>
-        </Box>
-      </Container>
+              ))
+          )}
+        </Grid>
+      </Box>
     </>
   );
 };
 
-export default Test;
+export default TestRecommendation;

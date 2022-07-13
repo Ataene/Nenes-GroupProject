@@ -10,13 +10,13 @@ export function getCosineSimilarityRowVector(matrix, index) {
   });
 }
 
-export function getItemIndexByTitle(ItemsInList, query) {
-  const index = ItemsInList.map((item) => item.title).indexOf(query);
+export function getItemIndexByTitle(ItemsInDb, query) {
+  const index = ItemsInDb.map((item) => item.title).indexOf(query);
 
   if (!index) {
     throw new Error("Item not found");
   }
 
-  const { title, id } = ItemsInList[index];
+  const { title, id } = ItemsInDb[index];
   return { index, title, id };
 }
