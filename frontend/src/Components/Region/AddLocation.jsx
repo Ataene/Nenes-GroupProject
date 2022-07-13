@@ -3,7 +3,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import Map, { Marker, Popup } from "react-map-gl";
 import HandshakeIcon from "@mui/icons-material/Handshake";
 import HomeIcon from "@mui/icons-material/Home";
-import Search from "./seachPostalCode";
+// import Search from "./seachPostalCode";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import {
@@ -144,24 +144,24 @@ const AddLocation = () => {
   };
 
   //search bar for map
-  useEffect(() => {
-    if (searchItems > -1) {
-      let items = postalData[searchItems];
-      let itemsLat = items.latitude;
-      let itemsLong = items.longitude;
-      setViewState((cur) => {
-        return {
-          ...cur,
-          zoom: 13,
-          latitude: itemsLat,
-          longitude: itemsLong,
-        };
-      });
-    }
-  }, [searchItems]);
-  console.log(postalData);
+  // useEffect(() => {
+  //   if (searchItems > -1) {
+  //     let items = postedAds[searchItems];
+  //     let itemsLat = items.latitude;
+  //     let itemsLong = items.longitude;
+  //     setViewState((cur) => {
+  //       return {
+  //         ...cur,
+  //         zoom: 13,
+  //         latitude: itemsLat,
+  //         longitude: itemsLong,
+  //       };
+  //     });
+  //   }
+  // }, [searchItems]);
+  // console.log(postedAds);
   return (
-    postalData && (
+    postedAds && (
       <>
         <Container>
           <Map
@@ -322,9 +322,9 @@ const AddLocation = () => {
               />
             </button>
 
-            <div style={searchStyle}>
+            {/* <div style={searchStyle}>
               <Search setSearchItems={setSearchItems} />
-            </div>
+            </div> */}
 
             {/* <div className="nav" style={navStyle}>
           <GeolocateControl />
