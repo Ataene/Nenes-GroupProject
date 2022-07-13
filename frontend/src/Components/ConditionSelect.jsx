@@ -23,9 +23,9 @@ const ConditionSelect = ({condition, setCondition}) => {
           label="Condition"
           onChange={handleChange}
         >
-          <MenuItem value={10}>Excellent</MenuItem>
-          <MenuItem value={20}>Good</MenuItem>
-          <MenuItem value={30}>Fair</MenuItem>
+          <MenuItem value={"New"}>New</MenuItem>
+          <MenuItem value={"Almost New"}>Almost New</MenuItem>
+          <MenuItem value={"Fair"}>Fair</MenuItem>
         </Select>
       </FormControl>
     </Box>
