@@ -121,7 +121,7 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
                           </IconButton>
                           <IconButton
                             aria-label="chat"
-                            onClick={() => setUserToMessage(item.uid)}
+                            onClick={() => setUserToMessage(item.owner)}
                           >
                             <ChatIcon sx={{ color: "green" }} />
                           </IconButton>

@@ -118,6 +118,7 @@ const Profile = () => {
       
         <section style={{display: "flex", flexDirection: "column", margin: "10px", padding: "10px"}}>
           <TextField
+          sx={{marginBottom: "15px"}}
             id="outlined-multiline-flexible"
             label="First Name"
             variant="outlined"

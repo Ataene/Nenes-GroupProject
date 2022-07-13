@@ -12,16 +12,11 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import useDialogModal from ".././productdetail/useDialogModal";
 import ItemDetail from ".././productdetail/ProductDetail";
 
-const Wishlist = () => {
+const Wishlist = ({ handleClickTraded }) => {
+
   const wantContext = useContext(WantContext);
   const tradedContext = useContext(TradeContext);
   const { wantList, removeFromWantList } = wantContext;
-  const { addToTraded, removeFromTraded } = tradedContext;
-
-  const handleClick = (item) => {
-    addToTraded(item);
-  };
-
      const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
        useDialogModal(ItemDetail);
   const [search, setSearch] = useState("");
@@ -51,7 +46,7 @@ const Wishlist = () => {
             />
           </Box>
           <Grid container spacing={1}>
-            {wantList.map((item) => (
+            {wantList && wantList.map((item) => (
               <Grid item md={3} key={item.description}>
                 <Card
                   sx={{ height: "33rem", marginTop: "10px", margin: "10px" }}
@@ -96,9 +91,10 @@ const Wishlist = () => {
                       <IconButton aria-label="share">
                         <ChatIcon sx={{ color: "green" }} />
                       </IconButton>
-                      <IconButton aria-label="share" type="click" onClick={() => handleClick(item)}>
+                      <IconButton aria-label="share" type="click">
                         <ListAltIcon
                           sx={{ color: "purple" }}
+                          onClick={() => handleClickTraded(item)}
                         />
                       </IconButton>
                       <IconButton aria-label="share">
