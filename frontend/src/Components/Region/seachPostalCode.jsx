@@ -8,17 +8,17 @@ import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 const Search = (props) => {
   
   const setSearchItems = props.setSearchItems;
-  const [searchTerm, setSearchTerm] = useState("");
-  const search = () => {
-    let selectedItems = postalData.findIndex((items) => {
+  // const [searchTerm, setSearchTerm] = useState("");
+  // const search = () => {
+  //   let selectedItems = postalData.findIndex((items) => {
       
-      return (
-        items.postalCode.includes(searchTerm()) ||
-        items.neighborhood.includes(searchTerm())
-      );
-    });
-    setSearchItems(selectedItems);
-  };
+  //     return (
+  //       items.postalCode.includes(searchTerm()) ||
+  //       items.neighborhood.includes(searchTerm())
+  //     );
+  //   });
+  //   setSearchItems(selectedItems);
+  // };
 
 //  const SearchAds = (props) => {
   
@@ -42,14 +42,13 @@ const Search = (props) => {
       <input
         type="text"
         placeholder="Search Ads..."
-        onKeyUp={(evt) => {
-          if (evt.key === "Enter") {
-            search();
-            // SearchAds();
-          }
-        }}
+        // onKeyUp={(evt) => {
+        //   if (evt.key === "Enter") {
+        //     search();
+        //   }
+        // }}
         onChange={(evt) => {
-          setSearchTerm(evt.target.value);
+          setSearchItems(evt.target.value);
           // setSearchPost(evt.target.value);
 
         }}

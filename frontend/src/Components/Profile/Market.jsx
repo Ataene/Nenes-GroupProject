@@ -24,6 +24,7 @@ import OnlineStatus from "./OnlineStatus";
 import CircleLoader from "react-spinners/CircleLoader";
 import ShareFunction from "./ShareFunction";
 import LikeIcon from "./LikeIcon";
+import TestRecommendation from "../Recommendations/testRecommendation";
 
 const Market = ({ postedAds, handleClick, newStatus, loading }) => {
   const authContext = useContext(AuthContext);
@@ -34,6 +35,7 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
 
   //  const [likes, setLikes] = useState(false);
 
+ 
   const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
     useDialogModal(ItemDetail);
 
@@ -53,6 +55,10 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
         onMouseLeave={handleMouseLeave}
       >
         <Box>
+          <div>
+           {<TestRecommendation />}
+          </div>
+         
           <Grid container spacing={1}>
             {loading ? (
               <div
@@ -114,7 +120,7 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
                         <Typography>I want : {item.want}</Typography>
                         <CardActions xs={6} sx={{ marginBottom: "20px" }}>
                           <IconButton aria-label="add to favorites">
-                            <LikeIcon item={item} />
+                            <FavoriteIcon sx={{ color: "red" }} />
                           </IconButton>
                           <IconButton aria-label="share">
                             <ShareIcon sx={{ color: "#62b4f9" }} />
