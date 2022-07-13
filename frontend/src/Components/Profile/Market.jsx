@@ -114,8 +114,7 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
                           </IconButton>
                           <IconButton aria-label="share">
                             <ShareIcon sx={{ color: "#62b4f9" }} />
-                            <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v14.0&appId=1360278601145715&autoLogAppEvents=1" nonce="NJXYV9Pw"></script>
+                            <
                           </IconButton>
                           <IconButton
                             aria-label="chat"
