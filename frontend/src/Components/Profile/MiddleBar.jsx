@@ -11,11 +11,10 @@ import { AuthContext } from "../../auth/AuthProvider";
 import { WantContext } from "../../providers/WantProvider";
 import { ItemContext } from "../../providers/ItemDetailProvider";
 import ProductDetails from "../productdetail/ProductDetail";
-import Matching from "../Recommendations/Matching"
+import Matching from "../Recommendations/Matching";
 import CountingEffect from "./CountingEffect";
 
 const MiddleBar = () => {
-
   //Auth and DB Context
   const authContext = useContext(AuthContext);
   const fbContext = useContext(FirebaseContext);
@@ -33,10 +32,10 @@ const MiddleBar = () => {
 
   //useEffect to call db
   const [loading, setLoading] = useState(false);
-//useEffect to call db
+  //useEffect to call db
   useEffect(() => {
     if (db && user) {
-      setLoading(true)
+      setLoading(true);
       let collectionRef = collection(db, "postedAds");
       let queryRef = query(collectionRef, orderBy("timeStamp"));
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
@@ -46,7 +45,7 @@ const MiddleBar = () => {
             return { ...doc.data(), DOC_ID: doc.id };
           });
           setPostedAds(usersData);
-          setLoading(false)
+          setLoading(false);
         }
       });
       return unsubscribe;
@@ -60,25 +59,24 @@ const MiddleBar = () => {
       let collectionRef = collection(db, "users");
       let queryRef = query(collectionRef, orderBy("uid"));
       const unsubscribe = onSnapshot(queryRef, (querySnapshot) => {
-        let newStatus =[];
+        let newStatus = [];
         querySnapshot.forEach((doc) => {
           status.push(doc.data());
-        })
+        });
         setStatus(status);
       });
       return unsubscribe;
     }
   }, [db, user]);
 
-  
   //Handle add to WantList
   const handleClick = (item) => {
-    addToWantList(item)
-  }
+    addToWantList(item);
+  };
   //Handle Remove from wantList
   const removeItem = (removedItem) => {
-    removeFromWantList(removedItem)
-  }
+    removeFromWantList(removedItem);
+  };
 
   const handleModalOpen = () => {
     setModalVisible(true);
@@ -87,17 +85,24 @@ const MiddleBar = () => {
     setModalVisible(false);
   };
 
-    const showProductDetailDialog = (item) => {
-      showInDetailedPage(item);
-    };
+  const showProductDetailDialog = (item) => {
+    showInDetailedPage(item);
+  };
   return (
     <Box sx={{ flex: "8.5", backgroundColor: "#B8F1B0" }}>
       <Container>
-        <Box sx={{ justifyContent: "center", display: "flex" }}>
+        <Box
+          sx={{
+            justifyContent: "center",
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+          }}
+        >
           <Button
             // className={active ? `user_status online` : `user_status offline`}
             onClick={() => setActive("market")}
             sx={{ margin: "5px" }}
+            style={{ background: active === "market" ? "yellow" : "#B8F1B0" }}
             variant="outlined"
             size="large"
           >
@@ -106,6 +111,7 @@ const MiddleBar = () => {
           <Button
             onClick={() => setActive("swipe")}
             sx={{ margin: "5px" }}
+            style={{ background: active === "swipe" ? "yellow" : "#B8F1B0" }}
             variant="outlined"
             size="large"
           >
@@ -114,6 +120,7 @@ const MiddleBar = () => {
 
           <Button
             onClick={() => setActive("matching")}
+            style={{ background: active === "matching" ? "yellow" : "#B8F1B0" }}
             sx={{ margin: "5px" }}
             variant="outlined"
             size="large"
@@ -123,6 +130,7 @@ const MiddleBar = () => {
 
           <Button
             onClick={() => setActive("profile")}
+            style={{ background: active === "profile" ? "yellow" : "#B8F1B0" }}
             sx={{ margin: "5px" }}
             variant="outlined"
             size="large"
@@ -131,6 +139,7 @@ const MiddleBar = () => {
           </Button>
           <Button
             onClick={() => setActive("myList")}
+            style={{ background: active === "myList" ? "yellow" : "#B8F1B0" }}
             sx={{ margin: "5px" }}
             variant="outlined"
             size="large"
@@ -158,7 +167,14 @@ const MiddleBar = () => {
         <hr />
         <CountingEffect />
         <>
-          {active === "market" && <Market  postedAds ={postedAds}  handleClick={handleClick} loading={loading} Click={showProductDetailDialog} />}
+          {active === "market" && (
+            <Market
+              postedAds={postedAds}
+              handleClick={handleClick}
+              loading={loading}
+              Click={showProductDetailDialog}
+            />
+          )}
           {active === "swipe" && <Swipe />}
           {active === "myList" && <MyList />}
           {active === "profile" && <Profile />}

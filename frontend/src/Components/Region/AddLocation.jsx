@@ -122,6 +122,10 @@ const AddLocation = () => {
   const [selectedItems, setSelectedItems] = useState(null);
   const [viewport, setViewport] = useState();
   const [searchItems, setSearchItems] = useState();
+  function refreshPage() {
+    window.location.reload(false);
+  }
+
   const [viewState, setViewState] = useState({
     longitude: -114.0719,
     latitude: 51.0447,
@@ -173,8 +177,8 @@ const AddLocation = () => {
               return (
                 <Marker
                   key={postal}
-                  latitude={postalData[postal]?.latitude}
-                  longitude={postalData[postal]?.longitude}
+                  latitude={postalData[postal].latitude}
+                  longitude={postalData[postal].longitude}
                   onClick={() => {
                     handleClick(postalData[postal]);
                   }}
@@ -196,6 +200,7 @@ const AddLocation = () => {
                 longitude={selectedItems.longitude}
                 closeButton={true}
                 closeOnClick={false}
+                onClick={refreshPage}
                 anchor="left"
               >
                 <div className="card-container">
@@ -226,7 +231,6 @@ const AddLocation = () => {
                       }}
                     >
                       {" "}
-                      
                       <Card
                         elevation={3}
                         sx={{

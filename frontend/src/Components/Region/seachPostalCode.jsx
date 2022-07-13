@@ -13,12 +13,30 @@ const Search = (props) => {
     let selectedItems = postalData.findIndex((items) => {
       
       return (
-        items.postalCode.toLocaleLowerCase().includes(searchTerm.toLowerCase()) ||
-        items.neighborhood.toLocaleLowerCase().includes(searchTerm.toLowerCase())
+        items.postalCode.includes(searchTerm.toLowerCase()) ||
+        items.neighborhood.includes(searchTerm.toLowerCase())
       );
     });
     setSearchItems(selectedItems);
   };
+  
+  useEffect(() => {
+    if (db && user) {
+      let collectionRef = collection(db, "postedAds");
+      let queryRef = query(collectionRef, orderBy("timeStamp"), limit(5));
+      const unsubscribe = onSnapshot(queryRef, (querySnap) => {
+        if (querySnap.empty) {
+        } else {
+          let usersData = querySnap.docs.map((doc) => {
+            return { ...doc.data(), DOC_ID: doc.id };
+          });
+          setSetAllPostedAds(usersData);
+          setLoading(true);
+        }
+      });
+      return unsubscribe;
+    }
+  }, [db, user]);
 
 //  const SearchAds = (props) => {
   
