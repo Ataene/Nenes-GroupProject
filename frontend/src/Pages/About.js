@@ -75,7 +75,7 @@ const About = () => {
           experience. Eva, along with her family, live in beautiful rural
           Alberta. Eva shared a common experience when living in a rural
           community: trading goods and services for other goods and services.
-          Her idea is what became the vision for the Hundie App and helped guide
+          Her idea is what became the vision for the Hundie App and guided
           the development.
         </Typography>
       </Container>
