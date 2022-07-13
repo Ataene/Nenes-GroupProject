@@ -22,6 +22,7 @@ import { AuthContext } from "../../auth/AuthProvider";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import OnlineStatus from "./OnlineStatus";
 import CircleLoader from "react-spinners/CircleLoader";
+import ShareFunction from "./ShareFunction";
 
 const Market = ({ postedAds, handleClick, newStatus, loading }) => {
   const authContext = useContext(AuthContext);
@@ -113,6 +114,8 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
                             <FavoriteIcon sx={{ color: "red" }} />
                           </IconButton>
                           <IconButton aria-label="share">
+                          {/* <ShareFunction /> */}
+
                             <ShareIcon sx={{ color: "#62b4f9" }} />
                           </IconButton>
                           <IconButton

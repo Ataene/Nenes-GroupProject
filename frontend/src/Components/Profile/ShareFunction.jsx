@@ -31,20 +31,25 @@ function ShareFunction() {
         ></script>
 
         {/* <!-- Your share button code --> */}
-        <div
-          class="fb-share-button"
+         <div
+            class="fb-share-button"
           data-href="http://localhost:3000/"
-          data-layout="button"
-          data-size="small"
+            data-layout="button"
+            data-size="small"
+            // flex-display="auto"
+        //   aria-label="share"
+        //   type="click"
+        //   onClick={() => handleClick(item)}
         >
           <a
             target="_blank"
             href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A3000%2F&amp;src=sdkpreparse"
             class="fb-xfbml-parse-ignore"
           >
-            Share
+    
+            Share 
           </a>
-        </div>
+        </div> 
       </body>
     </html>
   );
