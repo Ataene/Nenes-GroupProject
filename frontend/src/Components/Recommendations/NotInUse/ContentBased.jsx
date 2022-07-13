@@ -1,4 +1,4 @@
-import { getCosineSimilarityRowVector, sortByScore, getItemIndexByTitle } from './common';
+import { getCosineSimilarityRowVector, sortByScore, getItemIndexByTitle } from './Common';
 
 
   // Compute similarities based on input movie
@@ -11,7 +11,7 @@ function predictWithContentBased(X, ItemsInList, title) {
   const contentBasedRecommendation = cosineSimilarityRowVector.map(
     (value, key) => ({
       score: value,
-      movieId: ItemsInList[key].id,
+      itemId: ItemsInList[key].id,
     })
   );
 

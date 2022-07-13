@@ -18,17 +18,24 @@ import ChatIcon from "@mui/icons-material/Chat";
 import Avatar from "@mui/material/Avatar";
 import ShareIcon from "@mui/icons-material/Share";
 import ListAltIcon from "@mui/icons-material/ListAlt";
-import useDialogModal from ".././productdetail/useDialogModal";
-import ItemDetail from ".././productdetail/ProductDetail";
-import { AuthContext } from "../../auth/AuthProvider";
+import useDialogModal from "../../productdetail/useDialogModal";
+import ItemDetail from "../../productdetail/ProductDetail";
+import { AuthContext } from "../../../auth/AuthProvider";
 import CircularProgress from "@mui/material/CircularProgress";
-import { FirebaseContext } from "../../auth/FirebaseProvider";
-import OnlineStatus from "../Profile/OnlineStatus";
+import { FirebaseContext } from "../../../auth/FirebaseProvider";
+import OnlineStatus from "../../Profile/OnlineStatus";
 
-import { collection, onSnapshot, orderBy, query, limit, getDocs } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  limit,
+  getDocs,
+  where,
+} from "firebase/firestore";
 
-
-const MostPopularTrade = ({ handleClick }) => {
+const MostPopularTrade = ({ handleClick, options }) => {
   const authContext = useContext(AuthContext);
   const { user, setUserToMessage } = authContext;
   const fbContext = useContext(FirebaseContext);
@@ -40,15 +47,20 @@ const MostPopularTrade = ({ handleClick }) => {
 
   //useEffect to call db
   const [loading, setLoading] = useState(false);
-  //useEffect to call db
 
 
+  const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
+    useDialogModal(ItemDetail);
 
-  //useEffect to call db
   useEffect(() => {
     if (db && user) {
       let collectionRef = collection(db, "postedAds");
-      let queryRef = query(collectionRef, orderBy("timeStamp"), limit(4));
+      let queryRef = query(
+        collectionRef,
+        
+        orderBy("timeStamp"),
+        limit(4)
+      );
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
         if (querySnap.empty) {
         } else {
@@ -63,8 +75,7 @@ const MostPopularTrade = ({ handleClick }) => {
     }
   }, [db, user]);
 
-  const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
-    useDialogModal(ItemDetail);
+
 
   const [showOptions, setShowOptions] = useState(false);
 
@@ -86,7 +97,8 @@ const MostPopularTrade = ({ handleClick }) => {
       >
         <Box>
           <Grid container spacing={1}>
-            {postedAds.filter((item) => item.owner !== user.uid)
+            {postedAds
+              .filter((item) => item.owner !== user.uid)
               .map((item) => (
                 <Grid item md={3} key={item.uid}>
                   <Paper

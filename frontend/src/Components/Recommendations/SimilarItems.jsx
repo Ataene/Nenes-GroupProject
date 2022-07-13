@@ -1,5 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
+  IconButton,
+  Typography,
   Box,
   CardActions,
   Card,
@@ -7,32 +9,45 @@ import {
   CardMedia,
   Container,
   Grid,
-  IconButton,
-  Typography,
-  CardContent,
+  ListItemButton,
+  Paper,
+  Tooltip,
 } from "@mui/material";
+import { AuthContext } from "../../auth/AuthProvider";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
-import Avatar from "@mui/material/Avatar";
-import ShareIcon from "@mui/icons-material/Share";
-import ListAltIcon from "@mui/icons-material/ListAlt";
-import useDialogModal from ".././productdetail/useDialogModal";
-import ItemDetail from ".././productdetail/ProductDetail";
-import { AuthContext } from "../../auth/AuthProvider";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
-import OnlineStatus from "./OnlineStatus";
+import {
+  onSnapshot,
+  orderBy,
+  query,
+  collection,
+ where,
+  limit,
+} from "firebase/firestore";
+import ShareIcon from "@mui/icons-material/Share";
+import PreviewIcon from "@mui/icons-material/Preview";
+import ReplayIcon from "@mui/icons-material/Replay";
+import CloseIcon from "@mui/icons-material/Close";
+import PersonIcon from "@mui/icons-material/Person";
+import useDialogModal from ".././productdetail/useDialogModal";
+import ListAltIcon from "@mui/icons-material/ListAlt";
+import ItemDetail from ".././productdetail/ProductDetail";
+import OnlineStatus from "../Profile/OnlineStatus";
 import CircleLoader from "react-spinners/CircleLoader";
-import ShareFunction from "./ShareFunction";
-import LikeIcon from "./LikeIcon";
+import Avatar from "@mui/material/Avatar";
+import CardContent from "@mui/material/CardContent";
 
-const Market = ({ postedAds, handleClick, newStatus, loading }) => {
+
+
+const SimilarItems = ({handleClick, newStatus, loading, options, item }) => {
   const authContext = useContext(AuthContext);
-  const { user, setUserToMessage } = authContext;
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
-  const [open, setOpen] = useState(false);
-
-  //  const [likes, setLikes] = useState(false);
+  const { user, setUserToMessage } = authContext;
+  // console.log("888888", user)
+  const [postedAds, setPostedAds] = useState([]);
+  const [character, setCharacter] = useState([]);
 
   const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
     useDialogModal(ItemDetail);
@@ -46,12 +61,45 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
     setShowOptions(false);
   };
 
+  useEffect(() => {
+    if (db) {
+      let collectionRef = collection(db, "postedAds");
+      let queryRef = query(
+        collectionRef,
+        orderBy("timeStamp"),
+        limit(4)
+      );
+      const unsubscribe = onSnapshot(queryRef, (querySnapshot) => {
+        let items = [];
+        querySnapshot.forEach((doc) => {
+          items.push(doc.data());
+        });
+        setPostedAds(items);
+      });
+      return unsubscribe;
+    }
+  }, [db]);
+
+  let characters = postedAds;
+
+  useEffect(() => {
+    const findSimilarItem = () => {
+      //character
+      let mySearch = characters.filter((postedAd) => {
+        return postedAd.uid === user.uid;
+      });
+      console.log("333", mySearch);
+      let myWantList = mySearch.map((ad) => {
+        return ad.title.replace(/\s/g, "").toLowerCase();
+      });
+      setCharacter(myWantList);
+    };
+    findSimilarItem();
+  }, [postedAds]);
+    
+
   return (
     <>
-      <Container
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
         <Box>
           <Grid container spacing={1}>
             {loading ? (
@@ -61,9 +109,14 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
                 <CircleLoader color={"#FBB454"} loading={loading} size={100} />
               </div>
             ) : (
-              postedAds
-                .filter((item) => item.owner !== user.uid)
-                .map((item) => (
+              characters
+                .filter((item) => item.uid !== user.uid)
+                .filter((item) =>
+                  character.includes(
+                    item.title.replace(/\s/g, "").toLowerCase()
+                  )
+                )
+                .map((characterItem) => (
                   <Grid item xs={6} md={4} lg={3} key={item.timeStamp}>
                     <Card
                       elevation={10}
@@ -114,7 +167,9 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
                         <Typography>I want : {item.want}</Typography>
                         <CardActions xs={6} sx={{ marginBottom: "20px" }}>
                           <IconButton aria-label="add to favorites">
-                            <LikeIcon item={item} />
+                            <FavoriteIcon
+                              sx={{ color: "red" }}
+                            />
                           </IconButton>
                           <IconButton aria-label="share">
                             <ShareIcon sx={{ color: "#62b4f9" }} />
@@ -141,9 +196,8 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
             )}
           </Grid>
         </Box>
-      </Container>
     </>
   );
 };
 
-export default Market;
+export default SimilarItems;

@@ -18,53 +18,83 @@ import ChatIcon from "@mui/icons-material/Chat";
 import Avatar from "@mui/material/Avatar";
 import ShareIcon from "@mui/icons-material/Share";
 import ListAltIcon from "@mui/icons-material/ListAlt";
-import useDialogModal from ".././productdetail/useDialogModal";
-import ItemDetail from ".././productdetail/ProductDetail";
+import useDialogModal from "../productdetail/useDialogModal";
+import ItemDetail from "../productdetail/ProductDetail";
 import { AuthContext } from "../../auth/AuthProvider";
 import CircularProgress from "@mui/material/CircularProgress";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import OnlineStatus from "../Profile/OnlineStatus";
 
-import { collection, onSnapshot, orderBy, query, limit, getDocs } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  limit,
+  getDocs,
+  where,
+  collectionGroup,
+} from "firebase/firestore";
 
-
-const MostPopularTrade = ({ handleClick }) => {
+const Test = ({ handleClick, options }) => {
   const authContext = useContext(AuthContext);
   const { user, setUserToMessage } = authContext;
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const [open, setOpen] = useState(false);
 
-  const [postedAds, setAllPostedAds] = useState([]);
+  const [postedAds, setPostedAds] = useState([]);
   const [rating, setRating] = useState([]);
 
   //useEffect to call db
-  const [loading, setLoading] = useState(false);
-  //useEffect to call db
-
-
-
-  //useEffect to call db
-  useEffect(() => {
-    if (db && user) {
-      let collectionRef = collection(db, "postedAds");
-      let queryRef = query(collectionRef, orderBy("timeStamp"), limit(4));
-      const unsubscribe = onSnapshot(queryRef, (querySnap) => {
-        if (querySnap.empty) {
-        } else {
-          let usersData = querySnap.docs.map((doc) => {
-            return { ...doc.data(), DOC_ID: doc.id };
-          });
-          setAllPostedAds(usersData);
-          setLoading(true);
-        }
-      });
-      return unsubscribe;
-    }
-  }, [db, user]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState();
 
   const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
-    useDialogModal(ItemDetail);
+        useDialogModal(ItemDetail);
+    
+    const SelectPostedAds = (items) => {
+      setPostedAds(items);
+      db
+        .collection("cinemas")
+        .doc(user.uid)
+        .collection("rating")
+        .get()
+        .then((response) => {
+          const fetchedRating = [];
+          response.forEach((document) => {
+            const fetchedRating = {
+              id: document.id,
+              ...document.data(),
+            };
+              fetchedRating.push(fetchedRating);
+              console.log("rating", fetchedRating);
+          });
+          setRating(fetchedRating);
+        })
+        .catch((error) => {
+          setError(error);
+        });
+    };  
+
+   useEffect(() => {
+     if (db && user) {
+       let collectionRef = collection(db, "postedAds");
+       let queryRef = query(collectionRef, orderBy("rating"), limit(4));
+       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
+         if (querySnap.empty) {
+         } else {
+           let usersData = querySnap.docs.map((doc) => {
+             return { ...doc.data(), DOC_ID: doc.id };
+           });
+           setPostedAds(usersData);
+           setLoading(true);
+         }
+       });
+       return unsubscribe;
+     }
+   }, [db, user]);   
+     
 
   const [showOptions, setShowOptions] = useState(false);
 
@@ -86,7 +116,8 @@ const MostPopularTrade = ({ handleClick }) => {
       >
         <Box>
           <Grid container spacing={1}>
-            {postedAds.filter((item) => item.owner !== user.uid)
+            {postedAds
+              .filter((item) => item.owner !== user.uid)
               .map((item) => (
                 <Grid item md={3} key={item.uid}>
                   <Paper
@@ -165,4 +196,4 @@ const MostPopularTrade = ({ handleClick }) => {
   );
 };
 
-export default MostPopularTrade;
+export default Test;
