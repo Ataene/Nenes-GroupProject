@@ -61,7 +61,7 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
               postedAds
                 .filter((item) => item.owner !== user.uid)
                 .map((item) => (
-                  <Grid item xs={6} md={4} lg={3} key={item.timeStamp}>
+                  <Grid item xs={6} md={6} lg={4} xl={3} key={item.timeStamp}>
                     <Card
                       elevation={10}
                       sx={{

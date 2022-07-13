@@ -101,18 +101,20 @@ const MiddleBar = () => {
           <Button
             // className={active ? `user_status online` : `user_status offline`}
             onClick={() => setActive("market")}
-            sx={{ margin: "5px" }}
+            sx={{ margin: "5px", color: "green" }}
             style={{ background: active === "market" ? "yellow" : "#B8F1B0" }}
             variant="outlined"
+            color="success"
             size="large"
           >
             Market
           </Button>
           <Button
             onClick={() => setActive("swipe")}
-            sx={{ margin: "5px" }}
+            sx={{ margin: "5px", color: "green" }}
             style={{ background: active === "swipe" ? "yellow" : "#B8F1B0" }}
             variant="outlined"
+            color="success"
             size="large"
           >
             Swipe
@@ -121,8 +123,9 @@ const MiddleBar = () => {
           <Button
             onClick={() => setActive("matching")}
             style={{ background: active === "matching" ? "yellow" : "#B8F1B0" }}
-            sx={{ margin: "5px" }}
+            sx={{ margin: "5px", color: "green" }}
             variant="outlined"
+            color="success"
             size="large"
           >
             Matching
@@ -131,8 +134,9 @@ const MiddleBar = () => {
           <Button
             onClick={() => setActive("profile")}
             style={{ background: active === "profile" ? "yellow" : "#B8F1B0" }}
-            sx={{ margin: "5px" }}
+            sx={{ margin: "5px", color: "green" }}
             variant="outlined"
+            color="success"
             size="large"
           >
             Profile
@@ -140,16 +144,18 @@ const MiddleBar = () => {
           <Button
             onClick={() => setActive("myList")}
             style={{ background: active === "myList" ? "yellow" : "#B8F1B0" }}
-            sx={{ margin: "5px" }}
+            sx={{ margin: "5px", color: "green" }}
             variant="outlined"
+            color="success"
             size="large"
           >
             My List
           </Button>
           <Button
             onClick={handleModalOpen}
-            sx={{ margin: "5px" }}
+            sx={{ margin: "5px", color: "green" }}
             variant="outlined"
+            color="success"
             size="large"
           >
             Post Ad
@@ -160,6 +166,7 @@ const MiddleBar = () => {
               onCancel={handleCancel}
               sx={{ margin: "5px" }}
               variant="outlined"
+            color="success"
               size="large"
             />
           )}
