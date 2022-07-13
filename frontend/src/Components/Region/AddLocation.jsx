@@ -3,7 +3,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import Map, { Marker, Popup } from "react-map-gl";
 import HandshakeIcon from "@mui/icons-material/Handshake";
 import HomeIcon from "@mui/icons-material/Home";
-// import Search from "./seachPostalCode";
+import Search from "./seachPostalCode";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import {
@@ -58,12 +58,31 @@ const AddLocation = () => {
   const [adsByPostalCode, setadsByPostalCode] = useState([]);
   const [postedAds, setPostedAds] = useState([]);
   const handleClick = (item) => {
-    console.log(item);
+    console.log(item, "handleClick");
     setSelectedItems(item);
   };
+  const [filteredAds, setfilteredAds] = useState([]);
+  const [long, setLong] = useState(-114.0719);
+  const [lat, setLat] = useState(51.0447);
+  const [zoom, setZoom] = useState(9.4);
+  const [selectedItems, setSelectedItems] = useState(null);
+  const [viewport, setViewport] = useState();
+  const [searchItems, setSearchItems] = useState("");
+  function refreshPage() {
+    window.location.reload(false);
+  }
+console.log("selectedItems", selectedItems)
+  useEffect(() => {
+    console.log(postedAds)
+    let newFilter = postedAds.filter((ad)=>{
+      console.log(ad)
+      return ad.title.toLowerCase().includes(searchItems.toLowerCase())
+    })
+    setfilteredAds(newFilter)
+}, [searchItems, postedAds])
 
   useEffect(() => {
-    let data = postedAds.reduce((object, ad) => {
+    let data = filteredAds.reduce((object, ad) => {
       let postalCode = ad.postalCode;
 
       if (object[postalCode]) {
@@ -74,7 +93,7 @@ const AddLocation = () => {
       return object;
     }, {});
     setadsByPostalCode(data);
-  }, [postedAds]);
+  }, [filteredAds]);
   console.log(adsByPostalCode);
 
   useEffect(() => {
@@ -116,16 +135,6 @@ const AddLocation = () => {
     }
   }, [db]);
 
-  const [long, setLong] = useState(-114.0719);
-  const [lat, setLat] = useState(51.0447);
-  const [zoom, setZoom] = useState(9.4);
-  const [selectedItems, setSelectedItems] = useState(null);
-  const [viewport, setViewport] = useState();
-  const [searchItems, setSearchItems] = useState();
-  function refreshPage() {
-    window.location.reload(false);
-  }
-
   const [viewState, setViewState] = useState({
     longitude: -114.0719,
     latitude: 51.0447,
@@ -161,7 +170,7 @@ const AddLocation = () => {
   // }, [searchItems]);
   // console.log(postedAds);
   return (
-    postedAds && (
+    filteredAds && (
       <>
         <Container>
           <Map
@@ -200,7 +209,8 @@ const AddLocation = () => {
                 longitude={selectedItems.longitude}
                 closeButton={true}
                 closeOnClick={false}
-                onClick={refreshPage}
+                onClose={()=> setSelectedItems(null)}
+                // onClick={refreshPage}
                 anchor="left"
               >
                 <div className="card-container">
@@ -322,9 +332,9 @@ const AddLocation = () => {
               />
             </button>
 
-            {/* <div style={searchStyle}>
+            <div style={searchStyle}>
               <Search setSearchItems={setSearchItems} />
-            </div> */}
+            </div>
 
             {/* <div className="nav" style={navStyle}>
           <GeolocateControl />

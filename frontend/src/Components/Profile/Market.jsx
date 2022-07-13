@@ -120,7 +120,7 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
                         <Typography>I want : {item.want}</Typography>
                         <CardActions xs={6} sx={{ marginBottom: "20px" }}>
                           <IconButton aria-label="add to favorites">
-                            <LikeIcon item={item} />
+                            <FavoriteIcon sx={{ color: "red" }} />
                           </IconButton>
                           <IconButton aria-label="share">
                             <ShareIcon sx={{ color: "#62b4f9" }} />

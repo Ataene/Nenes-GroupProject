@@ -75,7 +75,7 @@ const About = () => {
           experience. Eva, along with her family, live in beautiful rural
           Alberta. Eva shared a common experience when living in a rural
           community: trading goods and services for other goods and services.
-          Her idea is what became the vision for the Hundie App and helped guide
+          Her idea is what became the vision for the Hundie App and guided
           the development.
         </Typography>
       </Container>
@@ -129,7 +129,7 @@ const About = () => {
           variant="h6"
           sx={{ alignItem: "center", fontFamily: "Montserrat" }}
         >
-          The idea is simple, trade to have goods and services you need for
+          The idea is simple, trade goods and services you need for
           stuff you don't! In the Hundie App, you will find a streamlined
           experience from sign up to meeting a "trader". Ad matching is quick
           and simple! You enter your Postal Code, add 3 items to your wishlist

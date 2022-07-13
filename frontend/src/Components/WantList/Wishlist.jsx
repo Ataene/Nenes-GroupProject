@@ -12,11 +12,16 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import useDialogModal from ".././productdetail/useDialogModal";
 import ItemDetail from ".././productdetail/ProductDetail";
 
-const Wishlist = ({ handleClickTraded }) => {
-
+const Wishlist = () => {
   const wantContext = useContext(WantContext);
   const tradedContext = useContext(TradeContext);
   const { wantList, removeFromWantList } = wantContext;
+  const { addToTraded, removeFromTraded } = tradedContext;
+
+  const handleClick = (item) => {
+    addToTraded(item);
+  };
+
      const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
        useDialogModal(ItemDetail);
   const [search, setSearch] = useState("");
@@ -47,7 +52,7 @@ const Wishlist = ({ handleClickTraded }) => {
           </Box>
           <Grid container spacing={1}>
             {wantList.map((item) => (
-              <Grid item xs={6} md={6} lg={4} xl={3} key={item.description}>
+              <Grid item md={3} key={item.description}>
                 <Card
                   sx={{ height: "33rem", marginTop: "10px", margin: "10px" }}
                 >
@@ -88,13 +93,12 @@ const Wishlist = ({ handleClickTraded }) => {
                       <IconButton aria-label="share">
                         <ShareIcon sx={{ color: "#62b4f9" }} />
                       </IconButton>
-                      {/* <IconButton aria-label="share">
+                      <IconButton aria-label="share">
                         <ChatIcon sx={{ color: "green" }} />
-                      </IconButton> */}
-                      <IconButton aria-label="share" type="click">
+                      </IconButton>
+                      <IconButton aria-label="share" type="click" onClick={() => handleClick(item)}>
                         <ListAltIcon
                           sx={{ color: "purple" }}
-                          onClick={() => handleClickTraded(item)}
                         />
                       </IconButton>
                       <IconButton aria-label="share">

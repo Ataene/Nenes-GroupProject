@@ -38,8 +38,9 @@ export default function Home() {
           Categories of Items You Can Trade
         </Typography>
       </Box>
-      <HowItWorks />
       <Products />
+      <HowItWorks />
+
     </Container>
   );
 }
