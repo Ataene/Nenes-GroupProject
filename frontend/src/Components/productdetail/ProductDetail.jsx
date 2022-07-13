@@ -53,6 +53,12 @@ import { FaStar } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import RatingComponent from "../Recommendations/RatingComponent";
 import useDialogModal from "./useDialogModal";
+import PostComment from "../Profile/PostComment";
+//import SimilarItems from "../Recommendations/SimilarItems";
+import MostPopularTrade from "../Recommendations/RecommendationStrategies/ContentBased2";
+import ContentBased2 from "../Recommendations/RecommendationStrategies/ContentBased2"
+import SimilarItems from "../Recommendations/SimilarItems";
+import Test from "../Recommendations/testSimilar";
 
 
 // function SlideTransition(props) {
@@ -71,7 +77,7 @@ const ItemDetailInfoWrapper = styled(Box)(() => ({
   lineHeight: 1.5,
 }));
 
-function ItemDetail({ open, options, onClose, item }) {
+function ItemDetail({  options, open, onClose, item }) {
   console.log("options", options)
   const authContext = useContext(AuthContext);
   const fbContext = useContext(FirebaseContext);
@@ -131,7 +137,7 @@ function ItemDetail({ open, options, onClose, item }) {
           </IconButton>
         </Box>
       </DialogTitle>
-      <DialogContent>
+      <DialogContent sx={{ marginTop: "20px" }}>
         <Box
           sx={{
             justifyContent: "center",
@@ -141,7 +147,7 @@ function ItemDetail({ open, options, onClose, item }) {
           }}
         >
           <Card
-            sx={{ maxWidth: 800, height: 500 }}
+            sx={{ maxWidth: 800, height: 800 }}
             onClick={() => console.log(item)}
           >
             <Grid className="details" container spacing={1}>
@@ -154,14 +160,16 @@ function ItemDetail({ open, options, onClose, item }) {
               >
                 <CardHeader
                   avatar={
-                    <Avatar sx={{ bgcolor: "red"[500] }} aria-label="recipe">
-                      R
-                    </Avatar>
+                    <Avatar
+                      sx={{ bgcolor: "red"[500] }}
+                      aria-label="recipe"
+                      src={item.userPicture}
+                    />
                   }
                 />
                 <CardMedia
                   component="img"
-                  sx={{ height: "350px" }}
+                  sx={{ height: "350px", margin: "10px" }}
                   image={item.url}
                   title={item.title}
                   //onClick={() => setPostedAds(item)}
@@ -176,7 +184,7 @@ function ItemDetail({ open, options, onClose, item }) {
                     </Typography>
                   </ListItem>
                   <ListItem>
-                    <Typography>item: {item.displayName}</Typography>
+                    <Typography>Owner: {item.displayName}</Typography>
                   </ListItem>
                   <ListItem>
                     <Typography>Category: {item.category}</Typography>
@@ -254,10 +262,39 @@ function ItemDetail({ open, options, onClose, item }) {
                 </Card>
               </Grid>
             </Grid>
+            <PostComment />
           </Card>
+          <Box
+            display="flex"
+            justifyContent="center"
+            sx={{ p: 4, fontFamily: "Montserrat" }}
+          >
+            <Typography
+              variant="h4"
+              sx={{ fontFamily: "Montserrat", color: "green" }}
+            >
+              Hi {item.displayName}, Here Are Similar Items You Can Trade
+            </Typography>
+          </Box>
+          <SimilarItems />
+          <Test />
+          {/*<ContentBased2 />*/}
+          <Box
+            display="flex"
+            justifyContent="center"
+            sx={{ p: 4, fontFamily: "Montserrat" }}
+          >
+            <Typography
+              variant="h4"
+              sx={{ fontFamily: "Montserrat", color: "green" }}
+            >
+              Most Popular Trades on Huddie
+            </Typography>
+          </Box>
+          {/*<SimilarItems />*/}
+          <MostPopularTrade />
         </Box>
       </DialogContent>
-      <Footer />
     </Dialog>
   );
 }

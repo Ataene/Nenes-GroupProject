@@ -1,14 +1,15 @@
-import React from "react";
-import { auth, db } from "../firebaseConfig";
+import React, { useContext, useState } from "react";
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
-import { FirebaseContext } from "../auth/FirebaseProvider";
-import { AuthContext } from "../auth/AuthProvider";
+import { FirebaseContext } from "../../auth/FirebaseProvider";
+import { AuthContext } from "../../auth/AuthProvider";
 
-export default function LikeArticle({ id, likes }) {
+export default function Likes ({ likes }) {
    const authContext = useContext(AuthContext);
-   const { user } = authContext;
+    const fbContext = useContext(FirebaseContext);
+      const db = fbContext.db;
+    const { user } = authContext;
 
-  const likesRef = doc(db, "Articles", id);
+  const likesRef = doc(db, "postedAds", user.uid);
 
   const handleLike = () => {
     if (likes?.includes(user.uid)) {

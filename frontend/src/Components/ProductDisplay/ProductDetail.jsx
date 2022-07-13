@@ -25,7 +25,7 @@ const ProductDetail = () => {
     }, [id]);
   return (
     <>
-        <Container>
+
             <Grid container sx={{ display: "flex", flexDirection: "row", margin: "10px" }}>
                 <Grid item md={6}>
                     <img 
@@ -58,7 +58,7 @@ const ProductDetail = () => {
                     </IconButton>
                 </Grid>
             </Grid>
-        </Container>
+
     </>
   )
 }

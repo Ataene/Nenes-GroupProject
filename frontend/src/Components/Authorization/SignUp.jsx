@@ -50,7 +50,7 @@ const SignUp = () => {
 
   const back = {
     backgroundImage: "linear-gradient(60deg, #abecd6 0%, #fbed96 100%)",
-  }
+  };
 
   return (
     <form className={classes.root} onSubmit={handleSubmit} style={back}>
@@ -97,6 +97,7 @@ const SignUp = () => {
         required
         value={postalCode}
         onChange={(e) => setPostalCode(e.target.value)}
+        helperText="Capitalize all letters"
       />
       <Typography>
         <br />

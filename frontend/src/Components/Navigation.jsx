@@ -87,11 +87,16 @@ const Navigation = () => {
           </Typography>
           <Box
             style={{ textDecoration: "none", marginLeft: "auto" }}
-            sx={{ display: { xs: "none", md: "flex" } }}
+            sx={{ display: { xs: "none", md: "flex", position: "" } }}
           >
             <Link style={{ textDecoration: "none" }} to="/">
               <Button sx={{ my: 2, color: "white", display: "block" }}>
                 Home
+              </Button>
+            </Link>
+            <Link style={{ textDecoration: "none" }} to="/howitworks">
+              <Button sx={{ my: 2, color: "white", display: "block" }}>
+                How it Works
               </Button>
             </Link>
             <Link style={{ textDecoration: "none" }} to="/products">

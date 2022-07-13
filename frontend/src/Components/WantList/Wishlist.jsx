@@ -1,16 +1,5 @@
 import React, { useState, useContext } from "react";
-import {
-  Avatar,
-  Box,
-  Card,
-  CardActions,
-  CardHeader,
-  CardMedia,
-  Grid,
-  IconButton,
-  Typography,
-  CardContent,
-} from "@mui/material";
+import { Avatar, Box, Card, CardActions, CardHeader, CardMedia, Grid, IconButton, Typography, CardContent} from "@mui/material";
 import { Container } from "@mui/system";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
@@ -27,13 +16,16 @@ const Wishlist = ({ handleClickTraded }) => {
   const wantContext = useContext(WantContext);
   const tradedContext = useContext(TradeContext);
   const { wantList, removeFromWantList } = wantContext;
-  
-     const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
-       useDialogModal(ItemDetail);
 
-  console.log("title", wantList)
-  
-  
+       const [
+         ProductDetailDialog,
+         showProductDetailDialog,
+         closeProductDialog,
+       ] = useDialogModal(ItemDetail);
+
+
+  console.log("title", wantList);
+
   const [search, setSearch] = useState("");
   return (
     <>
