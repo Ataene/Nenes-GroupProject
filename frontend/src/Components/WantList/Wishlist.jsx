@@ -47,7 +47,7 @@ const Wishlist = ({ handleClickTraded }) => {
           </Box>
           <Grid container spacing={1}>
             {wantList.map((item) => (
-              <Grid item md={3} key={item.description}>
+              <Grid item xs={6} md={6} lg={4} xl={3} key={item.description}>
                 <Card
                   sx={{ height: "33rem", marginTop: "10px", margin: "10px" }}
                 >
@@ -88,9 +88,9 @@ const Wishlist = ({ handleClickTraded }) => {
                       <IconButton aria-label="share">
                         <ShareIcon sx={{ color: "#62b4f9" }} />
                       </IconButton>
-                      <IconButton aria-label="share">
+                      {/* <IconButton aria-label="share">
                         <ChatIcon sx={{ color: "green" }} />
-                      </IconButton>
+                      </IconButton> */}
                       <IconButton aria-label="share" type="click">
                         <ListAltIcon
                           sx={{ color: "purple" }}
