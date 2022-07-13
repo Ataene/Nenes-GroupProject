@@ -45,6 +45,7 @@ useEffect(() => {
             }
           });
           return unsubscribe;
+          console.log("222", traded)
         }
       }, [db, user]);
 

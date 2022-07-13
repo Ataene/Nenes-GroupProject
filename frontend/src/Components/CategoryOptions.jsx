@@ -22,18 +22,18 @@ const CategoryOptions =({ category, setCategory }) => {
           label="Category"
           onChange={handleChange}
         >
-          <MenuItem value={10}>Electronics</MenuItem>
-          <MenuItem value={20}>Services</MenuItem>
-          <MenuItem value={30}>Pets</MenuItem>
-          <MenuItem value={40}>Livestock</MenuItem>
-          <MenuItem value={50}>Groceries</MenuItem>
-          <MenuItem value={60}>Autmobiles</MenuItem>
-          <MenuItem value={70}>Vacation Rentals</MenuItem>
-          <MenuItem value={90}>Household</MenuItem>
-          <MenuItem value={110}>Fashion</MenuItem>
-          <MenuItem value={120}>Recreation</MenuItem>
-          <MenuItem value={130}>Garden</MenuItem>
-          <MenuItem value={140}>Tickets</MenuItem>
+          <MenuItem value={"Electronics"}>Electronics</MenuItem>
+          <MenuItem value={"Services"}>Services</MenuItem>
+          <MenuItem value={"Pets"}>Pets</MenuItem>
+          <MenuItem value={"Livestock"}>Livestock</MenuItem>
+          <MenuItem value={"Groceries"}>Groceries</MenuItem>
+          <MenuItem value={"Autmobiles"}>Autmobiles</MenuItem>
+          <MenuItem value={"Vacation"}>Vacation Rentals</MenuItem>
+          <MenuItem value={"Household"}>Household</MenuItem>
+          <MenuItem value={"Fashion"}>Fashion</MenuItem>
+          <MenuItem value={"Recreation"}>Recreation</MenuItem>
+          <MenuItem value={"Garden"}>Garden</MenuItem>
+          <MenuItem value={"Tickets"}>Tickets</MenuItem>
         </Select>
       </FormControl>
     </Box>
