@@ -23,9 +23,7 @@ import Footer from "../../Components/footer/index";
 
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
-  import {Link, CardHeader, Button,
-  Rating,
-} from "@mui/material";
+import { Link, CardHeader, Button, Rating } from "@mui/material";
 // import cardImage from "../../images/Alaf.jpg"
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
@@ -60,7 +58,6 @@ import ContentBased2 from "../Recommendations/RecommendationStrategies/ContentBa
 import SimilarItems from "../Recommendations/SimilarItems";
 import Test from "../Recommendations/testSimilar";
 
-
 // function SlideTransition(props) {
 //   return <Slide direction="down" {...props} />;
 // }
@@ -77,8 +74,8 @@ const ItemDetailInfoWrapper = styled(Box)(() => ({
   lineHeight: 1.5,
 }));
 
-function ItemDetail({  options, open, onClose, item }) {
-  console.log("options", options)
+function ItemDetail({ open, options, onClose, item }) {
+  console.log("options", options);
   const authContext = useContext(AuthContext);
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
@@ -86,14 +83,11 @@ function ItemDetail({  options, open, onClose, item }) {
 
   const [postedAds, setPostedAds] = useState([]);
 
-
   const [loading, setLoading] = useState("");
   const [selectedItem, setSelectedItem] = useState(options);
 
-
-
   // const nameOfItem = useParams();
-  
+
   //   useEffect(() => {
   //     postedAds.forEach((item) => {
   //       if (postedAds.item === nameOfItem.name) {
@@ -101,9 +95,6 @@ function ItemDetail({  options, open, onClose, item }) {
   //       }
   //     });
   //   }, [postedAds]);
-  
-
-  
 
   //   async function handleChange(name, currStatus) {
   //     setPostedAds([
@@ -116,12 +107,13 @@ function ItemDetail({  options, open, onClose, item }) {
   //     });
   // }
 
- console.log("postedAds", postedAds);
+  console.log("postedAds", postedAds);
 
   return (
     <Dialog
+      style={{ outline: "2px solid red" }}
       //TransitionComponent={SlideTransition}
-      variant="permanent"
+      // variant="permanent"
       open={open}
       fullScreen
     >
@@ -137,7 +129,7 @@ function ItemDetail({  options, open, onClose, item }) {
           </IconButton>
         </Box>
       </DialogTitle>
-      <DialogContent sx={{ marginTop: "20px" }}>
+      <DialogContent sx={{ marginTop: "20px", overflow: "unset" }}>
         <Box
           sx={{
             justifyContent: "center",

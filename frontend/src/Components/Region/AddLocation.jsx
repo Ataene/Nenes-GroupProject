@@ -3,7 +3,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import Map, { Marker, Popup } from "react-map-gl";
 import HandshakeIcon from "@mui/icons-material/Handshake";
 import HomeIcon from "@mui/icons-material/Home";
-import Search from "./seachPostalCode";
+// import Search from "./seachPostalCode";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import {
@@ -28,7 +28,6 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import useDialogModal from ".././productdetail/useDialogModal";
 import ItemDetail from ".././productdetail/ProductDetail";
 import { AuthContext } from "../../auth/AuthProvider";
-import { ClickAwayListener } from "@material-ui/core";
 
 const searchStyle = {
   position: "absolute",
@@ -123,9 +122,11 @@ const AddLocation = () => {
   const [selectedItems, setSelectedItems] = useState(null);
   const [viewport, setViewport] = useState();
   const [searchItems, setSearchItems] = useState();
-  const [popup, setPopup] = useState(false);
-  const [viewState, setViewState] = useState({
+  function refreshPage() {
+    window.location.reload(false);
+  }
 
+  const [viewState, setViewState] = useState({
     longitude: -114.0719,
     latitude: 51.0447,
     center: [-144, 51],
@@ -143,24 +144,24 @@ const AddLocation = () => {
   };
 
   //search bar for map
-  useEffect(() => {
-    if (searchItems > -1) {
-      let items = postalData[searchItems];
-      let itemsLat = items.latitude;
-      let itemsLong = items.longitude;
-      setViewState((cur) => {
-        return {
-          ...cur,
-          zoom: 15,
-          latitude: itemsLat,
-          longitude: itemsLong,
-        };
-      });
-    }
-  }, [searchItems]);
-  console.log(postalData);
+  // useEffect(() => {
+  //   if (searchItems > -1) {
+  //     let items = postedAds[searchItems];
+  //     let itemsLat = items.latitude;
+  //     let itemsLong = items.longitude;
+  //     setViewState((cur) => {
+  //       return {
+  //         ...cur,
+  //         zoom: 13,
+  //         latitude: itemsLat,
+  //         longitude: itemsLong,
+  //       };
+  //     });
+  //   }
+  // }, [searchItems]);
+  // console.log(postedAds);
   return (
-    postalData && (
+    postedAds && (
       <>
         <Container>
           <Map
@@ -195,41 +196,27 @@ const AddLocation = () => {
 
             {selectedItems ? (
               <Popup
-              // {...ClickAwayListener} onClickAway={() => setPopup(false)}>
-              //   )};
                 latitude={selectedItems.latitude}
                 longitude={selectedItems.longitude}
                 closeButton={true}
                 closeOnClick={false}
+                onClick={refreshPage}
                 anchor="left"
-                sx={{
-                  border: "4px solid rgba(0,0,0,0.2)",
-                  padding: 1,
-                  width: 300,
-                  height: 150,
-                  "&::-webkit-scrollbar": {
-                    width: 20,
-                  },
-                  "&::-webkit-scrollbar-track": {
-                    backgroundColor: "lightgreen",
-                  },
-                  "&::-webkit-scrollbar-thumb": {
-                    backgroundColor: "green",
-                    borderRadius: 2,
-                  },
-                  overflowX: "hidden",
-                  overFlowY: "auto"
-                }}
               >
-                <div className="card-container" height="max-content" >
+                <div className="card-container">
                   {adsByPostalCode[selectedItems.postalCode].map((item) => (
                     <Grid
+                      item
+                      xs={6}
+                      md={4}
+                      lg={3}
+                      key={item.timeStamp}
                       component={Paper}
                       sx={{
                         border: "4px solid rgba(0,0,0,0.2)",
                         padding: 1,
-                        width: 300,
-                        height: 150,
+                        width: 275,
+                        height: 125,
                         "&::-webkit-scrollbar": {
                           width: 17,
                         },
@@ -237,17 +224,13 @@ const AddLocation = () => {
                           backgroundColor: "lightgreen",
                         },
                         "&::-webkit-scrollbar-thumb": {
-                          backgroundColor: "green",
+                          backgroundColor: "darkgreen",
                           borderRadius: 2,
                         },
-                        overflowX: "auto",
+                        overflowX: "hidden",
                       }}
-                      item
-                      xs={5}
-                      md={3}
-                      lg={3}
-                      key={item.timeStamp}
                     >
+                      {" "}
                       <Card
                         elevation={3}
                         sx={{
@@ -339,9 +322,9 @@ const AddLocation = () => {
               />
             </button>
 
-            <div style={searchStyle}>
+            {/* <div style={searchStyle}>
               <Search setSearchItems={setSearchItems} />
-            </div>
+            </div> */}
 
             {/* <div className="nav" style={navStyle}>
           <GeolocateControl />

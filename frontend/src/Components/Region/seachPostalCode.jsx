@@ -13,8 +13,8 @@ const Search = (props) => {
     let selectedItems = postalData.findIndex((items) => {
       
       return (
-        items.postalCode.toLocaleLowerCase().includes(searchTerm.toLowerCase()) ||
-        items.neighborhood.toLocaleLowerCase().includes(searchTerm.toLowerCase())
+        items.postalCode.includes(searchTerm()) ||
+        items.neighborhood.includes(searchTerm())
       );
     });
     setSearchItems(selectedItems);

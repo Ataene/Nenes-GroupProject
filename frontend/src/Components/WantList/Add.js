@@ -93,11 +93,11 @@ function Add({ handleClick }) {
               </div>
               <br />
               <Grid spacing={1}>
-                <Grid>
+                <Grid xs={6} md={6} lg={4} xl={3}>
                   {filteredData.length !== 0 && (
                     <div className="info">
                       {filteredData.slice(0, 15).map((item) => (
-                        <Grid item md={3} key={item.description}>
+                        <Grid item xs={6} md={6} lg={4} xl={3} key={item.description}>
                           <Card
                             sx={{
                               height: "33rem",

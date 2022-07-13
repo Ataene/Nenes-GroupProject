@@ -12,6 +12,7 @@ import { TradeContext } from "../../providers/TradedProvider";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { Box } from "@mui/system";
+import MyPost from "./MyPost";
 
 const MyList = () => {
   const [active, setActive] = useState("Wishlist");
@@ -81,6 +82,14 @@ const MyList = () => {
             sx={{ margin: 1 }}
             color="success"
             variant="contained"
+            onClick={() => setActive("Mypost")}
+          >
+            My Post
+          </Button>
+          <Button
+            sx={{ margin: 1 }}
+            color="success"
+            variant="contained"
             onClick={() => setActive("Traded")}
           >
             Traded
@@ -100,6 +109,7 @@ const MyList = () => {
         {active === "WishList" && (<Wishlist title="WishList" handleClick={handleClickTraded} />)}
         {active === "Traded" && (<Traded title="Traded" handleClick={handleClickTraded} />)}
         {active === "Add" && <Add title="Add" handleClick={handleClick} />}
+        {active === "Mypost" && <MyPost title="Add" handleClick={handleClick} />}
       </div>
     </>
   );

@@ -1,6 +1,4 @@
 import React, { useContext, useState } from "react";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
 import {
   Box,
   CardActions,
@@ -10,9 +8,8 @@ import {
   Container,
   Grid,
   IconButton,
-  ListItemButton,
-  Paper,
-  Tooltip,
+  Typography,
+  CardContent,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
@@ -25,6 +22,7 @@ import { AuthContext } from "../../auth/AuthProvider";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import OnlineStatus from "./OnlineStatus";
 import CircleLoader from "react-spinners/CircleLoader";
+import ShareFunction from "./ShareFunction";
 import LikeIcon from "./LikeIcon";
 
 const Market = ({ postedAds, handleClick, newStatus, loading }) => {
@@ -34,7 +32,7 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
   const db = fbContext.db;
   const [open, setOpen] = useState(false);
 
-//  const [likes, setLikes] = useState(false);
+  //  const [likes, setLikes] = useState(false);
 
   const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
     useDialogModal(ItemDetail);
@@ -47,34 +45,6 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
   const handleMouseLeave = () => {
     setShowOptions(false);
   };
-
-  const [like, setLike] = useState(0);
-  const [likeactive, setLikeActive] = useState(false);
-  const [likeInactive, setLikeInActive] = useState(false);
-
-
-  
-
-  // useEffect(() => {
-  //   if (rating) {
-  //     const SaveRating = async () => {
-  //       const collectionRef = collection(
-  //         db,
-  //         `postedAds/${productDetail.DOC_ID}/rating`
-  //       );
-  //       let newDoc = {
-  //         rating,
-  //         user: user.uid,
-  //         itemOwner: productDetail.owner || "",
-  //         timeStamp: serverTimestamp(),
-  //       };
-  //       console.log(productDetail);
-
-  //       await addDoc(collectionRef, newDoc);
-  //     };
-  //     SaveRating();
-  //   }
-  // }, [rating]);
 
   return (
     <>
@@ -144,7 +114,7 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
                         <Typography>I want : {item.want}</Typography>
                         <CardActions xs={6} sx={{ marginBottom: "20px" }}>
                           <IconButton aria-label="add to favorites">
-                            <LikeIcon item={item}/>
+                            <LikeIcon item={item} />
                           </IconButton>
                           <IconButton aria-label="share">
                             <ShareIcon sx={{ color: "#62b4f9" }} />

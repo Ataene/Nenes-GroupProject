@@ -3,13 +3,22 @@ import Button from "@mui/material/Button";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { AuthContext } from "../../auth/AuthProvider";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
-import { addDoc, collection, doc, onSnapshot, orderBy, query, serverTimestamp, where } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+  serverTimestamp,
+  where,
+} from "firebase/firestore";
 import SendIcon from "@mui/icons-material/Send";
 import { Box, Paper } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 
 const Chating = ({ setOpen }) => {
-  const scrollRef = useRef()
+  const scrollRef = useRef();
   const authContext = useContext(AuthContext);
   const { user, userToMessage, setUserToMessage } = authContext;
   const fbContext = useContext(FirebaseContext);
@@ -92,14 +101,34 @@ const Chating = ({ setOpen }) => {
   }, [db, user]);
 
   return (
-    <Box sx={{border: "3px solid", height: "600px", position: "relative", overflow: "scroll"}}>
-        <Button onClick={() => setUserToMessage(false)}>Exit</Button>
-        <Box sx={{padding: "5px"}}>
+    <Box
+      sx={{
+        border: "3px solid",
+        height: "600px",
+        position: "relative",
+        overflow: "scroll",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+      }}
+    >
+      <Button onClick={() => setUserToMessage(false)}>Exit</Button>
+      <Box sx={{ padding: "5px" }}>
         {messages.map((message, i) => {
           if (message.senderuid === user.uid) {
             return (
               <div key={i}>
-                <div style={{backgroundColor: "#ABC9FF",  display: "flex", flexDirection: "row", margin: 8, borderRadius: 8, padding: 5, justifyContent: "end"}}>
+                <div
+                  style={{
+                    backgroundColor: "#ABC9FF",
+                    display: "flex",
+                    flexDirection: "row",
+                    margin: 8,
+                    borderRadius: 8,
+                    padding: 5,
+                    justifyContent: "end",
+                  }}
+                >
                   {message.newChat} <Avatar src={usePicture} />
                 </div>
               </div>
@@ -107,43 +136,52 @@ const Chating = ({ setOpen }) => {
           } else {
             return (
               <div>
-                <p style={{backgroundColor: "#FFF2F2",  display: "flex", flexDirection: "row", margin: 8, borderRadius: 8, padding: 5, justifyContent: "start"}}>
-                <Avatar src={userPicture} /> {message.newChat}
+                <p
+                  style={{
+                    backgroundColor: "#FFF2F2",
+                    display: "flex",
+                    flexDirection: "row",
+                    margin: 8,
+                    borderRadius: 8,
+                    padding: 5,
+                    justifyContent: "start",
+                  }}
+                >
+                  <Avatar src={userPicture} /> {message.newChat}
                 </p>
               </div>
             );
           }
         })}
-        <Box sx={{bottom: "0px"}}>
-
-        <form
-          style={{ display: "flex", flexDirection: "row" }}
-          onSubmit={handleSubmit}
-        >
-          <label>
-            <AttachFileIcon />
-          </label>
-          <input
-            type="file"
-            id="img"
-            accept="image/"
-            style={{ display: "none", borderRadius: '5px' }}
-          ></input>
-          <div style={{ borderRadius: "20px solid" }}>
+        <Box sx={{ bottom: "0px" }}>
+          <form
+            style={{ display: "flex", flexDirection: "row" }}
+            onSubmit={handleSubmit}
+          >
+            <label>
+              <AttachFileIcon />
+            </label>
             <input
-              style={{ border: "2px solid" }}
-              type="text"
-              placeholder="Enter message"
-              value={newChat}
-              onChange={(e) => setNewChat(e.target.value)}
-            />
-          </div>
-          <Button type="submit">
-            <SendIcon sx={{ color: "green" }} />
-          </Button>
-        </form>
+              type="file"
+              id="img"
+              accept="image/"
+              style={{ display: "none", borderRadius: "5px" }}
+            ></input>
+            <div style={{ borderRadius: "20px solid" }}>
+              <input
+                style={{ border: "2px solid" }}
+                type="text"
+                placeholder="Enter message"
+                value={newChat}
+                onChange={(e) => setNewChat(e.target.value)}
+              />
+            </div>
+            <Button type="submit">
+              <SendIcon sx={{ color: "green" }} />
+            </Button>
+          </form>
         </Box>
-        </Box>
+      </Box>
     </Box>
   );
 };
