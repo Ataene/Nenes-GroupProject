@@ -19,6 +19,7 @@ import {
   query,
 } from "firebase/firestore";
 import { FirebaseContext } from "../auth/FirebaseProvider";
+import HamburgerMenu from "./HamburgerMenu";
 
 const NavBar = (props) => {
   const authContext = useContext(AuthContext);
@@ -102,7 +103,7 @@ const NavBar = (props) => {
             href="/"
             sx={{
               mr: 3,
-              display: { xs: "none", md: "flex" },
+              display: { xs: "flex", md: "flex" },
               fontFamily: '"Montez", "cursive"',
               fontWeight: 700,
               letterSpacing: ".01rem",
@@ -112,100 +113,20 @@ const NavBar = (props) => {
           >
             Hundie
           </Typography>
-          <Box
-            style={{
-              textDecoration: "none",
-              marginLeft: "auto",
-              display: { xs: "none", md: "flex" },
-            }}
+          <HamburgerMenu
             menuOpen={menuOpen}
-          >
-            <Menu className="NavMenu" onClick={openHamburger} />
-            <div
-              style={{
-                display: menuOpen ? "inline" : "none",
-                position: "absolute",
-                backgroundColor: "green",
-                right: "0",
-                top: "50px",
-              }}
-            >
-              <Link
-                style={{ textDecoration: "none" }}
-                to="/"
-                onClick={openHamburger}
-              >
-                <Button sx={{ my: 2, color: "white", display: "block" }}>
-                  Home
-                </Button>
-              </Link>
-              <Link
-                style={{ textDecoration: "none" }}
-                to="/howitworks"
-                onClick={openHamburger}
-              >
-                <Button sx={{ my: 2, color: "white", display: "block" }}>
-                  How it Works
-                </Button>
-              </Link>
-              <Link
-                style={{ textDecoration: "none" }}
-                to="/products"
-                onClick={openHamburger}
-              >
-                <Button sx={{ my: 2, color: "white", display: "block" }}>
-                  Products
-                </Button>
-              </Link>
-              <Link
-                style={{ textDecoration: "none" }}
-                to="/blog"
-                onClick={openHamburger}
-              >
-                <Button sx={{ my: 2, color: "white", display: "block" }}>
-                  Blog
-                </Button>
-              </Link>
-              <Link
-                style={{ textDecoration: "none" }}
-                to="/maps"
-                onClick={openHamburger}
-              >
-                <Button sx={{ my: 2, color: "white", display: "block" }}>
-                  Map
-                </Button>
-              </Link>
-              <Link
-                style={{ textDecoration: "none" }}
-                to="/about"
-                onClick={openHamburger}
-              >
-                <Button sx={{ my: 2, color: "white", display: "block" }}>
-                  About
-                </Button>
-              </Link>
-              {user && (
-                <>
-                  <Link
-                    style={{ textDecoration: "none" }}
-                    to="/dashboard"
-                    onClick={openHamburger}
-                  >
-                    <Button sx={{ my: 2, color: "white", alignItem: "block" }}>
-                      Dashboard
-                    </Button>
-                  </Link>
-                </>
-              )}
-            </div>
-          </Box>
+            user={user}
+            openHamburger={openHamburger}
+            logoutUser={logoutUser}
+          />
+
           <Box sx={{ display: { xs: "none", md: "flex" }, marginLeft: "auto" }}>
             {!user && (
               <>
                 <Link
                   style={{ textDecoration: "none" }}
                   to="/login"
-                  onClick={openHamburger}
+                  // onClick={openHamburger}
                 >
                   <Button sx={{ my: 2, color: "white", alignItem: "center" }}>
                     <LoginIcon />
@@ -250,6 +171,7 @@ const NavBar = (props) => {
               </>
             )}
           </Box>
+          <Menu onClick={openHamburger} />
         </Toolbar>
       </Container>
     </AppbarContainer>

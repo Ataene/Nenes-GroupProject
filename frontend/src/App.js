@@ -24,7 +24,6 @@ import Add from "./Components/WantList/Add";
 import WantProvider from "./providers/WantProvider";
 import TradedProvider from "./providers/TradedProvider";
 import DetailPageProvider from "./providers/ItemDetailProvider";
-import NBar from "./Components/NBar";
 import NavBar from "./Components/NavBar";
 import MyPostProvider from "./providers/MyPostProvider";
 
@@ -38,25 +37,25 @@ function App() {
           <DetailPageProvider>
             <WantProvider>
               <TradedProvider>
-              <MyPostProvider>
-                <Navigation />
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  {/* <Route path="/products" element={<ProductPage />} /> */}
-                  <Route path="/about" element={<About />} />
-                  <Route path="/product/:id" element={<ProductDetail />} />
-                  <Route path="/welcome" element={<Welcome />} />
-                  <Route path="/nearme" element={<NearMe />} />
-                  {/* <Route path="/addlocation" element={<AddLocation />} /> */}
-                  <Route path="/maps" element={<Maps />} />
-                  {/*<Route path="/wishlist" element={<WishList />} />*/}
+                <MyPostProvider>
+                  <NavBar />
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    {/* <Route path="/products" element={<ProductPage />} /> */}
+                    <Route path="/about" element={<About />} />
+                    <Route path="/product/:id" element={<ProductDetail />} />
+                    <Route path="/welcome" element={<Welcome />} />
+                    <Route path="/nearme" element={<NearMe />} />
+                    {/* <Route path="/addlocation" element={<AddLocation />} /> */}
+                    <Route path="/maps" element={<Maps />} />
+                    {/*<Route path="/wishlist" element={<WishList />} />*/}
 
-                  {/*<Route path="/test" element={<Test />} />*/}
-                  {/*<Route path="/watchlist" element={<Wishlist />} />*/}
-                  <Route path="/traded" element={<Traded />} />
-                  {/*<Route path="/add" element={<Add />} />/*}
+                    {/*<Route path="/test" element={<Test />} />*/}
+                    {/*<Route path="/watchlist" element={<Wishlist />} />*/}
+                    <Route path="/traded" element={<Traded />} />
+                    {/*<Route path="/add" element={<Add />} />/*}
             {/* <Route path="/postadd" element={<AddProducts />} /> */}
-                  {/* <Route
+                    {/* <Route
                     path="/dashboard"
                     element={
                       <PrivateRoute>
@@ -64,12 +63,12 @@ function App() {
                       </PrivateRoute>
                     }
                   /> */}
-                  <Route exact path="/login" element={<Login />} />
-                  <Route exact path="/dashboard" element={<Dashboard />} />
-                  <Route exact path="/signup" element={<SignUp />} />
-                </Routes>
-                <Footer />
-              </MyPostProvider>
+                    <Route exact path="/login" element={<Login />} />
+                    <Route exact path="/dashboard" element={<Dashboard />} />
+                    <Route exact path="/signup" element={<SignUp />} />
+                  </Routes>
+                  <Footer />
+                </MyPostProvider>
               </TradedProvider>
             </WantProvider>
           </DetailPageProvider>
