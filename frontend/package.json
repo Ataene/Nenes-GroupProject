@@ -7,6 +7,7 @@
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@fontsource/montez": "^4.5.8",
+    "@lyket/react": "^1.4.8",
     "@mapbox/mapbox-gl-geocoder": "^5.0.1",
     "@material-ui/core": "4.12",
     "@mui/icons-material": "^5.8.3",
