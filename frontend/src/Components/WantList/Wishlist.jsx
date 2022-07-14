@@ -13,18 +13,19 @@ import useDialogModal from ".././productdetail/useDialogModal";
 import ItemDetail from ".././productdetail/ProductDetail";
 
 const Wishlist = () => {
+
   const wantContext = useContext(WantContext);
   const tradedContext = useContext(TradeContext);
   const { wantList, removeFromWantList } = wantContext;
-  const { addToTraded, removeFromTraded } = tradedContext;
-
-  const handleClick = (item) => {
-    addToTraded(item);
-  };
-
+  const { trade, addToTraded, removeFromTraded } = wantContext;
      const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
        useDialogModal(ItemDetail);
   const [search, setSearch] = useState("");
+
+  const handleClicked = (item) => {
+    addToTraded(item);
+  };
+console.log("555", trade);
   return (
     <>
       <Box>
@@ -51,7 +52,7 @@ const Wishlist = () => {
             />
           </Box>
           <Grid container spacing={1}>
-            {wantList.map((item) => (
+            {wantList && wantList.map((item) => (
               <Grid item md={3} key={item.description}>
                 <Card
                   sx={{ height: "33rem", marginTop: "10px", margin: "10px" }}
@@ -93,10 +94,10 @@ const Wishlist = () => {
                       <IconButton aria-label="share">
                         <ShareIcon sx={{ color: "#62b4f9" }} />
                       </IconButton>
-                      <IconButton aria-label="share">
+                      {/* <IconButton aria-label="share">
                         <ChatIcon sx={{ color: "green" }} />
-                      </IconButton>
-                      <IconButton aria-label="share" type="click" onClick={() => handleClick(item)}>
+                      </IconButton> */}
+                      <IconButton aria-label="share" type="click" onClick={() => handleClicked(item)}>
                         <ListAltIcon
                           sx={{ color: "purple" }}
                         />

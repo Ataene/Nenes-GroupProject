@@ -12,9 +12,9 @@ const WantProvider = (props) => {
     const children = props.children
 
     const fbContext = useContext(FirebaseContext);
+    const authContext = useContext(AuthContext);
     const auth = fbContext.auth;
     const db = fbContext.db;
-    const authContext = useContext(AuthContext);
     const { user } = authContext; 
 
   const [wantList, setWantList] = useState([]);

@@ -51,13 +51,16 @@ const Chating = ({ setOpen }) => {
         collectionRef,
         where("users." + user.uid, "==", true),
         where("users." + userToMessage, "==", true),
-        orderBy("timeStamp", "asc")
+        // orderBy("timeStamp", "asc")
       );
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
         if (querySnap.empty) {
           setMessages([]);
         } else {
           let messagesData = querySnap.docs.map((message) => message.data());
+          messagesData = messagesData.sort((a, b) => {
+            return a.timeStamp.toString().localeCompare(b.timeStamp.toString())
+          })
           console.log(messagesData);
           setMessages(messagesData);
         }
@@ -65,7 +68,7 @@ const Chating = ({ setOpen }) => {
       return unsubscribe;
     }
   }, [db, userToMessage]);
-
+console.log("888". messages);
   //Handle Create/Send Message
   const handleSubmit = async (e) => {
     e.preventDefault();

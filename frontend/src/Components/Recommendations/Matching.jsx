@@ -51,7 +51,7 @@ const Matching = () => {
     const findWantItem = () => {
       //character
         let myAds = characters.filter((postedAd) =>{
-            return postedAd.uid === user.uid;
+            return postedAd.owner === user.uid;
         });
         console.log("333", myAds)
         let myWantList =  myAds.map((ad) => {
