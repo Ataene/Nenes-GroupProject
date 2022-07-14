@@ -39,9 +39,7 @@ const WantProvider = (props) => {
 }
 
 useEffect(() => {
-    console.log("3", user, "6", db)
         if (db && user) {
-          
           let docRef = doc(db, "wantlist", user.uid);
           const unsubscribe = onSnapshot(docRef, (querySnap) => {
             if (querySnap.empty) {
@@ -49,7 +47,6 @@ useEffect(() => {
               setWantList([])
             } else {
               let wantData = querySnap.data()?.items;
-              console.log("555", wantData)
               setWantList(wantData);
             }
           });

@@ -12,14 +12,20 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import useDialogModal from ".././productdetail/useDialogModal";
 import ItemDetail from ".././productdetail/ProductDetail";
 
-const Wishlist = ({ handleClickTraded }) => {
+const Wishlist = () => {
 
   const wantContext = useContext(WantContext);
   const tradedContext = useContext(TradeContext);
   const { wantList, removeFromWantList } = wantContext;
+  const { trade, addToTraded, removeFromTraded } = wantContext;
      const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
        useDialogModal(ItemDetail);
   const [search, setSearch] = useState("");
+
+  const handleClicked = (item) => {
+    addToTraded(item);
+  };
+console.log("555", trade);
   return (
     <>
       <Box>
@@ -88,13 +94,12 @@ const Wishlist = ({ handleClickTraded }) => {
                       <IconButton aria-label="share">
                         <ShareIcon sx={{ color: "#62b4f9" }} />
                       </IconButton>
-                      <IconButton aria-label="share">
+                      {/* <IconButton aria-label="share">
                         <ChatIcon sx={{ color: "green" }} />
-                      </IconButton>
-                      <IconButton aria-label="share" type="click">
+                      </IconButton> */}
+                      <IconButton aria-label="share" type="click" onClick={() => handleClicked(item)}>
                         <ListAltIcon
                           sx={{ color: "purple" }}
-                          onClick={() => handleClickTraded(item)}
                         />
                       </IconButton>
                       <IconButton aria-label="share">

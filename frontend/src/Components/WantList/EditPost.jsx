@@ -1,14 +1,14 @@
 import React, {useState, useEffect, useContext } from "react";
 import { Button, Modal, TextField, FormControl, Box, Typography } from "@mui/material";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { FirebaseContext } from "../auth/FirebaseProvider";
-import { AuthContext } from "../auth/AuthProvider";
-import ConditionSelect from "./ConditionSelect";
+import { FirebaseContext } from "../../auth/FirebaseProvider";
+import { AuthContext } from "../../auth/AuthProvider";
+import ConditionSelect from "../ConditionSelect";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import CategoryOptions from "./CategoryOptions";
-import { doc, getDoc, onSnapshot, orderBy, query } from "firebase/firestore";
+import CategoryOptions from "../CategoryOptions";
+import { doc, getDoc, onSnapshot, orderBy, query, updateDoc } from "firebase/firestore";
 
-const EditPost = ({ visible, onCancel }) => {
+const EditPost = ({ visible, onCancel, handleEdit }) => {
   const ModalStyle = {
     backgroundImage: "linear-gradient(60deg, #abecd6 0%, #fbed96 100%)",
     position: "absolute",
@@ -47,7 +47,6 @@ const EditPost = ({ visible, onCancel }) => {
   useEffect(() => {
     const handleImageUpload = () => {
       const name = new Date().getTime() + file.name;
-      console.log(name);
       const imageRef = ref(store, file.name);
       const uploadTask = uploadBytesResumable(imageRef, file);
 
@@ -90,13 +89,7 @@ const EditPost = ({ visible, onCancel }) => {
   const postAds = async (e) => {
     e.preventDefault();
     try {
-      let userdoc = doc(db, "users", user.uid);
-      let docSnap = await getDoc(userdoc);
-      let userPostalCode = docSnap.data().postalCode;
-      console.log(userPostalCode);
-      let collectionRef = collection(db, "postedAds");
-      await addDoc(collectionRef, {
-        postalCode: userPostalCode,
+      const res = await updateDoc(doc(db, "postedAds", user.uid), {
         title,
         condition,
         description,
@@ -105,9 +98,6 @@ const EditPost = ({ visible, onCancel }) => {
         want,
         url,
         like,
-        owner: user.uid,
-        userPicture,
-        displayName,
         timeStamp: serverTimestamp(),
       });
       setTitle("");
@@ -118,7 +108,6 @@ const EditPost = ({ visible, onCancel }) => {
       setQuantity("");
       setWant("");
     } catch (error) {
-      console.log(error.message);
     }
   };
 

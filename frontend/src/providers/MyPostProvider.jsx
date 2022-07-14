@@ -51,7 +51,6 @@ const MyPostProvider = (props) => {
       return unsubscribe;
     }
   }, [db, user]);
-        console.log("myPostList is :", myPostList)
   const theValues = {
     myPostList,
     //       addToWantList,

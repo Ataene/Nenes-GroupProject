@@ -4,18 +4,15 @@ import { FirebaseContext } from '../auth/FirebaseProvider';
 import { doc, onSnapshot, serverTimestamp, setDoc } from 'firebase/firestore';
 import { AuthContext } from "../auth/AuthProvider";
 
-import { useParams } from "react-router-dom";
-
 export const TradeContext = createContext();
 const TradedProvider = (props) => {
 
-    const params = useParams();
     const children = props.children
 
     const fbContext = useContext(FirebaseContext);
+    const authContext = useContext(AuthContext);
     const auth = fbContext.auth;
     const db = fbContext.db;
-    const authContext = useContext(AuthContext);
     const { user } = authContext; 
 
     const [ traded, setTraded ] = useState([])
@@ -33,21 +30,23 @@ const TradedProvider = (props) => {
 }
 
 useEffect(() => {
-        if (db && user) {
-          let docRef = doc(db, "traded", user.uid);
+  if (db && user) {
+    let docRef = doc(db, "traded", user.uid);
           const unsubscribe = onSnapshot(docRef, (querySnap) => {
             if (querySnap.empty) {
               setDoc(docRef, {items: []});
               setTraded([])
             } else {
-              let tradeData = querySnap.data()?.items
+              let tradeData = querySnap.docs;
+
+              console.log("222", tradeData)
               setTraded(tradeData);
             }
           });
           return unsubscribe;
-          console.log("222", traded)
         }
       }, [db, user]);
+
 
     const theValues = {
        traded,
