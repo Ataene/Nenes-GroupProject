@@ -98,14 +98,14 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
                         component="img"
                         sx={{ height: "260px" }}
                         image={item.url}
-                        title={item.title}
+                        // title={item.title}
                         onClick={() => {
                           console.log(item);
                           showProductDetailDialog(item);
                         }}
                       ></CardMedia>
                       <CardContent>
-                        <Typography>{item.name}</Typography>
+                        <Typography>{item.title}</Typography>
                       </CardContent>
                       <Box
                         sx={{
