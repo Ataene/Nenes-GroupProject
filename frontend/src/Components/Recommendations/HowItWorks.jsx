@@ -34,16 +34,16 @@ const HowItWorks = () => {
           }}>
                 <div style= {{backgroundColor: "rgba(255,255,255,0.75)"}}>
                 <EditLocationOutlinedIcon sx={{color: "green"}} />
-              <Typography>User sign up and  item to trade. </Typography>
+              <Typography>Sign up on the hompage then login. </Typography>
                   </div>
               </Item>
               <Item>
               <CarCrashOutlinedIcon sx={{color: "red"}}/>
-              <Typography>Once Logged in user can see post within their neigbourhood. </Typography>
+              <Typography>Once Logged in, you can see posts within your neigbourhood. </Typography>
               </Item>
               <Item>
               <LockClockOutlinedIcon sx={{color: "yellow", size: "large"}}/>
-              <Typography>Nearby users can chat and arrange to meet and exchange thier items </Typography>
+              <Typography>chat with people nearby to arrange a meet and exchange items. </Typography>
               </Item>
             </Stack>
           </div>
