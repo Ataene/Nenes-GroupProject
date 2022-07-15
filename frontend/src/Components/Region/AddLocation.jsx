@@ -76,7 +76,7 @@ console.log("selectedItems", selectedItems)
     console.log(postedAds)
     let newFilter = postedAds.filter((ad)=>{
       console.log(ad)
-      return ad.title.toLowerCase().includes(searchItems.toLowerCase())
+      return ad?.title?.toLowerCase().includes(searchItems.toLowerCase())
     })
     setfilteredAds(newFilter)
 }, [searchItems, postedAds])
