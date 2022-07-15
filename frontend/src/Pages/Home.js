@@ -40,7 +40,6 @@ export default function Home() {
       </Box>
       <Products />
       <HowItWorks />
-<img src="./images/banner/banner.png" />
     </Container>
   );
 }
