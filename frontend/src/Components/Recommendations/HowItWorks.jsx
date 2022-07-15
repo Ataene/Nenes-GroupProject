@@ -27,9 +27,15 @@ const HowItWorks = () => {
               spacing={{ xs: 1, sm: 2, md: 4 }}
               sx={{display: "flex", justifyContent: "center", alignItems: 'center'}}
             >
-              <Item>
+              <Item style={{
+            backgroundImage: "url(/images/banner/banner.png)",
+            backgroundSize:"cover",
+
+          }}>
+                <div style= {{backgroundColor: "rgba(255,255,255,0.75)"}}>
                 <EditLocationOutlinedIcon sx={{color: "green"}} />
-              <Typography>User sign up and post and item to trade. </Typography>
+              <Typography>User sign up and  item to trade. </Typography>
+                  </div>
               </Item>
               <Item>
               <CarCrashOutlinedIcon sx={{color: "red"}}/>
