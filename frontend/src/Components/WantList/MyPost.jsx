@@ -20,6 +20,7 @@ import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
 // import { doc, onSnapshot, serverTimestamp, setDoc } from "firebase/firestore";
 import EditIcon from "@mui/icons-material/Edit";
 import DropSelections from "../DropSelections";
+import EditPost from "./EditPost";
 
 const MyPost = ( { visible, onCancel } ) => {
   const myPostContext = useContext(MyPostContext);
@@ -91,36 +92,17 @@ const MyPost = ( { visible, onCancel } ) => {
     }
   };
 
-const editMyPostedAd = async (DOC_ID) => {
-  try {
-    const res = await updateDoc(doc(db, "postedAds", DOC_ID), {
-//       ...formData,
-      timeStamp: serverTimestamp(),
-    });
-    console.log(res);
-  } catch (error) {
-    console.log(error.message);
-  }
-};
 
 const handleModalOpen = () => {
-
 setModalVisible(true);
-const editMyPostedAd = async (DOC_ID) => {
-        try {
-          const res = await updateDoc(doc(db, "postedAds", DOC_ID), {
-      //       ...formData,
-            timeStamp: serverTimestamp(),
-          });
-          console.log(DOC_ID);
-        } catch (error) {
-          console.log(error.message);
-        }
-      };
 };
 const handleCancel = () => {
 setModalVisible(false);
 };
+
+const handleEdit = () => {
+    
+}
 
   return (
     <>
@@ -200,10 +182,10 @@ setModalVisible(false);
                           handleModalOpen
                           }
                         >
-                          <EditIcon sx={{ color: "green" }} />
+                          <EditIcon sx={{ color: "green" }} onClick={handleEdit(item.DOC_ID)} />
                         </IconButton>
                         {modalVisible && (
-                        <DropSelections
+                        <EditPost
                         visible={modalVisible}
                         onCancel={handleCancel}
                         sx={{ margin: "5px" }}

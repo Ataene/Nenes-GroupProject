@@ -134,6 +134,113 @@ const Profile = () => {
             }}
           >
             <TextField
+              sx={{ marginBottom: "15px" }}
+              id="outlined-multiline-flexible"
+              label="First Name"
+              variant="outlined"
+              type="text"
+              name="firstName"
+              required={true}
+              value={formData.firstName}
+              onChange={handleChange}
+            />
+
+            <TextField
+              id="outlined-basic"
+              label="Last Name"
+              variant="outlined"
+              type="text"
+              name="lastName"
+              required={true}
+              value={formData.lastName}
+              onChange={handleChange}
+            />
+            <TextField
+              id="outlined-basic"
+              label="Gender"
+              variant="outlined"
+              type="text"
+              name="gender"
+              required={true}
+              value={formData.gender}
+              onChange={handleChange}
+            />
+          </section>
+          <section
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              margin: "10px",
+              padding: "10px",
+            }}
+          >
+            <TextField
+              id="outlined-basic"
+              label="Occupation"
+              variant="outlined"
+              type="text"
+              name="occupation"
+              required={true}
+              value={formData.occupation}
+              onChange={handleChange}
+            />
+            <TextField
+              iid="outlined-basic"
+              label="City"
+              variant="outlined"
+              type="text"
+              name="city"
+              required={true}
+              value={formData.city}
+              onChange={handleChange}
+            />
+
+            <TextField
+              id="outlined-basic"
+              label="Province"
+              variant="outlined"
+              type="text"
+              name="province"
+              required={true}
+              value={formData.province}
+              onChange={handleChange}
+            />
+          </section>
+          <section
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              margin: "10px",
+              padding: "10px",
+            }}
+          >
+            <TextField
+              id="outlined-basic"
+              label="Postal Code"
+              variant="outlined"
+              type="text"
+              name="postalCode"
+              required={true}
+              value={formData.postalCode}
+              onChange={handleChange}
+              inputProps={{ maxLength: 3 }}
+            />
+            <Avatar
+              src={
+                file ? (
+                  URL.createObjectURL(file)
+                ) : (
+                  <Typography>Image failed to load</Typography>
+                )
+              }
+              sx={{
+                bgcolor: "green"[500],
+                width: 150,
+                height: 100,
+                marginTop: "30px",
+              }}
+            />
+            <TextField
               id="outlined-multiline-flexible"
               label="First Name"
               variant="outlined"

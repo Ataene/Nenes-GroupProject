@@ -22,6 +22,9 @@ import { AuthContext } from "../../auth/AuthProvider";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import OnlineStatus from "./OnlineStatus";
 import CircleLoader from "react-spinners/CircleLoader";
+import ShareFunction from "./ShareFunction";
+import LikeIcon from "./LikeIcon";
+import TestRecommendation from "../Recommendations/testRecommendation";
 
 const Market = ({ postedAds, handleClick, newStatus, loading }) => {
   const authContext = useContext(AuthContext);
@@ -30,6 +33,9 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
   const db = fbContext.db;
   const [open, setOpen] = useState(false);
 
+  //  const [likes, setLikes] = useState(false);
+
+ 
   const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
     useDialogModal(ItemDetail);
 
@@ -49,6 +55,10 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
         onMouseLeave={handleMouseLeave}
       >
         <Box>
+          <div>
+           {<TestRecommendation />}
+          </div>
+         
           <Grid container spacing={1}>
             {loading ? (
               <div
@@ -88,14 +98,14 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
                         component="img"
                         sx={{ height: "260px" }}
                         image={item.url}
-                        title={item.title}
+                        // title={item.title}
                         onClick={() => {
                           console.log(item);
                           showProductDetailDialog(item);
                         }}
                       ></CardMedia>
                       <CardContent>
-                        <Typography>{item.name}</Typography>
+                        <Typography>{item.title}</Typography>
                       </CardContent>
                       <Box
                         sx={{
@@ -117,7 +127,7 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
                           </IconButton>
                           <IconButton
                             aria-label="chat"
-                            onClick={() => setUserToMessage(item.uid)}
+                            onClick={() => setUserToMessage(item.owner)}
                           >
                             <ChatIcon sx={{ color: "green" }} />
                           </IconButton>
