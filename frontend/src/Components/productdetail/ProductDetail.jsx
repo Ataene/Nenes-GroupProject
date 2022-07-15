@@ -124,7 +124,9 @@ function ItemDetail({ open, options, onClose, item }) {
           alignItems="center"
           justifyContent={"space-between"}
         >
+        <Link to='/dashboard'>
           <Typography sx={{ fontSize: 20 }}>Hundie</Typography>
+        </Link>
           {item.title}
           <IconButton onClick={onClose}>
             <CloseIcon />
