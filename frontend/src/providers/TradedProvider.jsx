@@ -37,7 +37,7 @@ useEffect(() => {
               setDoc(docRef, {items: []});
               setTraded([])
             } else {
-              let tradeData = querySnap.docs;
+              let tradeData = querySnap.data().items;
 
               console.log("222", tradeData)
               setTraded(tradeData);

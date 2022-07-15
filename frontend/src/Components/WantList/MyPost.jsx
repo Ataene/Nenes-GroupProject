@@ -42,6 +42,7 @@ const MyPost = ( { visible, onCancel } ) => {
     useDialogModal(ItemDetail);
 
   const [showOptions, setShowOptions] = useState(false);
+  const [itemToEdit, setItemToEdit] = useState(false);
 
   const handleMouseEnter = () => {
     setShowOptions(true);
@@ -100,8 +101,8 @@ const handleCancel = () => {
 setModalVisible(false);
 };
 
-const handleEdit = () => {
-    
+const handleEdit = (item) => {
+    setItemToEdit(item)
 }
 
   return (
@@ -176,16 +177,17 @@ const handleEdit = () => {
                           <EditIcon sx={{ color: "green" }} />
                         </IconButton> */}
                         <IconButton
+                        onClick={() => {
+                          handleEdit(item)
+                          handleModalOpen()
+                        }}
                           aria-label="chat"
-                          onClick={
-                        //   editMyPostedAd(item.DOC_ID)
-                          handleModalOpen
-                          }
                         >
-                          <EditIcon sx={{ color: "green" }} onClick={handleEdit(item.DOC_ID)} />
+                          <EditIcon sx={{ color: "green" }}  />
                         </IconButton>
                         {modalVisible && (
                         <EditPost
+                        itemToEdit={itemToEdit}
                         visible={modalVisible}
                         onCancel={handleCancel}
                         sx={{ margin: "5px" }}

@@ -8,7 +8,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import CategoryOptions from "../CategoryOptions";
 import { doc, getDoc, onSnapshot, orderBy, query, updateDoc } from "firebase/firestore";
 
-const EditPost = ({ visible, onCancel, handleEdit }) => {
+const EditPost = ({ visible, onCancel, itemToEdit }) => {
   const ModalStyle = {
     backgroundImage: "linear-gradient(60deg, #abecd6 0%, #fbed96 100%)",
     position: "absolute",
@@ -34,7 +34,7 @@ const EditPost = ({ visible, onCancel, handleEdit }) => {
   const [url, setUrl] = useState("");
 
   const [rating, setRating] = useState(null);
-  const [like, setLike] = useState(0);
+  // const [like, setLike] = useState(0);
 
   const [userPicture, setUserPicture] = useState("");
   const [displayName, setDisplayName] = useState("");
@@ -86,20 +86,24 @@ const EditPost = ({ visible, onCancel, handleEdit }) => {
     }
   }, [db, user]);
 
-  const postAds = async (e) => {
+  const editPostAds = async (e) => {
     e.preventDefault();
+    const editDocument = {
+      title,
+      condition,
+      description,
+      category,
+      quantity,
+      want,
+      // url,
+      // like,
+      timeStamp: serverTimestamp(),
+    };
+    if(url){
+      editDocument.url = url;
+    }
     try {
-      const res = await updateDoc(doc(db, "postedAds", user.uid), {
-        title,
-        condition,
-        description,
-        category,
-        quantity,
-        want,
-        url,
-        like,
-        timeStamp: serverTimestamp(),
-      });
+      const res = await updateDoc(doc(db, "postedAds", itemToEdit.DOC_ID), editDocument);
       setTitle("");
       setCondition("");
       setDescription("");
@@ -111,6 +115,21 @@ const EditPost = ({ visible, onCancel, handleEdit }) => {
     }
   };
 
+  useEffect(() => {
+
+    if(itemToEdit){
+      setTitle(itemToEdit.title);
+      setCondition(itemToEdit.condition);
+      setDescription(itemToEdit.description);
+      setCategory(itemToEdit.category);
+      // setFile(itemToEdit.file);
+      setQuantity(itemToEdit.quantity);
+      setWant(itemToEdit.want);
+    }
+    
+  }, [itemToEdit])
+  
+
   return (
     <>
       <Modal
@@ -120,7 +139,7 @@ const EditPost = ({ visible, onCancel, handleEdit }) => {
         aria-describedby="modal-modal-description"
       >
         <Box style={ModalStyle}>
-          <form onSubmit={postAds}>
+          <form onSubmit={editPostAds}>
             <FormControl sx={{ m: 10, width: 300 }}>
               <Typography
                 variant="h5"
