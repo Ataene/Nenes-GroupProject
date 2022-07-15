@@ -99,10 +99,9 @@ const MiddleBar = () => {
           }}
         >
           <Button
-            // className={active ? `user_status online` : `user_status offline`}
             onClick={() => setActive("market")}
             sx={{ margin: "5px", color: "green" }}
-            style={{ background: active === "market" ? "yellow" : "#B8F1B0" }}
+            style={{ background: active === "market" ? "#F4E06D" : "#B8F1B0" }}
             variant="outlined"
             color="success"
             size="large"
@@ -112,7 +111,7 @@ const MiddleBar = () => {
           <Button
             onClick={() => setActive("swipe")}
             sx={{ margin: "5px", color: "green" }}
-            style={{ background: active === "swipe" ? "yellow" : "#B8F1B0" }}
+            style={{ background: active === "swipe" ? "#F4E06D" : "#B8F1B0" }}
             variant="outlined"
             color="success"
             size="large"
@@ -122,7 +121,7 @@ const MiddleBar = () => {
 
           <Button
             onClick={() => setActive("matching")}
-            style={{ background: active === "matching" ? "yellow" : "#B8F1B0" }}
+            style={{ background: active === "matching" ? "#F4E06D" : "#B8F1B0" }}
             sx={{ margin: "5px", color: "green" }}
             variant="outlined"
             color="success"
@@ -133,7 +132,7 @@ const MiddleBar = () => {
 
           <Button
             onClick={() => setActive("profile")}
-            style={{ background: active === "profile" ? "yellow" : "#B8F1B0" }}
+            style={{ background: active === "profile" ? "#F4E06D" : "#B8F1B0" }}
             sx={{ margin: "5px", color: "green" }}
             variant="outlined"
             color="success"
@@ -143,7 +142,7 @@ const MiddleBar = () => {
           </Button>
           <Button
             onClick={() => setActive("myList")}
-            style={{ background: active === "myList" ? "yellow" : "#B8F1B0" }}
+            style={{ background: active === "myList" ? "#F4E06D" : "#B8F1B0" }}
             sx={{ margin: "5px", color: "green" }}
             variant="outlined"
             color="success"

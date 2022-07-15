@@ -7,10 +7,13 @@ import ConditionSelect from "../ConditionSelect";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import CategoryOptions from "../CategoryOptions";
 import { doc, getDoc, onSnapshot, orderBy, query, updateDoc } from "firebase/firestore";
+// import images from "../../src/images/iPhone.png"
+import images from "../../images/iPhone.png"
+
 
 const EditPost = ({ visible, onCancel, itemToEdit }) => {
   const ModalStyle = {
-    backgroundImage: "linear-gradient(60deg, #abecd6 0%, #fbed96 100%)",
+    backgroundImage: `url(${images})`,
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -203,7 +206,7 @@ const EditPost = ({ visible, onCancel, itemToEdit }) => {
                 sx={{
                   width: "30rem",
                   margin: "2px",
-                  backgroundColor: "#005555",
+                  backgroundColor: "#3EC70B",
                   color: "white",
                 }}
                 type="submit"

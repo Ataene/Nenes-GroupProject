@@ -70,10 +70,10 @@ const MyList = () => {
         <Box>
           <Container sx={{display: "flex", justifyContent: "center"}}>
           <Button
-            sx={{ margin: 1 }}
+            sx={{ margin: 1, color: "green" }}
             color="success"
-            variant="contained"
-            // className={ative ? `button_Style online` : `button_Style offline`}
+            variant="outlined"
+            style={{ background: active === "WishList" ? "#F4E06D" : "#B8F1B0" }}
             onClick={() => setActive("WishList")}
           >
             Wishlist
@@ -81,7 +81,8 @@ const MyList = () => {
           <Button
             sx={{ margin: 1 }}
             color="success"
-            variant="contained"
+            variant="outlined"
+            style={{ background: active === "Mypost" ? "#F4E06D" : "#B8F1B0" }}
             onClick={() => setActive("Mypost")}
           >
             My Post
@@ -89,7 +90,8 @@ const MyList = () => {
           <Button
             sx={{ margin: 1 }}
             color="success"
-            variant="contained"
+            variant="outlined"
+            style={{ background: active === "Traded" ? "#F4E06D" : "#B8F1B0" }}
             onClick={() => setActive("Traded")}
           >
             Traded
@@ -97,7 +99,8 @@ const MyList = () => {
           <Button
             sx={{ margin: 1 }}
             color="success"
-            variant="contained"
+            variant="outlined"
+            style={{ background: active === "Add" ? "#F4E06D" : "#B8F1B0" }}
             onClick={() => setActive("Add")}
           >
           Add
