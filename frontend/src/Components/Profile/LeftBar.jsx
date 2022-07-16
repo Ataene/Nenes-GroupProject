@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
-  Box, List, ListItemButton, ListItemIcon, ListItemText, Card} from "@mui/material";
+  Box, List, ListItemButton, ListItemIcon, ListItemText, Card, Typography } from "@mui/material";
 import RssFeedIcon from "@mui/icons-material/RssFeed";
 import ChatIcon from "@mui/icons-material/Chat";
 import InventoryIcon from "@mui/icons-material/Inventory";
@@ -11,10 +11,42 @@ import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
 import WorkIcon from "@mui/icons-material/Work";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import GroupsIcon from "@mui/icons-material/Groups";
-import CountingEffect from "./CountingEffect";
-
+import { collection, onSnapshot, orderBy, query, doc } from "firebase/firestore";
+import { FirebaseContext } from "../../auth/FirebaseProvider";
+import { AuthContext } from "../../auth/AuthProvider";
+import OnlineStatus from "./OnlineStatus";
+import { Container } from "@mui/system";
+import Avatar from '@mui/material/Avatar';
+  
 const LeftBar = () => {
+
+  const authContext = useContext(AuthContext);
+  const fbContext = useContext(FirebaseContext);
+  const db = fbContext.db;
+  const { user } = authContext;
+
   const [active, setActive] = useState("");
+  const [userList, setUserList] = useState([]);
+  const [userPicture, setUserPicture] = useState([]);
+
+  useEffect(() => {
+    if (db && user) {
+      // setLoading(true);
+      let collectionRef = collection(db, "users");
+      let queryRef = query(collectionRef, orderBy("timeStamp"));
+      const unsubscribe = onSnapshot(queryRef, (querySnap) => {
+        if (querySnap.empty) {
+        } else {
+          let usersData = querySnap.docs.map((doc) => {
+            return { ...doc.data(), DOC_ID: doc.id };
+          });
+          setUserList(usersData);
+          // setLoading(false);
+        }
+      });
+      return unsubscribe;
+    }
+  }, [db, user]);
 
   return (
     <>
@@ -91,6 +123,22 @@ const LeftBar = () => {
               <ListItemText primary="Video" />
             </ListItemButton>
           </List>
+          <Box>
+          <Typography sx={{marginLeft: "30px", color: "green"}}>Users</Typography>
+          <hr />
+          {userList.filter((item) =>item.uid !==user.uid).map((item) => (
+            <Box sx={{display: "flex", flexDirection: "row", alignItems: "center", marginLeft: "10px"}}>
+            <Avatar
+                  sx={{ marginTop: "10px" }}
+                  alt="User"
+                  src={item.Avatar}
+                />
+            <OnlineStatus uid={item.owner} />
+           <Typography sx={{marginLeft: "10px"}}>{item.firstName}</Typography> 
+            </Box>
+          )
+          )}
+          </Box>
         </Card>
       </Box>
     </>
