@@ -1,6 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
-  Box, List, ListItemButton, ListItemIcon, ListItemText, Card, Typography } from "@mui/material";
+  Box,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Card,
+  Typography,
+} from "@mui/material";
 import RssFeedIcon from "@mui/icons-material/RssFeed";
 import ChatIcon from "@mui/icons-material/Chat";
 import InventoryIcon from "@mui/icons-material/Inventory";
@@ -16,14 +23,13 @@ import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { AuthContext } from "../../auth/AuthProvider";
 import OnlineStatus from "./OnlineStatus";
 import { Container } from "@mui/system";
-import Avatar from '@mui/material/Avatar';
-  
-const LeftBar = () => {
+import Avatar from "@mui/material/Avatar";
 
+const LeftBar = () => {
   const authContext = useContext(AuthContext);
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
-  const { user } = authContext;
+  const { user, messageUser, setMessageUser } = authContext;
 
   const [active, setActive] = useState("");
   const [userList, setUserList] = useState([]);
@@ -124,20 +130,33 @@ const LeftBar = () => {
             </ListItemButton>
           </List>
           <Box>
-          <Typography sx={{marginLeft: "30px", color: "green"}}>Users</Typography>
-          <hr />
-          {userList.filter((item) =>item.uid !==user.uid).map((item) => (
-            <Box sx={{display: "flex", flexDirection: "row", alignItems: "center", marginLeft: "10px"}}>
-            <Avatar
-                  sx={{ marginTop: "10px" }}
-                  alt="User"
-                  src={item.Avatar}
-                />
-            <OnlineStatus uid={item.owner} />
-           <Typography sx={{marginLeft: "10px"}}>{item.firstName}</Typography> 
-            </Box>
-          )
-          )}
+            <Typography sx={{ marginLeft: "30px", color: "green" }}>
+              Users
+            </Typography>
+            <hr />
+            {userList
+              .filter((item) => item.uid !== user.uid)
+              .map((item) => (
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginLeft: "10px",
+                  }}
+                >
+                  <Avatar
+                    sx={{ marginTop: "10px", cursor: "pointer" }}
+                    alt="User"
+                    src={item.Avatar}
+                    onClick={() => setMessageUser(item.uid)}
+                  />
+                  <OnlineStatus uid={item.owner} />
+                  <Typography sx={{ marginLeft: "10px" }}>
+                    {item.firstName}
+                  </Typography>
+                </Box>
+              ))}
           </Box>
         </Card>
       </Box>

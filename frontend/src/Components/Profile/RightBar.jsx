@@ -1,16 +1,11 @@
 import React, { useContext, useState } from "react";
-import {
-  Box,
-  Container,
-  Typography,
-  CardContent,
-  Card,
-} from "@mui/material";
+import { Box, Container, Typography, CardContent, Card } from "@mui/material";
 import { AuthContext } from "../../auth/AuthProvider";
 import { useNavigate } from "react-router-dom";
 // import ChatBox from "./ChatBox";
 import Chatings from "./Chatings";
 import ChatHeader from "./ChatHeader";
+// import ChatLeft from "./ChatLeft";
 
 const RightBar = () => {
   const authContext = useContext(AuthContext);
@@ -56,8 +51,8 @@ const RightBar = () => {
           </Card>
         </Box>
           <ChatHeader />
-          {/* {open && userToMessage && <ChatBox setOpen={setOpen} />} */}
           {open && userToMessage && <Chatings setOpen={setOpen} />}
+          {/* {open && userToMessage && <ChatLeft setOpen={setOpen} />} */}
       </Container>
     </Box>
   );
