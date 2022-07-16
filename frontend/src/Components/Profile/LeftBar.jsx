@@ -54,6 +54,22 @@ const LeftBar = () => {
     }
   }, [db, user]);
 
+  // const [status, setStatus] = useState([]);
+  // useEffect(() => {
+  //   if (db && user) {
+  //     let collectionRef = collection(db, "users");
+  //     let queryRef = query(collectionRef, orderBy("uid"));
+  //     const unsubscribe = onSnapshot(queryRef, (querySnapshot) => {
+  //       let newStatus = [];
+  //       querySnapshot.forEach((doc) => {
+  //         status.push(doc.data());
+  //       });
+  //       setStatus(status);
+  //     });
+  //     return unsubscribe;
+  //   }
+  // }, [db, user]);
+
   return (
     <>
       <Box
