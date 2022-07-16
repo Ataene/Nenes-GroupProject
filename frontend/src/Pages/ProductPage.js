@@ -6,8 +6,8 @@ const ProductPage = () => {
 
   return (
     <div>
-      {/* <ProductList /> */}
-      <ProductDesign />
+      <ProductList />
+      {/* <ProductDesign /> */}
     </div>
   )
 }

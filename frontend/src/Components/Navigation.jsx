@@ -109,11 +109,16 @@ const Navigation = () => {
                 About
               </Button>
             </Link>
+            <Link style={{ textDecoration: "none" }} to="/admin">
+              <Button sx={{ my: 2, color: "white", display: "block" }}>
+                Admin
+              </Button>
+            </Link>
             {user && (
               <>
                 <Link style={{ textDecoration: "none" }} to="/dashboard">
                   <Button sx={{ my: 2, color: "white", alignItem: "block" }}>
-                    Dashboard
+                    Store
                   </Button>
                 </Link>
               </>

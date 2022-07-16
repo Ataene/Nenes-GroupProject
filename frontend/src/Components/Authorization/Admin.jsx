@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import Sidebar from '../Sidebar';
 import Table from '../Table';
-import {LineData, TableRows, productData} from '../../Components/Data/Data';
-import LineDetails from '../../Components/LineDetails';
+import {LineData, TableRows, productData} from '../Data/Data';
+import LineDetails from '../LineDetails';
 import { Stack } from '@mui/material';
-import Product from '../../Components/Product';
+import Product from '../Product';
 
-const Dashboard = () => {
+const Admin = () => {
   const [componentToShow, setComponentToShow ] = useState("Table");
   return (
     <>
@@ -20,4 +20,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard;
+export default Admin;
