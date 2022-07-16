@@ -33,7 +33,8 @@ useEffect(() => {
   if (db && user) {
     let docRef = doc(db, "traded", user.uid);
           const unsubscribe = onSnapshot(docRef, (querySnap) => {
-            if (querySnap.empty) {
+           console.log(querySnap.empty, querySnap.exists())
+            if  (!querySnap.exists()) {
               setDoc(docRef, {items: []});
               setTraded([])
             } else {
