@@ -1,7 +1,20 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { Box, CardActions, Card, CardHeader, CardMedia, Container, Grid, IconButton, ListItemButton, Paper, Tooltip, Button } from "@mui/material";
+import {
+  Box,
+  CardActions,
+  Card,
+  CardHeader,
+  CardMedia,
+  Container,
+  Grid,
+  IconButton,
+  ListItemButton,
+  Paper,
+  Tooltip,
+  Button,
+} from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
 import Avatar from "@mui/material/Avatar";
@@ -23,52 +36,65 @@ import {
   arrayUnion,
   doc,
   updateDoc,
+  onSnapshot,
+  query,
+  orderBy,
+  getDocs,
 } from "firebase/firestore";
 
-
-  
-
-function LikeIcon({item}) { 
-
-const authContext = useContext(AuthContext);
+function LikeIcon({ item }) {
+  const authContext = useContext(AuthContext);
   const { user } = authContext;
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
-    const [open, setOpen] = useState(false);
-        const [likes, setLikes] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [like, setLike] = useState([]);
 
-//    const collectionRef = collection(db, "postedAds");
-//    const docRef = doc(db, "postedAds", item.DOC_ID);
-    const likesRef = doc(db, "postedAds", user.uid);
+  //    const collectionRef = collection(db, "postedAds");
+  //    const docRef = doc(db, "postedAds", item.DOC_ID);
 
-    const handleLikes = () => {
-   if (likes?.includes(user.uid)) {
-     updateDoc(likesRef, {
-       likes: arrayRemove(user.uid),
-     })
-       .then(() => {
-         console.log("unliked");
-       })
-       .catch((e) => {
-         console.log(e);
-       });
-   } else {
-     updateDoc(likesRef, {
-       likes: arrayUnion(user.uid),
-     })
-       .then(() => {
-         console.log("liked");
-       })
-       .catch((e) => {
-         console.log(e);
-       });
-   }
+  const [postedAd, setPostedAd] = useState();
+  const [loading, setLoading] = useState(false);
+
+
+//   useEffect(() => {
+//     if (db && user) {
+//       setLoading(true);
+//       let collectionRef = collection(db, "postedAds");
+//       let queryRef = query(collectionRef, orderBy("timeStamp"));
+//       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
+//         if (querySnap.empty) {
+//         } else {
+//           let usersData = querySnap.docs.map((doc) => {
+//             return { ...doc.data(), DOC_ID: doc.id };
+//           });
+//           setPostedAds(usersData);
+//           setLoading(false);
+//         }
+//       });
+//       return unsubscribe;
+//     }
+//   }, [db, user]);
+
+  const handleLikes = async () => {
+    const docRef = doc(db, "postedAds", item.DOC_ID);
+    if (item.like?.includes(user.uid)) {
+        updateDoc(docRef,{
+            like: item.like.filter((like) => {
+                return like!==user.uid;
+            })
+        });
+    } else {
+        updateDoc(docRef,{
+            like: [...item.like, user.uid]
+        });
+    }
     } 
     
     return (
         <IconButton>
              <Button onClick={handleLikes}>
-            <FavoriteIcon sx={{ color: "red" }} />
+            <FavoriteIcon sx={{ color: item?.like?.includes(user.uid)?"red":"grey" }} />
             </Button>
         </IconButton>
         
@@ -76,21 +102,5 @@ const authContext = useContext(AuthContext);
 
 }
 
+
 export default LikeIcon;
-
-
-
-
-
-
-
-      
-
-
-
-
-             
-
-
-  
-  

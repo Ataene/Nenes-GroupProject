@@ -40,9 +40,6 @@ const DropSelections = ({ visible, onCancel }) => {
   const [progress, setProgress] = useState(null);
   const [url, setUrl] = useState("");
 
-  const [rating, setRating] = useState(null);
-  const [like, setLike] = useState(0)
-
   const [userPicture, setUserPicture] = useState("");
   const [displayName, setDisplayName] = useState("");
   const fbContext = useContext(FirebaseContext);
@@ -111,7 +108,7 @@ const DropSelections = ({ visible, onCancel }) => {
         quantity,
         want,
         url,
-        like,
+        like: [],
         owner: user.uid,
         userPicture,
         displayName,

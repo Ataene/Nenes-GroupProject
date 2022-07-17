@@ -38,9 +38,11 @@ import {
   collectionGroup,
 } from "firebase/firestore";
 
+import similarity from "compute-cosine-similarity";
 
-
-const TestRecommendation = ({ handleClick, options, item, displayName }) => {
+const TestRecommendation = (props) => {
+  const { handleClick, options, item, displayName, str, wordCountmap, dict } =
+    props;
   const authContext = useContext(AuthContext);
   const { user, setUserToMessage } = authContext;
   const fbContext = useContext(FirebaseContext);
@@ -49,48 +51,133 @@ const TestRecommendation = ({ handleClick, options, item, displayName }) => {
 
   const [postedAds, setPostedAds] = useState([]);
   const [character, setCharacter] = useState([]);
-  const [rating, setRating] = useState([]);
-  const [ratingData, setRatingData] = useState([]);
+  
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState();
+ 
 
   const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
     useDialogModal(ItemDetail);
 
+ function wordCountMap(str) {
+   let title = str.split(" ");
+   let wordCount = {};
+   title.forEach((w) => {
+     wordCount[w] = (wordCount[w] || 0) + 1;
+   });
+   return wordCount;
+ }
+
+ function addWordsToDictionary(wordCountmap, dict) {
+   for (let key in wordCountmap) {
+     dict[key] = true;
+   }
+ }
+
+ function wordMapToVector(map, dict) {
+   let wordCountVector = [];
+   for (let term in dict) {
+     wordCountVector.push(map[term] || 0);
+   }
+   return wordCountVector;
+ }
+
+ function dotProduct(vecA, vecB) {
+   let product = 0;
+   for (let i = 0; i < vecA.length; i++) {
+     product += vecA[i] * vecB[i];
+   }
+   return product;
+ }
+
+ function magnitude(vec) {
+   let sum = 0;
+   for (let i = 0; i < vec.length; i++) {
+     sum += vec[i] * vec[i];
+   }
+   return Math.sqrt(sum);
+ }
+
+ function cosineSimilarity(vecA, vecB) {
+   return dotProduct(vecA, vecB) / (magnitude(vecA) * magnitude(vecB));
+ }
+
+ function textCosineSimilarity(txtA, txtB) {
+   const wordCountA = wordCountMap(txtA);
+   const wordCountB = wordCountMap(txtB);
+   let dict = {};
+   addWordsToDictionary(wordCountA, dict);
+   addWordsToDictionary(wordCountB, dict);
+   const vectorA = wordMapToVector(wordCountA, dict);
+   const vectorB = wordMapToVector(wordCountB, dict);
+   return cosineSimilarity(vectorA, vectorB);
+ }
+
+ function getSimilarityScore(val) {
+   return Math.round(val * 100);
+ }
+
+ function checkSimilarity() {
+   const text1 = "title1".val();
+   const text2 = "title2".val();
+   const similarity = getSimilarityScore(textCosineSimilarity(text1, text2));
+ }
+
   useEffect(() => {
-    if (!db) {
-      console.log("No dabase found");
-    } else {
-      const getData = async () => {
-        const collectionRef = query(collection(db, "postedAds"), limit(4));
-        const snapshot = await getDocs(collectionRef);
-        const data = snapshot.docs.map((doc) => ({
-          ...doc.data(),
-          DOC_ID: doc.id,
-        }));
-        console.log("data", data)
-        for (let i = 0; i < data.length; i++) {
-          const ratingQ = query(
-            collection(db, `postedAds/${data[i].DOC_ID}/rating`)
-          );
-          const ratingDetails = await getDocs(ratingQ);
-          const rating = ratingDetails.docs.map((doc) => {
-            return doc.data()
-            
-          }).reduce((acc, doc) => {
-          return acc+=doc.rating
-          }, 0) / ratingDetails.docs.length
-          console.log("rating", rating)
-          data[i].rating=(isNaN(rating)?0:rating)
-        }
-        setPostedAds(data.sort((a, b) => {
-          return  b.rating - a.rating
-        }))
-      };
-      getData();
+    if (db) {
+      let collectionRef = collection(db, "postedAds");
+      let queryRef = query(collectionRef, orderBy("description"), limit(4));
+      const unsubscribe = onSnapshot(queryRef, (querySnapshot) => {
+        let items = [];
+        querySnapshot.forEach((doc) => {
+          items.push(doc.data());
+        });
+        console.log(items);
+        setPostedAds(items);
+      });
+      return unsubscribe;
     }
   }, [db]);
+      
+let characters = postedAds;
+
+    useEffect(() => {
+         const findSimilarItems = () => {
+           //character
+           let myAds = characters.filter((postedAd) => {
+             return postedAd.uid === user.uid;
+           });
+           let myWantList = myAds.map((ad) => {
+             return ad.title.toLowerCase();
+           });
+           function textCosineSimilarity(txtA, txtB) {
+             const wordCountA = wordCountMap(txtA);
+             const wordCountB = wordCountMap(txtB);
+             let dict = {};
+             addWordsToDictionary(wordCountA, dict);
+             addWordsToDictionary(wordCountB, dict);
+             const vectorA = wordMapToVector(wordCountA, dict);
+             const vectorB = wordMapToVector(wordCountB, dict);
+             return cosineSimilarity(vectorA, vectorB);
+           }
+
+           function getSimilarityScore(val) {
+             return Math.round(val * 100);
+           }
+
+           function checkSimilarity() {
+             const text1 = "title1".val();
+             const text2 = "title2".val();
+             const similarity = getSimilarityScore(
+               textCosineSimilarity(text1, text2)
+             );
+           }
+
+           setCharacter(myWantList);
+         };
+         findSimilarItems();
+  }, [db]);
+    
 
   console.log("my rating", postedAds);
 
@@ -113,18 +200,18 @@ const TestRecommendation = ({ handleClick, options, item, displayName }) => {
         onMouseLeave={handleMouseLeave}
       >
         <Box>
-                             <Box
-                      display="flex"
-                      justifyContent="center"
-                      sx={{ p: 4, fontFamily: "Montserrat" }}
-                    >
-                      <Typography
-                        variant="h4"
-                        sx={{ fontFamily: "Montserrat", color: "green" }}
-                      >
-                        Recommended for you{user.firstName}
-                      </Typography>
-          </Box>       
+          <Box
+            display="flex"
+            justifyContent="center"
+            sx={{ p: 4, fontFamily: "Montserrat" }}
+          >
+            <Typography
+              variant="h4"
+              sx={{ fontFamily: "Montserrat", color: "green" }}
+            >
+              Recommendations for {user.firstName}
+            </Typography>
+          </Box>
           <Grid container spacing={1}>
             {postedAds
               .filter((item) => item.uid !== user.uid)

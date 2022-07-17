@@ -55,10 +55,9 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
         onMouseLeave={handleMouseLeave}
       >
         <Box>
-          <div>
-           {<TestRecommendation />}
-          </div>
-         
+
+          <div>{<TestRecommendation />}</div>
+
           <Grid container spacing={1}>
             {loading ? (
               <div
@@ -120,7 +119,7 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
                         <Typography>I want : {item.want}</Typography>
                         <CardActions xs={6} sx={{ marginBottom: "20px" }}>
                           <IconButton aria-label="add to favorites">
-                            <FavoriteIcon sx={{ color: "red" }} />
+                            <LikeIcon item={item}  />
                           </IconButton>
                           <IconButton aria-label="share">
                             <ShareIcon sx={{ color: "#62b4f9" }} />
