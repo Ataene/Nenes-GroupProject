@@ -25,7 +25,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import OnlineStatus from "../Profile/OnlineStatus";
 
-import { collection, onSnapshot, orderBy, query, limit, getDocs } from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query, limit, getDocs, dsc } from "firebase/firestore";
 
 
 const MostPopularTrade = ({ handleClick }) => {
@@ -42,13 +42,15 @@ const MostPopularTrade = ({ handleClick }) => {
   const [loading, setLoading] = useState(false);
   //useEffect to call db
 
+   const [desc, setDesc] = useState();
+
 
 
   //useEffect to call db
   useEffect(() => {
     if (db && user) {
       let collectionRef = collection(db, "postedAds");
-      let queryRef = query(collectionRef, orderBy("timeStamp"), limit(4));
+      let queryRef = query(collectionRef, orderBy("like", "desc"), limit(4));
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
         if (querySnap.empty) {
         } else {
