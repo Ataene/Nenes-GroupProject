@@ -18,7 +18,7 @@ const HowItWorks = () => {
   return (
     <>
       <Box>
-        <Container>
+        <Container marginBottom="10%">
           <div>
             <Typography
               sx={{
@@ -52,29 +52,38 @@ const HowItWorks = () => {
               </Item>
               <Item
                 style={{
-                  backgroundImage: "url(/images/map.png)",
+                  backgroundImage: "url(/images/howitworks/map.png)",
                   backgroundSize: "cover",
                 }}
               >
+                <div style={{ backgroundColor: "rgba(255,255,255,0.75)" }} >
                 <CarCrashOutlinedIcon sx={{ color: "red" }} />
                 <Typography>
                   Once Logged in, you can see posts within your neigbourhood.{" "}
                 </Typography>
+                </div>
+               
               </Item>
-              <Item>
+              <Item  style={{
+                  backgroundImage: "url(/images/howitworks/meet.png)",
+                  backgroundSize: "cover",
+                }}>
+                <div style={{ backgroundColor: "rgba(255,255,255,0.75)" }}>
                 <LockClockOutlinedIcon
                   sx={{ color: "yellow", size: "large" }}
                 />
                 <Typography>
                   chat with people nearby to arrange a meet and exchange items.{" "}
                 </Typography>
+                </div>
+               
               </Item>
             </Stack>
           </div>
         </Container>
-        <Container>Image</Container>
+        {/* <Container>Image</Container> */}
       </Box>
-      <Container>Trades Complete, daily new members, cities</Container>
+      <Container></Container>
       <Box></Box>
     </>
   );
