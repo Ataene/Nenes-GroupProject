@@ -9,7 +9,7 @@ import HowItWorks from "../Components/Recommendations/HowItWorks";
 
 export default function Home() {
   return (
-    <Container>
+    <>
       <CssBaseline />
       <Banner />
       <Promotions />
@@ -22,7 +22,7 @@ export default function Home() {
           variant="h4"
           sx={{ fontFamily: "Montserrat", color: "green" }}
         >
-          Most Popular Trades on Huddie
+          Most Popular Trades on Hundie
         </Typography>
       </Box>
       <MostPopularTrade />
@@ -39,7 +39,8 @@ export default function Home() {
         </Typography>
       </Box>
       <Products />
+      <Promotions />
       <HowItWorks />
-    </Container>
+    </>
   );
 }

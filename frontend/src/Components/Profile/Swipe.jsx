@@ -90,7 +90,7 @@ const Swipe = () => {
           style={{
             maxWidth: "100px",
             height: "200px",
-            marginLeft: "10%",
+            marginLeft: "32%",
             marginTop: "20px",
             marginBottom: "400px",
           }}

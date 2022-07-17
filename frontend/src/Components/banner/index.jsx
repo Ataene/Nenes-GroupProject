@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Link, Typography } from "@mui/material";
+import { Link, Typography } from "@mui/material";
 import {
   BannerContainer,
   BannerContent,
@@ -22,7 +22,6 @@ export default function Banner() {
         loop
         sx={{ alignItem: "left" }}
       />
-
       <BannerContent>
         <Typography
           variant="h6"
@@ -38,10 +37,8 @@ export default function Banner() {
           variant="subtitle"
           sx={{ fontFamily: "Montserrat", fontSize: "20px" }}
         >
-          Find things you need on Hundie and trade them for items you own and
-          would love exchange.
+          <span style={{color: "red"}}>Find things You Need</span> and exchange them for  <span style={{color: "green"}}>items You OWN.</span>
         </BannerDescription>
-
         <BannerShopButton
           sx={{
             background:
@@ -50,16 +47,10 @@ export default function Banner() {
             fontFamily: "Montserrat",
             fontFamily: "Montserrat",
           }}
-          href="/profile"
+          href="/login"
         >
           Click to find an item
         </BannerShopButton>
-        <>
-          <h2>
-            Don't have an account? <Link to="/SignUp">Signup</Link>
-          </h2>
-         
-        </>
       </BannerContent>
     </BannerContainer>
   );
