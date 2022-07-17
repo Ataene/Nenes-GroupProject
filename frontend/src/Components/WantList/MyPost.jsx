@@ -20,6 +20,7 @@ import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
 // import { doc, onSnapshot, serverTimestamp, setDoc } from "firebase/firestore";
 import EditIcon from "@mui/icons-material/Edit";
 import DropSelections from "../DropSelections";
+import EditPost from "./EditPost";
 
 const MyPost = ( { visible, onCancel } ) => {
   const myPostContext = useContext(MyPostContext);
@@ -41,6 +42,7 @@ const MyPost = ( { visible, onCancel } ) => {
     useDialogModal(ItemDetail);
 
   const [showOptions, setShowOptions] = useState(false);
+  const [itemToEdit, setItemToEdit] = useState(false);
 
   const handleMouseEnter = () => {
     setShowOptions(true);
@@ -91,36 +93,17 @@ const MyPost = ( { visible, onCancel } ) => {
     }
   };
 
-const editMyPostedAd = async (DOC_ID) => {
-  try {
-    const res = await updateDoc(doc(db, "postedAds", DOC_ID), {
-//       ...formData,
-      timeStamp: serverTimestamp(),
-    });
-    console.log(res);
-  } catch (error) {
-    console.log(error.message);
-  }
-};
 
 const handleModalOpen = () => {
-
 setModalVisible(true);
-const editMyPostedAd = async (DOC_ID) => {
-        try {
-          const res = await updateDoc(doc(db, "postedAds", DOC_ID), {
-      //       ...formData,
-            timeStamp: serverTimestamp(),
-          });
-          console.log(DOC_ID);
-        } catch (error) {
-          console.log(error.message);
-        }
-      };
 };
 const handleCancel = () => {
 setModalVisible(false);
 };
+
+const handleEdit = (item) => {
+    setItemToEdit(item)
+}
 
   return (
     <>
@@ -194,16 +177,17 @@ setModalVisible(false);
                           <EditIcon sx={{ color: "green" }} />
                         </IconButton> */}
                         <IconButton
+                        onClick={() => {
+                          handleEdit(item)
+                          handleModalOpen()
+                        }}
                           aria-label="chat"
-                          onClick={
-                        //   editMyPostedAd(item.DOC_ID)
-                          handleModalOpen
-                          }
                         >
-                          <EditIcon sx={{ color: "green" }} />
+                          <EditIcon sx={{ color: "green" }}  />
                         </IconButton>
                         {modalVisible && (
-                        <DropSelections
+                        <EditPost
+                        itemToEdit={itemToEdit}
                         visible={modalVisible}
                         onCancel={handleCancel}
                         sx={{ margin: "5px" }}

@@ -14,10 +14,11 @@ import ConditionSelect from "./ConditionSelect";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import CategoryOptions from "./CategoryOptions";
 import { doc, getDoc, onSnapshot, orderBy, query } from "firebase/firestore";
+import images from "../../src/images/iPhone.png"
 
 const DropSelections = ({ visible, onCancel }) => {
   const ModalStyle = {
-    backgroundImage: "linear-gradient(60deg, #abecd6 0%, #fbed96 100%)",
+    backgroundImage: `url(${images})`,
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -39,6 +40,8 @@ const DropSelections = ({ visible, onCancel }) => {
   const [file, setFile] = useState("");
   const [progress, setProgress] = useState(null);
   const [url, setUrl] = useState("");
+
+  const [rating, setRating] = useState(null);
 
   const [userPicture, setUserPicture] = useState("");
   const [displayName, setDisplayName] = useState("");
@@ -108,7 +111,6 @@ const DropSelections = ({ visible, onCancel }) => {
         quantity,
         want,
         url,
-        like: [],
         owner: user.uid,
         userPicture,
         displayName,
@@ -199,7 +201,7 @@ const DropSelections = ({ visible, onCancel }) => {
                 sx={{
                   width: "30rem",
                   margin: "2px",
-                  backgroundColor: "#005555",
+                  backgroundColor: "#3EC70B",
                   color: "white",
                 }}
                 type="submit"

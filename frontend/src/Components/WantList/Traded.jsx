@@ -12,15 +12,11 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import useDialogModal from ".././productdetail/useDialogModal";
 import ItemDetail from ".././productdetail/ProductDetail";
 
-const Traded = ({ handleClickTraded }) => {
+const Traded = () => {
   // const wantContext = useContext(WantContext);
   const tradedContext = useContext(TradeContext);
   // const { wantList, removeFromWantList } = wantContext;
   const {traded, addToTraded, removeFromTraded } = tradedContext;
-
-  const handleClick = (item) => {
-    addToTraded(item);
-  };
 
      const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
        useDialogModal(ItemDetail);
@@ -51,7 +47,7 @@ const Traded = ({ handleClickTraded }) => {
             /> */}
           </Box>
           <Grid container spacing={1}>
-            {traded.map((item) => (
+            {traded && traded.map((item) => (
               <Grid item md={3} key={item.description}>
                 <Card
                   sx={{ height: "33rem", marginTop: "10px", margin: "10px" }}
@@ -96,12 +92,12 @@ const Traded = ({ handleClickTraded }) => {
                       <IconButton aria-label="share">
                         <ChatIcon sx={{ color: "green" }} />
                       </IconButton>
-                      <IconButton aria-label="share" type="click">
+                      {/* <IconButton aria-label="share" type="click">
                         <ListAltIcon
                           sx={{ color: "purple" }}
                           onClick={() => handleClickTraded(item)}
                         />
-                      </IconButton>
+                      </IconButton> */}
                       {/* <IconButton aria-label="share">
                         <CancelPresentationIcon
                           sx={{ color: "green" }}

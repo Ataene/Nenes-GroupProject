@@ -40,7 +40,6 @@ export default function Home() {
       </Box>
       <Products />
       <HowItWorks />
-
     </Container>
   );
 }

@@ -7,6 +7,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import GoogleIcon from "@mui/icons-material/Google";
+import loginImage from "../../images/loginImage.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,17 +19,11 @@ const useStyles = makeStyles((theme) => ({
 
     "& .MuiTextField-root": {
       margin: theme.spacing(1),
-      width: "500px",
+      width: "300px",
     },
     "& .MuiButtonBase-root": {
       margin: theme.spacing(1),
     },
-    // backgroundColor: "#e4f8ef",
-    // backgroundImage: [
-    //   url(
-    //     "data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e4e8fa' fill-opacity='1'%3E%3Cpath d='M50 50c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10zM10 10c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10S0 25.523 0 20s4.477-10 10-10zm10 8c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm40 40c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E"
-    //   ),
-    // ],
   },
 }));
 
@@ -105,37 +100,76 @@ const Login = () => {
     }
   };
 
-  const back = {
-    backgroundImage: "linear-gradient(60deg, #abecd6 0%, #fbed96 100%)",
-  }
+  // const back = {
+  //   backgroundImage: "linear-gradient(60deg, #abecd6 0%, #fbed96 100%)",
+  // };
 
   return (
-    <div className={classes.root} style={back}>
-      <form className={classes.root} onSubmit={handleSubmit}>
-        <Typography variant="h4">User Login</Typography> <br />
-        <Avatar style={avatarStyle}></Avatar>
-        <TextField
-          label="Email"
-          variant="filled"
-          type="email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <br />
-        <TextField
-          label="Password"
-          variant="filled"
-          type="password"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {authError && (
-          <Typography variant="h6" style={{ color: "red" }}>
-            {authError}
+    <div>
+      <form
+        className={classes.root}
+        onSubmit={handleSubmit}
+        style={{
+          backgroundImage: `url(${loginImage})`,
+          backgroundSize: "cover",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          width: "100vw",
+        }}
+      >
+        <Paper
+          elevation={10}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
+            background: "rgba(255, 255, 255, 0.15)",
+            boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
+            backdropFilter: "blur(8.5px)",
+            webkitBackdropFilter: "blur(8.5px)",
+            borderRadius: "10px",
+            color: "#ffffff",
+            textTransform: "uppercase",
+            letterSpacing: "0.4rem",
+            mobile: { minWidth: "500", width: "80vw", height: "90vh" },
+            tablet: { minWidth: "800", width: "80vw", height: "80vh" },
+            desktop: { minWidth: "1280", width: "80vw", height: "50vh" },
+            largeDesktop: { minWidth: "1600", width: "30vw", height: "80vh" },
+          }}
+        >
+          <br />
+          <Typography
+            variant="h5"
+            style={{ fontFamily: "Montserrat", fontSize: "20px" }}
+          >
+            User Login
           </Typography>
-        )}
+
+          <Avatar style={avatarStyle} />
+          <TextField
+            label="Email"
+            variant="filled"
+            type="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <br />
+          <TextField
+            label="Password"
+            variant="filled"
+            type="password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          {authError && (
+            <Typography variant="h6" style={{ color: "red" }}>
+              {authError}
+            </Typography>
+          )}
           <Box>
             <Button variant="contained">Cancel</Button>
             {loading && (
@@ -153,14 +187,14 @@ const Login = () => {
             <Typography
               variant="h5"
               onClick={() => forgotPassword()}
-              sx={{ paddingLeft: "7rem", color: "green" }}
+              sx={{ paddingLeft: "7rem", color: "white", fontSize: "15px" }}
             >
               Forget Password
             </Typography>{" "}
             <hr />
             <Typography
               variant="h6"
-              sx={{ paddingLeft: "8rem", color: "blue" }}
+              sx={{ paddingLeft: "8rem", color: "blue", fontSize: "15px" }}
             >
               Or Login in with
             </Typography>
@@ -187,7 +221,7 @@ const Login = () => {
             <Button
               onClick={googleLogin}
               variant="contained"
-              sx={{ display: "flex", width: "20rem", backgroundColor: "green" }}
+              sx={{ display: "flex", width: "20rem", backgroundColor: "black" }}
             >
               <GoogleIcon sx={{ margin: "5px", color: "red" }} />
               Google
@@ -201,8 +235,13 @@ const Login = () => {
               Twitter
             </Button>
           </Box>
-        </form>
-        <Typography variant="h5">New to HundieTrade?</Typography>
+        </Paper>
+        <Typography
+          variant="h5"
+          style={{ fontFamily: "Montserrat", color: "white" }}
+        >
+          New to HundieTrade?
+        </Typography>
         <Box>
           <Link
             to="/signup"
@@ -211,13 +250,21 @@ const Login = () => {
             <Button variant="contained">Create your HundieTrade Account</Button>
           </Link>
         </Box>
-      {/* </Paper> */}
-      <Box>
-        <br />
-        <Typography variant="h5">
-          © 2022, HundieTrade.com, Inc. or its affiliates
-        </Typography>
-      </Box>
+        {/* </Paper> */}
+        <Box>
+          <br />
+          <Typography
+            variant="h5"
+            style={{
+              fontFamily: "Montserrat",
+              color: "white",
+              fontSize: "12px",
+            }}
+          >
+            © 2022, HundieTrade.com, Inc. or its affiliates
+          </Typography>
+        </Box>
+      </form>
     </div>
   );
 };

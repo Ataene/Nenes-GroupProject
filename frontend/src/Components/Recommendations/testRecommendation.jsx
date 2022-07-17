@@ -7,12 +7,9 @@ import {
   CardActions,
   CardHeader,
   CardMedia,
-  Container,
   Grid,
   IconButton,
-  ListItemButton,
   Paper,
-  Tooltip,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
@@ -29,13 +26,9 @@ import CircleLoader from "react-spinners/CircleLoader";
 
 import {
   collection,
-  onSnapshot,
-  orderBy,
   query,
-  limit,
   getDocs,
-  where,
-  collectionGroup,
+  limit,
 } from "firebase/firestore";
 
 
@@ -60,7 +53,6 @@ const TestRecommendation = ({ handleClick, options, item, displayName }) => {
 
   useEffect(() => {
     if (!db) {
-      console.log("No dabase found");
     } else {
       const getData = async () => {
         const collectionRef = query(collection(db, "postedAds"), limit(4));
@@ -92,8 +84,6 @@ const TestRecommendation = ({ handleClick, options, item, displayName }) => {
     }
   }, [db]);
 
-  console.log("my rating", postedAds);
-
   const [showOptions, setShowOptions] = useState(false);
 
   const handleMouseEnter = () => {
@@ -103,15 +93,11 @@ const TestRecommendation = ({ handleClick, options, item, displayName }) => {
     setShowOptions(false);
   };
 
-  if (!postedAds) {
-    return <p className="mx-auto">Loading Data...</p>;
-  }
   return (
     <>
-      <Container
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-      >
+      
         <Box>
                              <Box
                       display="flex"
@@ -201,7 +187,6 @@ const TestRecommendation = ({ handleClick, options, item, displayName }) => {
               ))}
           </Grid>
         </Box>
-      </Container>
     </>
   );
 };

@@ -30,6 +30,7 @@ import ChatIcon from "@mui/icons-material/Chat";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import ShareIcon from "@mui/icons-material/Share";
 import AddIcon from "@mui/icons-material/Add";
+import ListAltIcon from "@mui/icons-material/ListAlt";
 import {
   addDoc,
   serverTimestamp,
@@ -54,7 +55,7 @@ import useDialogModal from "./useDialogModal";
 import PostComment from "../Profile/PostComment";
 //import SimilarItems from "../Recommendations/SimilarItems";
 import MostPopularTrade from "../Recommendations/RecommendationStrategies/ContentBased2";
-import ContentBased2 from "../Recommendations/RecommendationStrategies/ContentBased2"
+import ContentBased2 from "../Recommendations/RecommendationStrategies/ContentBased2";
 import SimilarItems from "../Recommendations/SimilarItems";
 import Test from "../Recommendations/testSimilar";
 
@@ -123,6 +124,9 @@ function ItemDetail({ open, options, onClose, item }) {
           alignItems="center"
           justifyContent={"space-between"}
         >
+        <Link to='/dashboard'>
+          <Typography sx={{ fontSize: 20 }}>Hundie</Typography>
+        </Link>
           {item.title}
           <IconButton onClick={onClose}>
             <CloseIcon />
@@ -138,12 +142,17 @@ function ItemDetail({ open, options, onClose, item }) {
             flexDirection: "column",
           }}
         >
+
+
+
+
           <Card
-            sx={{ maxWidth: 800, height: 800 }}
+            sx={{ width: "max-content", height: "max-content" }}
             onClick={() => console.log(item)}
           >
             <Grid className="details" container spacing={1}>
-              <Grid
+              <Box
+                // sx={{ width: 800 }}
                 item
                 md={4}
                 key={item.uid}
@@ -158,32 +167,33 @@ function ItemDetail({ open, options, onClose, item }) {
                       src={item.userPicture}
                     />
                   }
+                  title={item.displayName}
                 />
                 <CardMedia
                   component="img"
-                  sx={{ height: "350px", margin: "10px" }}
+                  sx={{ height: "550px", width: '450px', margin: "10px", borderRadius: "20px" }}
                   image={item.url}
                   title={item.title}
                   //onClick={() => setPostedAds(item)}
                   onClick={() => console.log(item)}
-                ></CardMedia>
-              </Grid>
-              <Grid item md={4} xs={6}>
-                <List>
+                 />
+              </Box>
+              <Box item md={4} xs={6}>
+                <List style={{ marginLeft: "30px", marginTop: "50px" }}>
                   <ListItem>
                     <Typography component="h4" variant="h6">
                       {item.title}
                     </Typography>
                   </ListItem>
-                  <ListItem>
+                  {/* <ListItem>
                     <Typography>Owner: {item.displayName}</Typography>
-                  </ListItem>
+                  </ListItem> */}
                   <ListItem>
                     <Typography>Category: {item.category}</Typography>
                   </ListItem>
-                  <ListItem>
+                  {/* <ListItem>
                     <Typography>Brand: {item.brand}</Typography>
-                  </ListItem>
+                  </ListItem> */}
                   <ListItem>
                     <Typography>Quantity: {item.quantity}</Typography>
                   </ListItem>
@@ -192,70 +202,53 @@ function ItemDetail({ open, options, onClose, item }) {
                       Rating: {item.rating} stars ({item.numReviews} reviews)
                     </Typography>
                   </ListItem>
-
                   <ListItem>
                     <Typography> Condition: {item.condition}</Typography>
                   </ListItem>
                   <ListItem>
                     <Typography> Description: {item.description}</Typography>
                   </ListItem>
+                  <ListItem>
+                    <Typography>Owner Want: {item.want}</Typography>
+                  </ListItem>
+                  <ListItem>
+                    <Typography>
+                      Status:{" "}
+                      {item.countInStock > 0 ? "In stock" : "Unavailable"}
+                    </Typography>
+                  </ListItem>
+                  <ListItem>
+                    <Button fullWidth variant="contained" color="primary">
+                      Add to My List
+                    </Button>
+                  </ListItem>
+                  <IconButton aria-label="add to favorites">
+                          <FavoriteIcon sx={{ color: "red" }} />
+                        </IconButton>
+                        <IconButton aria-label="share">
+                          <ShareIcon sx={{ color: "#62b4f9" }} />
+                        </IconButton>
+                        <IconButton aria-label="chat">
+                          <ChatIcon
+                            sx={{ color: "green" }}
+                            // onClick={() => setUserToMessage(item.uid)}
+                          />
+                        </IconButton>
+                        <IconButton aria-label="share" type="click">
+                          <ListAltIcon
+                            sx={{ color: "purple" }}
+                            // onClick={() => handleClick(item)}
+                          />
+                        </IconButton>
+                  <RatingComponent productDetail={item} />
                 </List>
-              </Grid>
-              <Grid item md={4} xs={12}>
-                <Card
-                  sx={{
-                    justifyContent: "center",
-                    alignItems: "center",
-                    flexDirection: "column",
-                    height: "420px",
-                  }}
-                >
-                  <List>
-                    <ListItem>
-                      <Grid container>
-                        <Grid item xs={6}>
-                          <Typography>I Want:</Typography>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Typography>{item.want}</Typography>
-                        </Grid>
-                      </Grid>
-                    </ListItem>
-                    <ListItem>
-                      <Grid container>
-                        <Grid item xs={6}>
-                          <Typography>Status</Typography>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Typography>
-                            {item.countInStock > 0 ? "In stock" : "Unavailable"}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                    </ListItem>
-                    <IconButton aria-label="add to favorites">
-                      <FavoriteIcon sx={{ color: "red" }} />
-                    </IconButton>
-                    <IconButton aria-label="share">
-                      <ShareIcon sx={{ color: "#62b4f9" }} />
-                    </IconButton>
-                    <IconButton aria-label="share">
-                      <ChatIcon sx={{ color: "green" }} />
-                    </IconButton>
-
-                    <ListItem>
-                      <Button fullWidth variant="contained" color="primary">
-                        Add to My List
-                      </Button>
-                    </ListItem>
-                    <RatingComponent productDetail={item} />
-                    <ListItem></ListItem>
-                  </List>
-                </Card>
-              </Grid>
+              </Box>
             </Grid>
-            <PostComment />
           </Card>
+
+
+          
+          <PostComment />
           <Box
             display="flex"
             justifyContent="center"

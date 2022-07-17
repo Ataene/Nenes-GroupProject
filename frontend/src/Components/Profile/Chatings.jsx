@@ -1,24 +1,14 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { AuthContext } from "../../auth/AuthProvider";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
-import {
-  addDoc,
-  collection,
-  doc,
-  onSnapshot,
-  orderBy,
-  query,
-  serverTimestamp,
-  where,
-} from "firebase/firestore";
+import { addDoc, collection, doc, onSnapshot, orderBy, query, serverTimestamp, where } from "firebase/firestore";
 import SendIcon from "@mui/icons-material/Send";
-import { Box, Paper } from "@mui/material";
+import { Box } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 
 const Chating = ({ setOpen }) => {
-  const scrollRef = useRef();
   const authContext = useContext(AuthContext);
   const { user, userToMessage, setUserToMessage } = authContext;
   const fbContext = useContext(FirebaseContext);
@@ -51,21 +41,21 @@ const Chating = ({ setOpen }) => {
         collectionRef,
         where("users." + user.uid, "==", true),
         where("users." + userToMessage, "==", true),
-        orderBy("timeStamp", "asc")
       );
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
         if (querySnap.empty) {
           setMessages([]);
         } else {
           let messagesData = querySnap.docs.map((message) => message.data());
-          console.log(messagesData);
+          messagesData = messagesData.sort((a, b) => {
+            return a.timeStamp.toString().localeCompare(b.timeStamp.toString())
+          })
           setMessages(messagesData);
         }
       });
       return unsubscribe;
     }
   }, [db, userToMessage]);
-
   //Handle Create/Send Message
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -78,7 +68,6 @@ const Chating = ({ setOpen }) => {
         timeStamp: serverTimestamp(),
       });
       setNewChat("");
-      // scroll.current.scrollIntoView({behavior: "smooth"})
     } catch (error) {
       console.log(error.message);
     }
@@ -129,7 +118,7 @@ const Chating = ({ setOpen }) => {
                     justifyContent: "end",
                   }}
                 >
-                  {message.newChat} <Avatar src={usePicture} />
+                  {message.newChat} <Avatar sx={{marginLeft: "5px"}} src={usePicture} />
                 </div>
               </div>
             );
@@ -147,7 +136,7 @@ const Chating = ({ setOpen }) => {
                     justifyContent: "start",
                   }}
                 >
-                  <Avatar src={userPicture} /> {message.newChat}
+                  <Avatar sx={{marginRight: "5px"}} src={userPicture} /> {message.newChat}
                 </p>
               </div>
             );

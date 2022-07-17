@@ -28,6 +28,7 @@ const AuthProvider = (props) => {
   const [isPending, setIsPending] = useState();
   // const [ isOnline, setIsOnline ] = useState(false);
   const [userToMessage, setUserToMessage] = useState(false);
+  // const [messageUser, setMessageUser] = useState(false);
 
   const gitHubprovider = new GithubAuthProvider();
   const facebookprovider = new FacebookAuthProvider();
@@ -166,6 +167,8 @@ const AuthProvider = (props) => {
     facebook,
     userToMessage,
     setUserToMessage,
+    // messageUser,
+    // setMessageUser,
   };
   return (
     <AuthContext.Provider value={theValues}>{children}</AuthContext.Provider>

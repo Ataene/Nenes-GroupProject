@@ -11,23 +11,19 @@ import PrivateRoute from "./auth/PrivateRoute";
 import AuthProvider from "./auth/AuthProvider";
 import Dashboard from "./Components/Profile/Dashboard";
 import Footer from "../src/Components/footer/index";
-// import { Location } from "./Components/Region/Location";
 import Welcome from "./Components/Region/Welcome";
 import NearMe from "./Components/Region/NearMe";
 import Maps from "./Components/Region/Maps";
-
 import FirebaseProvider from "./auth/FirebaseProvider";
-//import Test from "./Components/WantList/Want";
-import Wishlist from "./Components/WantList/Wishlist";
 import Traded from "./Components/WantList/Traded";
-import Add from "./Components/WantList/Add";
 import WantProvider from "./providers/WantProvider";
 import TradedProvider from "./providers/TradedProvider";
 import DetailPageProvider from "./providers/ItemDetailProvider";
 import NavBar from "./Components/NavBar";
 import MyPostProvider from "./providers/MyPostProvider";
-
-// import AddLocation from "./Components/Region/AddLocation";
+import Sidebar from "./Components/Sidebar";
+import Product from "./Components/Product";
+import Admin from "./Components/Authorization/Admin";
 
 function App() {
   return (
@@ -41,20 +37,13 @@ function App() {
                   <Navigation />
                   <Routes>
                     <Route path="/" element={<Home />} />
-                    {/* <Route path="/products" element={<ProductPage />} /> */}
                     <Route path="/about" element={<About />} />
                     <Route path="/product/:id" element={<ProductDetail />} />
                     <Route path="/welcome" element={<Welcome />} />
                     <Route path="/nearme" element={<NearMe />} />
-                    {/* <Route path="/addlocation" element={<AddLocation />} /> */}
                     <Route path="/maps" element={<Maps />} />
-                    {/*<Route path="/wishlist" element={<WishList />} />*/}
-
-                    {/*<Route path="/test" element={<Test />} />*/}
-                    {/*<Route path="/watchlist" element={<Wishlist />} />*/}
+                    <Route path="/admin" element={<Admin />} />
                     <Route path="/traded" element={<Traded />} />
-                    {/*<Route path="/add" element={<Add />} />/*}
-            {/* <Route path="/postadd" element={<AddProducts />} /> */}
                     {/* <Route
                     path="/dashboard"
                     element={

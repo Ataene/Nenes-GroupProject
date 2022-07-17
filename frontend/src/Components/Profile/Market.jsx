@@ -1,16 +1,5 @@
 import React, { useContext, useState } from "react";
-import {
-  Box,
-  CardActions,
-  Card,
-  CardHeader,
-  CardMedia,
-  Container,
-  Grid,
-  IconButton,
-  Typography,
-  CardContent,
-} from "@mui/material";
+import { Box, CardActions, Card, CardHeader, CardMedia, Container, Grid, IconButton, Typography, CardContent} from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
 import Avatar from "@mui/material/Avatar";
@@ -97,14 +86,14 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
                         component="img"
                         sx={{ height: "260px" }}
                         image={item.url}
-                        title={item.title}
+                        // title={item.title}
                         onClick={() => {
                           console.log(item);
                           showProductDetailDialog(item);
                         }}
                       ></CardMedia>
                       <CardContent>
-                        <Typography>{item.name}</Typography>
+                        {/* <Typography>{item.title}</Typography> */}
                       </CardContent>
                       <Box
                         sx={{
@@ -126,7 +115,7 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
                           </IconButton>
                           <IconButton
                             aria-label="chat"
-                            onClick={() => setUserToMessage(item.uid)}
+                            onClick={() => setUserToMessage(item.owner)}
                           >
                             <ChatIcon sx={{ color: "green" }} />
                           </IconButton>
