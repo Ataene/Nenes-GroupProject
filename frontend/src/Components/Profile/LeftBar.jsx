@@ -22,7 +22,6 @@ import { collection, onSnapshot, orderBy, query, doc } from "firebase/firestore"
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { AuthContext } from "../../auth/AuthProvider";
 import OnlineStatus from "./OnlineStatus";
-import { Container } from "@mui/system";
 import Avatar from "@mui/material/Avatar";
 
 const LeftBar = () => {
@@ -34,10 +33,11 @@ const LeftBar = () => {
   const [active, setActive] = useState("");
   const [userList, setUserList] = useState([]);
   const [userPicture, setUserPicture] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (db && user) {
-      // setLoading(true);
+      setLoading(true);
       let collectionRef = collection(db, "users");
       let queryRef = query(collectionRef, orderBy("timeStamp"));
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
@@ -47,28 +47,16 @@ const LeftBar = () => {
             return { ...doc.data(), DOC_ID: doc.id };
           });
           setUserList(usersData);
-          // setLoading(false);
+          setLoading(false);
         }
       });
       return unsubscribe;
     }
   }, [db, user]);
 
-  // const [status, setStatus] = useState([]);
-  // useEffect(() => {
-  //   if (db && user) {
-  //     let collectionRef = collection(db, "users");
-  //     let queryRef = query(collectionRef, orderBy("uid"));
-  //     const unsubscribe = onSnapshot(queryRef, (querySnapshot) => {
-  //       let newStatus = [];
-  //       querySnapshot.forEach((doc) => {
-  //         status.push(doc.data());
-  //       });
-  //       setStatus(status);
-  //     });
-  //     return unsubscribe;
-  //   }
-  // }, [db, user]);
+  if(loading){
+    return <div>Loading ...</div>
+  }
 
   return (
     <>
@@ -167,7 +155,7 @@ const LeftBar = () => {
                     src={item.Avatar}
                     onClick={() => setMessageUser(item.uid)}
                   />
-                  <OnlineStatus uid={item.owner} />
+                  <OnlineStatus uid={item.uid} />
                   <Typography sx={{ marginLeft: "10px" }}>
                     {item.firstName}
                   </Typography>
