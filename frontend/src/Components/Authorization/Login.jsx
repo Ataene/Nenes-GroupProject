@@ -149,7 +149,11 @@ const Login = () => {
           <br />
           <Typography
             variant="h5"
-            style={{ fontFamily: "Montserrat", fontSize: "20px" }}
+            style={{
+              fontFamily: "Montserrat",
+              fontSize: "20px",
+              color: "black",
+            }}
           >
             User Login
           </Typography>
@@ -196,14 +200,14 @@ const Login = () => {
             <Typography
               variant="h5"
               onClick={() => forgotPassword()}
-              sx={{ paddingLeft: "7rem", color: "white", fontSize: "15px" }}
+              sx={{ paddingLeft: "7rem", color: "blue", fontSize: "15px" }}
             >
               Forget Password
             </Typography>{" "}
             <hr />
             <Typography
               variant="h6"
-              sx={{ paddingLeft: "8rem", color: "blue", fontSize: "15px" }}
+              sx={{ paddingLeft: "7rem", color: "blue", fontSize: "15px" }}
             >
               Or Login in with
             </Typography>
