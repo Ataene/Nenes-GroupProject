@@ -3,9 +3,13 @@ import { Box, makeStyles, Avatar, TextField } from "@material-ui/core";
 import { Link, useNavigate } from "react-router-dom";
 import { Typography, Button, Paper } from "@mui/material";
 import { AuthContext } from "../../auth/AuthProvider";
-import northern from "../../images/northern.jpeg";
+import sign from "../../images/sign.jpg";
 
 const useStyles = makeStyles((theme) => ({
+  input: {
+    color: "#fff",
+  },
+
   root: {
     display: "flex",
     flexDirection: "column",
@@ -58,7 +62,7 @@ const SignUp = () => {
       className={classes.root}
       onSubmit={handleSubmit}
       style={{
-        backgroundImage: `url(${northern})`,
+        backgroundImage: `url(${sign})`,
         backgroundSize: "cover",
         display: "flex",
         justifyContent: "center",
@@ -92,49 +96,52 @@ const SignUp = () => {
           Sign Up
         </Typography>
         <Avatar style={avatarStyle} />
+
         <TextField
-          InputProps={{
-            backgroundColor: "red",
-          }}
+          inputProps={{ className: classes.input }}
           label="First Name"
-          variant="filled"
+          variant="outlined"
           required
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
         />
         <TextField
+          inputProps={{ className: classes.input }}
           label="Last Name"
-          variant="filled"
+          variant="outlined"
           required
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
         />
 
         <TextField
+          inputProps={{ className: classes.input }}
           label="Email"
-          variant="filled"
+          variant="outlined"
           type="email"
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <TextField
+          inputProps={{ className: classes.input }}
           label="Password"
-          variant="filled"
+          variant="outlined"
           type="password"
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <TextField
+          inputProps={{ className: classes.input }}
           label="Postal Code"
-          variant="filled"
+          variant="outlined"
           type="postalCode"
           required
           value={postalCode}
           onChange={(e) => setPostalCode(e.target.value)}
         />
-        <Typography sx={{ color: "white", marginLeft: "9vw" }}>
+        <Typography sx={{ color: "green", marginLeft: "9vw" }}>
           <br />
           <input type="checkbox" id="regulation"></input>
           By creating an account, you agree to HundieTrade Conditions of Use.{" "}
@@ -154,7 +161,7 @@ const SignUp = () => {
           </Box>
         </Typography>
       </Paper>
-      <Typography variant="h6" sx={{ color: "white" }}>
+      <Typography variant="h6" sx={{ color: "green" }}>
         Already have an account?{" "}
         <Link to="/login" style={{ textDecoration: "none" }}>
           <Button variant="contained">Login</Button>
@@ -163,11 +170,11 @@ const SignUp = () => {
       <br />
       <Typography
         variant="h5"
-        sx={{ fontFamily: "Montserrat", color: "white", fontSize: "12px" }}
+        sx={{ fontFamily: "Montserrat", color: "white", fontSize: "15px" }}
       >
-        <span class="a-size-mini a-color-secondary">
+        <section class="a-size-mini a-color-secondary">
           © 2022, HundieTrade.com, Inc.
-        </span>
+        </section>
       </Typography>
     </form>
   );
