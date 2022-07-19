@@ -183,3 +183,6 @@ a {
 .inActiveButton{
   background: #c83c19;
 }
+
+.resizedTextbox {width: 20px; height: 15px; margin-block-end: 20px;}
+

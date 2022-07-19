@@ -196,15 +196,17 @@ const Profile = () => {
         <section style={{display: "flex", flexDirection: "column", margin: "10px", padding: "10px"}}>
           <TextField
             id="outlined-basic"
-            label="Postal Code"
+            label="Postal"
             variant="outlined"
             type="text"
             name="postalCode"
-            sx={{marginBottom: "10px"}}
+            sx={{marginBottom: "10px",width: { sm: 300},}}
             required={true}
             value={formData.postalCode}
             onChange={handleChange}
             inputProps={{ maxLength: 3 }}
+            class="resizedTextbox"
+            // size="small"
           />
           <Avatar
             src={
@@ -235,6 +237,26 @@ const Profile = () => {
             onChange={handleFileChange}
           />
           {progress ? <div>progress: {progress}%</div> : <div />}
+          </section>
+        <section style={{display: "flex", flexDirection: "column", padding: "10px"}}>
+
+           <TextField
+            id="outlined-basic"
+            label="Code"
+            variant="outlined"
+            type="text"
+            name="postalCode"
+            sx={{marginBottom: "10px", marginTop: "10px", marginLeft: "10px",
+            width: { sm: 300}}}
+            required={true}
+            // value={formData.postalCode}
+            // onChange={handleChange}
+            inputProps={{ maxLength: 3 }}
+            class="resizedTextbox"
+            
+            // size="small"
+          />
+          
         </section>
           <Button
           sx={{position: "absolute", top: "500px", marginLeft: "300px", backgroundColor: "#FAD9A1", width: "350px"}}
