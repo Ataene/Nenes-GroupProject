@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import LoginIcon from "@mui/icons-material/Login";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
+
 const HamburgerMenu = ({ user, menuOpen, openHamburger, logoutUser }) => {
   return (
     <Box
@@ -30,15 +31,6 @@ const HamburgerMenu = ({ user, menuOpen, openHamburger, logoutUser }) => {
         </Link>
         <Link
           style={{ textDecoration: "none" }}
-          to="/howitworks"
-          onClick={openHamburger}
-        >
-          <Button sx={{ my: 2, color: "white", display: "block" }}>
-            How it Works
-          </Button>
-        </Link>
-        <Link
-          style={{ textDecoration: "none" }}
           to="/products"
           onClick={openHamburger}
         >
@@ -48,18 +40,25 @@ const HamburgerMenu = ({ user, menuOpen, openHamburger, logoutUser }) => {
         </Link>
         <Link
           style={{ textDecoration: "none" }}
-          to="/blog"
-          onClick={openHamburger}
-        >
-          <Button sx={{ my: 2, color: "white", display: "block" }}>Blog</Button>
-        </Link>
-        <Link
-          style={{ textDecoration: "none" }}
           to="/maps"
           onClick={openHamburger}
         >
           <Button sx={{ my: 2, color: "white", display: "block" }}>Map</Button>
         </Link>
+        {/* <Link
+          style={{ textDecoration: "none" }}
+          to="/blog"
+          onClick={openHamburger}
+        >
+          <Button sx={{ my: 2, color: "white", display: "block" }}>Blog</Button>
+        </Link> */}
+        {/* <Link
+          style={{ textDecoration: "none" }}
+          to="/maps"
+          onClick={openHamburger}
+        >
+          <Button sx={{ my: 2, color: "white", display: "block" }}>Map</Button>
+        </Link> */}
         <Link
           style={{ textDecoration: "none" }}
           to="/about"
@@ -77,7 +76,7 @@ const HamburgerMenu = ({ user, menuOpen, openHamburger, logoutUser }) => {
               onClick={openHamburger}
             >
               <Button sx={{ my: 2, color: "white", alignItem: "block" }}>
-                Dashboard
+                Store
               </Button>
             </Link>
             <Button
