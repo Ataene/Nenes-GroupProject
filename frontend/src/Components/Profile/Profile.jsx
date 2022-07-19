@@ -200,7 +200,7 @@ const Profile = () => {
             variant="outlined"
             type="text"
             name="postalCode"
-            sx={{marginBottom: "10px",width: { sm: 300},}}
+            sx={{marginBottom: "10px",width: { sm: 100},}}
             required={true}
             value={formData.postalCode}
             onChange={handleChange}
@@ -247,7 +247,7 @@ const Profile = () => {
             type="text"
             name="postalCode"
             sx={{marginBottom: "10px", marginTop: "10px", marginLeft: "10px",
-            width: { sm: 300}}}
+            width: { sm: 100}}}
             required={true}
             // value={formData.postalCode}
             // onChange={handleChange}
