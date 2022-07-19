@@ -251,7 +251,7 @@ const Login = () => {
         </Paper>
         <Typography
           variant="h5"
-          style={{ fontFamily: "Montserrat", color: "white" }}
+          style={{ fontFamily: "Montserrat", color: "black" }}
         >
           New to HundieTrade?
         </Typography>
@@ -274,7 +274,7 @@ const Login = () => {
               fontSize: "15px",
             }}
           >
-            © 2022, HundieTrade.com, Inc. or its affiliates
+            <br />© 2022, HundieTrade.com, Inc. or its affiliates
           </Typography>
         </Box>
       </form>

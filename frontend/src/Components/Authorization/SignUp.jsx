@@ -3,11 +3,11 @@ import { Box, makeStyles, Avatar, TextField } from "@material-ui/core";
 import { Link, useNavigate } from "react-router-dom";
 import { Typography, Button, Paper } from "@mui/material";
 import { AuthContext } from "../../auth/AuthProvider";
-import sign from "../../images/sign.jpg";
+import loginImage from "../../images/loginImage.png";
 
 const useStyles = makeStyles((theme) => ({
   input: {
-    color: "#fff",
+    color: "#ed6c02",
   },
 
   root: {
@@ -62,7 +62,7 @@ const SignUp = () => {
       className={classes.root}
       onSubmit={handleSubmit}
       style={{
-        backgroundImage: `url(${sign})`,
+        backgroundImage: `url(${loginImage})`,
         backgroundSize: "cover",
         display: "flex",
         justifyContent: "center",
@@ -91,7 +91,7 @@ const SignUp = () => {
           largeDesktop: { minWidth: "1600", width: "30vw", height: "80vh" },
         }}
       >
-        <Typography variant="h5" style={{ color: "white" }}>
+        <Typography variant="h5" style={{ color: "black" }}>
           <br />
           Sign Up
         </Typography>
@@ -172,6 +172,8 @@ const SignUp = () => {
         variant="h5"
         sx={{ fontFamily: "Montserrat", color: "white", fontSize: "15px" }}
       >
+        <br />
+        <br />
         <section class="a-size-mini a-color-secondary">
           © 2022, HundieTrade.com, Inc.
         </section>
