@@ -83,6 +83,7 @@ const DropSelections = ({ visible, onCancel }) => {
     if (db && user) {
       let docRef = doc(db, "users", user.uid);
       const unsubscribe = onSnapshot(docRef, (querySnap) => {
+        console.log("onsnapshot --dropselection");
         if (querySnap.empty) {
         } else {
           let usersData = querySnap.data();

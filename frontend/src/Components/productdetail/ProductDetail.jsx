@@ -76,7 +76,6 @@ const ItemDetailInfoWrapper = styled(Box)(() => ({
 }));
 
 function ItemDetail({ open, options, onClose, item }) {
-  console.log("options", options);
   const authContext = useContext(AuthContext);
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;

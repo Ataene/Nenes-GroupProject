@@ -39,6 +39,8 @@ const MiddleBar = () => {
       let collectionRef = collection(db, "postedAds");
       let queryRef = query(collectionRef, orderBy("timeStamp"));
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
+        console.log("onsnapshot --MiddleBar");
+
         if (querySnap.empty) {
         } else {
           let usersData = querySnap.docs.map((doc) => {
@@ -59,6 +61,8 @@ const MiddleBar = () => {
       let collectionRef = collection(db, "users");
       let queryRef = query(collectionRef, orderBy("uid"));
       const unsubscribe = onSnapshot(queryRef, (querySnapshot) => {
+        console.log("onsnapshot --MiddleBar");
+
         let newStatus = [];
         querySnapshot.forEach((doc) => {
           status.push(doc.data());

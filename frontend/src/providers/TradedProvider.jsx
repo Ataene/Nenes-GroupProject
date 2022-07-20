@@ -20,12 +20,15 @@ const TradedProvider = (props) => {
     const addToTraded = (newItem) =>{
         let newTraded = [...traded, newItem]
         let docRef = doc(db, "traded", user.uid);
+        console.log("TradedProvider: Calling setDoc inside addToTraded")
         setDoc(docRef, {items: newTraded})
     }
     
   const removeFromTraded = (itemToRemove) =>{
         let newTraded = traded.filter((item) =>item !== itemToRemove);
         let docRef = doc(db, "traded", user.uid);
+        console.log("TradedProvider: Calling setDoc inside removeFromTraded")
+
         setDoc(docRef, {items: newTraded})
 }
 
@@ -33,14 +36,13 @@ useEffect(() => {
   if (db && user) {
     let docRef = doc(db, "traded", user.uid);
           const unsubscribe = onSnapshot(docRef, (querySnap) => {
-           console.log(querySnap.empty, querySnap.exists())
+            console.log("TradedProvider: useEffect got new snapShot")
             if  (!querySnap.exists()) {
+              console.log("TradedProvider: Calling setDoc inside useEffect")
               setDoc(docRef, {items: []});
               setTraded([])
             } else {
               let tradeData = querySnap.data().items;
-
-              console.log("222", tradeData)
               setTraded(tradeData);
             }
           });

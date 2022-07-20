@@ -101,10 +101,13 @@ console.log("selectedItems", selectedItems)
       let collectionRef = collection(db, "areaCodes");
       let queryRef = query(collectionRef, orderBy("postalCode"));
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
+        console.log("onsnapshot --AddLocation-1");
+
         if (querySnap.empty) {
           console.log("Ads not found");
         } else {
           let usersData = querySnap.docs.map((doc) => {
+            
             return { ...doc.data(), DOC_ID: doc.id };
           });
           let postalObject = usersData.reduce((object, item) => {
@@ -123,6 +126,8 @@ console.log("selectedItems", selectedItems)
       let collectionRef = collection(db, "postedAds");
       let queryRef = query(collectionRef);
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
+        console.log("onsnapshot --AddLocation-2");
+
         if (querySnap.empty) {
         } else {
           let usersData = querySnap.docs.map((doc) => {

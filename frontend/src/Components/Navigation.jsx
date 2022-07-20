@@ -43,6 +43,8 @@ const Navigation = () => {
     if (db && user) {
       let docRef = doc(db, "users", user.uid);
       const unsubscribe = onSnapshot(docRef, (querySnap) => {
+        console.log("onsnapshot --Navigation");
+
         if (querySnap.empty) {
         } else {
           let usersData = querySnap.data()
