@@ -71,18 +71,18 @@ const LeftBar = () => {
       >
         <Card>
           <List component="nav" aria-labelledby="nested-list-subheader">
-            <ListItemButton>
+            {/* <ListItemButton>
               <ListItemIcon>
                 <RssFeedIcon sx={{ color: "#B8F1B0" }} />
               </ListItemIcon>
               <ListItemText primary="Sent mail" />
-            </ListItemButton>
-            <ListItemButton>
+            </ListItemButton> */}
+            {/* <ListItemButton>
               <ListItemIcon>
                 <ChatIcon sx={{ color: "#B8F1B0" }} />
               </ListItemIcon>
               <ListItemText primary="Drafts" />
-            </ListItemButton>
+            </ListItemButton> */}
             <ListItemButton>
               <ListItemIcon>
                 <GroupsIcon sx={{ color: "#B8F1B0" }} />
@@ -108,12 +108,12 @@ const LeftBar = () => {
               </ListItemIcon>
               <ListItemText primary="Career" />
             </ListItemButton>
-            <ListItemButton>
+            {/* <ListItemButton>
               <ListItemIcon>
                 <CircleNotificationsIcon sx={{ color: "#B8F1B0" }} />
               </ListItemIcon>
               <ListItemText primary="Notify" />
-            </ListItemButton>
+            </ListItemButton> */}
             <ListItemButton>
               <ListItemIcon>
                 <LiveHelpIcon sx={{ color: "#B8F1B0" }} />
@@ -126,12 +126,12 @@ const LeftBar = () => {
               </ListItemIcon>
               <ListItemText primary="Event" />
             </ListItemButton>
-            <ListItemButton>
+            {/* <ListItemButton>
               <ListItemIcon>
                 <OndemandVideoIcon sx={{ color: "#B8F1B0" }} />
               </ListItemIcon>
               <ListItemText primary="Video" />
-            </ListItemButton>
+            </ListItemButton> */}
           </List>
           <Box>
             <Typography sx={{ marginLeft: "30px", color: "green" }}>
