@@ -11,6 +11,7 @@ import { AuthContext } from "../../auth/AuthProvider";
 import { doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 
 const Profile = () => {
   const [file, setFile] = useState("");
@@ -98,284 +99,223 @@ const Profile = () => {
 
   return (
     <>
-      {/* <Box sx={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        '& > :not(style)': {
-          m: 1,
-          width: 1200,
-          height: 500,
-        },
-      }}> */}
-      <Paper
-        elevation={3}
-        sx={{ backgroundColor: "#B8F1B0", display: "flex", flexWrap: "wrap" }}
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          "& > :not(style)": {
+            m: 1,
+            width: 900,
+            height: 500,
+          },
+        }}
       >
-        <br />
-        <Typography style={{ display: "flex", justifyContent: "center" }}>
-          UPDATE ACCOUNT
-        </Typography>
-        <br />
-        <form
-          style={{
-            margin: "5px",
-            paddingLeft: "70px",
-            display: "flex",
-            flexDirection: "row",
-          }}
-          onSubmit={handleSubmit}
-        >
-          <section
+        <Paper elevation={3} sx={{ backgroundColor: "#B8F1B0" }}>
+          <br />
+          <Typography sx={{ display: "flex", justifyContent: "center" }}>
+            UPDATE ACCOUNT
+          </Typography>
+          <br />
+          <form
             style={{
+              margin: "5px",
+              paddingLeft: "70px",
               display: "flex",
-              flexDirection: "column",
-              margin: "10px",
-              padding: "10px",
+              flexDirection: "row",
             }}
+            onSubmit={handleSubmit}
           >
-            <TextField
-              sx={{ marginBottom: "15px" }}
-              id="outlined-multiline-flexible"
-              label="First Name"
-              variant="outlined"
-              type="text"
-              name="firstName"
-              required={true}
-              value={formData.firstName}
-              onChange={handleChange}
-            />
-
-            <TextField
-              id="outlined-basic"
-              label="Last Name"
-              variant="outlined"
-              type="text"
-              name="lastName"
-              required={true}
-              value={formData.lastName}
-              onChange={handleChange}
-            />
-            <TextField
-              id="outlined-basic"
-              label="Gender"
-              variant="outlined"
-              type="text"
-              name="gender"
-              required={true}
-              value={formData.gender}
-              onChange={handleChange}
-            />
-          </section>
-          <section
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              margin: "10px",
-              padding: "10px",
-            }}
-          >
-            <TextField
-              id="outlined-basic"
-              label="Occupation"
-              variant="outlined"
-              type="text"
-              name="occupation"
-              required={true}
-              value={formData.occupation}
-              onChange={handleChange}
-            />
-            <TextField
-              iid="outlined-basic"
-              label="City"
-              variant="outlined"
-              type="text"
-              name="city"
-              required={true}
-              value={formData.city}
-              onChange={handleChange}
-            />
-
-            <TextField
-              id="outlined-basic"
-              label="Province"
-              variant="outlined"
-              type="text"
-              name="province"
-              required={true}
-              value={formData.province}
-              onChange={handleChange}
-            />
-          </section>
-          <section
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              margin: "10px",
-              padding: "10px",
-            }}
-          >
-            <TextField
-              id="outlined-basic"
-              label="Postal Code"
-              variant="outlined"
-              type="text"
-              name="postalCode"
-              required={true}
-              value={formData.postalCode}
-              onChange={handleChange}
-              inputProps={{ maxLength: 3 }}
-            />
-            <Avatar
-              src={
-                file ? (
-                  URL.createObjectURL(file)
-                ) : (
-                  <Typography>Image failed to load</Typography>
-                )
-              }
-              sx={{
-                bgcolor: "green"[500],
-                width: 150,
-                height: 100,
-                marginTop: "30px",
+            <section
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                margin: "10px",
+                padding: "10px",
               }}
-            />
-            <TextField
-              id="outlined-multiline-flexible"
-              label="First Name"
-              variant="outlined"
-              type="text"
-              name="firstName"
-              required={true}
-              value={formData.firstName}
-              onChange={handleChange}
-            />
+            >
+              <TextField
+                id="outlined-multiline-flexible"
+                label="First Name"
+                variant="outlined"
+                type="text"
+                name="firstName"
+                sx={{ marginBottom: "10px" }}
+                required={false}
+                value={formData.firstName}
+                onChange={handleChange}
+              />
 
-            <TextField
-              id="outlined-basic"
-              label="Last Name"
-              variant="outlined"
-              type="text"
-              name="lastName"
-              required={true}
-              value={formData.lastName}
-              onChange={handleChange}
-            />
-            <TextField
-              id="outlined-basic"
-              label="Gender"
-              variant="outlined"
-              type="text"
-              name="gender"
-              required={true}
-              value={formData.gender}
-              onChange={handleChange}
-            />
-          </section>
-          <section
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              margin: "10px",
-              padding: "10px",
-            }}
-          >
-            <TextField
-              id="outlined-basic"
-              label="Occupation"
-              variant="outlined"
-              type="text"
-              name="occupation"
-              required={true}
-              value={formData.occupation}
-              onChange={handleChange}
-            />
-            <TextField
-              iid="outlined-basic"
-              label="City"
-              variant="outlined"
-              type="text"
-              name="city"
-              required={true}
-              value={formData.city}
-              onChange={handleChange}
-            />
-
-            <TextField
-              id="outlined-basic"
-              label="Province"
-              variant="outlined"
-              type="text"
-              name="province"
-              required={true}
-              value={formData.province}
-              onChange={handleChange}
-            />
-          </section>
-          <section
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              margin: "10px",
-              padding: "10px",
-            }}
-          >
-            <TextField
-              id="outlined-basic"
-              label="Postal Code"
-              variant="outlined"
-              type="text"
-              name="postalCode"
-              required={true}
-              value={formData.postalCode}
-              onChange={handleChange}
-              inputProps={{ maxLength: 3 }}
-            />
-            <Avatar
-              src={
-                file ? (
-                  URL.createObjectURL(file)
-                ) : (
-                  <Typography>Image failed to load</Typography>
-                )
-              }
-              sx={{
-                bgcolor: "green"[500],
-                width: 150,
-                height: 100,
-                marginTop: "30px",
+              <TextField
+                id="outlined-basic"
+                label="Last Name"
+                variant="outlined"
+                type="text"
+                name="lastName"
+                sx={{ marginBottom: "10px" }}
+                required={false}
+                value={formData.lastName}
+                onChange={handleChange}
+              />
+              <TextField
+                id="outlined-basic"
+                label="Gender"
+                variant="outlined"
+                type="text"
+                name="gender"
+                sx={{ marginBottom: "10px" }}
+                required={false}
+                value={formData.gender}
+                onChange={handleChange}
+              />
+            </section>
+            <section
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                margin: "10px",
+                padding: "10px",
               }}
-              variant="rounded"
-            />
+            >
+              <TextField
+                id="outlined-basic"
+                label="Occupation"
+                variant="outlined"
+                type="text"
+                name="occupation"
+                sx={{ marginBottom: "10px" }}
+                required={false}
+                value={formData.occupation}
+                onChange={handleChange}
+              />
+              <TextField
+                iid="outlined-basic"
+                label="City"
+                variant="outlined"
+                type="text"
+                name="city"
+                sx={{ marginBottom: "10px" }}
+                required={false}
+                value={formData.city}
+                onChange={handleChange}
+              />
 
-            <input
-              id="standard-basic"
-              label="Profile Photo"
-              variant="standard"
-              type="file"
-              name="url"
-              required={true}
-              value={formData.url}
-              onChange={handleFileChange}
-            />
-            {progress ? <div>progress: {progress}%</div> : <div />}
-          </section>
-          <Button
-            sx={{
-              position: "absolute",
-              top: "500px",
-              marginLeft: "300px",
-              backgroundColor: "#FAD9A1",
-              width: "350px",
-            }}
-            disabled={progress !== null && progress < 100}
-            type="submit"
-          >
-            Submit
-          </Button>
-        </form>
-      </Paper>
-      {/* </Box> */}
+              <TextField
+                id="outlined-basic"
+                label="Province"
+                variant="outlined"
+                type="text"
+                name="province"
+                sx={{ marginBottom: "10px" }}
+                required={false}
+                value={formData.province}
+                onChange={handleChange}
+              />
+            </section>
+            <section
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                margin: "10px",
+                padding: "10px",
+              }}
+            >
+              <TextField
+                id="outlined-basic"
+                label="Postal"
+                variant="outlined"
+                type="text"
+                name="postalCode"
+                // sx={{
+                //   marginBottom: "10px",
+                //   marginTop: "20px",
+                //   marginLeft: "10px",
+                //   width: { sm: 100 },
+                // }}
+                required={false}
+                value={formData.postalCode}
+                onChange={handleChange}
+                inputProps={{ maxLength: 3 }}
+                // class="resizedTextbox"
+                // size="small"
+              />
+            </section>
+            <section>
+              <TextField
+                id="outlined-basic"
+                label="Code"
+                variant="outlined"
+                type="text"
+                name="postalCode"
+                sx={{
+                  marginBottom: "10px",
+                  marginTop: "20px",
+                  marginLeft: "10px",
+                  width: { sm: 100 },
+                }}
+                required={false}
+                // value={formData.postalCode}
+                // onChange={handleChange}
+                inputProps={{ maxLength: 3 }}
+                // class="resizedTextbox"
+
+                // size="small"
+              />
+            </section>
+            <section sx={{ marginLeft: "10px" }}>
+              <br />
+              <Avatar
+                src={
+                  file ? (
+                    URL.createObjectURL(file)
+                  ) : (
+                    <Typography>Image failed to load</Typography>
+                  )
+                }
+                sx={{
+                  bgcolor: "green"[500],
+                  width: 90,
+                  height: 100,
+                  marginTop: "80px",
+                }}
+                variant="rounded"
+              />
+
+              <input
+                id="standard-basic"
+                label="Profile Photo"
+                variant="standard"
+                type="file"
+                name="url"
+                sx={{ marginBottom: "10px", marginRight: "10px" }}
+                required={true}
+                value={formData.url}
+                onChange={handleFileChange}
+              />
+              {progress ? <div>progress: {progress}%</div> : <div />}
+            </section>
+            {/* <section
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                padding: "10px",
+              }}
+            ></section> */}
+            <Button
+              sx={{
+                position: "absolute",
+                top: "520px",
+                marginLeft: "300px",
+                backgroundColor: "#FAD9A1",
+                width: "50px",
+              }}
+              disabled={progress !== null && progress < 100}
+              type="submit"
+            >
+              Submit
+            </Button>
+          </form>
+        </Paper>
+      </Box>
     </>
   );
 };

@@ -69,9 +69,11 @@ const TestRecommendation = ({ handleClick, options, item, displayName }) => {
           }, 0) / ratingDetails.docs.length
           data[i].rating=(isNaN(rating)?0:rating)
         }
-        setPostedAds(data.sort((a, b) => {
-          return  b.rating - a.rating
-        }))
+        setPostedAds(
+          data.sort((a, b) => {
+            return b.rating - a.rating;
+          })
+        );
       };
       getData();
     }

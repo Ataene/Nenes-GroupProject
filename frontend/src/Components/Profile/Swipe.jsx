@@ -18,7 +18,7 @@ const Swipe = () => {
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const { user } = authContext;
-  const [postedAds, setSetAllPostedAds] = useState([]);
+  const [postedAds, setPostedAds] = useState([]);
 
   useEffect(() => {
     if (db && user) {
@@ -32,7 +32,7 @@ const Swipe = () => {
           let usersData = querySnap.docs.map((doc) => {
             return { ...doc.data(), DOC_ID: doc.id };
           });
-          setSetAllPostedAds(usersData);
+          setPostedAds(usersData);
         }
       });
       return unsubscribe;
@@ -41,12 +41,17 @@ const Swipe = () => {
 
   const characters = postedAds;
   const [lastDirection, setLastDirection] = useState();
+  const [liking, setLiking] = useState();
 
   const swiped = (direction, url) => {
     console.log("removing: " + url);
     setLastDirection(direction);
+    if(direction === "right"){
+      setLiking("Like");
+    } else{
+      setLiking("Nope")
+    }
   };
-
   const outOfFrame = (url) => {
     console.log(url + " left the screen!");
   };
@@ -75,7 +80,7 @@ const Swipe = () => {
   };
   return (
     <>
-      <Container>
+      <Box>
         <Grid item xs={4} sx={{display: "flex", flexDirection: "row", justifyContent: "space-evenly"}}>
         <IconButton>
           <PersonIcon fontSize="large" style={{ color: "#ec5e6f" }} />
@@ -90,12 +95,12 @@ const Swipe = () => {
           style={{
             maxWidth: "100px",
             height: "200px",
-            marginLeft: "10%",
+            marginLeft: "32%",
             marginTop: "20px",
             marginBottom: "400px",
           }}
         >
-          {characters.map((characters) => (
+          {characters.filter((item) => item.owner !== user.uid).map((characters) => (
             <TinderCard
               style={{ position: "absolute" }}
               key={characters.timeStamp}
@@ -106,16 +111,23 @@ const Swipe = () => {
                 sx={{ backgroundImage: "url(" + characters.url + ")" }}
                 style={card}
               >
+              {liking && <Typography variant="h6" sx={{diplay: "flex", color: "red", marginLeft: "80%"}}>
+              {liking}
+              </Typography>}
                 <Box
                   sx={{
                     display: "flex",
                     position: "relative",
-                    marginTop: "450px",
+                    marginTop: "430px",
                     flexDirection: "column",
                   }}
                 >
-                  <Typography sx={{ margin: "10px" }}>
+
+                  <Typography sx={{ margin: "5px", color: "red" }}>
                     {characters.title}
+                  </Typography>
+                  <Typography sx={{ margin: "5px", color: "red" }}>
+                    {characters.displayName}
                   </Typography>
                   <CardActions disableSpacing>
                     <IconButton style={{ color: "#f5b748" }}>
@@ -149,7 +161,7 @@ const Swipe = () => {
         ) : (
           <Typography stylex={infoText} />
         )}
-      </Container>
+      </Box>
     </>
   );
 };
