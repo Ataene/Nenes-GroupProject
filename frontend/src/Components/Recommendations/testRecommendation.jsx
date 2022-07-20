@@ -3,7 +3,6 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import {
   Box,
-  Card,
   CardActions,
   CardHeader,
   CardMedia,
