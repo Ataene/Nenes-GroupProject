@@ -18,7 +18,7 @@ import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
 import WorkIcon from "@mui/icons-material/Work";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import GroupsIcon from "@mui/icons-material/Groups";
-import { collection, onSnapshot, orderBy, query, doc } from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query, doc, where } from "firebase/firestore";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { AuthContext } from "../../auth/AuthProvider";
 import OnlineStatus from "./OnlineStatus";
@@ -28,12 +28,14 @@ const LeftBar = () => {
   const authContext = useContext(AuthContext);
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
-  const { user, messageUser, setMessageUser } = authContext;
+  const { user, setUserToMessage } = authContext;
 
   const [active, setActive] = useState("");
   const [userList, setUserList] = useState([]);
   const [userPicture, setUserPicture] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [unread, setUnread] = useState([]);
 
   useEffect(() => {
     if (db && user) {
@@ -53,6 +55,40 @@ const LeftBar = () => {
       return unsubscribe;
     }
   }, [db, user]);
+
+  useEffect(() => {
+    console.log("222", db, "333", user)
+
+    if (db && user) {
+      let collectionRef = collection(db, "messages");
+      let queryRef = query(
+        collectionRef,
+        where("users." + user.uid, "==", true),
+        // where("senderuid", "!=", user.uid),
+      );
+      const unsubscribe = onSnapshot(queryRef, (querySnap) => {
+        console.log("555", querySnap.docs)
+        if (querySnap.empty) {
+
+          setMessages([]);
+        } else {
+          let messagesData = querySnap.docs.map((message) => message.data());
+          messagesData = messagesData.sort((a, b) => {
+            return a.timeStamp.toString().localeCompare(b.timeStamp.toString())
+          })
+          setMessages(messagesData);
+        }
+      });
+      return unsubscribe;
+    }
+  }, [db, user]);
+
+  useEffect(() => {
+    if (messages) {
+      let unreadMessges = messages.filter((message) => message.unread && message.senderuid !==user.uid);
+      setUnread(unreadMessges)
+    }
+  }, [messages]);
 
   if(loading){
     return <div>Loading ...</div>
@@ -153,11 +189,14 @@ const LeftBar = () => {
                     sx={{ marginTop: "10px", cursor: "pointer" }}
                     alt="User"
                     src={item.Avatar}
-                    onClick={() => setMessageUser(item.uid)}
+                    onClick={() => setUserToMessage(item.uid)}
                   />
                   <OnlineStatus uid={item.uid} />
                   <Typography sx={{ marginLeft: "10px" }}>
                     {item.firstName}
+                  </Typography>
+                  <Typography sx={{ marginLeft: "10px" }}>
+                    {unread.filter((message) => message.senderuid === item.uid)?.[0]?.newChat.slice(0 , 3)}
                   </Typography>
                 </Box>
               ))}

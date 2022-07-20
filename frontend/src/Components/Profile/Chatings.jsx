@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { AuthContext } from "../../auth/AuthProvider";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
-import { addDoc, collection, doc, onSnapshot, orderBy, query, serverTimestamp, where } from "firebase/firestore";
+import { addDoc, collection, doc, onSnapshot, orderBy, query, serverTimestamp, setDoc, updateDoc, where } from "firebase/firestore";
 import SendIcon from "@mui/icons-material/Send";
 import { Box } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
@@ -46,7 +46,8 @@ const Chating = ({ setOpen }) => {
         if (querySnap.empty) {
           setMessages([]);
         } else {
-          let messagesData = querySnap.docs.map((message) => message.data());
+          let messagesData = querySnap.docs.map((message) => {
+            return {DOC_ID: message.id, ...message.data()}});
           messagesData = messagesData.sort((a, b) => {
             return a.timeStamp.toString().localeCompare(b.timeStamp.toString())
           })
@@ -56,6 +57,18 @@ const Chating = ({ setOpen }) => {
       return unsubscribe;
     }
   }, [db, userToMessage]);
+
+
+  useEffect(() => {
+    if (messages) {
+      let unreadMessges = messages.filter((message) => message.unread && message.senderuid !==user.uid);
+      unreadMessges.forEach((message) =>{
+        updateDoc(doc(db, "messages", message.DOC_ID), {unread: false})
+      })
+    }
+  }, [messages]);
+
+
   //Handle Create/Send Message
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,6 +76,7 @@ const Chating = ({ setOpen }) => {
       let collectionRef = collection(db, "messages");
       await addDoc(collectionRef, {
         newChat,
+        unread: true,
         senderuid: user.uid,
         users: { [user.uid]: true, [userToMessage]: true },
         timeStamp: serverTimestamp(),
