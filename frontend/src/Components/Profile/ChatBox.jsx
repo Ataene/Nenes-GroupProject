@@ -6,6 +6,7 @@ import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { addDoc, collection, doc, getDoc, onSnapshot, orderBy, query, serverTimestamp, where } from "firebase/firestore";
 import SendIcon from "@mui/icons-material/Send";
 import Avatar from "@mui/material/Avatar";
+import { Box } from "@mui/material";
 const ChatBox = ({ setOpen }) => {
   const scrollRef = useRef()
   const authContext = useContext(AuthContext);

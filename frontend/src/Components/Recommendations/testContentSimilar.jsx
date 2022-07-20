@@ -40,7 +40,7 @@ import {
 
 import similarity from "compute-cosine-similarity";
 
-const TestRecommendation = (props) => {
+const TestContentSimilar = (props) => {
   const { handleClick, options, item, displayName, str, wordCountmap, dict } =
     props;
   const authContext = useContext(AuthContext);
@@ -132,7 +132,6 @@ const TestRecommendation = (props) => {
         querySnapshot.forEach((doc) => {
           items.push(doc.data());
         });
-        console.log(items);
         setPostedAds(items);
       });
       return unsubscribe;
@@ -144,10 +143,10 @@ let characters = postedAds;
     useEffect(() => {
          const findSimilarItems = () => {
            //character
-           let myAds = characters.filter((postedAd) => {
+           let Ads = characters.filter((postedAd) => {
              return postedAd.uid === user.uid;
            });
-           let myWantList = myAds.map((ad) => {
+           let postedTitle = Ads.map((ad) => {
              return ad.title.toLowerCase();
            });
            function textCosineSimilarity(txtA, txtB) {
@@ -165,21 +164,22 @@ let characters = postedAds;
              return Math.round(val * 100);
            }
 
+
+           
            function checkSimilarity() {
              const text1 = "title1".val();
              const text2 = "title2".val();
              const similarity = getSimilarityScore(
                textCosineSimilarity(text1, text2)
              );
+
            }
 
-           setCharacter(myWantList);
+           setCharacter(postedTitle);
          };
          findSimilarItems();
   }, [db]);
     
-
-  console.log("my rating", postedAds);
 
   const [showOptions, setShowOptions] = useState(false);
 
@@ -242,7 +242,7 @@ let characters = postedAds;
                       image={item.url}
                       title={item.title}
                       onClick={() => {
-                        console.log(item);
+//                        console.log(item);
                         showProductDetailDialog(item);
                       }}
                     ></CardMedia>
@@ -293,4 +293,4 @@ let characters = postedAds;
   );
 };
 
-export default TestRecommendation;
+export default TestContentSimilar;

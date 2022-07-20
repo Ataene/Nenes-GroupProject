@@ -39,7 +39,7 @@ const About = () => {
       id: 3,
       image: images3,
       name: "Samuel Ojagbohunmi",
-      profession: "Software & MBA",
+      profession: "Software Engineering, Artificial Intelligence & Business Strategy",
       github: "https://github.com/samm40me",
       linkedIn: "https://linkedin.com/SamuelOjagbohunmi",
     },

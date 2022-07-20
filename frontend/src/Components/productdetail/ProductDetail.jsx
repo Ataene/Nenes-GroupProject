@@ -58,10 +58,8 @@ import MostPopularTrade from "../Recommendations/RecommendationStrategies/Conten
 import ContentBased2 from "../Recommendations/RecommendationStrategies/ContentBased2";
 import SimilarItems from "../Recommendations/SimilarItems";
 import Test from "../Recommendations/testSimilar";
+import TestContentSimilar from "../Recommendations/testContentSimilar";
 
-// function SlideTransition(props) {
-//   return <Slide direction="down" {...props} />;
-// }
 
 const ItemDetailWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -124,9 +122,9 @@ function ItemDetail({ open, options, onClose, item }) {
           alignItems="center"
           justifyContent={"space-between"}
         >
-        <Link to='/dashboard'>
-          <Typography sx={{ fontSize: 20 }}>Hundie</Typography>
-        </Link>
+          <Link to="/dashboard">
+            <Typography sx={{ fontSize: 20 }}>Hundie</Typography>
+          </Link>
           {item.title}
           <IconButton onClick={onClose}>
             <CloseIcon />
@@ -142,10 +140,6 @@ function ItemDetail({ open, options, onClose, item }) {
             flexDirection: "column",
           }}
         >
-
-
-
-
           <Card
             sx={{ width: "max-content", height: "max-content" }}
             onClick={() => console.log(item)}
@@ -171,12 +165,17 @@ function ItemDetail({ open, options, onClose, item }) {
                 />
                 <CardMedia
                   component="img"
-                  sx={{ height: "550px", width: '450px', margin: "10px", borderRadius: "20px" }}
+                  sx={{
+                    height: "550px",
+                    width: "450px",
+                    margin: "10px",
+                    borderRadius: "20px",
+                  }}
                   image={item.url}
                   title={item.title}
                   //onClick={() => setPostedAds(item)}
                   onClick={() => console.log(item)}
-                 />
+                />
               </Box>
               <Box item md={4} xs={6}>
                 <List style={{ marginLeft: "30px", marginTop: "50px" }}>
@@ -213,8 +212,7 @@ function ItemDetail({ open, options, onClose, item }) {
                   </ListItem>
                   <ListItem>
                     <Typography>
-                      Status:{" "}
-                      {item.countInStock > 0 ? "In stock" : "Unavailable"}
+                      Status: {item.quantity > 0 ? "In stock" : "Unavailable"}
                     </Typography>
                   </ListItem>
                   <ListItem>
@@ -223,32 +221,32 @@ function ItemDetail({ open, options, onClose, item }) {
                     </Button>
                   </ListItem>
                   <IconButton aria-label="add to favorites">
-                          <FavoriteIcon sx={{ color: "red" }} />
-                        </IconButton>
-                        <IconButton aria-label="share">
-                          <ShareIcon sx={{ color: "#62b4f9" }} />
-                        </IconButton>
-                        <IconButton aria-label="chat">
-                          <ChatIcon
-                            sx={{ color: "green" }}
-                            // onClick={() => setUserToMessage(item.uid)}
-                          />
-                        </IconButton>
-                        <IconButton aria-label="share" type="click">
-                          <ListAltIcon
-                            sx={{ color: "purple" }}
-                            // onClick={() => handleClick(item)}
-                          />
-                        </IconButton>
+                    <FavoriteIcon sx={{ color: "red" }} />
+                  </IconButton>
+                  <IconButton aria-label="share">
+                    <ShareIcon sx={{ color: "#62b4f9" }} />
+                  </IconButton>
+                  <IconButton aria-label="chat">
+                    <ChatIcon
+                      sx={{ color: "green" }}
+                      // onClick={() => setUserToMessage(item.uid)}
+                    />
+                  </IconButton>
+                  <IconButton aria-label="share" type="click">
+                    <ListAltIcon
+                      sx={{ color: "purple" }}
+                      // onClick={() => handleClick(item)}
+                    />
+                  </IconButton>
                   <RatingComponent productDetail={item} />
                 </List>
               </Box>
             </Grid>
+
+            <PostComment />
           </Card>
 
-
           
-          <PostComment />
           <Box
             display="flex"
             justifyContent="center"
@@ -261,7 +259,7 @@ function ItemDetail({ open, options, onClose, item }) {
               Hi {item.displayName}, Here Are Similar Items You Can Trade
             </Typography>
           </Box>
-          <SimilarItems />
+          <TestContentSimilar />
           <Test />
           {/*<ContentBased2 />*/}
           <Box
