@@ -77,7 +77,7 @@ const TestRecommendation = ({ handleClick, options, item, displayName }) => {
       };
       getData();
     }
-  }, [postedAds]);
+  }, [db]);
 
   const [showOptions, setShowOptions] = useState(false);
 
