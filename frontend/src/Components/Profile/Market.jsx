@@ -44,7 +44,7 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
         onMouseLeave={handleMouseLeave}
       >
         <Box>
-          <div>{<TestRecommendation />}</div>
+          {/* <div>{<TestRecommendation />}</div> */}
 
           <Grid container spacing={1}>
             {loading ? (
