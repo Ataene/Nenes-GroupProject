@@ -41,7 +41,7 @@ import {
 import similarity from "compute-cosine-similarity";
 
 const TestContentSimilar = (props) => {
-  const { handleClick, options, item, displayName, str, wordCountmap, dict } =
+  const { currentTitle} =
     props;
   const authContext = useContext(AuthContext);
   const { user, setUserToMessage } = authContext;
@@ -50,7 +50,7 @@ const TestContentSimilar = (props) => {
   const [open, setOpen] = useState(false);
 
   const [postedAds, setPostedAds] = useState([]);
-  const [character, setCharacter] = useState([]);
+  const [scoreFilter, setScoreFilter] = useState([]);
   
 
   const [loading, setLoading] = useState(false);
@@ -113,72 +113,61 @@ const TestContentSimilar = (props) => {
    return cosineSimilarity(vectorA, vectorB);
  }
 
- function getSimilarityScore(val) {
-   return Math.round(val * 100);
- }
+//  function getSimilarityScore(val) {
+//    return Math.round(val * 100);
+//  }
 
- function checkSimilarity() {
-   const text1 = "title1".val();
-   const text2 = "title2".val();
-   const similarity = getSimilarityScore(textCosineSimilarity(text1, text2));
- }
+//  function checkSimilarity() {
+//    const text1 = "title1".val();
+//    const text2 = "title2".val();
+//    const similarity = getSimilarityScore(textCosineSimilarity(text1, text2));
+//  }
 
   useEffect(() => {
-    if (db) {
+    const getPostedAds = async () => {
       let collectionRef = collection(db, "postedAds");
-      let queryRef = query(collectionRef, orderBy("description"), limit(4));
-      const unsubscribe = onSnapshot(queryRef, (querySnapshot) => {
-        let items = [];
-        querySnapshot.forEach((doc) => {
-          items.push(doc.data());
-        });
-        setPostedAds(items);
+      let queryRef = query(
+        collectionRef,
+        where("owner", "!=", user.uid),
+//        orderBy("description")
+      );
+      let querySnap = await getDocs(queryRef);
+      let items = [];
+      querySnap.forEach((doc) => {
+        items.push({DOC_ID:doc.id, ...doc.data()});
       });
-      return unsubscribe;
+      setPostedAds(items);
+    };
+    if (db && user) {
+      getPostedAds();
     }
-  }, [db]);
+  }, [db, user]);
       
 let characters = postedAds;
 
     useEffect(() => {
          const findSimilarItems = () => {
-           //character
-           let Ads = characters.filter((postedAd) => {
-             return postedAd.uid === user.uid;
+           let titles = postedAds.map((ad) => {
+             return {DOC_ID: ad.DOC_ID, title: ad.title.toLowerCase()};
            });
-           let postedTitle = Ads.map((ad) => {
-             return ad.title.toLowerCase();
-           });
-           function textCosineSimilarity(txtA, txtB) {
-             const wordCountA = wordCountMap(txtA);
-             const wordCountB = wordCountMap(txtB);
-             let dict = {};
-             addWordsToDictionary(wordCountA, dict);
-             addWordsToDictionary(wordCountB, dict);
-             const vectorA = wordMapToVector(wordCountA, dict);
-             const vectorB = wordMapToVector(wordCountB, dict);
-             return cosineSimilarity(vectorA, vectorB);
-           }
 
-           function getSimilarityScore(val) {
-             return Math.round(val * 100);
-           }
-
-
-           
-           function checkSimilarity() {
-             const text1 = "title1".val();
-             const text2 = "title2".val();
-             const similarity = getSimilarityScore(
-               textCosineSimilarity(text1, text2)
+           let scores = titles.map(t => {
+             let score = textCosineSimilarity(
+               currentTitle,
+               t.title
              );
-
-           }
-
-           setCharacter(postedTitle);
+             return { DOC_ID: t.DOC_ID, scores: score };
+           });
+           scores.sort((a, b) => b.score - a.score);
+           console.log("scores", scores);
+           console.log("titles", titles)
+           setScoreFilter(scores.slice(0,4))
          };
-         findSimilarItems();
-  }, [db]);
+      if (postedAds) {
+           findSimilarItems()
+         }
+
+  }, [postedAds]);
     
 
   const [showOptions, setShowOptions] = useState(false);
@@ -214,7 +203,7 @@ let characters = postedAds;
           </Box>
           <Grid container spacing={1}>
             {postedAds
-              .filter((item) => item.uid !== user.uid)
+              .filter((adItem) => scoreFilter.some((scoreItem) => scoreItem.DOC_ID === adItem.DOC_ID))
               .map((item) => (
                 <Grid item md={3} key={item.uid}>
                   <Paper
@@ -226,7 +215,7 @@ let characters = postedAds;
                       <CardHeader
                         avatar={
                           <Avatar
-                            sx={{ bgcolor: "red"[500] }}
+                            sx={{ bgcolor: "red"[500] }}                                                               
                             aria-label="recipe"
                             src={item.userPicture}
                           />
@@ -277,7 +266,7 @@ let characters = postedAds;
                         <IconButton aria-label="share" type="click">
                           <ListAltIcon
                             sx={{ color: "purple" }}
-                            onClick={() => handleClick(item)}
+//                            onClick={() => handleClick(item)}
                           />
                         </IconButton>
                         <ProductDetailDialog item={item} />
