@@ -1,5 +1,16 @@
 import React, { useContext, useState } from "react";
-import { Box, CardActions, Card, CardHeader, CardMedia, Container, Grid, IconButton, Typography, CardContent} from "@mui/material";
+import {
+  Box,
+  CardActions,
+  Card,
+  CardHeader,
+  CardMedia,
+  Container,
+  Grid,
+  IconButton,
+  Typography,
+  CardContent,
+} from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
 import Avatar from "@mui/material/Avatar";
@@ -24,7 +35,6 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
 
   //  const [likes, setLikes] = useState(false);
 
- 
   const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
     useDialogModal(ItemDetail);
 
@@ -44,7 +54,7 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
         onMouseLeave={handleMouseLeave}
       >
         <Box>
-          <div>{<TestRecommendation />}</div>
+          {/* <div>{<TestRecommendation />}</div> */}
 
           <Grid container spacing={1}>
             {loading ? (
@@ -87,7 +97,6 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
                         image={item.url}
                         // title={item.title}
                         onClick={() => {
-              
                           showProductDetailDialog(item);
                         }}
                       ></CardMedia>

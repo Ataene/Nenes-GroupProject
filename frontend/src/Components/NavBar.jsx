@@ -143,26 +143,47 @@ const NavBar = (props) => {
           >
             {!smallScreen && (
               <span sx={{ flexDirection: "row" }}>
-                <Link
-                  style={{ textDecoration: "none" }}
-                  to="/"
-                  onClick={openHamburger}
+                <Box
+                  style={{ textDecoration: "none", marginLeft: "auto" }}
+                  sx={{ display: { xs: "none", md: "flex", position: "" } }}
                 >
-                  <Button sx={{ my: 2, color: "white", display: "block" }}>
-                    Home
-                  </Button>
-                </Link>
-                <div>
-                  <Link
-                    style={{ textDecoration: "none" }}
-                    to="/maps"
-                    onClick={openHamburger}
-                  >
+                  <Link style={{ textDecoration: "none" }} to="/">
+                    <Button sx={{ my: 2, color: "white", display: "block" }}>
+                      Home
+                    </Button>
+                  </Link>
+                  <Link style={{ textDecoration: "none" }} to="/products">
+                    <Button sx={{ my: 2, color: "white", display: "block" }}>
+                      Products
+                    </Button>
+                  </Link>
+                  <Link style={{ textDecoration: "none" }} to="/maps">
                     <Button sx={{ my: 2, color: "white", display: "block" }}>
                       Map
                     </Button>
                   </Link>
-                </div>
+                  <Link style={{ textDecoration: "none" }} to="/about">
+                    <Button sx={{ my: 2, color: "white", display: "block" }}>
+                      About
+                    </Button>
+                  </Link>
+                  <Link style={{ textDecoration: "none" }} to="/admin">
+                    <Button sx={{ my: 2, color: "white", display: "block" }}>
+                      Admin
+                    </Button>
+                  </Link>
+                  {user && (
+                    <>
+                      <Link style={{ textDecoration: "none" }} to="/dashboard">
+                        <Button
+                          sx={{ my: 2, color: "white", alignItem: "block" }}
+                        >
+                          Store
+                        </Button>
+                      </Link>
+                    </>
+                  )}
+                </Box>
               </span>
             )}
             {!user && (
