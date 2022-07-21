@@ -69,6 +69,7 @@ const NavBar = (props) => {
     if (db && user) {
       let docRef = doc(db, "users", user.uid);
       const unsubscribe = onSnapshot(docRef, (querySnap) => {
+        console.log("onsnapshot --Navbar");
         if (querySnap.empty) {
         } else {
           let usersData = querySnap.data();

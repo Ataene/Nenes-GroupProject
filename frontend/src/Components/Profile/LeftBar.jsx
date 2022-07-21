@@ -117,12 +117,6 @@ const LeftBar = () => {
           <List component="nav" aria-labelledby="nested-list-subheader">
             <ListItemButton>
               <ListItemIcon>
-                <StorefrontIcon sx={{ color: "#B8F1B0" }} />
-              </ListItemIcon>
-              <ListItemText primary="Market" />
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemIcon>
                 <LiveHelpIcon sx={{ color: "#B8F1B0" }} />
               </ListItemIcon>
               <ListItemText primary="FAQ" />

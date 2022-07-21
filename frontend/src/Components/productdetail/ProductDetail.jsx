@@ -48,17 +48,12 @@ import { useStateValue } from "../../providers/StateProvider";
 import { doc, setDoc } from "firebase/firestore";
 import { Divider, Input, List, ListItem } from "@material-ui/core";
 import { FaStar } from "react-icons/fa";
-
-import { useParams } from "react-router-dom";
 import RatingComponent from "../Recommendations/RatingComponent";
-import useDialogModal from "./useDialogModal";
 import PostComment from "../Profile/PostComment";
 //import SimilarItems from "../Recommendations/SimilarItems";
 import MostPopularTrade from "../Recommendations/RecommendationStrategies/ContentBased2";
-import ContentBased2 from "../Recommendations/RecommendationStrategies/ContentBased2";
-import SimilarItems from "../Recommendations/SimilarItems";
-import Test from "../Recommendations/testSimilar";
 import TestContentSimilar from "../Recommendations/testContentSimilar";
+import TestRecommendation from "../Recommendations/testRecommendation";
 
 
 const ItemDetailWrapper = styled(Box)(({ theme }) => ({
@@ -74,7 +69,6 @@ const ItemDetailInfoWrapper = styled(Box)(() => ({
 }));
 
 function ItemDetail({ open, options, onClose, item }) {
-  console.log("options", options);
   const authContext = useContext(AuthContext);
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
@@ -246,7 +240,6 @@ function ItemDetail({ open, options, onClose, item }) {
             <PostComment />
           </Card>
 
-          
           <Box
             display="flex"
             justifyContent="center"
@@ -259,23 +252,12 @@ function ItemDetail({ open, options, onClose, item }) {
               Hi {item.displayName}, Here Are Similar Items You Can Trade
             </Typography>
           </Box>
-          <TestContentSimilar />
-          <Test />
+          <TestContentSimilar currentTitle={item.title} />
+          {/*<TestRecommendation />*/}
           {/*<ContentBased2 />*/}
-          <Box
-            display="flex"
-            justifyContent="center"
-            sx={{ p: 4, fontFamily: "Montserrat" }}
-          >
-            <Typography
-              variant="h4"
-              sx={{ fontFamily: "Montserrat", color: "green" }}
-            >
-              Most Popular Trades on Huddie
-            </Typography>
-          </Box>
+
           {/*<SimilarItems />*/}
-          <MostPopularTrade />
+          {/*<MostPopularTrade />*/}
         </Box>
       </DialogContent>
     </Dialog>
