@@ -23,7 +23,6 @@ const SwipeButtons = () => {
               const response = await fetch(productApi);
               let productData = await response.json();
               setProductInfo(productData);
-              console.log(productInfo);
             } catch (error) {
               console.log(error.message);
             }

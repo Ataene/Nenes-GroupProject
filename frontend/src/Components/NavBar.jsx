@@ -29,10 +29,23 @@ const NavBar = (props) => {
   const [usePicture, setUserPicture] = useState();
   const [displayName, setDisplayName] = useState("");
   const [menuOpen, setMenuOpen] = useState("false");
+  const [width, setWidth] = useState(window.innerWidth);
+  const [smallScreen, setSmallScreen] = useState(isSmallScreen(width));
+  function isSmallScreen(width) {
+    return width < 700;
+  }
   function openHamburger() {
     setMenuOpen((curr) => !curr);
   }
 
+  useEffect(() => {
+    window.addEventListener("resize", () => setWidth(window.innerWidth));
+  }, []);
+
+  useEffect(() => {
+    setSmallScreen(isSmallScreen(width));
+  }, [width]);
+  console.log("small screen", smallScreen);
   // useEffect(() => {
   //   if (db && user) {
   //     let collectionRef = collection(db, "users");
@@ -56,6 +69,7 @@ const NavBar = (props) => {
     if (db && user) {
       let docRef = doc(db, "users", user.uid);
       const unsubscribe = onSnapshot(docRef, (querySnap) => {
+        console.log("onsnapshot --Navbar");
         if (querySnap.empty) {
         } else {
           let usersData = querySnap.data();
@@ -113,14 +127,44 @@ const NavBar = (props) => {
           >
             Hundie
           </Typography>
-          <HamburgerMenu
-            menuOpen={menuOpen}
-            user={user}
-            openHamburger={openHamburger}
-            logoutUser={logoutUser}
-          />
-
-          <Box sx={{ display: { xs: "none", md: "flex" }, marginLeft: "auto" }}>
+          {smallScreen && (
+            <HamburgerMenu
+              menuOpen={menuOpen}
+              user={user}
+              openHamburger={openHamburger}
+              logoutUser={logoutUser}
+            />
+          )}
+          <Box
+            sx={{
+              display: { xs: "none", md: "flex" },
+              marginLeft: "auto",
+            }}
+          >
+            {!smallScreen && (
+              <span sx={{ flexDirection: "row" }}>
+                <Link
+                  style={{ textDecoration: "none" }}
+                  to="/"
+                  onClick={openHamburger}
+                >
+                  <Button sx={{ my: 2, color: "white", display: "block" }}>
+                    Home
+                  </Button>
+                </Link>
+                <div>
+                  <Link
+                    style={{ textDecoration: "none" }}
+                    to="/maps"
+                    onClick={openHamburger}
+                  >
+                    <Button sx={{ my: 2, color: "white", display: "block" }}>
+                      Map
+                    </Button>
+                  </Link>
+                </div>
+              </span>
+            )}
             {!user && (
               <>
                 <Link
@@ -171,7 +215,7 @@ const NavBar = (props) => {
               </>
             )}
           </Box>
-          <Menu onClick={openHamburger} />
+          {smallScreen && <Menu onClick={openHamburger} />}
         </Toolbar>
       </Container>
     </AppbarContainer>

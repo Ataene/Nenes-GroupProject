@@ -3,7 +3,6 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import {
   Box,
-  Card,
   CardActions,
   CardHeader,
   CardMedia,
@@ -19,18 +18,13 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import useDialogModal from "../productdetail/useDialogModal";
 import ItemDetail from "../productdetail/ProductDetail";
 import { AuthContext } from "../../auth/AuthProvider";
-import CircularProgress from "@mui/material/CircularProgress";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import OnlineStatus from "../Profile/OnlineStatus";
-import CircleLoader from "react-spinners/CircleLoader";
 
-import { collection, query, getDocs, limit, orderBy } from "firebase/firestore";
-
-
-
-const TestRecommendation = ({ handleClick, options, item, displayName }) => {
+import { collection, query, getDocs } from "firebase/firestore";
+const TestRecommendation = ({ handleClick }) => {
   const authContext = useContext(AuthContext);
-  const { user, setUserToMessage } = authContext;
+  const { user, setUserToMessage } = authContext
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const [open, setOpen] = useState(false);
