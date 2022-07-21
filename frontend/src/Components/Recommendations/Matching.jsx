@@ -83,7 +83,7 @@ findWantItem();
     animationName: "popup",
     animationDuration: "800ms",
   };
-  console.log("555", character)
+  //console.log("555", character)
   return (
     
     <>

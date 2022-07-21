@@ -18,7 +18,14 @@ import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
 import WorkIcon from "@mui/icons-material/Work";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import GroupsIcon from "@mui/icons-material/Groups";
-import { collection, onSnapshot, orderBy, query, doc, where } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  doc,
+  where,
+} from "firebase/firestore";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { AuthContext } from "../../auth/AuthProvider";
 import OnlineStatus from "./OnlineStatus";
@@ -57,25 +64,24 @@ const LeftBar = () => {
   }, [db, user]);
 
   useEffect(() => {
-    console.log("222", db, "333", user)
+    console.log("222", db, "333", user);
 
     if (db && user) {
       let collectionRef = collection(db, "messages");
       let queryRef = query(
         collectionRef,
-        where("users." + user.uid, "==", true),
+        where("users." + user.uid, "==", true)
         // where("senderuid", "!=", user.uid),
       );
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
-        console.log("555", querySnap.docs)
+        console.log("555", querySnap.docs);
         if (querySnap.empty) {
-
           setMessages([]);
         } else {
           let messagesData = querySnap.docs.map((message) => message.data());
           messagesData = messagesData.sort((a, b) => {
-            return a.timeStamp.toString().localeCompare(b.timeStamp.toString())
-          })
+            return a.timeStamp.toString().localeCompare(b.timeStamp.toString());
+          });
           setMessages(messagesData);
         }
       });
@@ -85,13 +91,15 @@ const LeftBar = () => {
 
   useEffect(() => {
     if (messages) {
-      let unreadMessges = messages.filter((message) => message.unread && message.senderuid !==user.uid);
-      setUnread(unreadMessges)
+      let unreadMessges = messages.filter(
+        (message) => message.unread && message.senderuid !== user.uid
+      );
+      setUnread(unreadMessges);
     }
   }, [messages]);
 
-  if(loading){
-    return <div>Loading ...</div>
+  if (loading) {
+    return <div>Loading ...</div>;
   }
 
   return (
@@ -107,49 +115,6 @@ const LeftBar = () => {
       >
         <Card>
           <List component="nav" aria-labelledby="nested-list-subheader">
-            {/* <ListItemButton>
-              <ListItemIcon>
-                <RssFeedIcon sx={{ color: "#B8F1B0" }} />
-              </ListItemIcon>
-              <ListItemText primary="Sent mail" />
-            </ListItemButton> */}
-            {/* <ListItemButton>
-              <ListItemIcon>
-                <ChatIcon sx={{ color: "#B8F1B0" }} />
-              </ListItemIcon>
-              <ListItemText primary="Drafts" />
-            </ListItemButton> */}
-            <ListItemButton>
-              <ListItemIcon>
-                <GroupsIcon sx={{ color: "#B8F1B0" }} />
-              </ListItemIcon>
-              <ListItemText primary="Groups" />
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemIcon>
-                <StorefrontIcon sx={{ color: "#B8F1B0" }} />
-              </ListItemIcon>
-              <ListItemText primary="Market" />
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemIcon>
-                <InventoryIcon sx={{ color: "#B8F1B0" }} />
-              </ListItemIcon>
-              <ListItemText primary="Inbox" />
-            </ListItemButton>
-            <hr />
-            <ListItemButton>
-              <ListItemIcon>
-                <WorkIcon sx={{ color: "#B8F1B0" }} />
-              </ListItemIcon>
-              <ListItemText primary="Career" />
-            </ListItemButton>
-            {/* <ListItemButton>
-              <ListItemIcon>
-                <CircleNotificationsIcon sx={{ color: "#B8F1B0" }} />
-              </ListItemIcon>
-              <ListItemText primary="Notify" />
-            </ListItemButton> */}
             <ListItemButton>
               <ListItemIcon>
                 <LiveHelpIcon sx={{ color: "#B8F1B0" }} />
@@ -162,12 +127,6 @@ const LeftBar = () => {
               </ListItemIcon>
               <ListItemText primary="Event" />
             </ListItemButton>
-            {/* <ListItemButton>
-              <ListItemIcon>
-                <OndemandVideoIcon sx={{ color: "#B8F1B0" }} />
-              </ListItemIcon>
-              <ListItemText primary="Video" />
-            </ListItemButton> */}
           </List>
           <Box>
             <Typography sx={{ marginLeft: "30px", color: "green" }}>
@@ -196,7 +155,9 @@ const LeftBar = () => {
                     {item.firstName}
                   </Typography>
                   <Typography sx={{ marginLeft: "10px" }}>
-                    {unread.filter((message) => message.senderuid === item.uid)?.[0]?.newChat.slice(0 , 3)}
+                    {unread
+                      .filter((message) => message.senderuid === item.uid)?.[0]
+                      ?.newChat.slice(0, 3)}
                   </Typography>
                 </Box>
               ))}

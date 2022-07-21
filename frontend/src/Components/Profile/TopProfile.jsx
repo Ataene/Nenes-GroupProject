@@ -46,7 +46,7 @@ const TopProfile = (item) => {
         url,
         timeStamp: serverTimestamp(),
       });
-      console.log(response);
+ //     console.log(response);
     } catch (error) {
       console.log(error.message);
     }

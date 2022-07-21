@@ -3,7 +3,18 @@ import Button from "@mui/material/Button";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { AuthContext } from "../../auth/AuthProvider";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
-import { addDoc, collection, doc, onSnapshot, orderBy, query, serverTimestamp, setDoc, updateDoc, where } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+  serverTimestamp,
+  setDoc,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import SendIcon from "@mui/icons-material/Send";
 import { Box } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
@@ -40,17 +51,18 @@ const Chating = ({ setOpen }) => {
       let queryRef = query(
         collectionRef,
         where("users." + user.uid, "==", true),
-        where("users." + userToMessage, "==", true),
+        where("users." + userToMessage, "==", true)
       );
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
         if (querySnap.empty) {
           setMessages([]);
         } else {
           let messagesData = querySnap.docs.map((message) => {
-            return {DOC_ID: message.id, ...message.data()}});
+            return { DOC_ID: message.id, ...message.data() };
+          });
           messagesData = messagesData.sort((a, b) => {
-            return a.timeStamp.toString().localeCompare(b.timeStamp.toString())
-          })
+            return a.timeStamp.toString().localeCompare(b.timeStamp.toString());
+          });
           setMessages(messagesData);
         }
       });
@@ -58,16 +70,16 @@ const Chating = ({ setOpen }) => {
     }
   }, [db, userToMessage]);
 
-
   useEffect(() => {
     if (messages) {
-      let unreadMessges = messages.filter((message) => message.unread && message.senderuid !==user.uid);
-      unreadMessges.forEach((message) =>{
-        updateDoc(doc(db, "messages", message.DOC_ID), {unread: false})
-      })
+      let unreadMessges = messages.filter(
+        (message) => message.unread && message.senderuid !== user.uid
+      );
+      unreadMessges.forEach((message) => {
+        updateDoc(doc(db, "messages", message.DOC_ID), { unread: false });
+      });
     }
   }, [messages]);
-
 
   //Handle Create/Send Message
   const handleSubmit = async (e) => {
@@ -132,7 +144,8 @@ const Chating = ({ setOpen }) => {
                     justifyContent: "end",
                   }}
                 >
-                  {message.newChat} <Avatar sx={{marginLeft: "5px"}} src={usePicture} />
+                  {message.newChat}{" "}
+                  <Avatar sx={{ marginLeft: "5px" }} src={usePicture} />
                 </div>
               </div>
             );
@@ -150,7 +163,8 @@ const Chating = ({ setOpen }) => {
                     justifyContent: "start",
                   }}
                 >
-                  <Avatar sx={{marginRight: "5px"}} src={userPicture} /> {message.newChat}
+                  <Avatar sx={{ marginRight: "5px" }} src={userPicture} />{" "}
+                  {message.newChat}
                 </p>
               </div>
             );

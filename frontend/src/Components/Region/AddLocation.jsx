@@ -55,7 +55,7 @@ const AddLocation = () => {
   const db = fbContext.db;
   const { user, setUserToMessage } = authContext;
   const [postalData, setPostalData] = useState();
-  const [adsByPostalCode, setadsByPostalCode] = useState([]);
+  const [adsByNeighborhood, setadsByNeighborhood] = useState([]);
   const [postedAds, setPostedAds] = useState([]);
   const handleClick = (item) => {
     console.log(item, "handleClick");
@@ -80,21 +80,36 @@ console.log("selectedItems", selectedItems)
     })
     setfilteredAds(newFilter)
 }, [searchItems, postedAds])
+ //trying to add neighborhood instead of postalcodes
+  // useEffect(() => {
+  //   let data = filteredAds.reduce((object, ad) => {
+  //     let postalCode = ad.postalCode;
 
+  //     if (object[postalCode]) {
+  //       object[postalCode].push(ad);
+  //     } else {
+  //       object[postalCode] = [ad];
+  //     }
+  //     return object;
+  //   }, {});
+  //   setadsByPostalCode(data);
+  // }, [filteredAds]);
+  // console.log(adsByPostalCode);
   useEffect(() => {
     let data = filteredAds.reduce((object, ad) => {
-      let postalCode = ad.postalCode;
+      let neighborhood = ad.neighborhood;
 
-      if (object[postalCode]) {
-        object[postalCode].push(ad);
+      if (object[neighborhood]) {
+        object[neighborhood].push(ad);
       } else {
-        object[postalCode] = [ad];
+        object[neighborhood] = [ad];
       }
       return object;
     }, {});
-    setadsByPostalCode(data);
+    setadsByNeighborhood(data);
   }, [filteredAds]);
-  console.log(adsByPostalCode);
+  console.log(adsByNeighborhood);
+  //changed from setadsByPostalCode 
 
   useEffect(() => {
     if (db) {
@@ -186,7 +201,7 @@ console.log("selectedItems", selectedItems)
             style={{ width: 1300, height: 660 }}
             mapStyle="mapbox://styles/ataene/cl4lf3mv9000h14nyykjem276"
           >
-            {Object.keys(adsByPostalCode).map((postal) => {
+            {Object.keys(adsByNeighborhood).map((postal) => {
               console.log(postal, postalData[postal]);
               return (
                 <Marker
@@ -219,7 +234,7 @@ console.log("selectedItems", selectedItems)
                 anchor="left"
               >
                 <div className="card-container">
-                  {adsByPostalCode[selectedItems.postalCode].map((item) => (
+                  {adsByNeighborhood[selectedItems.postalCode].map((item) => (
                     <Grid
                       item
                       xs={6}

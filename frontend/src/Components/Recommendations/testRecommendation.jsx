@@ -22,7 +22,10 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import OnlineStatus from "../Profile/OnlineStatus";
 import CircleLoader from "react-spinners/CircleLoader";
-import { collection, query, getDocs, limit } from "firebase/firestore";
+
+import { collection, query, getDocs, limit, orderBy } from "firebase/firestore";
+
+
 
 const TestRecommendation = ({ handleClick, options, item, displayName }) => {
   const authContext = useContext(AuthContext);
@@ -46,28 +49,24 @@ const TestRecommendation = ({ handleClick, options, item, displayName }) => {
     if (!db) {
     } else {
       const getData = async () => {
-        const collectionRef = query(collection(db, "postedAds"), limit(4));
+        const collectionRef = query(collection(db, "postedAds"));
         const snapshot = await getDocs(collectionRef);
         const data = snapshot.docs.map((doc) => ({
           ...doc.data(),
           DOC_ID: doc.id,
         }));
-        console.log("data", data);
         for (let i = 0; i < data.length; i++) {
           const ratingQ = query(
             collection(db, `postedAds/${data[i].DOC_ID}/rating`)
           );
           const ratingDetails = await getDocs(ratingQ);
-          const rating =
-            ratingDetails.docs
-              .map((doc) => {
-                return doc.data();
-              })
-              .reduce((acc, doc) => {
-                return (acc += doc.rating);
-              }, 0) / ratingDetails.docs.length;
-          console.log("rating", rating);
-          data[i].rating = isNaN(rating) ? 0 : rating;
+          const rating = ratingDetails.docs.map((doc) => {
+            return doc.data()
+            
+          }).reduce((acc, doc) => {
+          return acc+=doc.rating
+          }, 0) / ratingDetails.docs.length
+          data[i].rating=(isNaN(rating)?0:rating)
         }
         setPostedAds(
           data.sort((a, b) => {
@@ -77,7 +76,7 @@ const TestRecommendation = ({ handleClick, options, item, displayName }) => {
       };
       getData();
     }
-  }, [db]);
+  }, [postedAds]);
 
   const [showOptions, setShowOptions] = useState(false);
 
@@ -90,13 +89,11 @@ const TestRecommendation = ({ handleClick, options, item, displayName }) => {
 
   return (
     <>
-      {/* onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave} */}
       <Box>
         <Box
           display="flex"
           justifyContent="center"
-          sx={{ p: 1, fontFamily: "Montserrat" }}
+          sx={{ p: 4, fontFamily: "Montserrat" }}
         >
           <Typography
             variant="h4"
@@ -107,6 +104,7 @@ const TestRecommendation = ({ handleClick, options, item, displayName }) => {
         </Box>
         <Grid container spacing={1}>
           {postedAds
+            .slice(0, 4)
             .filter((item) => item.uid !== user.uid)
             .map((item) => (
               <Grid item md={3} key={item.uid}>
@@ -135,7 +133,6 @@ const TestRecommendation = ({ handleClick, options, item, displayName }) => {
                     image={item.url}
                     title={item.title}
                     onClick={() => {
-                      console.log(item);
                       showProductDetailDialog(item);
                     }}
                   ></CardMedia>

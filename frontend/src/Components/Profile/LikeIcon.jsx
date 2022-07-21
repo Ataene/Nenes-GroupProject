@@ -2,44 +2,17 @@ import React, { useContext, useState, useEffect } from "react";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import {
-  Box,
-  CardActions,
-  Card,
-  CardHeader,
-  CardMedia,
-  Container,
-  Grid,
   IconButton,
-  ListItemButton,
-  Paper,
-  Tooltip,
   Button,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ChatIcon from "@mui/icons-material/Chat";
-import Avatar from "@mui/material/Avatar";
-import ShareIcon from "@mui/icons-material/Share";
-import ListAltIcon from "@mui/icons-material/ListAlt";
-import useDialogModal from "../productdetail/useDialogModal";
-import ItemDetail from "../productdetail/ProductDetail";
 import { AuthContext } from "../../auth/AuthProvider";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
-import OnlineStatus from "./OnlineStatus";
-import CircleLoader from "react-spinners/CircleLoader";
+
 //import Likes from "./Likes";
 import {
-  addDoc,
-  collection,
-  FieldValue,
-  serverTimestamp,
-  arrayRemove,
-  arrayUnion,
   doc,
   updateDoc,
-  onSnapshot,
-  query,
-  orderBy,
-  getDocs,
 } from "firebase/firestore";
 
 function LikeIcon({ item }) {

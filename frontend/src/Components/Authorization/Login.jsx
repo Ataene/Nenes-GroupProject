@@ -10,6 +10,10 @@ import GoogleIcon from "@mui/icons-material/Google";
 import loginImage from "../../images/loginImage.png";
 
 const useStyles = makeStyles((theme) => ({
+  input: {
+    color: "#ed6c02",
+  },
+
   root: {
     display: "flex",
     flexDirection: "column",
@@ -44,6 +48,8 @@ const Login = () => {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const [setIsPending] = useState(false);
   const avatarStyle = { backgroundColor: "#1bbd7e" };
 
   const handleSubmit = async (e) => {
@@ -51,8 +57,9 @@ const Login = () => {
     try {
       await signInUser(email, password);
       navigate("/dashboard");
+      setIsPending(true);
     } catch (error) {
-      console.log(error.message);
+      setError(`Password must be minimum of 6 characters and number`);
     }
   };
 
@@ -63,7 +70,7 @@ const Login = () => {
         navigate("/dashboard");
       }
     } catch (error) {
-      console.log("GitHub Auth Failed");
+      setError("GitHub Auth Failed");
     }
   };
 
@@ -133,24 +140,29 @@ const Login = () => {
             color: "#ffffff",
             textTransform: "uppercase",
             letterSpacing: "0.4rem",
-            mobile: { minWidth: "500", width: "80vw", height: "90vh" },
+            mobile: { minWidth: "400", width: "80vw", height: "90vh" },
             tablet: { minWidth: "800", width: "80vw", height: "80vh" },
-            desktop: { minWidth: "1280", width: "80vw", height: "50vh" },
+            desktop: { minWidth: "1000", width: "70vw", height: "50vh" },
             largeDesktop: { minWidth: "1600", width: "30vw", height: "80vh" },
           }}
         >
           <br />
           <Typography
             variant="h5"
-            style={{ fontFamily: "Montserrat", fontSize: "20px" }}
+            style={{
+              fontFamily: "Montserrat",
+              fontSize: "20px",
+              color: "black",
+            }}
           >
             User Login
           </Typography>
 
           <Avatar style={avatarStyle} />
           <TextField
+            inputProps={{ className: classes.input }}
             label="Email"
-            variant="filled"
+            variant="outlined"
             type="email"
             required
             value={email}
@@ -158,8 +170,9 @@ const Login = () => {
           />
           <br />
           <TextField
+            inputProps={{ className: classes.input }}
             label="Password"
-            variant="filled"
+            variant="outlined"
             type="password"
             required
             value={password}
@@ -187,14 +200,14 @@ const Login = () => {
             <Typography
               variant="h5"
               onClick={() => forgotPassword()}
-              sx={{ paddingLeft: "7rem", color: "white", fontSize: "15px" }}
+              sx={{ paddingLeft: "7rem", color: "blue", fontSize: "15px" }}
             >
               Forget Password
             </Typography>{" "}
             <hr />
             <Typography
               variant="h6"
-              sx={{ paddingLeft: "8rem", color: "blue", fontSize: "15px" }}
+              sx={{ paddingLeft: "7rem", color: "blue", fontSize: "15px" }}
             >
               Or Login in with
             </Typography>
@@ -238,7 +251,7 @@ const Login = () => {
         </Paper>
         <Typography
           variant="h5"
-          style={{ fontFamily: "Montserrat", color: "white" }}
+          style={{ fontFamily: "Montserrat", color: "black" }}
         >
           New to HundieTrade?
         </Typography>
@@ -258,10 +271,10 @@ const Login = () => {
             style={{
               fontFamily: "Montserrat",
               color: "white",
-              fontSize: "12px",
+              fontSize: "15px",
             }}
           >
-            © 2022, HundieTrade.com, Inc. or its affiliates
+            <br />© 2022, HundieTrade.com, Inc. or its affiliates
           </Typography>
         </Box>
       </form>

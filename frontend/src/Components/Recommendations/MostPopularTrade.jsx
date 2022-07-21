@@ -50,7 +50,7 @@ const MostPopularTrade = ({ handleClick }) => {
   useEffect(() => {
     if (db && user) {
       let collectionRef = collection(db, "postedAds");
-      let queryRef = query(collectionRef, orderBy("like", "desc"), limit(4));
+      let queryRef = query(collectionRef, orderBy("like", "desc"));
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
         if (querySnap.empty) {
         } else {
@@ -88,7 +88,9 @@ const MostPopularTrade = ({ handleClick }) => {
       >
         <Box>
           <Grid container spacing={1}>
-            {postedAds.filter((item) => item.owner !== user.uid)
+            {postedAds
+              .slice(0, 4)
+              .filter((item) => item.owner !== user.uid)
               .map((item) => (
                 <Grid item md={3} key={item.uid}>
                   <Paper
@@ -116,7 +118,6 @@ const MostPopularTrade = ({ handleClick }) => {
                       image={item.url}
                       title={item.title}
                       onClick={() => {
-                        console.log(item);
                         showProductDetailDialog(item);
                       }}
                     ></CardMedia>

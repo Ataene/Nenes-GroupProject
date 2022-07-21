@@ -39,7 +39,7 @@ const About = () => {
       id: 3,
       image: images3,
       name: "Samuel Ojagbohunmi",
-      profession: "Software & MBA",
+      profession: "Software Engineering, Artificial Intelligence & Business Strategy",
       github: "https://github.com/samm40me",
       linkedIn: "https://linkedin.com/SamuelOjagbohunmi",
     },
@@ -132,7 +132,7 @@ const About = () => {
           The idea is simple, trade goods and services you need for
           stuff you don't! In the Hundie App, you will find a streamlined
           experience from sign up to meeting a "trader". Ad matching is quick
-          and simple! You enter your Postal Code, add 3 items to your wishlist
+          and simple! Post your item for trade, enter what you want to trade for,
           and begin seeing potential trades near you! Once you find your trade,
           send a message to set up meeting details, meet and complete your first
           trade. We hope you enjoy trading in our App, Cheers!

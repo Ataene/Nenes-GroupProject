@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -7,6 +7,9 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
+import { AuthContext } from "../../auth/AuthProvider";
+import { FirebaseContext } from "../../auth/FirebaseProvider";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,16 +22,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Comments() {
+function CommentsOnItem({ item, postedAds }) {
   const classes = useStyles();
+  const authContext = useContext(AuthContext);
+  const { user, setUserToMessage } = authContext;
+  const fbContext = useContext(FirebaseContext);
+  const db = fbContext.db;
+  const [open, setOpen] = useState(false);
 
   return (
     <List className={classes.root}>
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
           <Avatar
-            alt="Remy Sharp"
-            src="https://images.unsplash.com/photo-1609220361638-14ceb45e5e1e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max"
+            sx={{ bgcolor: "red"[500] }}
+            aria-label="recipe"
+            
           />
         </ListItemAvatar>
         <ListItemText
@@ -52,4 +61,4 @@ function Comments() {
   );
 }
 
-export default Comments;
+export default CommentsOnItem;

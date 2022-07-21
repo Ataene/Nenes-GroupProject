@@ -44,7 +44,6 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
         onMouseLeave={handleMouseLeave}
       >
         <Box>
-
           <div>{<TestRecommendation />}</div>
 
           <Grid container spacing={1}>
@@ -88,7 +87,7 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
                         image={item.url}
                         // title={item.title}
                         onClick={() => {
-                          console.log(item);
+              
                           showProductDetailDialog(item);
                         }}
                       ></CardMedia>
@@ -108,7 +107,8 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
                         <Typography>I want : {item.want}</Typography>
                         <CardActions xs={6} sx={{ marginBottom: "20px" }}>
                           <IconButton aria-label="add to favorites">
-                            <LikeIcon item={item}  />
+                            <LikeIcon item={item} />
+                            {/*<p>{ like.length }</p>*/}
                           </IconButton>
                           <IconButton aria-label="share">
                             <ShareIcon sx={{ color: "#62b4f9" }} />

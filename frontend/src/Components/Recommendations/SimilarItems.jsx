@@ -88,7 +88,6 @@ const SimilarItems = ({handleClick, newStatus, loading, options, item }) => {
       let mySearch = characters.filter((postedAd) => {
         return postedAd.uid === user.uid;
       });
-      console.log("333", mySearch);
       let myWantList = mySearch.map((ad) => {
         return ad.title.replace(/\s/g, "").toLowerCase();
       });
@@ -147,7 +146,7 @@ const SimilarItems = ({handleClick, newStatus, loading, options, item }) => {
                         image={item.url}
                         title={item.title}
                         onClick={() => {
-                          console.log(item);
+//                          console.log(item);
                           showProductDetailDialog(item);
                         }}
                       ></CardMedia>

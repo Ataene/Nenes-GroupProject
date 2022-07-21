@@ -73,7 +73,7 @@ const HowItWorks = () => {
                   sx={{ color: "yellow", size: "large" }}
                 />
                 <Typography>
-                  chat with people nearby to arrange a meet and exchange items.{" "}
+                  Chat with people nearby to arrange a meet and exchange items.{" "}
                 </Typography>
                 </div>
                

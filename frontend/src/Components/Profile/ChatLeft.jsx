@@ -51,14 +51,14 @@ const ChatLeft = ({ setOpen }) => {
           messagesData = messagesData.sort((a, b) => {
             return a.timeStamp.toString().localeCompare(b.timeStamp.toString())
           })
-          console.log(messagesData);
+//          console.log(messagesData);
           setMessages(messagesData);
         }
       });
       return unsubscribe;
     }
   }, [db, messageUser]);
-console.log("888". messages);
+//console.log("888". messages);
   //Handle Create/Send Message
   const handleSubmit = async (e) => {
     e.preventDefault();

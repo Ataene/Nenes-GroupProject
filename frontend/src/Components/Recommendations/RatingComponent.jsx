@@ -33,8 +33,6 @@ const RatingComponent = (props) => {
           itemOwner: productDetail.owner || "",
           timeStamp: serverTimestamp(),
         };
-        console.log(productDetail);
-
         await addDoc(collectionRef, newDoc);
         const userRef = collection(
           db,
@@ -46,7 +44,6 @@ const RatingComponent = (props) => {
           itemOwner: productDetail.owner || "",
           timeStamp: serverTimestamp(),
         };
-        console.log(productDetail);
 
         await addDoc(userRef, newDoc);
       };;
