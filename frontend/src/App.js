@@ -34,7 +34,7 @@ function App() {
             <WantProvider>
               <TradedProvider>
                 <MyPostProvider>
-                  <Navigation />
+                  <NavBar />
                   <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<About />} />

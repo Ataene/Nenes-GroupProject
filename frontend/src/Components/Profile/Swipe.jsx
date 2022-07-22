@@ -8,10 +8,10 @@ import ChatIcon from "@mui/icons-material/Chat";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import ShareIcon from "@mui/icons-material/Share";
-import PreviewIcon from '@mui/icons-material/Preview';
-import ReplayIcon from '@mui/icons-material/Replay';
-import CloseIcon from '@mui/icons-material/Close';
-import PersonIcon from '@mui/icons-material/Person';
+import PreviewIcon from "@mui/icons-material/Preview";
+import ReplayIcon from "@mui/icons-material/Replay";
+import CloseIcon from "@mui/icons-material/Close";
+import PersonIcon from "@mui/icons-material/Person";
 
 const Swipe = () => {
   const authContext = useContext(AuthContext);
@@ -19,7 +19,14 @@ const Swipe = () => {
   const db = fbContext.db;
   const { user } = authContext;
   const [postedAds, setPostedAds] = useState([]);
+  // const [smallScreen, setSmallScreen] = useState(isSmallScreen(left));
 
+  // function isSmallScreen(left) {
+  //   return left < 30;
+  // }
+  // useEffect(() => {
+  //   setSmallScreen(isSmallScreen(left));
+  // }, []);
   useEffect(() => {
     if (db && user) {
       let collectionRef = collection(db, "postedAds");
@@ -46,10 +53,10 @@ const Swipe = () => {
   const swiped = (direction, url) => {
     console.log("removing: " + url);
     setLastDirection(direction);
-    if(direction === "right"){
+    if (direction === "right") {
       setLiking("Like");
-    } else{
-      setLiking("Nope")
+    } else {
+      setLiking("Nope");
     }
   };
   const outOfFrame = (url) => {
@@ -68,6 +75,7 @@ const Swipe = () => {
     backgroundSize: "cover",
     backgroundPosition: "center",
     marginBottom: "20px",
+    // left: "35px",
   };
   const infoText = {
     width: "100%",
@@ -81,17 +89,30 @@ const Swipe = () => {
   return (
     <>
       <Box>
-        <Grid item xs={4} sx={{display: "flex", flexDirection: "row", justifyContent: "space-evenly"}}>
-        <IconButton>
-          <PersonIcon fontSize="large" style={{ color: "#ec5e6f" }} />
-        </IconButton>
-          <Typography variant="h3" style={{ color: "#ec5e6f" }}>Hundie</Typography>
-        <IconButton>
-          <ChatIcon fontSize="large" className="headerIcon" style={{ color: "#ec5e6f" }} />
-        </IconButton>
+        <Grid
+          item
+          xs={4}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-evenly",
+          }}
+        >
+          <IconButton>
+            <PersonIcon fontSize="large" style={{ color: "#ec5e6f" }} />
+          </IconButton>
+          <Typography variant="h3" style={{ color: "#ec5e6f" }}>
+            Hundie
+          </Typography>
+          <IconButton>
+            <ChatIcon
+              fontSize="large"
+              className="headerIcon"
+              style={{ color: "#ec5e6f" }}
+            />
+          </IconButton>
         </Grid>
         <Grid
-
           style={{
             maxWidth: "100px",
             height: "200px",
@@ -100,61 +121,65 @@ const Swipe = () => {
             marginBottom: "400px",
           }}
         >
-          {characters.filter((item) => item.owner !== user.uid).map((characters) => (
-            <TinderCard
-              style={{ position: "absolute" }}
-              key={characters.timeStamp}
-              onSwipe={(dir) => swiped(dir, characters.timeStamp)}
-              onCardLeftScreen={() => outOfFrame(characters.url)}
-            >
-              <Box
-                sx={{ backgroundImage: "url(" + characters.url + ")" }}
-                style={card}
+          {characters
+            .filter((item) => item.owner !== user.uid)
+            .map((characters) => (
+              <TinderCard
+                style={{ position: "absolute" }}
+                key={characters.timeStamp}
+                onSwipe={(dir) => swiped(dir, characters.timeStamp)}
+                onCardLeftScreen={() => outOfFrame(characters.url)}
               >
-              {liking && <Typography variant="h6" sx={{diplay: "flex", color: "red", marginLeft: "80%"}}>
-              {liking}
-              </Typography>}
                 <Box
-                  sx={{
-                    display: "flex",
-                    position: "relative",
-                    marginTop: "430px",
-                    flexDirection: "column",
-                  }}
+                  sx={{ backgroundImage: "url(" + characters.url + ")" }}
+                  style={card}
                 >
-
-                  <Typography sx={{ margin: "5px", color: "red" }}>
-                    {characters.title}
-                  </Typography>
-                  <Typography sx={{ margin: "5px", color: "red" }}>
-                    {characters.displayName}
-                  </Typography>
-                  <CardActions disableSpacing>
-                    <IconButton style={{ color: "#f5b748" }}>
-                      <ReplayIcon fontSize="large" />
-                    </IconButton>
-                    <IconButton style={{ color: "#ec5e6f" }}>
-                      <CloseIcon fontSize="large" />
-                    </IconButton>
-                    <IconButton style={{ color: "#62b4f9" }}>
-                      <ShareIcon fontSize="large" />
-                    </IconButton>
-                    <IconButton style={{ color: "red" }}>
-                      <FavoriteIcon fontSize="large" />
-                    </IconButton>
-                    <IconButton
-                      style={{ color: "#915dd1" }}
+                  {liking && (
+                    <Typography
+                      variant="h6"
+                      sx={{ diplay: "flex", color: "red", marginLeft: "80%" }}
                     >
-                      <PreviewIcon fontSize="large" />
-                    </IconButton>
-                    <IconButton sx={{ color: "green" }}>
-                      <ChatIcon fontSize="large" />
-                    </IconButton>
-                  </CardActions>
+                      {liking}
+                    </Typography>
+                  )}
+                  <Box
+                    sx={{
+                      display: "flex",
+                      position: "relative",
+                      marginTop: "430px",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <Typography sx={{ margin: "5px", color: "red" }}>
+                      {characters.title}
+                    </Typography>
+                    <Typography sx={{ margin: "5px", color: "red" }}>
+                      {characters.displayName}
+                    </Typography>
+                    <CardActions disableSpacing>
+                      <IconButton style={{ color: "#f5b748" }}>
+                        <ReplayIcon fontSize="large" />
+                      </IconButton>
+                      <IconButton style={{ color: "#ec5e6f" }}>
+                        <CloseIcon fontSize="large" />
+                      </IconButton>
+                      <IconButton style={{ color: "#62b4f9" }}>
+                        <ShareIcon fontSize="large" />
+                      </IconButton>
+                      <IconButton style={{ color: "red" }}>
+                        <FavoriteIcon fontSize="large" />
+                      </IconButton>
+                      <IconButton style={{ color: "#915dd1" }}>
+                        <PreviewIcon fontSize="large" />
+                      </IconButton>
+                      <IconButton sx={{ color: "green" }}>
+                        <ChatIcon fontSize="large" />
+                      </IconButton>
+                    </CardActions>
+                  </Box>
                 </Box>
-              </Box>
-            </TinderCard>
-          ))}
+              </TinderCard>
+            ))}
         </Grid>
         {lastDirection ? (
           <Typography style={infoText}>{lastDirection}</Typography>
