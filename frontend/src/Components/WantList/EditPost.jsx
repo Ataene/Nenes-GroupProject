@@ -7,13 +7,13 @@ import ConditionSelect from "../ConditionSelect";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import CategoryOptions from "../CategoryOptions";
 import { doc, getDoc, onSnapshot, orderBy, query, updateDoc } from "firebase/firestore";
-// import images from "../../src/images/iPhone.png"
 import images from "../../images/iPhone.png"
 
 
 const EditPost = ({ visible, onCancel, itemToEdit }) => {
   const ModalStyle = {
-    backgroundImage: `url(${images})`,
+    // backgroundImage: `url(${images})`,
+    backgroundImage: "linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%)",
     position: "absolute",
     top: "50%",
     left: "50%",

@@ -19,14 +19,6 @@ const Swipe = () => {
   const db = fbContext.db;
   const { user } = authContext;
   const [postedAds, setPostedAds] = useState([]);
-  // const [smallScreen, setSmallScreen] = useState(isSmallScreen(left));
-
-  // function isSmallScreen(left) {
-  //   return left < 30;
-  // }
-  // useEffect(() => {
-  //   setSmallScreen(isSmallScreen(left));
-  // }, []);
   useEffect(() => {
     if (db && user) {
       let collectionRef = collection(db, "postedAds");
@@ -69,7 +61,7 @@ const Swipe = () => {
     width: "80vw",
     maxWidth: "360px",
     height: "600px",
-    marginLeft: "auto",
+    // marginLeft: "auto",
     // boxShadow: "0px 0px 60px 0px rgba(0,0,0,0.30)",
     borderRadius: "20px",
     backgroundSize: "cover",

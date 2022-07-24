@@ -3,13 +3,9 @@ import { Box, makeStyles, Avatar, TextField } from "@material-ui/core";
 import { Link, useNavigate } from "react-router-dom";
 import { Typography, Button, Paper } from "@mui/material";
 import { AuthContext } from "../../auth/AuthProvider";
-import loginImage from "../../images/loginImage.png";
+import loginImage from "../../images/try.jpg";
 
 const useStyles = makeStyles((theme) => ({
-  input: {
-    color: "#ed6c02",
-  },
-
   root: {
     display: "flex",
     flexDirection: "column",
@@ -62,7 +58,9 @@ const SignUp = () => {
       className={classes.root}
       onSubmit={handleSubmit}
       style={{
-        backgroundImage: `url(${loginImage})`,
+        backgroundImage: "linear-gradient(to right, #92fe9d 0%, #00c9ff 100%)",
+        // backgroundImage: "linear-gradient(to top, #c1dfc4 0%, #deecdd 100%)",
+        // backgroundImage: `url(${loginImage})`,
         backgroundSize: "cover",
         display: "flex",
         justifyContent: "center",
@@ -91,60 +89,57 @@ const SignUp = () => {
           largeDesktop: { minWidth: "1600", width: "30vw", height: "80vh" },
         }}
       >
-        <Typography variant="h5" style={{ color: "black" }}>
+        <Typography variant="h5" style={{ color: "white" }}>
           <br />
           Sign Up
         </Typography>
         <Avatar style={avatarStyle} />
-
         <TextField
-          inputProps={{ className: classes.input }}
+          InputProps={{
+            backgroundColor: "red",
+          }}
           label="First Name"
-          variant="outlined"
+          variant="filled"
           required
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
         />
         <TextField
-          inputProps={{ className: classes.input }}
           label="Last Name"
-          variant="outlined"
+          variant="filled"
           required
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
         />
 
         <TextField
-          inputProps={{ className: classes.input }}
           label="Email"
-          variant="outlined"
+          variant="filled"
           type="email"
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <TextField
-          inputProps={{ className: classes.input }}
           label="Password"
-          variant="outlined"
+          variant="filled"
           type="password"
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <TextField
-          inputProps={{ className: classes.input }}
           label="Postal Code"
-          variant="outlined"
+          variant="filled"
           type="postalCode"
           required
           value={postalCode}
           onChange={(e) => setPostalCode(e.target.value)}
         />
-        <Typography sx={{ color: "green", marginLeft: "9vw" }}>
+        <Typography sx={{ color: "white", marginLeft: "9vw" }}>
           <br />
           <input type="checkbox" id="regulation"></input>
-          By creating an account, you agree to HundieTrade Conditions of Use.{" "}
+          By creating an account, you agree terms of use.
           <br />
           <br />
           <div>
@@ -161,7 +156,7 @@ const SignUp = () => {
           </Box>
         </Typography>
       </Paper>
-      <Typography variant="h6" sx={{ color: "green" }}>
+      <Typography variant="h6" sx={{ color: "white" }}>
         Already have an account?{" "}
         <Link to="/login" style={{ textDecoration: "none" }}>
           <Button variant="contained">Login</Button>
@@ -170,13 +165,11 @@ const SignUp = () => {
       <br />
       <Typography
         variant="h5"
-        sx={{ fontFamily: "Montserrat", color: "white", fontSize: "15px" }}
+        sx={{ fontFamily: "Montserrat", color: "white", fontSize: "12px" }}
       >
-        <br />
-        <br />
-        <section class="a-size-mini a-color-secondary">
+        <span class="a-size-mini a-color-secondary">
           © 2022, HundieTrade.com, Inc.
-        </section>
+        </span>
       </Typography>
     </form>
   );

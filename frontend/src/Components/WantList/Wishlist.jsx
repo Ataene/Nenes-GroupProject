@@ -17,6 +17,7 @@ const Wishlist = () => {
   const wantContext = useContext(WantContext);
   const tradedContext = useContext(TradeContext);
   const { wantList, removeFromWantList } = wantContext;
+  console.log("99", wantList)
   const { trade, addToTraded, removeFromTraded } = tradedContext;
      const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
        useDialogModal(ItemDetail);
@@ -30,27 +31,6 @@ console.log("555", trade);
     <>
       <Box>
         <Container>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-evenly",
-            }}
-          >
-            <input
-              onChange={(event) => setSearch(event.target.value)}
-              type="text"
-              placeholder="Search list..."
-              style={{
-                border: "none",
-                borderRadius: "30px",
-                width: "20rem",
-                height: "35px",
-                paddingLeft: "30px",
-                fontSize: "15px",
-              }}
-            />
-          </Box>
           <Grid container spacing={1}>
             {wantList && wantList.map((item) => (
               <Grid item md={3} key={item.description}>

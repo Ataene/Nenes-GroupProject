@@ -61,8 +61,6 @@ const MiddleBar = () => {
       let collectionRef = collection(db, "users");
       let queryRef = query(collectionRef, orderBy("uid"));
       const unsubscribe = onSnapshot(queryRef, (querySnapshot) => {
-        console.log("onsnapshot --MiddleBar");
-
         let newStatus = [];
         querySnapshot.forEach((doc) => {
           status.push(doc.data());
@@ -131,7 +129,7 @@ const MiddleBar = () => {
             color="success"
             size="large"
           >
-            Matching
+            Matches
           </Button>
 
           <Button

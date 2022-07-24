@@ -36,9 +36,7 @@ useEffect(() => {
   if (db && user) {
     let docRef = doc(db, "traded", user.uid);
           const unsubscribe = onSnapshot(docRef, (querySnap) => {
-            console.log("TradedProvider: useEffect got new snapShot")
             if  (!querySnap.exists()) {
-              console.log("TradedProvider: Calling setDoc inside useEffect")
               setDoc(docRef, {items: []});
               setTraded([])
             } else {

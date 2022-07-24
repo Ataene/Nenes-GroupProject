@@ -11,12 +11,8 @@ import SearchBar from "./SearchBar";
 import { AppbarContainer } from "./styles/appbar";
 import { Menu } from "@mui/icons-material";
 import {
-  collection,
   doc,
-  getDoc,
   onSnapshot,
-  orderBy,
-  query,
 } from "firebase/firestore";
 import { FirebaseContext } from "../auth/FirebaseProvider";
 import HamburgerMenu from "./HamburgerMenu";
@@ -45,25 +41,6 @@ const NavBar = (props) => {
   useEffect(() => {
     setSmallScreen(isSmallScreen(width));
   }, [width]);
-  console.log("small screen", smallScreen);
-  // useEffect(() => {
-  //   if (db && user) {
-  //     let collectionRef = collection(db, "users");
-  //     let queryRef = query(collectionRef, orderBy("timeStamp"));
-  //     const unsubscribe = onSnapshot(queryRef, (querySnap) => {
-  //       if (querySnap.empty) {
-  //         console.log("Ads not found");
-  //       } else {
-  //         let usersData = querySnap.docs.map((doc) => {
-  //           return { ...doc.data(), DOC_ID: doc.id };
-  //         });
-  //         setSetAllPostedAds(usersData);
-  //         setLoading(true)
-  //       }
-  //     });
-  //     return unsubscribe;
-  //   }
-  // }, [db, user]);
 
   useEffect(() => {
     if (db && user) {
@@ -85,22 +62,6 @@ const NavBar = (props) => {
     await LogoutUser();
     navigate("/login");
   };
-  // const NavMenu = styled.div`
-  //   display: flex;
-  //   align-items: center;
-  //   z-index: 200;
-  //   width: 100%;
-
-  //   @media screen and (max-width: 768px) {
-  //     display: ${(props) => (props.menuOpen ? "flex" : "none")};
-  //     flex-direction: ${(props) => (props.menuOpen ? "column" : "row")};
-  //     position: ${(props) => (props.menuOpen ? "absolute" : "unset")};
-  //     ${(props) =>
-  //       props.menuOpen
-  //         ? "width: max-content;right: 0; height: 50%;background-color: black;top: 50px;"
-  //         : ""}
-  //   }
-  // `;
   return (
     <AppbarContainer
       sx={{
@@ -116,7 +77,7 @@ const NavBar = (props) => {
             component="a"
             href="/"
             sx={{
-              mr: 3,
+              mr: 1,
               display: { xs: "flex", md: "flex" },
               fontFamily: '"Montez", "cursive"',
               fontWeight: 700,
@@ -139,10 +100,11 @@ const NavBar = (props) => {
             sx={{
               display: { xs: "none", md: "flex" },
               marginLeft: "auto",
+              marginLeft: "auto",
             }}
           >
             {!smallScreen && (
-              <span sx={{ flexDirection: "row" }}>
+              <span sx={{ flexDirection: "row", display: "flex", marginRight: "20%" }}>
                 <Box
                   style={{ textDecoration: "none", marginLeft: "auto" }}
                   sx={{ display: { xs: "none", md: "flex", position: "" } }}
@@ -150,11 +112,6 @@ const NavBar = (props) => {
                   <Link style={{ textDecoration: "none" }} to="/">
                     <Button sx={{ my: 2, color: "white", display: "block" }}>
                       Home
-                    </Button>
-                  </Link>
-                  <Link style={{ textDecoration: "none" }} to="/products">
-                    <Button sx={{ my: 2, color: "white", display: "block" }}>
-                      Products
                     </Button>
                   </Link>
                   <Link style={{ textDecoration: "none" }} to="/maps">
@@ -165,11 +122,6 @@ const NavBar = (props) => {
                   <Link style={{ textDecoration: "none" }} to="/about">
                     <Button sx={{ my: 2, color: "white", display: "block" }}>
                       About
-                    </Button>
-                  </Link>
-                  <Link style={{ textDecoration: "none" }} to="/admin">
-                    <Button sx={{ my: 2, color: "white", display: "block" }}>
-                      Admin
                     </Button>
                   </Link>
                   {user && (

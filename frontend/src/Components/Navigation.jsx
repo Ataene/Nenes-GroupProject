@@ -43,7 +43,6 @@ const Navigation = () => {
     if (db && user) {
       let docRef = doc(db, "users", user.uid);
       const unsubscribe = onSnapshot(docRef, (querySnap) => {
-        console.log("onsnapshot --Navigation");
 
         if (querySnap.empty) {
         } else {
@@ -96,11 +95,6 @@ const Navigation = () => {
                 Home
               </Button>
             </Link>
-            <Link style={{ textDecoration: "none" }} to="/products">
-              <Button sx={{ my: 2, color: "white", display: "block" }}>
-                Products
-              </Button>
-            </Link>
             <Link style={{ textDecoration: "none" }} to="/maps">
               <Button sx={{ my: 2, color: "white", display: "block" }}>
                 Map
@@ -109,11 +103,6 @@ const Navigation = () => {
             <Link style={{ textDecoration: "none" }} to="/about">
               <Button sx={{ my: 2, color: "white", display: "block" }}>
                 About
-              </Button>
-            </Link>
-            <Link style={{ textDecoration: "none" }} to="/admin">
-              <Button sx={{ my: 2, color: "white", display: "block" }}>
-                Admin
               </Button>
             </Link>
             {user && (

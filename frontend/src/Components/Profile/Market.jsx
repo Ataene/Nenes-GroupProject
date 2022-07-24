@@ -54,8 +54,13 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
         onMouseLeave={handleMouseLeave}
       >
         <Box>
-          {/* <div>{<TestRecommendation />}</div> */}
-
+          <div>{<TestRecommendation />}</div>
+          <Typography
+            variant="h4"
+            sx={{ fontFamily: "Montserrat", color: "green", justifyContent: "center", display: "flex" }}
+          >
+            General Products
+          </Typography>
           <Grid container spacing={1}>
             {loading ? (
               <div
@@ -72,7 +77,7 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
                       elevation={10}
                       sx={{
                         height: "33rem",
-                        marginTop: "10px",
+                        marginTop: "5px",
                         margin: "10px",
                       }}
                       item={item}
@@ -117,7 +122,7 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
                         <CardActions xs={6} sx={{ marginBottom: "20px" }}>
                           <IconButton aria-label="add to favorites">
                             <LikeIcon item={item} />
-                            {/*<p>{ like.length }</p>*/}
+                            <p>{ item.like.length }</p>
                           </IconButton>
                           <IconButton aria-label="share">
                             <ShareIcon sx={{ color: "#62b4f9" }} />

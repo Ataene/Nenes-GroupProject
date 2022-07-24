@@ -88,7 +88,7 @@ const TestRecommendation = ({ handleClick }) => {
         <Box
           display="flex"
           justifyContent="center"
-          sx={{ p: 4, fontFamily: "Montserrat" }}
+          sx={{ p: 1, fontFamily: "Montserrat" }}
         >
           <Typography
             variant="h4"
@@ -100,7 +100,7 @@ const TestRecommendation = ({ handleClick }) => {
         <Grid container spacing={1}>
           {postedAds
             .slice(0, 4)
-            .filter((item) => item.uid !== user.uid)
+            .filter((item) => item.owner !== user.uid)
             .map((item) => (
               <Grid item md={3} key={item.uid}>
                 <Paper
@@ -153,10 +153,10 @@ const TestRecommendation = ({ handleClick }) => {
                       <IconButton aria-label="share">
                         <ShareIcon sx={{ color: "#62b4f9" }} />
                       </IconButton>
-                      <IconButton aria-label="chat">
+                      <IconButton aria-label="chat" onClick={() => setUserToMessage(item.owner)}>
                         <ChatIcon
                           sx={{ color: "green" }}
-                          onClick={() => setUserToMessage(item.uid)}
+                          // onClick={() => setUserToMessage(item.uid)}
                         />
                       </IconButton>
                       <IconButton aria-label="share" type="click">

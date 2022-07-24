@@ -158,7 +158,7 @@ const About = () => {
           {teamNames.map((names) => (
             <Card
               sx={{
-                maxWidth: "345px",
+                maxWidth: "300px",
                 // height: "30rem",
                 marginTop: "20px",
                 margin: "15px",
