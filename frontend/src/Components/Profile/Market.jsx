@@ -1,5 +1,16 @@
 import React, { useContext, useState } from "react";
-import { Box, CardActions, Card, CardHeader, CardMedia, Container, Grid, IconButton, Typography, CardContent} from "@mui/material";
+import {
+  Box,
+  CardActions,
+  Card,
+  CardHeader,
+  CardMedia,
+  Container,
+  Grid,
+  IconButton,
+  Typography,
+  CardContent,
+} from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
 import Avatar from "@mui/material/Avatar";
@@ -24,7 +35,6 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
 
   //  const [likes, setLikes] = useState(false);
 
- 
   const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
     useDialogModal(ItemDetail);
 
@@ -45,7 +55,12 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
       >
         <Box>
           <div>{<TestRecommendation />}</div>
-
+          <Typography
+            variant="h4"
+            sx={{ fontFamily: "Montserrat", color: "green", justifyContent: "center", display: "flex" }}
+          >
+            General Products
+          </Typography>
           <Grid container spacing={1}>
             {loading ? (
               <div
@@ -62,7 +77,7 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
                       elevation={10}
                       sx={{
                         height: "33rem",
-                        marginTop: "10px",
+                        marginTop: "5px",
                         margin: "10px",
                       }}
                       item={item}
@@ -87,7 +102,6 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
                         image={item.url}
                         // title={item.title}
                         onClick={() => {
-              
                           showProductDetailDialog(item);
                         }}
                       ></CardMedia>
@@ -108,7 +122,7 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
                         <CardActions xs={6} sx={{ marginBottom: "20px" }}>
                           <IconButton aria-label="add to favorites">
                             <LikeIcon item={item} />
-                            {/*<p>{ like.length }</p>*/}
+                            <p>{ item.like.length }</p>
                           </IconButton>
                           <IconButton aria-label="share">
                             <ShareIcon sx={{ color: "#62b4f9" }} />

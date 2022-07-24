@@ -7,13 +7,9 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import GoogleIcon from "@mui/icons-material/Google";
-import loginImage from "../../images/loginImage.png";
+import loginImage from "../../images/signupPage.jpg";
 
 const useStyles = makeStyles((theme) => ({
-  input: {
-    color: "#ed6c02",
-  },
-
   root: {
     display: "flex",
     flexDirection: "column",
@@ -48,8 +44,6 @@ const Login = () => {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
-  const [setIsPending] = useState(false);
   const avatarStyle = { backgroundColor: "#1bbd7e" };
 
   const handleSubmit = async (e) => {
@@ -57,9 +51,8 @@ const Login = () => {
     try {
       await signInUser(email, password);
       navigate("/dashboard");
-      setIsPending(true);
     } catch (error) {
-      setError(`Password must be minimum of 6 characters and number`);
+      console.log(error.message);
     }
   };
 
@@ -70,7 +63,7 @@ const Login = () => {
         navigate("/dashboard");
       }
     } catch (error) {
-      setError("GitHub Auth Failed");
+      console.log("GitHub Auth Failed");
     }
   };
 
@@ -117,7 +110,9 @@ const Login = () => {
         className={classes.root}
         onSubmit={handleSubmit}
         style={{
-          backgroundImage: `url(${loginImage})`,
+          backgroundImage: "linear-gradient(to right, #92fe9d 0%, #00c9ff 100%)",
+          // backgroundImage: " linear-gradient(to top, #b3ffab 0%, #12fff7 100%)",
+          // backgroundImage: `url(${loginImage})`,
           backgroundSize: "cover",
           display: "flex",
           justifyContent: "center",
@@ -127,42 +122,37 @@ const Login = () => {
         }}
       >
         <Paper
-          elevation={10}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            flexDirection: "column",
-            background: "rgba(255, 255, 255, 0.15)",
-            boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
-            backdropFilter: "blur(8.5px)",
-            webkitBackdropFilter: "blur(8.5px)",
-            borderRadius: "10px",
-            color: "#ffffff",
-            textTransform: "uppercase",
-            letterSpacing: "0.4rem",
-            mobile: { minWidth: "400", width: "80vw", height: "90vh" },
-            tablet: { minWidth: "800", width: "80vw", height: "80vh" },
-            desktop: { minWidth: "1000", width: "70vw", height: "50vh" },
-            largeDesktop: { minWidth: "1600", width: "30vw", height: "80vh" },
-          }}
+          // elevation={10}
+          // style={{
+          //   display: "flex",
+          //   alignItems: "center",
+          //   flexDirection: "column",
+          //   background: "rgba(255, 255, 255, 0.15)",
+          //   boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
+          //   backdropFilter: "blur(8.5px)",
+          //   webkitBackdropFilter: "blur(8.5px)",
+          //   borderRadius: "10px",
+          //   color: "#ffffff",
+          //   textTransform: "uppercase",
+          //   letterSpacing: "0.4rem",
+          //   mobile: { minWidth: "500", width: "80vw", height: "90vh" },
+          //   tablet: { minWidth: "800", width: "80vw", height: "80vh" },
+          //   desktop: { minWidth: "1280", width: "80vw", height: "50vh" },
+          //   largeDesktop: { minWidth: "1600", width: "30vw", height: "80vh" },
+          // }}
         >
           <br />
           <Typography
             variant="h5"
-            style={{
-              fontFamily: "Montserrat",
-              fontSize: "20px",
-              color: "black",
-            }}
+            style={{ fontFamily: "Montserrat", fontSize: "20px", marginLeft: "150px"}}
           >
             User Login
           </Typography>
 
-          <Avatar style={avatarStyle} />
+          {/* <Avatar style={avatarStyle} sx={{ marginLeft: "120px"}} /> */}
           <TextField
-            inputProps={{ className: classes.input }}
             label="Email"
-            variant="outlined"
+            variant="filled"
             type="email"
             required
             value={email}
@@ -170,9 +160,8 @@ const Login = () => {
           />
           <br />
           <TextField
-            inputProps={{ className: classes.input }}
             label="Password"
-            variant="outlined"
+            variant="filled"
             type="password"
             required
             value={password}
@@ -200,14 +189,14 @@ const Login = () => {
             <Typography
               variant="h5"
               onClick={() => forgotPassword()}
-              sx={{ paddingLeft: "7rem", color: "blue", fontSize: "15px" }}
+              sx={{ paddingLeft: "7rem", color: "white", fontSize: "15px" }}
             >
               Forget Password
             </Typography>{" "}
             <hr />
             <Typography
               variant="h6"
-              sx={{ paddingLeft: "7rem", color: "blue", fontSize: "15px" }}
+              sx={{ paddingLeft: "8rem", color: "blue", fontSize: "15px" }}
             >
               Or Login in with
             </Typography>
@@ -251,7 +240,7 @@ const Login = () => {
         </Paper>
         <Typography
           variant="h5"
-          style={{ fontFamily: "Montserrat", color: "black" }}
+          style={{ fontFamily: "Montserrat", color: "white" }}
         >
           New to HundieTrade?
         </Typography>
@@ -271,10 +260,10 @@ const Login = () => {
             style={{
               fontFamily: "Montserrat",
               color: "white",
-              fontSize: "15px",
+              fontSize: "12px",
             }}
           >
-            <br />© 2022, HundieTrade.com, Inc. or its affiliates
+            © 2022, HundieTrade.com, Inc. or its affiliates
           </Typography>
         </Box>
       </form>

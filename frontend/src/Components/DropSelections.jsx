@@ -18,7 +18,8 @@ import images from "../../src/images/iPhone.png"
 
 const DropSelections = ({ visible, onCancel }) => {
   const ModalStyle = {
-    backgroundImage: `url(${images})`,
+    // backgroundImage: `url(${images})`,
+    backgroundImage: "linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%)",
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -81,6 +82,7 @@ const DropSelections = ({ visible, onCancel }) => {
     if (db && user) {
       let docRef = doc(db, "users", user.uid);
       const unsubscribe = onSnapshot(docRef, (querySnap) => {
+        console.log("onsnapshot --dropselection");
         if (querySnap.empty) {
         } else {
           let usersData = querySnap.data();

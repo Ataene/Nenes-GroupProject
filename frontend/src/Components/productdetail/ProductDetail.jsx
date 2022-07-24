@@ -69,7 +69,6 @@ const ItemDetailInfoWrapper = styled(Box)(() => ({
 }));
 
 function ItemDetail({ open, options, onClose, item }) {
-  console.log("options", options);
   const authContext = useContext(AuthContext);
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
@@ -100,8 +99,6 @@ function ItemDetail({ open, options, onClose, item }) {
   //       rating: currStatus,
   //     });
   // }
-
-  console.log("postedAds", postedAds);
 
   return (
     <Dialog
@@ -137,7 +134,7 @@ function ItemDetail({ open, options, onClose, item }) {
         >
           <Card
             sx={{ width: "max-content", height: "max-content" }}
-            onClick={() => console.log(item)}
+            // onClick={() => console.log(item)}
           >
             <Grid className="details" container spacing={1}>
               <Box
@@ -146,7 +143,7 @@ function ItemDetail({ open, options, onClose, item }) {
                 md={4}
                 key={item.uid}
                 //onClick={(e) => setPostedAds(item)}
-                onClick={(e) => console.log(item)}
+                // onClick={(e) => console.log(item)}
               >
                 <CardHeader
                   avatar={
@@ -169,7 +166,7 @@ function ItemDetail({ open, options, onClose, item }) {
                   image={item.url}
                   title={item.title}
                   //onClick={() => setPostedAds(item)}
-                  onClick={() => console.log(item)}
+                  // onClick={() => console.log(item)}
                 />
               </Box>
               <Box item md={4} xs={6}>
@@ -191,11 +188,11 @@ function ItemDetail({ open, options, onClose, item }) {
                   <ListItem>
                     <Typography>Quantity: {item.quantity}</Typography>
                   </ListItem>
-                  <ListItem>
+                  {/* <ListItem>
                     <Typography>
-                      Rating: {item.rating} stars ({item.numReviews} reviews)
+                      Rating: {item.rating} stars
                     </Typography>
-                  </ListItem>
+                  </ListItem> */}
                   <ListItem>
                     <Typography> Condition: {item.condition}</Typography>
                   </ListItem>

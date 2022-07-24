@@ -16,9 +16,6 @@ const RatingComponent = (props) => {
   const db = fbContext.db;
   const authContext = useContext(AuthContext);
   const { user, LogoutUser } = authContext;
- 
-
-
 
   useEffect(() => {
     if (rating) {
@@ -46,7 +43,7 @@ const RatingComponent = (props) => {
         };
 
         await addDoc(userRef, newDoc);
-      };;
+      };
       SaveRating();
     }
     

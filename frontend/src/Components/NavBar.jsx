@@ -11,12 +11,8 @@ import SearchBar from "./SearchBar";
 import { AppbarContainer } from "./styles/appbar";
 import { Menu } from "@mui/icons-material";
 import {
-  collection,
   doc,
-  getDoc,
   onSnapshot,
-  orderBy,
-  query,
 } from "firebase/firestore";
 import { FirebaseContext } from "../auth/FirebaseProvider";
 import HamburgerMenu from "./HamburgerMenu";
@@ -29,33 +25,28 @@ const NavBar = (props) => {
   const [usePicture, setUserPicture] = useState();
   const [displayName, setDisplayName] = useState("");
   const [menuOpen, setMenuOpen] = useState("false");
+  const [width, setWidth] = useState(window.innerWidth);
+  const [smallScreen, setSmallScreen] = useState(isSmallScreen(width));
+  function isSmallScreen(width) {
+    return width < 700;
+  }
   function openHamburger() {
     setMenuOpen((curr) => !curr);
   }
 
-  // useEffect(() => {
-  //   if (db && user) {
-  //     let collectionRef = collection(db, "users");
-  //     let queryRef = query(collectionRef, orderBy("timeStamp"));
-  //     const unsubscribe = onSnapshot(queryRef, (querySnap) => {
-  //       if (querySnap.empty) {
-  //         console.log("Ads not found");
-  //       } else {
-  //         let usersData = querySnap.docs.map((doc) => {
-  //           return { ...doc.data(), DOC_ID: doc.id };
-  //         });
-  //         setSetAllPostedAds(usersData);
-  //         setLoading(true)
-  //       }
-  //     });
-  //     return unsubscribe;
-  //   }
-  // }, [db, user]);
+  useEffect(() => {
+    window.addEventListener("resize", () => setWidth(window.innerWidth));
+  }, []);
+
+  useEffect(() => {
+    setSmallScreen(isSmallScreen(width));
+  }, [width]);
 
   useEffect(() => {
     if (db && user) {
       let docRef = doc(db, "users", user.uid);
       const unsubscribe = onSnapshot(docRef, (querySnap) => {
+        console.log("onsnapshot --Navbar");
         if (querySnap.empty) {
         } else {
           let usersData = querySnap.data();
@@ -71,22 +62,6 @@ const NavBar = (props) => {
     await LogoutUser();
     navigate("/login");
   };
-  // const NavMenu = styled.div`
-  //   display: flex;
-  //   align-items: center;
-  //   z-index: 200;
-  //   width: 100%;
-
-  //   @media screen and (max-width: 768px) {
-  //     display: ${(props) => (props.menuOpen ? "flex" : "none")};
-  //     flex-direction: ${(props) => (props.menuOpen ? "column" : "row")};
-  //     position: ${(props) => (props.menuOpen ? "absolute" : "unset")};
-  //     ${(props) =>
-  //       props.menuOpen
-  //         ? "width: max-content;right: 0; height: 50%;background-color: black;top: 50px;"
-  //         : ""}
-  //   }
-  // `;
   return (
     <AppbarContainer
       sx={{
@@ -102,7 +77,7 @@ const NavBar = (props) => {
             component="a"
             href="/"
             sx={{
-              mr: 3,
+              mr: 1,
               display: { xs: "flex", md: "flex" },
               fontFamily: '"Montez", "cursive"',
               fontWeight: 700,
@@ -113,14 +88,56 @@ const NavBar = (props) => {
           >
             Hundie
           </Typography>
-          <HamburgerMenu
-            menuOpen={menuOpen}
-            user={user}
-            openHamburger={openHamburger}
-            logoutUser={logoutUser}
-          />
-
-          <Box sx={{ display: { xs: "none", md: "flex" }, marginLeft: "auto" }}>
+          {smallScreen && (
+            <HamburgerMenu
+              menuOpen={menuOpen}
+              user={user}
+              openHamburger={openHamburger}
+              logoutUser={logoutUser}
+            />
+          )}
+          <Box
+            sx={{
+              display: { xs: "none", md: "flex" },
+              marginLeft: "auto",
+              marginLeft: "auto",
+            }}
+          >
+            {!smallScreen && (
+              <span sx={{ flexDirection: "row", display: "flex", marginRight: "20%" }}>
+                <Box
+                  style={{ textDecoration: "none", marginLeft: "auto" }}
+                  sx={{ display: { xs: "none", md: "flex", position: "" } }}
+                >
+                  <Link style={{ textDecoration: "none" }} to="/">
+                    <Button sx={{ my: 2, color: "white", display: "block" }}>
+                      Home
+                    </Button>
+                  </Link>
+                  <Link style={{ textDecoration: "none" }} to="/maps">
+                    <Button sx={{ my: 2, color: "white", display: "block" }}>
+                      Map
+                    </Button>
+                  </Link>
+                  <Link style={{ textDecoration: "none" }} to="/about">
+                    <Button sx={{ my: 2, color: "white", display: "block" }}>
+                      About
+                    </Button>
+                  </Link>
+                  {user && (
+                    <>
+                      <Link style={{ textDecoration: "none" }} to="/dashboard">
+                        <Button
+                          sx={{ my: 2, color: "white", alignItem: "block" }}
+                        >
+                          Store
+                        </Button>
+                      </Link>
+                    </>
+                  )}
+                </Box>
+              </span>
+            )}
             {!user && (
               <>
                 <Link
@@ -171,7 +188,7 @@ const NavBar = (props) => {
               </>
             )}
           </Box>
-          <Menu onClick={openHamburger} />
+          {smallScreen && <Menu onClick={openHamburger} />}
         </Toolbar>
       </Container>
     </AppbarContainer>

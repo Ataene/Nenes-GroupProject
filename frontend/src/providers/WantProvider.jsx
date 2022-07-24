@@ -18,20 +18,13 @@ const WantProvider = (props) => {
     const { user } = authContext; 
 
   const [wantList, setWantList] = useState([]);
-  // const [traded, setTraded] = useState([]);
 
     const addToWantList = (newItem) =>{
         let newWantList = [...wantList, newItem]
         let docRef = doc(db, "wantlist", user.uid);
         setDoc(docRef, {items: newWantList})
   }
-  
-  //     const moveToTraded = (newItem) => {
-  //       let newTraded = [...traded, newItem];
-  //       let docRef = doc(db, "traded", user.uid);
-  //       setDoc(docRef, { items: newTraded });
-  // };
-  
+
     const removeFromWantList = (itemToRemove) =>{
         let newWantList = wantList.filter((item) =>item !== itemToRemove);
         let docRef = doc(db, "wantlist", user.uid);
@@ -42,7 +35,7 @@ useEffect(() => {
         if (db && user) {
           let docRef = doc(db, "wantlist", user.uid);
           const unsubscribe = onSnapshot(docRef, (querySnap) => {
-            if (querySnap.empty) {
+            if (!querySnap.exists()) {
               setDoc(docRef, {items: []});
               setWantList([])
             } else {

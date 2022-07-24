@@ -55,7 +55,7 @@ const AddLocation = () => {
   const db = fbContext.db;
   const { user, setUserToMessage } = authContext;
   const [postalData, setPostalData] = useState();
-  const [adsByNeighborhood, setadsByNeighborhood] = useState([]);
+  const [adsByPostalCode, setadsByPostalCode] = useState([]);
   const [postedAds, setPostedAds] = useState([]);
   const handleClick = (item) => {
     console.log(item, "handleClick");
@@ -76,50 +76,38 @@ console.log("selectedItems", selectedItems)
     console.log(postedAds)
     let newFilter = postedAds.filter((ad)=>{
       console.log(ad)
-      return ad?.title?.toLowerCase().includes(searchItems.toLowerCase())
+      return ad.title.toLowerCase().includes(searchItems.toLowerCase())
     })
     setfilteredAds(newFilter)
 }, [searchItems, postedAds])
- //trying to add neighborhood instead of postalcodes
-  // useEffect(() => {
-  //   let data = filteredAds.reduce((object, ad) => {
-  //     let postalCode = ad.postalCode;
 
-  //     if (object[postalCode]) {
-  //       object[postalCode].push(ad);
-  //     } else {
-  //       object[postalCode] = [ad];
-  //     }
-  //     return object;
-  //   }, {});
-  //   setadsByPostalCode(data);
-  // }, [filteredAds]);
-  // console.log(adsByPostalCode);
   useEffect(() => {
     let data = filteredAds.reduce((object, ad) => {
-      let neighborhood = ad.neighborhood;
+      let postalCode = ad.postalCode;
 
-      if (object[neighborhood]) {
-        object[neighborhood].push(ad);
+      if (object[postalCode]) {
+        object[postalCode].push(ad);
       } else {
-        object[neighborhood] = [ad];
+        object[postalCode] = [ad];
       }
       return object;
     }, {});
-    setadsByNeighborhood(data);
+    setadsByPostalCode(data);
   }, [filteredAds]);
-  console.log(adsByNeighborhood);
-  //changed from setadsByPostalCode 
+  console.log(adsByPostalCode);
 
   useEffect(() => {
     if (db) {
       let collectionRef = collection(db, "areaCodes");
       let queryRef = query(collectionRef, orderBy("postalCode"));
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
+        console.log("onsnapshot --AddLocation-1");
+
         if (querySnap.empty) {
           console.log("Ads not found");
         } else {
           let usersData = querySnap.docs.map((doc) => {
+            
             return { ...doc.data(), DOC_ID: doc.id };
           });
           let postalObject = usersData.reduce((object, item) => {
@@ -138,6 +126,8 @@ console.log("selectedItems", selectedItems)
       let collectionRef = collection(db, "postedAds");
       let queryRef = query(collectionRef);
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
+        console.log("onsnapshot --AddLocation-2");
+
         if (querySnap.empty) {
         } else {
           let usersData = querySnap.docs.map((doc) => {
@@ -196,7 +186,7 @@ console.log("selectedItems", selectedItems)
             style={{ width: 1300, height: 660 }}
             mapStyle="mapbox://styles/ataene/cl4lf3mv9000h14nyykjem276"
           >
-            {Object.keys(adsByNeighborhood).map((postal) => {
+            {Object.keys(adsByPostalCode).map((postal) => {
               console.log(postal, postalData[postal]);
               return (
                 <Marker
@@ -229,7 +219,7 @@ console.log("selectedItems", selectedItems)
                 anchor="left"
               >
                 <div className="card-container">
-                  {adsByNeighborhood[selectedItems.postalCode].map((item) => (
+                  {adsByPostalCode[selectedItems.postalCode].map((item) => (
                     <Grid
                       item
                       xs={6}
@@ -240,10 +230,10 @@ console.log("selectedItems", selectedItems)
                       sx={{
                         border: "4px solid rgba(0,0,0,0.2)",
                         padding: 1,
-                        width: 275,
-                        height: 125,
+                        width: 250,
+                        height: 100,
                         "&::-webkit-scrollbar": {
-                          width: 17,
+                          width: 15,
                         },
                         "&::-webkit-scrollbar-track": {
                           backgroundColor: "lightgreen",
@@ -259,9 +249,9 @@ console.log("selectedItems", selectedItems)
                       <Card
                         elevation={3}
                         sx={{
-                          height: "30rem",
-                          marginTop: "10px",
-                          margin: "10px",
+                          height: "10rem",
+                          marginTop: "5px",
+                          margin: "5px",
                         }}
                         item={item}
                       >
@@ -281,7 +271,7 @@ console.log("selectedItems", selectedItems)
                         </Box>
                         <CardMedia
                           component="img"
-                          sx={{ height: "180px" }}
+                          sx={{ height: "100px" }}
                           image={item.url}
                           title={item.title}
                           onClick={() => {
@@ -301,28 +291,28 @@ console.log("selectedItems", selectedItems)
                           }}
                         >
                           <Typography>{item.description}</Typography>
-                          <Typography>Condition: {item.condition}</Typography>
-                          <Typography>I want : {item.want}</Typography>
-                          <CardActions xs={6} sx={{ marginBottom: "20px" }}>
-                            <IconButton aria-label="add to favorites">
-                              <FavoriteIcon sx={{ color: "red" }} />
-                            </IconButton>
-                            <IconButton aria-label="share">
-                              <ShareIcon sx={{ color: "#62b4f9" }} />
-                            </IconButton>
-                            <IconButton
-                              aria-label="chat"
-                              onClick={() => setUserToMessage(item.uid)}
-                            >
-                              <ChatIcon sx={{ color: "green" }} />
-                            </IconButton>
-                            <IconButton
-                              aria-label="share"
-                              type="click"
-                              onClick={() => handleClick(item)}
-                            >
-                              <ListAltIcon sx={{ color: "purple" }} />
-                            </IconButton>
+                          {/* <Typography>Condition: {item.condition}</Typography> */}
+                          {/* <Typography>I want : {item.want}</Typography> */}
+                          <CardActions xs={6} sx={{ marginBottom: "5px" }}>
+                            {/* <IconButton aria-label="add to favorites"> */}
+                              {/* <FavoriteIcon sx={{ color: "red" }} /> */}
+                            {/* </IconButton> */}
+                            {/* <IconButton aria-label="share"> */}
+                              {/* <ShareIcon sx={{ color: "#62b4f9" }} /> */}
+                            {/* </IconButton> */}
+                            {/* <IconButton */}
+                              {/* aria-label="chat" */}
+                              {/* // onClick={() => setUserToMessage(item.uid)} */}
+                            {/* > */}
+                              {/* <ChatIcon sx={{ color: "green" }} /> */}
+                            {/* </IconButton> */}
+                            {/* <IconButton */}
+                              {/* aria-label="share" */}
+                              {/* type="click" */}
+                              {/* onClick={() => handleClick(item)} */}
+                            {/* > */}
+                              {/* <ListAltIcon sx={{ color: "purple" }} /> */}
+                            {/* </IconButton> */}
                             <ProductDetailDialog item={item} />
                           </CardActions>
                         </Box>

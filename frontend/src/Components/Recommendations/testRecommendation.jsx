@@ -3,7 +3,6 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import {
   Box,
-  Card,
   CardActions,
   CardHeader,
   CardMedia,
@@ -19,18 +18,13 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import useDialogModal from "../productdetail/useDialogModal";
 import ItemDetail from "../productdetail/ProductDetail";
 import { AuthContext } from "../../auth/AuthProvider";
-import CircularProgress from "@mui/material/CircularProgress";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import OnlineStatus from "../Profile/OnlineStatus";
-import CircleLoader from "react-spinners/CircleLoader";
 
-import { collection, query, getDocs, limit, orderBy } from "firebase/firestore";
-
-
-
-const TestRecommendation = ({ handleClick, options, item, displayName }) => {
+import { collection, query, getDocs } from "firebase/firestore";
+const TestRecommendation = ({ handleClick }) => {
   const authContext = useContext(AuthContext);
-  const { user, setUserToMessage } = authContext;
+  const { user, setUserToMessage } = authContext
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const [open, setOpen] = useState(false);
@@ -94,7 +88,7 @@ const TestRecommendation = ({ handleClick, options, item, displayName }) => {
         <Box
           display="flex"
           justifyContent="center"
-          sx={{ p: 4, fontFamily: "Montserrat" }}
+          sx={{ p: 1, fontFamily: "Montserrat" }}
         >
           <Typography
             variant="h4"
@@ -106,7 +100,7 @@ const TestRecommendation = ({ handleClick, options, item, displayName }) => {
         <Grid container spacing={1}>
           {postedAds
             .slice(0, 4)
-            .filter((item) => item.uid !== user.uid)
+            .filter((item) => item.owner !== user.uid)
             .map((item) => (
               <Grid item md={3} key={item.uid}>
                 <Paper
@@ -159,10 +153,10 @@ const TestRecommendation = ({ handleClick, options, item, displayName }) => {
                       <IconButton aria-label="share">
                         <ShareIcon sx={{ color: "#62b4f9" }} />
                       </IconButton>
-                      <IconButton aria-label="chat">
+                      <IconButton aria-label="chat" onClick={() => setUserToMessage(item.owner)}>
                         <ChatIcon
                           sx={{ color: "green" }}
-                          onClick={() => setUserToMessage(item.uid)}
+                          // onClick={() => setUserToMessage(item.uid)}
                         />
                       </IconButton>
                       <IconButton aria-label="share" type="click">

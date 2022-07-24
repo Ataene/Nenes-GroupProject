@@ -39,6 +39,8 @@ const MiddleBar = () => {
       let collectionRef = collection(db, "postedAds");
       let queryRef = query(collectionRef, orderBy("timeStamp"));
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
+        console.log("onsnapshot --MiddleBar");
+
         if (querySnap.empty) {
         } else {
           let usersData = querySnap.docs.map((doc) => {
@@ -127,7 +129,7 @@ const MiddleBar = () => {
             color="success"
             size="large"
           >
-            Matching
+            Matches
           </Button>
 
           <Button
