@@ -230,10 +230,10 @@ console.log("selectedItems", selectedItems)
                       sx={{
                         border: "4px solid rgba(0,0,0,0.2)",
                         padding: 1,
-                        width: 275,
-                        height: 125,
+                        width: 250,
+                        height: 100,
                         "&::-webkit-scrollbar": {
-                          width: 17,
+                          width: 15,
                         },
                         "&::-webkit-scrollbar-track": {
                           backgroundColor: "lightgreen",
@@ -290,7 +290,7 @@ console.log("selectedItems", selectedItems)
                             flexDirection: "column",
                           }}
                         >
-                          {/* <Typography>{item.description}</Typography> */}
+                          <Typography>{item.description}</Typography>
                           {/* <Typography>Condition: {item.condition}</Typography> */}
                           {/* <Typography>I want : {item.want}</Typography> */}
                           <CardActions xs={6} sx={{ marginBottom: "5px" }}>
