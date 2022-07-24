@@ -254,11 +254,6 @@ function ItemDetail({ open, options, onClose, item }) {
             </Typography>
           </Box>
           <TestContentSimilar currentTitle={item.title} />
-          {/*<TestRecommendation />*/}
-          {/*<ContentBased2 />*/}
-
-          {/*<SimilarItems />*/}
-          {/*<MostPopularTrade />*/}
         </Box>
       </DialogContent>
     </Dialog>

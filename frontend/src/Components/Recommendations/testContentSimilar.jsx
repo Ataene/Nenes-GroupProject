@@ -160,7 +160,6 @@ let characters = postedAds;
            });
            scores.sort((a, b) => b.score - a.score);
            console.log("scores", scores);
-           console.log("titles", titles)
            setScoreFilter(scores.slice(0,4))
          };
       if (postedAds) {
@@ -189,18 +188,6 @@ let characters = postedAds;
         onMouseLeave={handleMouseLeave}
       >
         <Box>
-          <Box
-            display="flex"
-            justifyContent="center"
-            sx={{ p: 4, fontFamily: "Montserrat" }}
-          >
-            <Typography
-              variant="h4"
-              sx={{ fontFamily: "Montserrat", color: "green" }}
-            >
-              Recommendations for {user.firstName}
-            </Typography>
-          </Box>
           <Grid container spacing={1}>
             {postedAds
               .filter((adItem) => scoreFilter.some((scoreItem) => scoreItem.DOC_ID === adItem.DOC_ID))
