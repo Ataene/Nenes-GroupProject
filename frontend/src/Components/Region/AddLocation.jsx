@@ -14,17 +14,12 @@ import {
   CardMedia,
   Container,
   Grid,
-  IconButton,
   Typography,
   CardContent,
   Paper,
 } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import OnlineStatus from "../../Components/Profile/OnlineStatus";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ChatIcon from "@mui/icons-material/Chat";
-import ShareIcon from "@mui/icons-material/Share";
-import ListAltIcon from "@mui/icons-material/ListAlt";
 import useDialogModal from ".././productdetail/useDialogModal";
 import ItemDetail from ".././productdetail/ProductDetail";
 import { AuthContext } from "../../auth/AuthProvider";
@@ -58,20 +53,18 @@ const AddLocation = () => {
   const [adsByPostalCode, setadsByPostalCode] = useState([]);
   const [postedAds, setPostedAds] = useState([]);
   const handleClick = (item) => {
-    console.log(item, "handleClick");
     setSelectedItems(item);
   };
   const [filteredAds, setfilteredAds] = useState([]);
   const [long, setLong] = useState(-114.0719);
   const [lat, setLat] = useState(51.0447);
-  const [zoom, setZoom] = useState(9.4);
+  const [zoom, setZoom] = useState(12);
   const [selectedItems, setSelectedItems] = useState(null);
   const [viewport, setViewport] = useState();
   const [searchItems, setSearchItems] = useState("");
   function refreshPage() {
     window.location.reload(false);
   }
-console.log("selectedItems", selectedItems)
   useEffect(() => {
     console.log(postedAds)
     let newFilter = postedAds.filter((ad)=>{
@@ -94,14 +87,12 @@ console.log("selectedItems", selectedItems)
     }, {});
     setadsByPostalCode(data);
   }, [filteredAds]);
-  console.log(adsByPostalCode);
 
   useEffect(() => {
     if (db) {
       let collectionRef = collection(db, "areaCodes");
       let queryRef = query(collectionRef, orderBy("postalCode"));
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
-        console.log("onsnapshot --AddLocation-1");
 
         if (querySnap.empty) {
           console.log("Ads not found");
@@ -126,7 +117,6 @@ console.log("selectedItems", selectedItems)
       let collectionRef = collection(db, "postedAds");
       let queryRef = query(collectionRef);
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
-        console.log("onsnapshot --AddLocation-2");
 
         if (querySnap.empty) {
         } else {
@@ -157,23 +147,6 @@ console.log("selectedItems", selectedItems)
     height: window.innerHeight,
   };
 
-  //search bar for map
-  // useEffect(() => {
-  //   if (searchItems > -1) {
-  //     let items = postedAds[searchItems];
-  //     let itemsLat = items.latitude;
-  //     let itemsLong = items.longitude;
-  //     setViewState((cur) => {
-  //       return {
-  //         ...cur,
-  //         zoom: 13,
-  //         latitude: itemsLat,
-  //         longitude: itemsLong,
-  //       };
-  //     });
-  //   }
-  // }, [searchItems]);
-  // console.log(postedAds);
   return (
     filteredAds && (
       <>

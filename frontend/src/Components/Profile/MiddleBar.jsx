@@ -39,7 +39,6 @@ const MiddleBar = () => {
       let collectionRef = collection(db, "postedAds");
       let queryRef = query(collectionRef, orderBy("timeStamp"));
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
-        console.log("onsnapshot --MiddleBar");
 
         if (querySnap.empty) {
         } else {
@@ -55,21 +54,21 @@ const MiddleBar = () => {
   }, [db, user]);
 
   //Users Online Status
-  const [status, setStatus] = useState([]);
-  useEffect(() => {
-    if (db && user) {
-      let collectionRef = collection(db, "users");
-      let queryRef = query(collectionRef, orderBy("uid"));
-      const unsubscribe = onSnapshot(queryRef, (querySnapshot) => {
-        let newStatus = [];
-        querySnapshot.forEach((doc) => {
-          status.push(doc.data());
-        });
-        setStatus(status);
-      });
-      return unsubscribe;
-    }
-  }, [db, user]);
+  // const [status, setStatus] = useState([]);
+  // useEffect(() => {
+  //   if (db && user) {
+  //     let collectionRef = collection(db, "users");
+  //     let queryRef = query(collectionRef, orderBy("uid"));
+  //     const unsubscribe = onSnapshot(queryRef, (querySnapshot) => {
+  //       let newStatus = [];
+  //       querySnapshot.forEach((doc) => {
+  //         status.push(doc.data());
+  //       });
+  //       setStatus(status);
+  //     });
+  //     return unsubscribe;
+  //   }
+  // }, [db, user]);
 
   //Handle add to WantList
   const handleClick = (item) => {

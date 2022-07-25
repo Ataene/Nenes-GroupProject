@@ -1,31 +1,30 @@
 import React, { useContext, useEffect, useState } from "react";
-import SearchIcon from "@mui/icons-material/Search";
-//import "../App.css";
-import CloseIcon from "@mui/icons-material/Close";
-// import { products } from "../Components/Data/index"
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import {Box, Button, CardActionArea, CardActions, CardHeader, CardMedia, Grid, IconButton,} from "@mui/material";
-// import cardImage from "../../images/Alaf.jpg"
+import {
+  Box,
+  CardActions,
+  CardHeader,
+  CardMedia,
+  Grid,
+  IconButton,
+} from "@mui/material";
 import { AuthContext } from "../../auth/AuthProvider";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
-import {collection, onSnapshot, orderBy, query, doc, setDoc, updateDoc, deleteField, getDoc} from "firebase/firestore";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import ShareIcon from "@mui/icons-material/Share";
-import AddIcon from "@mui/icons-material/Add";
 import Avatar from "@mui/material/Avatar";
 import "../WantList/WishList.css";
-import Wishlist from "./Wishlist";
-import Traded from "./Traded";
 
 import { Container } from "@mui/system";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
-import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
-import PersonIcon from "@mui/icons-material/Person";
-import { WantContext } from "../../providers/WantProvider";
-import ListAltIcon from "@mui/icons-material/ListAlt";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 function Add({ handleClick }) {
@@ -97,7 +96,14 @@ function Add({ handleClick }) {
                   {filteredData.length !== 0 && (
                     <div className="info">
                       {filteredData.slice(0, 15).map((item) => (
-                        <Grid item xs={6} md={6} lg={4} xl={3} key={item.description}>
+                        <Grid
+                          item
+                          xs={6}
+                          md={6}
+                          lg={4}
+                          xl={3}
+                          key={item.description}
+                        >
                           <Card
                             sx={{
                               height: "33rem",
@@ -110,11 +116,10 @@ function Add({ handleClick }) {
                                 <Avatar
                                   sx={{ bgcolor: "red"[500] }}
                                   aria-label="recipe"
-                                >
-                                  R
-                                </Avatar>
+                                  src={item.userPicture}
+                                />
                               }
-                              title={item.title}
+                              title={item.displayName}
                               name="title"
                             />
                             <CardMedia

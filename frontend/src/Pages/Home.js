@@ -26,19 +26,6 @@ export default function Home() {
         </Typography>
       </Box>
       <MostPopularTrade />
-      <Box
-        display="flex"
-        justifyContent="center"
-        sx={{ p: 4, fontFamily: "Montserrat" }}
-      >
-        <Typography
-          variant="h4"
-          sx={{ fontFamily: "Montserrat", color: "green" }}
-        >
-          Categories of Items You Can Trade
-        </Typography>
-      </Box>
-      <Products />
       <Promotions />
       <HowItWorks />
     </>
