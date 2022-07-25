@@ -7,7 +7,7 @@ import { MessageText, PromotionsContainer } from "../styles/promotions";
 const messages = [
   "Do you need something, but have no money?",
   "No worries! Check what you need on Hundie and contact the owner.",
-  "You can trade any caterogies of items and services.",
+  "You can trade any categories of items and services.",
 ];
 export default function Promotions() {
   const containerRef = useRef();

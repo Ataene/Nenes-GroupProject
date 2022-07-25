@@ -160,7 +160,6 @@ let characters = postedAds;
            });
            scores.sort((a, b) => b.score - a.score);
            console.log("scores", scores);
-           console.log("titles", titles)
            setScoreFilter(scores.slice(0,4))
          };
       if (postedAds) {
