@@ -105,14 +105,14 @@ const Profile = () => {
           flexWrap: "wrap",
           "& > :not(style)": {
             m: 1,
-            width: 900,
+            width: 1200,
             height: 500,
           },
         }}
       >
         <Paper elevation={3} sx={{ backgroundColor: "#B8F1B0" }}>
           <br />
-          <Typography sx={{ display: "flex", justifyContent: "center" }}>
+          <Typography  variant="h4" sx={{ fontFamily: "Montserrat", color: "green", justifyContent: "center", display: "flex" }}>
             UPDATE ACCOUNT
           </Typography>
           <br />
