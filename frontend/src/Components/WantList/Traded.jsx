@@ -18,6 +18,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import { TradeContext } from "../../providers/TradedProvider";
 import useDialogModal from ".././productdetail/useDialogModal";
 import ItemDetail from ".././productdetail/ProductDetail";
+import OnlineStatus from "../Profile/OnlineStatus";
 
 const Traded = () => {
   const tradedContext = useContext(TradeContext);
@@ -45,6 +46,7 @@ const Traded = () => {
                   <Card
                     sx={{ height: "33rem", marginTop: "10px", margin: "10px" }}
                   >
+                      <Box sx={{ display: "flex", flexDirection: "row" }}>
                     <CardHeader
                       avatar={
                         <Avatar
@@ -56,6 +58,8 @@ const Traded = () => {
                       title={item.displayName}
                       name="title"
                     />
+                        <OnlineStatus uid={item.owner} />
+                    </Box>
                     <CardMedia
                       component="img"
                       sx={{ height: "280px" }}
