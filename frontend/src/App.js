@@ -42,7 +42,7 @@ function App() {
                     <Route path="/welcome" element={<Welcome />} />
                     <Route path="/nearme" element={<NearMe />} />
                     <Route path="/maps" element={<Maps />} />
-                    {/* <Route path="/admin" element={<Admin />} /> */}
+                    <Route path="/admin" element={<Admin />} />
                     <Route path="/traded" element={<Traded />} />
                     {/* <Route
                     path="/dashboard"

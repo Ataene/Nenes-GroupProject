@@ -37,6 +37,21 @@ function PostComment({ url, postedAds, item }) {
   const [displayName, setDisplayName] = useState("");
     const [userPicture, setUserPicture] = useState("");
 
+    useEffect(() => {
+      if (db && user) {
+        let docRef = doc(db, "users", user.uid);
+        const unsubscribe = onSnapshot(docRef, (querySnap) => {
+  
+          if (querySnap.empty) {
+          } else {
+            let usersData = querySnap.data()
+            setUserPicture(usersData?.Avatar);
+          }
+        });
+        return unsubscribe;
+      }
+    }, [db, user]);
+
 
 
 // useEffect(() => {

@@ -44,7 +44,6 @@ const RightBar = () => {
         </Box>
           <ChatHeader />
           {open && userToMessage && <Chatings setOpen={setOpen} />}
-          {/* {open && userToMessage && <ChatLeft setOpen={setOpen} />} */}
       </Container>
     </Box>
   );

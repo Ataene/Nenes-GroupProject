@@ -14,12 +14,17 @@ import {
   CardMedia,
   Container,
   Grid,
+  IconButton,
   Typography,
   CardContent,
   Paper,
 } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import OnlineStatus from "../../Components/Profile/OnlineStatus";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ChatIcon from "@mui/icons-material/Chat";
+import ShareIcon from "@mui/icons-material/Share";
+import ListAltIcon from "@mui/icons-material/ListAlt";
 import useDialogModal from ".././productdetail/useDialogModal";
 import ItemDetail from ".././productdetail/ProductDetail";
 import { AuthContext } from "../../auth/AuthProvider";
@@ -53,6 +58,7 @@ const AddLocation = () => {
   const [adsByPostalCode, setadsByPostalCode] = useState([]);
   const [postedAds, setPostedAds] = useState([]);
   const handleClick = (item) => {
+    console.log(item, "handleClick");
     setSelectedItems(item);
   };
   const [filteredAds, setfilteredAds] = useState([]);
@@ -65,6 +71,7 @@ const AddLocation = () => {
   function refreshPage() {
     window.location.reload(false);
   }
+console.log("selectedItems", selectedItems)
   useEffect(() => {
     console.log(postedAds)
     let newFilter = postedAds.filter((ad)=>{
@@ -87,12 +94,14 @@ const AddLocation = () => {
     }, {});
     setadsByPostalCode(data);
   }, [filteredAds]);
+  console.log(adsByPostalCode);
 
   useEffect(() => {
     if (db) {
       let collectionRef = collection(db, "areaCodes");
       let queryRef = query(collectionRef, orderBy("postalCode"));
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
+        console.log("onsnapshot --AddLocation-1");
 
         if (querySnap.empty) {
           console.log("Ads not found");
@@ -117,6 +126,7 @@ const AddLocation = () => {
       let collectionRef = collection(db, "postedAds");
       let queryRef = query(collectionRef);
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
+        console.log("onsnapshot --AddLocation-2");
 
         if (querySnap.empty) {
         } else {
@@ -147,6 +157,23 @@ const AddLocation = () => {
     height: window.innerHeight,
   };
 
+  //search bar for map
+  // useEffect(() => {
+  //   if (searchItems > -1) {
+  //     let items = postedAds[searchItems];
+  //     let itemsLat = items.latitude;
+  //     let itemsLong = items.longitude;
+  //     setViewState((cur) => {
+  //       return {
+  //         ...cur,
+  //         zoom: 13,
+  //         latitude: itemsLat,
+  //         longitude: itemsLong,
+  //       };
+  //     });
+  //   }
+  // }, [searchItems]);
+  // console.log(postedAds);
   return (
     filteredAds && (
       <>
@@ -192,7 +219,7 @@ const AddLocation = () => {
                 anchor="left"
               >
                 <div className="card-container">
-                  {adsByPostalCode[selectedItems.postalCode].map((item) => (
+                  {adsByPostalCode[selectedItems.postalCode].filter((item) => item.owner !==user.uid).map((item) => (
                     <Grid
                       item
                       xs={6}
@@ -203,8 +230,8 @@ const AddLocation = () => {
                       sx={{
                         border: "4px solid rgba(0,0,0,0.2)",
                         padding: 1,
-                        width: 250,
-                        height: 100,
+                        width: 300,
+                        height: 355,
                         "&::-webkit-scrollbar": {
                           width: 15,
                         },
@@ -222,7 +249,7 @@ const AddLocation = () => {
                       <Card
                         elevation={3}
                         sx={{
-                          height: "10rem",
+                          height: "20rem",
                           marginTop: "5px",
                           margin: "5px",
                         }}
@@ -264,28 +291,28 @@ const AddLocation = () => {
                           }}
                         >
                           <Typography>{item.description}</Typography>
-                          {/* <Typography>Condition: {item.condition}</Typography> */}
-                          {/* <Typography>I want : {item.want}</Typography> */}
+                           <Typography>Condition: {item.condition}</Typography> 
+                           <Typography>I want : {item.want}</Typography> 
                           <CardActions xs={6} sx={{ marginBottom: "5px" }}>
-                            {/* <IconButton aria-label="add to favorites"> */}
-                              {/* <FavoriteIcon sx={{ color: "red" }} /> */}
-                            {/* </IconButton> */}
-                            {/* <IconButton aria-label="share"> */}
-                              {/* <ShareIcon sx={{ color: "#62b4f9" }} /> */}
-                            {/* </IconButton> */}
-                            {/* <IconButton */}
-                              {/* aria-label="chat" */}
-                              {/* // onClick={() => setUserToMessage(item.uid)} */}
-                            {/* > */}
-                              {/* <ChatIcon sx={{ color: "green" }} /> */}
-                            {/* </IconButton> */}
-                            {/* <IconButton */}
-                              {/* aria-label="share" */}
-                              {/* type="click" */}
-                              {/* onClick={() => handleClick(item)} */}
-                            {/* > */}
-                              {/* <ListAltIcon sx={{ color: "purple" }} /> */}
-                            {/* </IconButton> */}
+                             <IconButton aria-label="add to favorites"> 
+                              <FavoriteIcon sx={{ color: "red" }} /> 
+                            </IconButton> 
+                            <IconButton aria-label="share"> 
+                               <ShareIcon sx={{ color: "#62b4f9" }} /> 
+                            </IconButton> 
+                            <IconButton 
+                               aria-label="chat" 
+                              onClick={() => setUserToMessage(item.uid)} 
+                             > 
+                              <ChatIcon sx={{ color: "green" }} /> 
+                             </IconButton> 
+                             <IconButton 
+                               aria-label="share" 
+                               type="click" 
+                               onClick={() => handleClick(item)} 
+                             > 
+                               <ListAltIcon sx={{ color: "purple" }} /> 
+                             </IconButton> 
                             <ProductDetailDialog item={item} />
                           </CardActions>
                         </Box>

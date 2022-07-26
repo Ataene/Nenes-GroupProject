@@ -18,7 +18,6 @@ import images from "../../src/images/iPhone.png"
 
 const DropSelections = ({ visible, onCancel }) => {
   const ModalStyle = {
-    // backgroundImage: `url(${images})`,
     backgroundImage: "linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%)",
     position: "absolute",
     top: "50%",
@@ -84,6 +83,7 @@ const DropSelections = ({ visible, onCancel }) => {
       const unsubscribe = onSnapshot(docRef, (querySnap) => {
         console.log("onsnapshot --dropselection");
         if (querySnap.empty) {
+          console.log("It is empty")
         } else {
           let usersData = querySnap.data();
           setUserPicture(usersData.Avatar);

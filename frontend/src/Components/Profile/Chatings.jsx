@@ -127,7 +127,7 @@ const Chating = ({ setOpen }) => {
         justifyContent: "space-between",
       }}
     >
-      <Button onClick={() => setUserToMessage(false)}>Exit</Button>
+      <Button onClick={() => setUserToMessage(false)}>Close</Button>
       <Box sx={{ padding: "5px" }}>
         {messages.map((message, i) => {
           if (message.senderuid === user.uid) {

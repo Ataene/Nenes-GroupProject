@@ -53,7 +53,7 @@ import PostComment from "../Profile/PostComment";
 //import SimilarItems from "../Recommendations/SimilarItems";
 import MostPopularTrade from "../Recommendations/RecommendationStrategies/ContentBased2";
 import TestContentSimilar from "../Recommendations/testContentSimilar";
-import TestRecommendation from "../Recommendations/testRecommendation";
+import TestRecommendation from "../Recommendations/TestRecommendation";
 
 
 const ItemDetailWrapper = styled(Box)(({ theme }) => ({
