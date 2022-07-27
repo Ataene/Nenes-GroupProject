@@ -23,18 +23,6 @@ const Sidebar = (props) => {
               </ListItemIcon>
             </ListItemButton>
             </ListItem>
-
-            
-            <ListItem>
-            <ListItemButton onClick={() => component("Table") } style={{ color: 'blue'}}>
-              <ListItemIcon >
-                <Link color="inherit"><PeopleAltIcon primary="Users" sx={{color: "#B8F1B0", marginRight: "10px"}} /></Link>
-                <ListItemText primary="Users" />
-              </ListItemIcon>
-            </ListItemButton>
-            </ListItem>
-
-
             <ListItem>
             <ListItemButton style={{ color: 'green'}}>
               <ListItemIcon>

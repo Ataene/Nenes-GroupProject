@@ -64,7 +64,7 @@ const AddLocation = () => {
   const [filteredAds, setfilteredAds] = useState([]);
   const [long, setLong] = useState(-114.0719);
   const [lat, setLat] = useState(51.0447);
-  const [zoom, setZoom] = useState(9.4);
+  const [zoom, setZoom] = useState(12);
   const [selectedItems, setSelectedItems] = useState(null);
   const [viewport, setViewport] = useState();
   const [searchItems, setSearchItems] = useState("");
@@ -219,7 +219,7 @@ console.log("selectedItems", selectedItems)
                 anchor="left"
               >
                 <div className="card-container">
-                  {adsByPostalCode[selectedItems.postalCode].map((item) => (
+                  {adsByPostalCode[selectedItems.postalCode].filter((item) => item.owner !==user.uid).map((item) => (
                     <Grid
                       item
                       xs={6}
@@ -230,8 +230,8 @@ console.log("selectedItems", selectedItems)
                       sx={{
                         border: "4px solid rgba(0,0,0,0.2)",
                         padding: 1,
-                        width: 250,
-                        height: 100,
+                        width: 300,
+                        height: 355,
                         "&::-webkit-scrollbar": {
                           width: 15,
                         },
@@ -249,7 +249,7 @@ console.log("selectedItems", selectedItems)
                       <Card
                         elevation={3}
                         sx={{
-                          height: "10rem",
+                          height: "20rem",
                           marginTop: "5px",
                           margin: "5px",
                         }}
@@ -291,28 +291,28 @@ console.log("selectedItems", selectedItems)
                           }}
                         >
                           <Typography>{item.description}</Typography>
-                          {/* <Typography>Condition: {item.condition}</Typography> */}
-                          {/* <Typography>I want : {item.want}</Typography> */}
+                           <Typography>Condition: {item.condition}</Typography> 
+                           <Typography>I want : {item.want}</Typography> 
                           <CardActions xs={6} sx={{ marginBottom: "5px" }}>
-                            {/* <IconButton aria-label="add to favorites"> */}
-                              {/* <FavoriteIcon sx={{ color: "red" }} /> */}
-                            {/* </IconButton> */}
-                            {/* <IconButton aria-label="share"> */}
-                              {/* <ShareIcon sx={{ color: "#62b4f9" }} /> */}
-                            {/* </IconButton> */}
-                            {/* <IconButton */}
-                              {/* aria-label="chat" */}
-                              {/* // onClick={() => setUserToMessage(item.uid)} */}
-                            {/* > */}
-                              {/* <ChatIcon sx={{ color: "green" }} /> */}
-                            {/* </IconButton> */}
-                            {/* <IconButton */}
-                              {/* aria-label="share" */}
-                              {/* type="click" */}
-                              {/* onClick={() => handleClick(item)} */}
-                            {/* > */}
-                              {/* <ListAltIcon sx={{ color: "purple" }} /> */}
-                            {/* </IconButton> */}
+                             <IconButton aria-label="add to favorites"> 
+                              <FavoriteIcon sx={{ color: "red" }} /> 
+                            </IconButton> 
+                            <IconButton aria-label="share"> 
+                               <ShareIcon sx={{ color: "#62b4f9" }} /> 
+                            </IconButton> 
+                            <IconButton 
+                               aria-label="chat" 
+                              onClick={() => setUserToMessage(item.uid)} 
+                             > 
+                              <ChatIcon sx={{ color: "green" }} /> 
+                             </IconButton> 
+                             <IconButton 
+                               aria-label="share" 
+                               type="click" 
+                               onClick={() => handleClick(item)} 
+                             > 
+                               <ListAltIcon sx={{ color: "purple" }} /> 
+                             </IconButton> 
                             <ProductDetailDialog item={item} />
                           </CardActions>
                         </Box>

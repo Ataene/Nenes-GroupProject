@@ -24,16 +24,14 @@ import OnlineStatus from "./OnlineStatus";
 import CircleLoader from "react-spinners/CircleLoader";
 import ShareFunction from "./ShareFunction";
 import LikeIcon from "./LikeIcon";
-import TestRecommendation from "../Recommendations/testRecommendation";
+import TestRecommendation from "../Recommendations/TestRecommendation";
 
-const Market = ({ postedAds, handleClick, newStatus, loading }) => {
+const Market = ({ postedAds, handleClick, loading }) => {
   const authContext = useContext(AuthContext);
   const { user, setUserToMessage } = authContext;
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const [open, setOpen] = useState(false);
-
-  //  const [likes, setLikes] = useState(false);
 
   const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
     useDialogModal(ItemDetail);
@@ -54,7 +52,7 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
         onMouseLeave={handleMouseLeave}
       >
         <Box>
-          {/*<div>{<TestRecommendation />}</div>*/}
+          <TestRecommendation  />
           <Typography
             variant="h4"
             sx={{ fontFamily: "Montserrat", color: "green", justifyContent: "center", display: "flex" }}

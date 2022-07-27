@@ -2,10 +2,9 @@ import React, { useContext, useState } from "react";
 import { Box, Container, Typography, CardContent, Card } from "@mui/material";
 import { AuthContext } from "../../auth/AuthProvider";
 import { useNavigate } from "react-router-dom";
-// import ChatBox from "./ChatBox";
 import Chatings from "./Chatings";
 import ChatHeader from "./ChatHeader";
-// import ChatLeft from "./ChatLeft";
+import Image from "../../images/iPhone.png";
 
 const RightBar = () => {
   const authContext = useContext(AuthContext);
@@ -32,14 +31,7 @@ const RightBar = () => {
       <Container>
         <Box sx={{ marginTop: "20px" }}>
           <Card sx={{ maxWidth: 345 }}>
-            <iframe
-              src="https://giphy.com/embed/MA97YuHLr1Xfr0F11Y"
-              width="300"
-              height="300"
-              frameBorder="0"
-              className="giphy-embed"
-              allowFullScreen
-            ></iframe>
+          <img src={Image} alt="Place yours Ads" />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 Ads Board
@@ -52,7 +44,6 @@ const RightBar = () => {
         </Box>
           <ChatHeader />
           {open && userToMessage && <Chatings setOpen={setOpen} />}
-          {/* {open && userToMessage && <ChatLeft setOpen={setOpen} />} */}
       </Container>
     </Box>
   );
