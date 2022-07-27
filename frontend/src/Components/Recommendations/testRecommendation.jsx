@@ -91,7 +91,7 @@ const TestRecommendation = ({ handleClick }) => {
           sx={{ p: 1, fontFamily: "Montserrat" }}
         >
           <Typography
-            variant="h4"
+            variant="h5"
             sx={{ fontFamily: "Montserrat", color: "green" }}
           >
             Recommended for you{user.firstName}
@@ -120,7 +120,7 @@ const TestRecommendation = ({ handleClick }) => {
                       title={item.displayName}
                       name="title"
                     />
-                    <OnlineStatus uid={item.uid} />
+                    <OnlineStatus uid={item.owner} />
                   </Box>
                   <CardMedia
                     component="img"

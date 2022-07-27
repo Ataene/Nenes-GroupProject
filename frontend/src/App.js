@@ -21,8 +21,6 @@ import TradedProvider from "./providers/TradedProvider";
 import DetailPageProvider from "./providers/ItemDetailProvider";
 import NavBar from "./Components/NavBar";
 import MyPostProvider from "./providers/MyPostProvider";
-import Sidebar from "./Components/Sidebar";
-import Product from "./Components/Product";
 import Admin from "./Components/Authorization/Admin";
 
 function App() {
@@ -44,14 +42,14 @@ function App() {
                     <Route path="/maps" element={<Maps />} />
                     <Route path="/admin" element={<Admin />} />
                     <Route path="/traded" element={<Traded />} />
-                    {/* <Route
-                    path="/dashboard"
+                    <Route
+                    path="/admin"
                     element={
                       <PrivateRoute>
-                        <Dashboard />
+                        <Admin />
                       </PrivateRoute>
                     }
-                  /> */}
+                  />
                     <Route exact path="/login" element={<Login />} />
                     <Route exact path="/dashboard" element={<Dashboard />} />
                     <Route exact path="/signup" element={<SignUp />} />

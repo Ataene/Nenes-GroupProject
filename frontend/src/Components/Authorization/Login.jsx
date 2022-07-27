@@ -122,34 +122,33 @@ const Login = () => {
         }}
       >
         <Paper
-          // elevation={10}
-          // style={{
-          //   display: "flex",
-          //   alignItems: "center",
-          //   flexDirection: "column",
-          //   background: "rgba(255, 255, 255, 0.15)",
-          //   boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
-          //   backdropFilter: "blur(8.5px)",
-          //   webkitBackdropFilter: "blur(8.5px)",
-          //   borderRadius: "10px",
-          //   color: "#ffffff",
-          //   textTransform: "uppercase",
-          //   letterSpacing: "0.4rem",
-          //   mobile: { minWidth: "500", width: "80vw", height: "90vh" },
-          //   tablet: { minWidth: "800", width: "80vw", height: "80vh" },
-          //   desktop: { minWidth: "1280", width: "80vw", height: "50vh" },
-          //   largeDesktop: { minWidth: "1600", width: "30vw", height: "80vh" },
-          // }}
+          elevation={10}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
+            background: "rgba(255, 255, 255, 0.15)",
+            boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
+            backdropFilter: "blur(8.5px)",
+            webkitBackdropFilter: "blur(8.5px)",
+            borderRadius: "10px",
+            color: "#ffffff",
+            textTransform: "uppercase",
+            letterSpacing: "0.4rem",
+            mobile: { minWidth: "500", width: "80vw", height: "90vh" },
+            tablet: { minWidth: "800", width: "80vw", height: "80vh" },
+            desktop: { minWidth: "1280", width: "80vw", height: "50vh" },
+            largeDesktop: { minWidth: "1600", width: "30vw", height: "80vh" },
+          }}
         >
           <br />
           <Typography
             variant="h5"
-            style={{ fontFamily: "Montserrat", fontSize: "20px", marginLeft: "150px"}}
+            style={{ fontFamily: "Montserrat", fontSize: "20px", marginLeft: "10px"}}
           >
             User Login
           </Typography>
-
-          {/* <Avatar style={avatarStyle} sx={{ marginLeft: "120px"}} /> */}
+          <Avatar style={avatarStyle} sx={{ marginLeft: "120px"}} />
           <TextField
             label="Email"
             variant="filled"
