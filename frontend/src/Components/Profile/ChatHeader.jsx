@@ -43,7 +43,7 @@ const ChatHeader = () => {
         <Avatar alt="R" src={usePicture} />
         <Typography  sx={{ color: "white", marginTop: "10px" }}>Messaging</Typography>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
+          <Badge badgeContent={1} color="error">
             <Notifications sx={{color: "white"}} />
           </Badge>
         </IconButton>

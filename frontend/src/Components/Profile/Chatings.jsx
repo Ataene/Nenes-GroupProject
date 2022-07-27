@@ -118,7 +118,7 @@ const Chating = ({ setOpen }) => {
   return (
     <Box
       sx={{
-        border: "3px solid",
+        border: "1px solid",
         height: "600px",
         position: "relative",
         overflow: "scroll",
