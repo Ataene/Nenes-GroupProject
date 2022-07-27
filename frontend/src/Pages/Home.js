@@ -25,7 +25,7 @@ export default function Home() {
           Most Popular Trades on Hundie
         </Typography>
       </Box>
-      <MostPopularTrade />
+      {/*<MostPopularTrade />*/}
       <Box
         display="flex"
         justifyContent="center"

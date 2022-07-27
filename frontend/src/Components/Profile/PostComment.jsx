@@ -30,7 +30,6 @@ function PostComment({ url, postedAds, item }) {
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const { user, isOnline, userToComment, currentlyLoggedinUser } = authContext;
-  console.log(currentlyLoggedinUser)
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [chat, setChat] = useState("");
   const scroll = useRef();

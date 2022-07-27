@@ -54,7 +54,7 @@ const Market = ({ postedAds, handleClick, newStatus, loading }) => {
         onMouseLeave={handleMouseLeave}
       >
         <Box>
-          <div>{<TestRecommendation />}</div>
+          {/*<div>{<TestRecommendation />}</div>*/}
           <Typography
             variant="h4"
             sx={{ fontFamily: "Montserrat", color: "green", justifyContent: "center", display: "flex" }}
