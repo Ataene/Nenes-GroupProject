@@ -17,10 +17,10 @@ const CountingEffect = () => {
           style={typingStyle}
           options={{
             strings: [
-              "Welcome to Hundie",
+              "Welcome to Hundie.",
               "The social marketplace to trade items under a hundred.",
-              "World's first product dating app",
-              "A big thanks to the facilitating team @INCEPTIONU"
+              "A social product exchange app!",
+              "A big thanks to the facilitating team @INCEPTIONU."
             ],
             autoStart: true,
             loop: true,

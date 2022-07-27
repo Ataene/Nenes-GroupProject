@@ -52,9 +52,9 @@ const Market = ({ postedAds, handleClick, loading }) => {
         onMouseLeave={handleMouseLeave}
       >
         <Box>
-          <TestRecommendation  />
+          <TestRecommendation handleClick={handleClick}  />
           <Typography
-            variant="h4"
+            variant="h5"
             sx={{ fontFamily: "Montserrat", color: "green", justifyContent: "center", display: "flex" }}
           >
             General Products

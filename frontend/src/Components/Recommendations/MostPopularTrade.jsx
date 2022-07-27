@@ -110,7 +110,7 @@ const MostPopularTrade = ({ handleClick }) => {
                         title={item.displayName}
                         name="title"
                       />
-                      <OnlineStatus uid={item.uid} />
+                      <OnlineStatus uid={item.owner} />
                     </Box>
                     <CardMedia
                       component="img"
