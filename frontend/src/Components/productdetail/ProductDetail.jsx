@@ -53,7 +53,8 @@ import PostComment from "../Profile/PostComment";
 //import SimilarItems from "../Recommendations/SimilarItems";
 import MostPopularTrade from "../Recommendations/RecommendationStrategies/ContentBased2";
 import TestContentSimilar from "../Recommendations/TestContentSimilar";
-import TestRecommendation from "../Recommendations/TestRecommendation";
+//import TestRecommendation from "../Recommendations/TestRecommendation";
+import TestRatingComponent from "../Recommendations/TestRatingComponent";
 
 
 const ItemDetailWrapper = styled(Box)(({ theme }) => ({
@@ -75,6 +76,8 @@ function ItemDetail({ open, options, onClose, item }) {
   const { user } = authContext;
 
   const [postedAds, setPostedAds] = useState([]);
+
+   const [avgRating, setAvgRating] = useState(0);
 
   const [loading, setLoading] = useState("");
   const [selectedItem, setSelectedItem] = useState(options);
@@ -99,6 +102,20 @@ function ItemDetail({ open, options, onClose, item }) {
   //       rating: currStatus,
   //     });
   // }
+
+      useEffect(() => {
+        const q = query(collection(db, `users/${item.owner}/rating`));
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+          const totalRating = querySnapshot.docs.reduce((acc, doc) => {
+            let newTotal = acc + doc.data().rating;
+            console.log("doc.data", doc.data(), newTotal);
+            return newTotal;
+          }, 0);
+          const newAverage = totalRating / querySnapshot.docs.length;
+          setAvgRating(newAverage);
+        });
+        return unsubscribe;
+      }, [db]); 
 
   return (
     <Dialog
@@ -188,11 +205,11 @@ function ItemDetail({ open, options, onClose, item }) {
                   <ListItem>
                     <Typography>Quantity: {item.quantity}</Typography>
                   </ListItem>
-                  {/* <ListItem>
+                  <ListItem>
                     <Typography>
-                      Rating: {item.rating} stars
+                      Rating: {avgRating.toFixed(2)} stars
                     </Typography>
-                  </ListItem> */}
+                  </ListItem> 
                   <ListItem>
                     <Typography> Condition: {item.condition}</Typography>
                   </ListItem>
@@ -230,7 +247,8 @@ function ItemDetail({ open, options, onClose, item }) {
                       // onClick={() => handleClick(item)}
                     />
                   </IconButton>
-                  <RatingComponent productDetail={item} />
+                  {<TestRatingComponent productDetail={item} />}
+                  {/*<RatingComponent productDetail={item} />*/}
                 </List>
               </Box>
             </Grid>
@@ -250,7 +268,7 @@ function ItemDetail({ open, options, onClose, item }) {
               Hi {item.displayName}, Here Are Similar Items You Can Trade
             </Typography>
           </Box>
-          <TestContentSimilar currentTitle={item.title} />
+          {/*<TestContentSimilar currentTitle={item.title} />*/}
         </Box>
       </DialogContent>
     </Dialog>

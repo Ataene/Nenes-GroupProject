@@ -5,25 +5,15 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Card,
   Typography,
 } from "@mui/material";
-import RssFeedIcon from "@mui/icons-material/RssFeed";
-import ChatIcon from "@mui/icons-material/Chat";
-import InventoryIcon from "@mui/icons-material/Inventory";
-import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import LiveHelpIcon from "@mui/icons-material/LiveHelp";
-import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
-import WorkIcon from "@mui/icons-material/Work";
-import StorefrontIcon from "@mui/icons-material/Storefront";
-import GroupsIcon from "@mui/icons-material/Groups";
 import {
   collection,
   onSnapshot,
   orderBy,
   query,
-  doc,
   where,
 } from "firebase/firestore";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
@@ -40,7 +30,6 @@ const LeftBar = () => {
 
   const [active, setActive] = useState("");
   const [userList, setUserList] = useState([]);
-  const [userPicture, setUserPicture] = useState([]);
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState([]);
   const [unread, setUnread] = useState([]);
@@ -153,7 +142,7 @@ const LeftBar = () => {
                   <Typography sx={{ marginLeft: "10px" }}>
                     {item.firstName}
                   </Typography>
-                  <Typography sx={{ marginLeft: "10px", color: "blue" }}>
+                  <Typography sx={{ marginLeft: "10px", color: "#0096FF" }}>
                     {unread
                       .filter((message) => message.senderuid === item.uid)?.[0]
                       ?.newChat.slice(0, 5)}

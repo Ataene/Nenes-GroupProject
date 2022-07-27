@@ -7,7 +7,6 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import GoogleIcon from "@mui/icons-material/Google";
-import loginImage from "../../images/signupPage.jpg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -99,10 +98,6 @@ const Login = () => {
       console.log("Google Auth Failed");
     }
   };
-
-  // const back = {
-  //   backgroundImage: "linear-gradient(60deg, #abecd6 0%, #fbed96 100%)",
-  // };
 
   return (
     <div>
