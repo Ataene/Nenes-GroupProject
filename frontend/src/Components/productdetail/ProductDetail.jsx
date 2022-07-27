@@ -23,37 +23,20 @@ import Footer from "../../Components/footer/index";
 
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
-import { Link, CardHeader, Button, Rating } from "@mui/material";
-// import cardImage from "../../images/Alaf.jpg"
+import { Link, CardHeader, Button } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatIcon from "@mui/icons-material/Chat";
 import { FirebaseContext } from "../../auth/FirebaseProvider";
 import ShareIcon from "@mui/icons-material/Share";
-import AddIcon from "@mui/icons-material/Add";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import {
-  addDoc,
-  serverTimestamp,
-  updateDoc,
-  getFirestore,
   collection,
   onSnapshot,
   orderBy,
   query,
-  getDoc,
 } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { Image, Rowing } from "@mui/icons-material";
-import { useStateValue } from "../../providers/StateProvider";
-import { doc, setDoc } from "firebase/firestore";
-import { Divider, Input, List, ListItem } from "@material-ui/core";
-import { FaStar } from "react-icons/fa";
-import RatingComponent from "../Recommendations/RatingComponent";
+import {List, ListItem } from "@material-ui/core";
 import PostComment from "../Profile/PostComment";
-//import SimilarItems from "../Recommendations/SimilarItems";
-import MostPopularTrade from "../Recommendations/RecommendationStrategies/ContentBased2";
-import TestContentSimilar from "../Recommendations/TestContentSimilar";
-//import TestRecommendation from "../Recommendations/TestRecommendation";
 import TestRatingComponent from "../Recommendations/TestRatingComponent";
 
 
@@ -81,28 +64,6 @@ function ItemDetail({ open, options, onClose, item }) {
 
   const [loading, setLoading] = useState("");
   const [selectedItem, setSelectedItem] = useState(options);
-
-  // const nameOfItem = useParams();
-
-  //   useEffect(() => {
-  //     postedAds.forEach((item) => {
-  //       if (postedAds.item === nameOfItem.name) {
-  //         setSelectedItem(item);
-  //       }
-  //     });
-  //   }, [postedAds]);
-
-  //   async function handleChange(name, currStatus) {
-  //     setPostedAds([
-  //       ...postedAds.filter((val) => val.name !== name),
-  //       { name, status: currStatus },
-  //     ]);
-  //     const postedAdsRef = doc(db, "postedAds", user.uid);
-  //     await updateDoc(postedAdsRef, {
-  //       rating: currStatus,
-  //     });
-  // }
-
       useEffect(() => {
         const q = query(collection(db, `users/${item.owner}/rating`));
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -206,7 +167,7 @@ function ItemDetail({ open, options, onClose, item }) {
                     <Typography>Quantity: {item.quantity}</Typography>
                   </ListItem>
                   <ListItem>
-                    <Typography>
+                    <Typography sx={{color: "#E6B325"}}>
                       Rating: {avgRating.toFixed(2)} stars
                     </Typography>
                   </ListItem> 
