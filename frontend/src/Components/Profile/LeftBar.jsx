@@ -30,6 +30,7 @@ import { FirebaseContext } from "../../auth/FirebaseProvider";
 import { AuthContext } from "../../auth/AuthProvider";
 import OnlineStatus from "./OnlineStatus";
 import Avatar from "@mui/material/Avatar";
+import { Container } from "@mui/system";
 
 const LeftBar = () => {
   const authContext = useContext(AuthContext);
@@ -64,7 +65,6 @@ const LeftBar = () => {
   }, [db, user]);
 
   useEffect(() => {
-    console.log("222", db, "333", user);
 
     if (db && user) {
       let collectionRef = collection(db, "messages");
@@ -74,7 +74,6 @@ const LeftBar = () => {
         // where("senderuid", "!=", user.uid),
       );
       const unsubscribe = onSnapshot(queryRef, (querySnap) => {
-        console.log("555", querySnap.docs);
         if (querySnap.empty) {
           setMessages([]);
         } else {
@@ -113,7 +112,7 @@ const LeftBar = () => {
           display: { xs: "none", md: "flex" },
         }}
       >
-        <Card>
+        <Container>
           <List component="nav" aria-labelledby="nested-list-subheader">
             <ListItemButton>
               <ListItemIcon>
@@ -129,7 +128,7 @@ const LeftBar = () => {
             </ListItemButton>
           </List>
           <Box>
-            <Typography sx={{ marginLeft: "30px", color: "green" }}>
+            <Typography variant="h6" sx={{ marginLeft: "60px", color: "green" }}>
               Users
             </Typography>
             <hr />
@@ -154,15 +153,15 @@ const LeftBar = () => {
                   <Typography sx={{ marginLeft: "10px" }}>
                     {item.firstName}
                   </Typography>
-                  <Typography sx={{ marginLeft: "10px" }}>
+                  <Typography sx={{ marginLeft: "10px", color: "blue" }}>
                     {unread
                       .filter((message) => message.senderuid === item.uid)?.[0]
-                      ?.newChat.slice(0, 3)}
+                      ?.newChat.slice(0, 5)}
                   </Typography>
                 </Box>
               ))}
           </Box>
-        </Card>
+        </Container>
       </Box>
     </>
   );

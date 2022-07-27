@@ -52,7 +52,7 @@ import RatingComponent from "../Recommendations/RatingComponent";
 import PostComment from "../Profile/PostComment";
 //import SimilarItems from "../Recommendations/SimilarItems";
 import MostPopularTrade from "../Recommendations/RecommendationStrategies/ContentBased2";
-import TestContentSimilar from "../Recommendations/testContentSimilar";
+import TestContentSimilar from "../Recommendations/TestContentSimilar";
 import TestRecommendation from "../Recommendations/TestRecommendation";
 
 
