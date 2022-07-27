@@ -64,7 +64,6 @@ const MostPopularTrade = ({ handleClick }) => {
       return unsubscribe;
     }
   }, [db, user]);
-
   const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
     useDialogModal(ItemDetail);
 
@@ -110,7 +109,7 @@ const MostPopularTrade = ({ handleClick }) => {
                         title={item.displayName}
                         name="title"
                       />
-                      <OnlineStatus uid={item.owner} />
+                      <OnlineStatus uid={item.uid} />
                     </Box>
                     <CardMedia
                       component="img"

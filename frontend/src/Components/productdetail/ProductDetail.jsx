@@ -9,10 +9,6 @@ import {
   FormControl,
   Grid,
   IconButton,
-  ImageList,
-  ImageListItem,
-  ImageListItemBar,
-  Slide,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { Colors } from "../styles/theme";
@@ -38,6 +34,7 @@ import {
 import {List, ListItem } from "@material-ui/core";
 import PostComment from "../Profile/PostComment";
 import TestRatingComponent from "../Recommendations/TestRatingComponent";
+import TestContentSimilar from "../Recommendations/TestContentSimilar";
 
 
 const ItemDetailWrapper = styled(Box)(({ theme }) => ({
@@ -208,8 +205,8 @@ function ItemDetail({ open, options, onClose, item }) {
                       // onClick={() => handleClick(item)}
                     />
                   </IconButton>
-                  {<TestRatingComponent productDetail={item} />}
-                  {/*<RatingComponent productDetail={item} />*/}
+                  <TestRatingComponent productDetail={item} />
+                  {/* <RatingComponent productDetail={item} /> */}
                 </List>
               </Box>
             </Grid>
@@ -229,7 +226,7 @@ function ItemDetail({ open, options, onClose, item }) {
               Hi {item.displayName}, Here Are Similar Items You Can Trade
             </Typography>
           </Box>
-          {/*<TestContentSimilar currentTitle={item.title} />*/}
+          <TestContentSimilar currentTitle={item.title} />
         </Box>
       </DialogContent>
     </Dialog>
