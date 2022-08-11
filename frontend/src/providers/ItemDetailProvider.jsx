@@ -1,20 +1,15 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
-
 import { FirebaseContext } from '../auth/FirebaseProvider';
-import { doc, onSnapshot, serverTimestamp, setDoc } from 'firebase/firestore';
+import { doc, onSnapshot, setDoc } from 'firebase/firestore';
 import { AuthContext } from "../auth/AuthProvider";
-
-import { useParams } from "react-router-dom";
 
 export const ItemContext = createContext();
 
 const DetailPageProvider = (props) => {
 
-  const params = useParams();
   const children = props.children;
 
   const fbContext = useContext(FirebaseContext);
-  const auth = fbContext.auth;
   const db = fbContext.db;
   const authContext = useContext(AuthContext);
   const { user } = authContext;

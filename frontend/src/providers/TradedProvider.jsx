@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 
 import { FirebaseContext } from '../auth/FirebaseProvider';
-import { doc, onSnapshot, serverTimestamp, setDoc } from 'firebase/firestore';
+import { doc, onSnapshot, setDoc } from 'firebase/firestore';
 import { AuthContext } from "../auth/AuthProvider";
 
 export const TradeContext = createContext();
@@ -11,7 +11,6 @@ const TradedProvider = (props) => {
 
     const fbContext = useContext(FirebaseContext);
     const authContext = useContext(AuthContext);
-    const auth = fbContext.auth;
     const db = fbContext.db;
     const { user } = authContext; 
 
