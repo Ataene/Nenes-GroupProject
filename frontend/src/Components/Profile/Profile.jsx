@@ -105,7 +105,7 @@ const Profile = () => {
           flexWrap: "wrap",
           "& > :not(style)": {
             m: 1,
-            width: 1200,
+            // width: 1200,
             height: 500,
           },
         }}
@@ -127,7 +127,7 @@ const Profile = () => {
           >
             <section
               style={{
-                display: "flex",
+                // display: "flex",
                 flexDirection: "column",
                 margin: "10px",
                 padding: "10px",
@@ -170,7 +170,7 @@ const Profile = () => {
             </section>
             <section
               style={{
-                display: "flex",
+                // display: "flex",
                 flexDirection: "column",
                 margin: "10px",
                 padding: "10px",
@@ -213,7 +213,7 @@ const Profile = () => {
             </section>
             <section
               style={{
-                display: "flex",
+                // display: "flex",
                 flexDirection: "column",
                 margin: "10px",
                 padding: "10px",

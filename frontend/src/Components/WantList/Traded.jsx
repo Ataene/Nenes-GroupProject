@@ -42,7 +42,7 @@ const Traded = () => {
           <Grid container spacing={1}>
             {traded &&
               traded.map((item) => (
-                <Grid item md={3} key={item.description}>
+                <Grid item xs={6} md={2} lg={4} key={item.description}>
                   <Card
                     sx={{ height: "33rem", marginTop: "10px", margin: "10px" }}
                   >
